@@ -1,0 +1,196 @@
+let currentWordleWord = "";
+//let wordleActive = false;
+let wordleBoostRemaining = 0;
+let currentGuessCount = 0;
+const maxGuesses = 5;
+/*
+function startWordle() {
+  if (wordleActive) return;
+  
+  wordleActive = true;
+  currentWordleWord = getRandomWord();
+  while (currentWordleWord.length > 5) {
+    currentWordleWord = getRandomWord();
+  }
+  currentGuessCount = 0;
+  initWordle();
+}
+*/
+let wordleUIState = "";
+
+function displayWordle() {
+  let wordleBoost = modifiers.find(modifier => modifier.name === "Wordle Boost");
+  if(wordleBoost) {
+    document.getElementById('wordle-boost-remaining').textContent = `Boost remaining: ${(wordleBoost.duration / Tickrate).toFixed(0)}s`;
+    if(wordleUIState != "boost") {
+      wordleUIState = "boost";
+      document.getElementById('wordle-game').classList.add('boost-active');
+      document.getElementById('wordle-feedback').textContent = "Correct! Boost activated! Doubled production from Auto Writers and manually typed words";
+    }
+  } else {
+    if(wordleUIState != "init") {
+      if(wordleUIState == "loss") return;
+      if(wordleUIState != "load") {
+        currentWordleWord = getRandomWord();
+        while (currentWordleWord.length > 5) {
+          currentWordleWord = getRandomWord();
+        }
+      }
+      wordleUIState = "init";
+      currentGuessCount = 0;
+      document.getElementById('wordle-game').classList.remove('boost-active');
+      document.getElementById('wordle-boost-remaining').textContent = ``;
+      document.getElementById('wordle-hint').textContent = `Hint: ${wordsList[currentWordleWord].definition}`;
+      document.getElementById('wordle-feedback').textContent = "Solve the Wordle to earn a boost!";
+      resetWordleGrid();
+    }
+  }
+}
+
+function resetWordleGrid() {
+  const grid = document.getElementById('wordle-grid');
+  grid.innerHTML = '';
+  for (let i = 0; i < maxGuesses; i++) {
+    const row = document.createElement('div');
+    row.className = 'wordle-guess-row';
+    row.style.display = 'flex';
+    row.style.marginBottom = '10px';
+    
+    for (let j = 0; j < currentWordleWord.length; j++) {
+      const tile = document.createElement('div');
+      tile.className = 'wordle-tile';
+      tile.setAttribute('contenteditable', i === currentGuessCount ? 'true' : 'false');
+      tile.addEventListener('input', handleTileInput);
+      tile.addEventListener('keydown', handleTileNavigation);
+      row.appendChild(tile);
+    }
+    grid.appendChild(row);
+  }
+}
+
+function handleTileInput(event) {
+  const tile = event.target;
+  const row = tile.parentNode;
+  const tiles = Array.from(row.getElementsByClassName('wordle-tile'));
+  
+  if (tile.textContent.length > 1) {
+    tile.textContent = tile.textContent[0]; // Limit to one character
+  }
+  
+  const nextTile = tiles[tiles.indexOf(tile) + 1];
+  if (nextTile && tile.textContent !== '') {
+    nextTile.focus();
+  }
+  
+  if (tiles.every(t => t.textContent.length === 1)) {
+    validateWord(row);
+  }
+}
+
+function handleTileNavigation(event) {
+  const tile = event.target;
+  const row = tile.parentNode;
+  const tiles = Array.from(row.getElementsByClassName('wordle-tile'));
+  const index = tiles.indexOf(tile);
+  
+  if (event.key === 'Backspace' && tile.textContent === '' && index > 0) {
+    tiles[index - 1].focus();
+  } else if (event.key === 'ArrowLeft' && index > 0) {
+    tiles[index - 1].focus();
+  } else if (event.key === 'ArrowRight' && index < tiles.length - 1) {
+    tiles[index + 1].focus();
+  }
+}
+
+function validateWord(row) {
+  const tiles = Array.from(row.getElementsByClassName('wordle-tile'));
+  const guess = tiles.map(tile => tile.textContent.toUpperCase()).join('');
+  
+  if (guess.length !== currentWordleWord.length) {
+    document.getElementById('wordle-feedback').textContent = `Enter a ${currentWordleWord.length}-letter word!`;
+    return;
+  }
+  
+  tiles.forEach((tile, index) => {
+    const letter = guess[index];
+    if (currentWordleWord.toUpperCase()[index] === letter) {
+      tile.classList.add('correct');
+    } else if (currentWordleWord.toUpperCase().includes(letter)) {
+      tile.classList.add('present');
+    } else {
+      tile.classList.add('absent');
+    }
+    tile.setAttribute('contenteditable', 'false'); // Make the tile non-editable after submission
+  });
+  
+  currentGuessCount++;
+  
+  if (guess === currentWordleWord.toUpperCase()) {
+    document.getElementById('wordle-feedback').textContent = "Correct! Boost activated! Doubled production from Auto Writers and manually typed words.";
+    activateWordleBoost();
+    wordleActive = false;
+  } else if (currentGuessCount >= maxGuesses) {
+    document.getElementById('wordle-feedback').innerHTML = `Out of guesses! The word was: <strong>${currentWordleWord}</strong>. Starting a new Wordle...`;
+    wordleUIState = "loss";
+    setTimeout(() => {
+      wordleUIState = "";
+    }, 5000);
+  } else {
+    document.getElementById('wordle-feedback').textContent = "Try again!";
+    prepareNextRow();
+  }
+}
+
+function prepareNextRow() {
+  const grid = document.getElementById('wordle-grid');
+  const nextRow = grid.getElementsByClassName('wordle-guess-row')[currentGuessCount];
+  Array.from(nextRow.getElementsByClassName('wordle-tile')).forEach(tile => {
+    tile.setAttribute('contenteditable', 'true');
+    tile.textContent = '';
+  });
+}
+function activateWordleBoost() {
+  wordlesSolved++;
+  //wordleBoostRemaining = Tickrate * 3 * 60; // 3 minutes
+  modifiers.push({
+    name: "Wordle Boost",
+    description: "Doubles production from Auto Writers and manually typed words.",
+    affectedBuildings: [0, AutoWriter.id], // 0 for manually typed words
+    multiplier: 2,
+    duration: Tickrate * 3 * 60
+  });
+}
+/*
+function activateWordleBoost() {
+  wordlesSolved++;
+  const wordleGame = document.getElementById('wordle-game');
+  wordleBoostRemaining = Tickrate * 3 * 60; // 3 minutes
+  modifiers.push({
+    name: "Wordle Boost",
+    description: "Doubles production from Auto Writers and manually typed words.",
+    affectedBuildings: [0, AutoWriter.id], // 0 for manually typed words
+    multiplier: 2
+  });
+  wordleGame.classList.add('boost-active');
+}
+
+function checkWorldeBuff() {
+  const wordleGame = document.getElementById('wordle-game');
+  const wordleBoost = document.getElementById('wordle-boost-remaining');
+  if (!wordleActive) {
+    wordleBoostRemaining--;
+    if (wordleBoostRemaining < 0) {
+      // remove wordle boost.
+      const index = modifiers.findIndex(modifier => modifier.name === "Wordle Boost");
+      if (index !== -1) {
+        modifiers.splice(index, 1);
+      }
+      wordleGame.classList.remove('boost-active');
+      wordleBoost.innerText = "";
+      startWordle();
+    } else {
+      wordleBoost.innerText = `Boost remaining: ${(wordleBoostRemaining / Tickrate).toFixed(0)}s`;
+    }
+  }
+}
+*/

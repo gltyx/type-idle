@@ -1,0 +1,845 @@
+/* Base Styles */
+html {
+    font-size: max(16px, 0.85vw); /* scale app for higher res */
+}
+body {
+    font-family: 'Courier New', Courier, monospace; /* Typewriter-like font */
+    background-color: #f4f4f4;
+    background-image: url('bg.jpg'); 
+    background-size: cover;
+    background-position: center; 
+    background-repeat: no-repeat; 
+
+    min-height: 100vh;
+    margin: 0;
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+}
+
+/* Main Container */
+#main-container {
+    display: flex;
+    width: 100%;
+    max-width: 80rem;
+    height: 90vh;
+    background-color: rgba(255, 248, 220, 0.9); 
+    box-shadow: 0 0 10px rgba(0, 0, 0);
+}
+
+/* Navbar */
+#navbar {
+    background-color: #5C4033; /* Coffee brown */
+    display: flex;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);   
+}
+#navbar button {
+    background-color: #93441f;
+    border-radius: 0;
+    width: auto;
+}
+#navbar button.active {
+    background-color: #5f1f01;
+    border-bottom: solid 2px #fd6a26;
+}
+
+/* Settings Page */
+#settingsPage {
+    padding: 1.25rem;
+}
+
+#volume-control {
+    margin-top: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+}
+
+#volume-slider {
+    width: 12.5rem;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 10px; /* Width of the entire scrollbar */
+}
+::-webkit-scrollbar-track {
+    background: #D2B48C; /* Light brown background */
+    border-radius: 5px;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #8B4513; /* Dark brown color */
+    border-radius: 5px;
+    border: 2px solid #5C4033; /* Coffee brown border */
+}
+
+/* Panels */
+#stats-panel, #game-container, #upgrades-panel {
+    padding: 1.25rem;
+}
+#stats-panel, #upgrades-panel {
+    background: url(images/parchment.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+#stats-panel {
+    overflow-y: auto;
+    flex: 1;
+    background-color: #FAF3E0; /* Light beige background */
+    border-right: 1px solid #5C4033; /* Coffee brown border */
+}
+#stats-parent, #achievements-parent, #ownedupgrades-parent, #upgrades-parent {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+#main {
+    flex: 2;
+    overflow-y: auto;
+}
+#game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#game-title {
+    font-size: 2rem;
+    margin-bottom: 1.25rem;
+    color: #4B2E39; /* Deep brown color */
+    text-align: center;
+}
+
+/* Typing Panel */
+#typing-panel {
+    width: 100%;
+    z-index: 2;
+}
+#trackers {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.625rem 0;
+}
+#trackers p {
+    margin: 0;
+    font-size: 1rem;
+    color: #4B2E39; /* Deep brown color */
+}
+#input-box, #arena-input-box {
+    width: 90%;
+    height: 3.125rem; 
+    font-size: 1rem;
+    padding: 0.625rem;
+    resize: none;
+    margin: 0 auto; /* Center input box */
+    display: block; 
+    background-color: #FFF5E1; /* Light beige background */
+    border: 2px solid #8B4513; /* Dark brown border */
+    border-radius: 5px;
+    z-index: 2;
+}
+#words-to-type-container, #arena-words-to-type-container {
+    position: relative;
+    background-color: #FFF5E1;
+    padding: 0.313rem;
+    border-radius: 10px;
+    border: 1px solid #8B4513;
+    overflow: hidden;
+    margin-top: 0.625rem;
+    font-size: 1.25rem;
+    white-space: nowrap; 
+    z-index: 2;
+}
+#current-word-definition {
+    font-size: 0.9rem;
+    position: relative;
+    background-color: #ffd6848c;
+    padding: 0.313rem;
+    margin: 0.625rem;
+    border-radius: 10px;
+    border: 1px solid #8B4513;
+    z-index: 2;
+}
+
+/* Typing Colors */
+.correct {
+    color: #4caf50; /* Green for correct letters */
+}
+.mistake {
+    color: #f44336; /* Red for mistakes */
+}
+.current {
+    color: #4B2E39; /* Deep brown for current letter */
+}
+
+/* Buttons */
+button {
+    font-size: 1rem;
+    background-size: cover; 
+    background-position: center; 
+    padding: 0.625rem;
+    margin-top: 0.625rem;
+    width: 100%;
+    background-color: #5c4033c9; /* Coffee brown */
+    color: #FFF5E1; /* Light beige text */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+button > * {
+    pointer-events: none;
+}
+button:hover:not(:disabled) {
+    background-color: #8b4513e3; /* Dark brown on hover */
+}
+button:disabled {
+    background-color: #0000004d;
+    cursor: not-allowed;
+}
+
+/* Upgrades Panel */
+#upgrades-panel {
+    overflow-y: auto;
+    flex: 1;
+    background-color: #FAF3E0; /* Light beige background */
+    border-left: 1px solid #5C4033; /* Coffee brown border */
+}
+
+.currencyicon, .researchicon, .goldmedal, .silvermedal {
+    width: 2.6rem;
+    height: 2.6rem;
+    vertical-align: middle;
+}
+.icon {
+    width: 5.2rem;
+    height: 5.2rem;
+}
+#stats-panel p {
+    margin: 5px 0;
+    color: #4B2E39; /* Deep brown color */
+}
+
+/* Animations */
+@keyframes fall {
+    0% {
+        opacity: 0.6;
+        transform: translateY(0px);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(400px);
+    }
+}
+@keyframes float {
+    0% {
+        opacity: 0.6;
+        transform: translateY(0px);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-200px);
+    }
+}
+.falling-word {
+    position: fixed;
+    animation: fall linear forwards;
+    font-size: 1rem;
+    pointer-events: none; 
+    z-index: 1; 
+    color: #4B2E39;
+}
+.floating-word {
+    position: fixed;
+    animation: float linear forwards;
+    font-size: 1rem;
+    pointer-events: none; 
+    z-index: 2; 
+    color: #4B2E39;
+}
+
+/* Buildings & Achievements */
+#buildings-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+button.upgrade {
+    padding: 0;
+}
+button.upgrade:disabled div {
+    background-color: #333333d8; /* Darken the background */
+}
+button:disabled {
+    filter: grayscale(100%); /* Make it look "locked" by removing color */
+}
+.building {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.achievement {
+    padding: 0.625rem;
+    margin: 0.313rem 0;
+    border: 1px solid #8B4513; 
+    border-radius: 5px;
+}
+.owned-upgrade, .upgrade {
+    background-size: cover;
+    background-position: center; 
+    background-repeat: no-repeat;
+    height: 2.5rem;
+    margin: 0.313rem 0;
+    border: 1px solid #8B4513; 
+    background-color: #FFF5E1;
+    color: #FFF5E1;
+    border-radius: 5px;
+}
+.owned-upgrade div, .upgrade div {
+    background-color: #1d1d1dd8; 
+    padding: 5px 0;
+}
+.achievement.unlocked {
+    background-color: #E0FFE0; /* Light green for unlocked */
+    border-color: #4caf50;
+}
+.achievement.locked {
+    background-color: #FFE0E0; /* Light red for locked */
+    border-color: #f44336;
+}
+#achievements-parent, #upgrades-parent, #ownedupgrades-parent, #stats-parent {
+    padding: 0.625rem;
+    border: 1px solid #8B4513;
+}
+#stats-parent {
+    font-size: 0.8rem;
+}
+/* 
+   =========================================
+   Notifications
+   =========================================
+*/
+/* Notifications */
+#notification-container {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1000;
+}
+.notification {
+    background-color: #4caf4fb2; 
+    color: white;
+    padding: 0.625rem 1.25rem;
+    margin: 5px 0;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    animation: fadeOut 3s ease forwards;
+}
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    90% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+}
+/* 
+   =========================================
+   Tooltip
+   =========================================
+*/
+/* Tooltip */
+.tooltip {
+    background-size: cover; 
+    background-position: center; 
+    position: fixed; 
+    font-size: 0.8rem;
+    white-space: nowrap;
+    z-index: 10;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s;
+    background-color: #1d1d1d; 
+    color: #fdebc9; 
+    border: 1px solid #8B4513; 
+    border-radius: 10px;
+    padding: 0.625rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.7);
+    max-width: 35rem;
+    word-wrap: break-word;
+    white-space: normal;
+}
+.tooltip-body {
+    border: 1px solid rgb(0 0 0);
+    box-shadow: 0 0px 2px 1px rgb(0 0 0 / 75%);
+}
+.tooltip.visible {
+    visibility: visible;
+    opacity: 1;
+}
+.production {
+    color: #ffe2b6;
+}
+.research {
+    color: #c0c9ff; 
+}
+.tooltip-header {
+    background-color: #1d1d1dd8; 
+    padding: 0.625rem;
+    border-bottom: 2px solid #8B4513;
+}
+.tooltip-header h1 {
+    font-size: 1.5rem;
+    margin-bottom: 0.313rem;
+}
+.tooltip-header h2 {
+    font-size: 1rem;
+    margin-top: 0;
+}
+.tooltip-section {
+    padding: 0.625rem;
+    background-color: #1d1d1dd8; 
+}
+
+/* 
+   =========================================
+   WORDLE GAME
+   =========================================
+*/
+/* Wordle Game */
+#wordle-game {
+    background-image: url('images/wordle_bg.jpeg');
+    background-size: cover;
+    background-position: center; 
+    background-repeat: no-repeat;
+    border: 1px solid #8B4513;
+    border-radius: 10px;
+    margin: 0.625rem;
+    text-align: center;
+    transition: all 0.3s ease; 
+}
+#wordle {
+    background-color: #fff5e1cb;
+    padding: 0 0.938rem;
+}
+#wordle-game.boost-active {
+    border: 2px solid #4caf50;
+    box-shadow: 0 0 10px 2px #4caf50;
+    background-color: #e8ffe8a6;
+}
+#wordle-game.boost-active #wordle {
+    background-color: #e8ffe8d3;
+}
+
+/* Wordle Grid */
+#wordle-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.wordle-guess-row {
+    display: grid;
+    grid-template-columns: repeat(5, 2.5rem);
+    gap: 5px;
+    margin-bottom: 10px;
+}
+.wordle-tile {
+    width: 2.5rem;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    text-align: center;
+    border: 1px solid #8B4513;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #4B2E39;
+    background-color: #d3d3d3b4;
+}
+.wordle-tile.correct {
+    background-color: #4caf50;
+}
+.wordle-tile.present {
+    background-color: #ffeb3b;
+}
+.wordle-tile.absent {
+    background-color: #f44336;
+}
+.wordle-example {
+    margin-bottom: 1rem;
+    padding: 0.625rem;
+    background-color: #1d1d1dd8; 
+    border-radius: 5px;
+    border: 1px solid #8B4513; 
+}
+.wordle-example p {
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+.wordle-grid {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px;
+}
+
+/* 
+   =========================================
+   REPORTS PAGE
+   =========================================
+*/
+/* Styling for the report container */
+#reportsPage {
+    padding: 10px;
+}
+#production-reports, #arena-stats {
+    padding: 1rem;
+    background-color: #fff5e1; /* Light beige background */
+    border: 1px solid #8B4513; /* Dark brown border */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+}
+
+.report {
+    background-size: cover;
+    background-position: center; 
+    background-repeat: no-repeat;
+    border-radius: 8px;
+}
+/* Receipt-style report */
+.report-receipt {
+    background-color: #fafafaee; /* Light grey background */
+    border: 1px solid #ddd; /* Light border for separation */
+    border-radius: 8px;
+    margin-bottom: 1rem; /* Space between reports */
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Highlight headings */
+.report-receipt h3 {
+    color: #4B2E39; /* Deep brown color */
+    margin-bottom: 0.5rem;
+}
+
+/* Label styles */
+.report-receipt p {
+    margin: 0.25rem 0;
+    font-size: 0.9rem;
+    color: #333; /* Dark grey text */
+}
+
+.report-receipt p strong {
+    color: #5C4033; /* Coffee brown for strong text */
+}
+
+/* Active modifiers list */
+.report-receipt ul {
+    list-style: none; /* Remove default bullet points */
+    margin: 0.5rem 0;
+    padding: 0;
+    font-size: 0.85rem;
+    color: #4B2E39; /* Deep brown color */
+}
+
+.report-receipt ul li {
+    margin-bottom: 0.25rem;
+    padding: 0.25rem;
+    background-color: #fff8dc; /* Pale yellow background */
+    border: 1px solid #e0e0e0; /* Light border */
+    border-radius: 5px;
+}
+
+/* Special effect for high percentages */
+.report-receipt ul li:hover {
+    background-color: #ffe7a1; /* Highlight on hover */
+    transition: background-color 0.3s ease-in-out; /* Smooth transition */
+}
+
+.report-receipt.updated {
+    animation: highlight 0.5s ease-out;
+}
+
+@keyframes highlight {
+    0% { background-color: #fafafaee; }
+    50% { background-color: #fff8dcee; }
+    100% { background-color: #fafafaee;  }
+}
+/* 
+   =========================================
+   ARENA
+   =========================================
+*/
+#arena-tab.ready {
+    background: linear-gradient(135deg, #2c692e, #4caf50); /* Gradient for cooldown */
+    color: #ffffff; /* White text for readability */
+    border: 2px solid #1e4d1e; /* Dark green border */
+    font-weight: bold; /* Emphasize text */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); /* Add text shadow for readability */
+    position: relative; /* For positioning the cooldown text above */
+    transition: all 0.3s ease-in-out; /* Smooth transition for hover effects */
+}
+
+#arena-tab.ready.active {
+    background: linear-gradient(135deg, #1e4d1e, #2c692e); /* Slightly darker gradient for active */
+    border-color: #145214; /* Darker border for active */
+    color: #e7ffe7; /* Slightly lighter text color */
+}
+
+#arena-tab.ready:before {
+    content: 'Ready'; /* Cooldown label */
+    position: absolute;
+    top: -0.5rem; /* Position the text above the button */
+    
+    background: rgba(0, 0, 0, 0.7); /* Semi-transparent background for label */
+    color: #ffffff;
+    padding: 0.25rem 0.5rem;
+    border-radius: 5px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    animation: pulse 1.5s infinite; /* Add a pulse animation to the label */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Slight shadow for the label */
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(1.05);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+#arena-tab.ready:hover {
+    background: linear-gradient(135deg, #34a853, #2c692e); /* Highlight gradient on hover */
+    box-shadow: 0 0 10px rgba(52, 168, 83, 0.8); /* Glow effect */
+}
+
+/* Arena Page */
+#arenaPage {
+    padding: 1rem;
+    background: linear-gradient(135deg, #f4f4f4, #e8e8e8); /* Subtle gradient background */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for elevation */
+}
+
+#arena-stats {
+    background: linear-gradient(135deg, #fffbf2, #fff5e1); /* Light parchment-like gradient */
+    border: 2px solid #8b4513; /* Dark brown border */
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+#arena-stats p {
+    font-size: 1.1rem;
+    margin: 0.5rem 0;
+    color: #4b2e39; /* Deep brown text for readability */
+    font-weight: bold;
+}
+
+#gold-medals {
+    font-size: 1.5rem;
+    color: #f9a825; /* Gold color */
+}
+
+#arena-result {
+    font-size: 1.1rem;
+    font-style: italic;
+    color: #666; /* Subtle gray text for result feedback */
+    margin-top: 1rem;
+}
+
+#start-race {
+    padding: 1rem;
+    background: #faf3e0;
+    border: 1px solid #8b4513;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+#start-race p {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+    color: #4b2e39;
+}
+
+#start-race button {
+    background-color: #4caf50; /* Green for start button */
+    color: #ffffff;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+#start-race button:hover {
+    background-color: #388e3c; /* Darker green on hover */
+    box-shadow: 0 4px 10px rgba(56, 142, 60, 0.3); /* Enhanced shadow */
+}
+
+#arena-race {
+    background: #fff5e1;
+    border: 1px solid #8b4513;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-top: 1rem;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#race-progress {
+    margin-bottom: 1rem;
+}
+
+#race-progress p {
+    font-size: 1.1rem;
+    margin: 0.5rem 0;
+    color: #4b2e39;
+}
+
+.progress-container {
+    width: 100%;
+    background-color: #e0e0e0; /* Light gray for progress bar background */
+    border-radius: 5px;
+    overflow: hidden;
+    height: 20px;
+    position: relative;
+    margin: 0.5rem 0;
+}
+
+.progress-bar {
+    height: 100%;
+    transition: width 0.3s ease-in-out;
+    width: 0;
+}
+
+#player-progress-bar {
+    background: linear-gradient(135deg, #4caf50, #388e3c); /* Green gradient for player progress */
+}
+
+#opponent-progress-bar {
+    background: linear-gradient(135deg, #f44336, #d32f2f); /* Red gradient for opponent progress */
+}
+
+#arena-input-box {
+    width: 90%;
+    height: 2.5rem;
+    margin: 1rem auto;
+    font-size: 1.1rem;
+    color: #4b2e39;
+    background: #fff5e1;
+    border: 2px solid #8b4513;
+    border-radius: 5px;
+    padding: 0.5rem;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1); /* Inset shadow for depth */
+}
+
+
+.win-effect {
+    font-size: 2rem;
+    color: #f9a825; /* Bright gold for victory text */
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.8); /* Glow effect */
+    animation: arena-win-pop-up 0.5s ease-out, arena-win-fade-out 2.5s ease-out forwards;
+}
+
+.win-effect {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2rem;
+    color: #ffeb3b; /* Bright gold */
+    background-color: rgba(121, 109, 0, 0.35);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(255, 255, 0, 0.8);
+    animation: arena-win-pop-up 0.5s ease-out, arena-win-fade-out 2.5s ease-out forwards;
+}
+
+@keyframes arena-win-pop-up {
+    0% {
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 0;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes arena-win-fade-out {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+
+
+/* 
+   =========================================
+   MEDIA QUERIES
+   =========================================
+*/
+
+/* Tablets and smaller screens */
+@media (max-width: 1024px) {
+    #game-title {
+        font-size: 1.75rem;
+    }
+    #stats-panel, #upgrades-panel {
+        font-size: 0.9rem;
+    }
+}
+
+/* Mobile screens */
+@media (max-width: 768px) {
+    /* Stack columns vertically */
+    #main-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    /* adjust borders for stacked */
+    #stats-panel {
+        border-right: none;
+        border-bottom: 1px solid #5C4033;
+    }
+    #upgrades-panel {
+        border-left: none;
+        border-top: 1px solid #5C4033;
+    }
+    #typing-panel {
+        padding: 0.625rem;
+    }
+    #volume-slider {
+        width: 100%;
+    }
+    .wordle-tile {
+        width: 2rem;
+        height: 2rem;
+        line-height: 2rem;
+        font-size: 1rem;
+    }
+}
