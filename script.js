@@ -5,6 +5,30 @@ let lastTypedWord = "";
 
 let Tickrate = 60;
 let Tickinterval = 1000 / Tickrate;
+
+const tabs = {
+    main: {
+        tab: document.getElementById("main-tab"),
+        page: document.getElementById("gamePage")
+    },
+    reports: {
+        tab: document.getElementById("reports-tab"),
+        page: document.getElementById("reportsPage")
+    },
+    wordle: {
+        tab: document.getElementById("wordle-tab"),
+        page: document.getElementById("wordlePage")
+    },
+    arena: {
+        tab: document.getElementById("arena-tab"),
+        page: document.getElementById("arenaPage")
+    },
+    settings: {
+        tab: document.getElementById("settings-tab"),
+        page: document.getElementById("settingsPage")
+    }
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     loadGame(); // Load saved game data
     
@@ -37,82 +61,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     //==========================================
-    const mainTab = document.getElementById("main-tab");
-    const reportsTab = document.getElementById("reports-tab");
-    const wordleTab = document.getElementById("wordle-tab");
-    const arenaTab = document.getElementById("arena-tab");
-    const settingsTab = document.getElementById("settings-tab");
-    const mainPage = document.getElementById("gamePage");
-    const reportsPage = document.getElementById("reportsPage");
-    const wordlePage = document.getElementById("wordlePage");
-    const arenaPage = document.getElementById("arenaPage");
-    const settingsPage = document.getElementById("settingsPage");
-    
-    mainTab.addEventListener("click", () => {
-        mainPage.style.display = "block";
-        reportsPage.style.display = "none";
-        wordlePage.style.display = "none";
-        arenaPage.style.display = "none";
-        settingsPage.style.display = "none";
-        mainTab.classList.add("active");
-        reportsTab.classList.remove("active");
-        wordleTab.classList.remove("active");
-        arenaTab.classList.remove("active");
-        settingsTab.classList.remove("active");
-    });
-
-    reportsTab.addEventListener("click", () => {
-        mainPage.style.display = "none";
-        reportsPage.style.display = "block";
-        wordlePage.style.display = "none";
-        arenaPage.style.display = "none";
-        settingsPage.style.display = "none";
-        mainTab.classList.remove("active");
-        reportsTab.classList.add("active");
-        wordleTab.classList.remove("active");
-        arenaTab.classList.remove("active");
-        settingsTab.classList.remove("active");
-    });
-
-    wordleTab.addEventListener("click", () => {
-        mainPage.style.display = "none";
-        reportsPage.style.display = "none";
-        wordlePage.style.display = "block";
-        arenaPage.style.display = "none";
-        settingsPage.style.display = "none";
-        mainTab.classList.remove("active");
-        reportsTab.classList.remove("active");
-        wordleTab.classList.add("active");
-        arenaTab.classList.remove("active");
-        settingsTab.classList.remove("active");
-    });
-
-    arenaTab.addEventListener("click", () => {
-        mainPage.style.display = "none";
-        reportsPage.style.display = "none";
-        wordlePage.style.display = "none";
-        arenaPage.style.display = "block";
-        settingsPage.style.display = "none";
-        mainTab.classList.remove("active");
-        reportsTab.classList.remove("active");
-        wordleTab.classList.remove("active");
-        arenaTab.classList.add("active");
-        settingsTab.classList.remove("active");
-    });
-    
-    settingsTab.addEventListener("click", () => {
-        mainPage.style.display = "none";
-        reportsPage.style.display = "none";
-        wordlePage.style.display = "none";
-        arenaPage.style.display = "none";
-        settingsPage.style.display = "block";
-        mainTab.classList.remove("active");
-        reportsTab.classList.remove("active");
-        wordleTab.classList.remove("active");
-        arenaTab.classList.remove("active");
-        settingsTab.classList.add("active");
-    });
-    
+    for (const key in tabs) {
+        tabs[key].tab.addEventListener("click", () => switchTab(tabs[key].tab));
+    }   
     //==========================================
     const volumeSlider = document.getElementById("volume-slider");
     const volumeLabel = document.getElementById("volume-label");
@@ -338,7 +289,13 @@ function formatShortScale(number) {
     if (!Number.isFinite(number)) return '∞'; // Handle infinite numbers
     if (number === 0) return '0'; // Handle zero
     
-    const suffixes = ['', 'k', 'million', 'billion', 'trillion', 'quadrillion', 'quintillion', 'sextillion', 'septillion', 'octillion', 'nonillion', 'decillion'];
+    const suffixes = [
+        '', 'k', 'million', 'billion', 'trillion', 'quadrillion', 'quintillion', 
+        'sextillion', 'septillion', 'octillion', 'nonillion', 'decillion', 
+        'undecillion', 'duodecillion', 'tredecillion', 'quattuordecillion', 
+        'quindecillion', 'sexdecillion', 'septendecillion', 'octodecillion', 
+        'novemdecillion', 'vigintillion'
+    ];
     const tier = Math.floor(Math.log10(Math.abs(number)) / 3); // Determine the tier (1000^tier)
 
     if (tier === 0 || number < 1000) return number.toFixed(1); // For numbers below 1000, return as is
@@ -347,4 +304,16 @@ function formatShortScale(number) {
     const suffix = suffixes[tier] || `e${tier * 3}`; // Fallback to scientific notation for very large numbers
 
     return `${scaled.toFixed(1).replace(/\.0$/, '')} ${suffix}`; // Format with one decimal, remove .0 if unnecessary
+}
+
+function switchTab(activeTab) {
+    for (const key in tabs) {
+        if (tabs[key].tab === activeTab) {
+            tabs[key].page.style.display = "block";
+            tabs[key].tab.classList.add("active");
+        } else {
+            tabs[key].page.style.display = "none";
+            tabs[key].tab.classList.remove("active");
+        }
+    }
 }
