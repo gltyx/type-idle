@@ -39,20 +39,24 @@ document.addEventListener('DOMContentLoaded', () => {
     //==========================================
     const mainTab = document.getElementById("main-tab");
     const reportsTab = document.getElementById("reports-tab");
+    const wordleTab = document.getElementById("wordle-tab");
     const arenaTab = document.getElementById("arena-tab");
     const settingsTab = document.getElementById("settings-tab");
     const mainPage = document.getElementById("gamePage");
     const reportsPage = document.getElementById("reportsPage");
+    const wordlePage = document.getElementById("wordlePage");
     const arenaPage = document.getElementById("arenaPage");
     const settingsPage = document.getElementById("settingsPage");
     
     mainTab.addEventListener("click", () => {
         mainPage.style.display = "block";
         reportsPage.style.display = "none";
+        wordlePage.style.display = "none";
         arenaPage.style.display = "none";
         settingsPage.style.display = "none";
         mainTab.classList.add("active");
         reportsTab.classList.remove("active");
+        wordleTab.classList.remove("active");
         arenaTab.classList.remove("active");
         settingsTab.classList.remove("active");
     });
@@ -60,10 +64,25 @@ document.addEventListener('DOMContentLoaded', () => {
     reportsTab.addEventListener("click", () => {
         mainPage.style.display = "none";
         reportsPage.style.display = "block";
+        wordlePage.style.display = "none";
         arenaPage.style.display = "none";
         settingsPage.style.display = "none";
         mainTab.classList.remove("active");
         reportsTab.classList.add("active");
+        wordleTab.classList.remove("active");
+        arenaTab.classList.remove("active");
+        settingsTab.classList.remove("active");
+    });
+
+    wordleTab.addEventListener("click", () => {
+        mainPage.style.display = "none";
+        reportsPage.style.display = "none";
+        wordlePage.style.display = "block";
+        arenaPage.style.display = "none";
+        settingsPage.style.display = "none";
+        mainTab.classList.remove("active");
+        reportsTab.classList.remove("active");
+        wordleTab.classList.add("active");
         arenaTab.classList.remove("active");
         settingsTab.classList.remove("active");
     });
@@ -71,10 +90,12 @@ document.addEventListener('DOMContentLoaded', () => {
     arenaTab.addEventListener("click", () => {
         mainPage.style.display = "none";
         reportsPage.style.display = "none";
+        wordlePage.style.display = "none";
         arenaPage.style.display = "block";
         settingsPage.style.display = "none";
         mainTab.classList.remove("active");
         reportsTab.classList.remove("active");
+        wordleTab.classList.remove("active");
         arenaTab.classList.add("active");
         settingsTab.classList.remove("active");
     });
@@ -82,10 +103,12 @@ document.addEventListener('DOMContentLoaded', () => {
     settingsTab.addEventListener("click", () => {
         mainPage.style.display = "none";
         reportsPage.style.display = "none";
+        wordlePage.style.display = "none";
         arenaPage.style.display = "none";
         settingsPage.style.display = "block";
         mainTab.classList.remove("active");
         reportsTab.classList.remove("active");
+        wordleTab.classList.remove("active");
         arenaTab.classList.remove("active");
         settingsTab.classList.add("active");
     });
@@ -318,7 +341,7 @@ function formatShortScale(number) {
     const suffixes = ['', 'k', 'million', 'billion', 'trillion', 'quadrillion', 'quintillion', 'sextillion', 'septillion', 'octillion', 'nonillion', 'decillion'];
     const tier = Math.floor(Math.log10(Math.abs(number)) / 3); // Determine the tier (1000^tier)
 
-    if (tier === 0) return number.toFixed(1); // For numbers below 1000, return as is
+    if (tier === 0 || number < 1000) return number.toFixed(1); // For numbers below 1000, return as is
 
     const scaled = number / Math.pow(10, tier * 3); // Scale the number to its tier
     const suffix = suffixes[tier] || `e${tier * 3}`; // Fallback to scientific notation for very large numbers

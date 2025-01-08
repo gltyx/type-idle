@@ -31,7 +31,8 @@ body {
 #navbar {
     background-color: #5C4033; /* Coffee brown */
     display: flex;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);   
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    flex-wrap: wrap;
 }
 #navbar button {
     background-color: #93441f;
@@ -41,6 +42,57 @@ body {
 #navbar button.active {
     background-color: #5f1f01;
     border-bottom: solid 2px #fd6a26;
+}
+#navbar button.ready {
+    background: linear-gradient(135deg, #2c692e, #4caf50); /* Gradient for cooldown */
+    color: #ffffff; /* White text for readability */
+    border: 2px solid #1e4d1e; /* Dark green border */
+    font-weight: bold; /* Emphasize text */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); /* Add text shadow for readability */
+    position: relative; /* For positioning the cooldown text above */
+    transition: all 0.3s ease-in-out; /* Smooth transition for hover effects */
+}
+
+#navbar button.ready.active {
+    background: linear-gradient(135deg, #1e4d1e, #2c692e); /* Slightly darker gradient for active */
+    border-color: #145214; /* Darker border for active */
+    border-bottom: solid 2px #6afd26;
+    color: #e7ffe7; /* Slightly lighter text color */
+}
+
+#navbar button.ready:before {
+    content: 'Ready'; /* Cooldown label */
+    position: absolute;
+    top: -0.5rem; /* Position the text above the button */
+    
+    background: rgba(0, 0, 0, 0.7); /* Semi-transparent background for label */
+    color: #ffffff;
+    padding: 0.25rem 0.5rem;
+    border-radius: 5px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    animation: pulse 1.5s infinite; /* Add a pulse animation to the label */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Slight shadow for the label */
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(1.05);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+#navbar button.ready:hover {
+    background: linear-gradient(135deg, #34a853, #2c692e); /* Highlight gradient on hover */
+    box-shadow: 0 0 10px rgba(52, 168, 83, 0.8); /* Glow effect */
 }
 
 /* Settings Page */
@@ -576,56 +628,6 @@ button:disabled {
    ARENA
    =========================================
 */
-#arena-tab.ready {
-    background: linear-gradient(135deg, #2c692e, #4caf50); /* Gradient for cooldown */
-    color: #ffffff; /* White text for readability */
-    border: 2px solid #1e4d1e; /* Dark green border */
-    font-weight: bold; /* Emphasize text */
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); /* Add text shadow for readability */
-    position: relative; /* For positioning the cooldown text above */
-    transition: all 0.3s ease-in-out; /* Smooth transition for hover effects */
-}
-
-#arena-tab.ready.active {
-    background: linear-gradient(135deg, #1e4d1e, #2c692e); /* Slightly darker gradient for active */
-    border-color: #145214; /* Darker border for active */
-    color: #e7ffe7; /* Slightly lighter text color */
-}
-
-#arena-tab.ready:before {
-    content: 'Ready'; /* Cooldown label */
-    position: absolute;
-    top: -0.5rem; /* Position the text above the button */
-    
-    background: rgba(0, 0, 0, 0.7); /* Semi-transparent background for label */
-    color: #ffffff;
-    padding: 0.25rem 0.5rem;
-    border-radius: 5px;
-    font-size: 0.75rem;
-    font-weight: bold;
-    animation: pulse 1.5s infinite; /* Add a pulse animation to the label */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Slight shadow for the label */
-}
-
-@keyframes pulse {
-    0% {
-        opacity: 1;
-        transform: scale(1);
-    }
-    50% {
-        opacity: 0.8;
-        transform: scale(1.05);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-#arena-tab.ready:hover {
-    background: linear-gradient(135deg, #34a853, #2c692e); /* Highlight gradient on hover */
-    box-shadow: 0 0 10px rgba(52, 168, 83, 0.8); /* Glow effect */
-}
 
 /* Arena Page */
 #arenaPage {

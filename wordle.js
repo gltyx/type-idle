@@ -19,11 +19,15 @@ function startWordle() {
 let wordleUIState = "";
 
 function displayWordle() {
+  if(AutoWriter.level > 0) {
+    document.getElementById('wordle-tab').style.display = "block";
+  }
   let wordleBoost = modifiers.find(modifier => modifier.name === "Wordle Boost");
   if(wordleBoost) {
     document.getElementById('wordle-boost-remaining').textContent = `Boost remaining: ${(wordleBoost.duration / Tickrate).toFixed(0)}s`;
     if(wordleUIState != "boost") {
       wordleUIState = "boost";
+      document.getElementById('wordle-tab').classList.remove("ready");
       document.getElementById('wordle-game').classList.add('boost-active');
       document.getElementById('wordle-feedback').textContent = "Correct! Boost activated! Doubled production from Auto Writers and manually typed words";
     }
@@ -38,6 +42,7 @@ function displayWordle() {
       }
       wordleUIState = "init";
       currentGuessCount = 0;
+      document.getElementById('wordle-tab').classList.add("ready");
       document.getElementById('wordle-game').classList.remove('boost-active');
       document.getElementById('wordle-boost-remaining').textContent = ``;
       document.getElementById('wordle-hint').textContent = `Hint: ${wordsList[currentWordleWord].definition}`;
@@ -132,6 +137,7 @@ function validateWord(row) {
   } else if (currentGuessCount >= maxGuesses) {
     document.getElementById('wordle-feedback').innerHTML = `Out of guesses! The word was: <strong>${currentWordleWord}</strong>. Starting a new Wordle...`;
     wordleUIState = "loss";
+    document.getElementById('wordle-tab').classList.remove("ready");
     setTimeout(() => {
       wordleUIState = "";
     }, 5000);
