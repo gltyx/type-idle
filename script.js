@@ -49,6 +49,9 @@ document.addEventListener('DOMContentLoaded', () => {
             saveGame();
         }
     }, 5000); // Save every 5 seconds
+
+    // Send heartbeat every 5 minutes (300000 milliseconds)
+    setInterval(sendHeartbeat, 300000);
     
     displayAchievements();
     initUpgrades();
@@ -90,6 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     document.getElementById('toggle-skip-mistake').checked = skipOnMistake;
     //==========================================
+    sendHeartbeat(); // send the first heartbeat
 });
 
 document.getElementById('input-box').addEventListener('input', function() {
@@ -316,4 +320,24 @@ function switchTab(activeTab) {
             tabs[key].tab.classList.remove("active");
         }
     }
+}
+
+function sendHeartbeat() {
+    if(window.location.host !== 'www.typeidle.com') return; // Don't send heartbeats in development
+    fetch('heartbeat.php', {
+        method: 'POST',
+        credentials: 'same-origin'
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.text();
+    })
+    .then(data => {
+        console.log('Heartbeat sent successfully:', data);
+    })
+    .catch(error => {
+        console.error('There was a problem with the heartbeat request:', error);
+    });
 }

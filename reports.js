@@ -128,28 +128,56 @@ function displayReports() {
         const baseManualKeystrokeValue = applyKPStoManual(1); // Apply KPS to manual keystrokes
         const modifiedManualKeystrokeValue = applyModifiers(0, baseManualKeystrokeValue); // Apply modifiers
         
-        // List active modifiers for manual keystrokes
+        
+        const passiveIncome = getPassiveIncome();
+        // List modifiers that increase manual keystrokes value
         const manualModifiers = modifiers
+        .filter(mod => mod.affectedBuildings.includes(0))
+        .map(mod => {
+            const kps = typeof mod.getKPStoManual === 'function'
+            ? mod.getKPStoManual()
+            : mod.KPStoManual;
+            if(kps) {
+            const flatBoost = kps * getPassiveIncome();
+            return `<li>${mod.name}: +${formatShortScale(flatBoost)} (${(kps * 100).toFixed(2)}% of passive income)</li>`;
+            } else {
+                return ``;
+            }
+        });
+
+        // List multipliers for manual keystrokes
+        const manualMultipliers = modifiers
         .filter(mod => mod.affectedBuildings.includes(0))
         .map(mod => {
             const multiplier = typeof mod.getMultiplier === 'function'
             ? mod.getMultiplier()
-            : mod.multiplier || 1;
+            : mod.multiplier;
+            if(multiplier) {
             const percentage = ((multiplier - 1) * 100).toFixed(2);
             return `<li>${mod.name}: +${percentage}%</li>`;
+            } else {
+                return ``;
+            }
         });
-        
-        const manualModifiersDetails = manualModifiers.length
+
+        const manualFlatModifiersDetails = manualModifiers.length
         ? manualModifiers.join("")
+        : '<li>None</li>';
+
+        const manualMultiplierModifiersDetails = manualMultipliers.length
+        ? manualMultipliers.join("")
         : '<li>None</li>';
         
         let newHTML = `
         <div class="report-receipt">
         <h3>Manual Keystrokes Value</h3>
         <hr>
-        <p><strong>Base Value:</strong> ${baseManualKeystrokeValue.toFixed(2)} keystrokes</p>
+        <p><strong>Base Value:</strong> 1 keystroke</p>
+        <p><strong>Flat Modifiers:</strong></p>
+        <ul>${manualFlatModifiersDetails}</ul>
+        <p><strong>Boosted Value:</strong> ${baseManualKeystrokeValue.toFixed(2)} keystrokes</p>
         <p><strong>Active Modifiers:</strong></p>
-        <ul>${manualModifiersDetails}</ul>
+        <ul>${manualMultiplierModifiersDetails}</ul>
         <p><strong>After Modifiers:</strong> ${modifiedManualKeystrokeValue.toFixed(2)} keystrokes</p>
         </div>
         `;

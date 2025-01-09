@@ -1,3 +1,9 @@
+/**
+ * Applies all multiplier modifiers to the base production of a building.
+ * @param {number} buildingId ID of the building (0 for manually typed words)
+ * @param {number} baseProduction Base production of the building
+ * @returns {number} Production after modifiers
+ */
 function applyModifiers(buildingId, baseProduction) {
     let totalMultiplier = 1;
     modifiers.forEach(modifier => {
@@ -9,7 +15,11 @@ function applyModifiers(buildingId, baseProduction) {
     });
     return baseProduction * totalMultiplier;
 }
-
+/**
+ * Applies passive income to manual keystrokes.
+ * @param {number} keystrokes Manual keystrokes.
+ * @returns {number} Manual keystrokes + passive income % to manual.
+ */
 function applyKPStoManual(keystrokes) {
     let totalMultiplier = 0;
     modifiers.forEach(modifier => {
@@ -109,7 +119,7 @@ const ServerFarm = {
     name: "Server Farm",
     description: "A massive server farm dedicated to typing tasks.",
     lockdescription: "Unlocks at 5000 total keystrokes.",
-    special: "No special yet.",
+    special: "Each Server Farm adds 0.1% of passive income to manual keystrokes.",
     unlockCondition: () => { return totalKeystrokes >= 5000; },
     locked: true,
     getCost: () => 5000 * Math.pow(ServerFarm.level + 1, 2) * Math.log(ServerFarm.level + 2),
@@ -146,26 +156,6 @@ const buildings = [
     AutoWriter, Printer, ResearchLab, CyberCafe, ServerFarm, TypingArena
 ];
 
-modifiers.push(
-    {
-        name: "Auto Writer Boost",
-        description: "Each Auto Writer increases manually typed words production by 5%.",
-        affectedBuildings: [0], // 0 for manually typed words
-        getMultiplier: () => 1 + AutoWriter.level * 0.05, // Dynamic multiplier
-    },
-    {
-        name: "Printer Boost",
-        description: "Each Printer increases passive income by 0.75%.",
-        affectedBuildings: buildings.flatMap(b => b.id), // IDs of all buildings contributing to passive income
-        getMultiplier: () => 1 + Printer.level * 0.0075, // Dynamic multiplier
-    },
-    {
-        name: "Trophy Boost",
-        description: "",
-        affectedBuildings: [TypingArena.id], // IDs of all buildings contributing to passive income
-        getMultiplier: () => 1 + arenaGoldMedals * 0.025, // Dynamic multiplier
-    }
-);
 
 let totalResearchPoints = 0;
 

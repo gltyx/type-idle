@@ -352,6 +352,11 @@ button:disabled {
     background-color: #1d1d1dd8; 
     padding: 5px 0;
 }
+.upgrade:not(:disabled):hover div {
+    background-color: #1d1d1d;
+    border-top: 1px solid #8B4513;
+    border-bottom: 1px solid #8B4513;
+}
 .achievement.unlocked {
     background-color: #E0FFE0; /* Light green for unlocked */
     border-color: #4caf50;
