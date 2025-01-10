@@ -36,9 +36,15 @@ function saveGame() {
         arenaBeatVeryHard,
         finishRaceBoostRemaining,
         championArenaBuffRemaining,
-        buildings: buildings.map(building => ({ id: building.id, level: building.level })),
+        buildings: buildings.map(building => ({ id: building.id, level: building.level, totalProduce: building.totalProduce })),
         upgrades: upgrades.map(upgrade => ({ id: upgrade.id, unlocked: upgrade.unlocked })),
         achievements: achievements.map(achievement => ({ id: achievement.id, unlocked: achievement.unlocked })),
+        stocks: stocks.map(stock => ({
+            id: stock.id,
+            price: stock.price,
+            owned: stock.owned,
+            history: stock.history
+        })),
         wordle: {
             currentWord: currentWordleWord,
             boostEndTime: wordleBoostRemaining
@@ -70,6 +76,7 @@ function loadGame() {
             const building = buildings.find(b => b.id === savedBuilding.id);
             if (building) {
                 building.level = savedBuilding.level;
+                building.totalProduce = savedBuilding.totalProduce || 0;
             }
         });
         
@@ -90,6 +97,17 @@ function loadGame() {
             }
         });
         
+        // Load stocks
+        if (savedData.stocks) {
+            savedData.stocks.forEach(savedStock => {
+            const stock = stocks.find(s => s.id === savedStock.id);
+            if (stock) {
+                stock.price = savedStock.price;
+                stock.owned = savedStock.owned;
+                stock.history = savedStock.history || [];
+            }
+            });
+        }
         // Load Wordle state
         if (savedData.wordle) {
             currentWordleWord = savedData.wordle.currentWord || "";
@@ -111,7 +129,7 @@ function loadGame() {
                 description: "",
                 affectedBuildings: [],
                 multiplier: 1,
-                duration: finishRaceBoostRemaining // 5 minutes
+                duration: finishRaceBoostRemaining
             });
         }
 

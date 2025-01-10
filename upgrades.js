@@ -76,6 +76,7 @@ const upgrades = [
         id: 1,
         name: "Mechanical Keyboards",
         description: "Doubles production from Auto Writers and manually typed words.",
+        trivia: "Mechanical keyboards are known for their tactile feedback and durability.",
         cost: 100,
         unlocked: false,
         visible: false,
@@ -93,6 +94,7 @@ const upgrades = [
         id: 2,
         name: "Color Printer",
         description: "Doubles production from Printers.",
+        trivia: "Color printers use a combination of four colors to produce a wide range of colors.",
         cost: 200,
         unlocked: false,
         visible: false,
@@ -110,6 +112,7 @@ const upgrades = [
         id: 3,
         name: "RGB Keyboards",
         description: "Doubles production from Auto Writers and manually typed words.",
+        trivia: "RGB keyboards makes typing in the dark easier.",
         cost: 100,
         unlocked: false,
         visible: false,
@@ -127,6 +130,7 @@ const upgrades = [
         id: 4,
         name: "Laser Printer",
         description: "Doubles production from Printers.",
+        trivia: "Laser printers use a laser to produce high-quality prints.",
         cost: 500,
         unlocked: false,
         visible: false,
@@ -144,6 +148,7 @@ const upgrades = [
         id: 5,
         name: "Quantum Keyboards",
         description: "Doubles production from Auto Writers and manually typed words.",
+        trivia: "Keys may or may not be pressed at the same time.",
         cost: 1000,
         unlocked: false,
         visible: false,
@@ -161,6 +166,7 @@ const upgrades = [
         id: 6,
         name: "3D Printer",
         description: "Triples production from Printers.",
+        trivia: "3D printers can create three-dimensional objects from digital models.",
         cost: 2000,
         unlocked: false,
         visible: false,
@@ -178,6 +184,7 @@ const upgrades = [
         id: 7,
         name: "Quantum Printers",
         description: "Doubles production from Printers.",
+        trivia: "Quantum printers don't require ink or toner.",
         cost: 2500,
         unlocked: false,
         visible: false,
@@ -188,6 +195,24 @@ const upgrades = [
                 description: "Doubles production from Printers.",
                 affectedBuildings: [Printer.id],
                 multiplier: 2
+            });
+        },
+    },
+    {
+        id: 8,
+        name: "AI Typing Assistants",
+        description: "Triples production from manually typed words.",
+        trivia: "Just like a real assistant, but without the coffee breaks.",
+        cost: 5000,
+        unlocked: false,
+        visible: false,
+        visibleCondition: () => isUpgradeUnlocked(5), // Visible after Quantum Keyboards is unlocked
+        effect: () => {
+            modifiers.push({
+                name: "AI Typing Assistants",
+                description: "Triples production from manually typed words.",
+                affectedBuildings: [0], // 0 for manually typed words
+                multiplier: 3
             });
         },
     }

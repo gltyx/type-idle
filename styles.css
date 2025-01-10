@@ -448,6 +448,10 @@ button:disabled {
 .research {
     color: #c0c9ff; 
 }
+.trivia {
+    color: #dbdbdb;
+    font-style: italic;
+}
 .tooltip-header {
     background-color: #1d1d1dd8; 
     padding: 0.625rem;
@@ -803,6 +807,95 @@ button:disabled {
     }
 }
 
+
+/* 
+   =========================================
+   STOCK MARKET
+   =========================================
+*/
+#stockPage {
+    padding: 1rem;
+}
+
+/* Container for the entire stock market section */
+#stock-market-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;            /* Space between stock cards */
+    padding: 1rem;
+    margin: 0 auto;       /* Center the container horizontally */
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  /* Each individual stock card */
+  .stock {
+    background-color: #FFF5E1; /* Light beige background */
+    border: 1px solid #8B4513; /* Dark brown border */
+    border-radius: 6px;
+    padding: 1rem;
+    width: 200px;         /* Fixed width for each card */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Stock name styling */
+  .stock h3 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+    color: #4B2E39; /* Deep brown color */
+  }
+  
+  /* Price and owned styling */
+  .stock p {
+    margin: 0.25rem 0;
+    font-size: 1rem;
+    color: #4B2E39; /* Deep brown color */
+  }
+  
+  /* Container for the buy/sell buttons and label */
+  .stock-buttons {
+    display: flex;
+    align-items: center;
+    margin: 0.5rem 0;
+  }
+  
+  /* “Buy” or “Sell” label */
+  .stock-buttons p {
+    margin: 0;
+    margin-right: 0.5rem;
+    font-weight: bold;
+    min-width: 40px;
+    color: #4B2E39; /* Deep brown color */
+  }
+  
+  /* Style for the actual buttons */
+  .stock-buttons button {
+    margin-right: 0.5rem;
+    padding: 0.3rem 0.5rem;
+    cursor: pointer;
+    background-color: #D2B48C; /* Light brown background */
+    border: 1px solid #8B4513; /* Dark brown border */
+    border-radius: 4px;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease;
+    color: #4B2E39; /* Deep brown color */
+  }
+  
+  .stock-buttons button:hover:not(:disabled) {
+    background-color: #C19A6B; /* Darker light brown on hover */
+  }
+  
+  .stock-buttons button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  .stock-chart-container canvas {
+    width: 100% !important;  /* Let it scale based on parent */
+    height: auto !important; /* Keep aspect ratio */
+  }
 
 
 /* 

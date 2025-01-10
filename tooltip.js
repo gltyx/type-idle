@@ -70,9 +70,11 @@ function showBuildingTooltip(buildingElement, building) {
         tooltipHead.innerHTML = `<h1>${building.name}</h1>`;
         tooltipSection.innerHTML = `
         <p>${building.description}</p>
-        <p class="production">- Each ${building.name} produces <strong>${building.getProduceSingle().toFixed(2)}</strong> keystrokes per second.<br>- ${building.level} ${building.name}s producing <strong>${building.getProduce().toFixed(2)}</strong> keystrokes per second.</p>
+        <p class="production">- Each ${building.name} produces <strong>${formatShortScale(building.getProduceSingle())}</strong> keystrokes per second.<br>- ${building.level} ${building.name}s producing <strong>${formatShortScale(building.getProduce())}</strong> keystrokes per second.</p>
         ${typeof building.getResearchProduceSingle === "function" ? `<p class="research">- Each ${building.name} produces <strong>${building.getResearchProduceSingle().toFixed(2)}</strong> research points per second.<br>- ${building.level} ${building.name}s producing <strong>${building.getResearchProduce().toFixed(2)}</strong> research points per second.</p>` : ''}
-        <p class="special">Special: ${building.special}</p>`;
+        <p class="special">Special: ${building.special}</p>
+        <p class="totalproduced">Total produced: ${formatShortScale(building.totalProduce)} keystrokes.</p>
+        <p class="trivia">"${building.trivia}"</p>`;
     }
     setToolTipPos(buildingElement);
     tooltip.classList.add('visible');
@@ -81,7 +83,9 @@ function showBuildingTooltip(buildingElement, building) {
 function showOwnedUpgradeToolTip(upgradeElement, upgrade) {
     tooltip.style.backgroundImage = `url("images/tooltips/upgrades/${upgrade.id}.jpg")`;
     tooltipHead.innerHTML = `<h1>${upgrade.name}</h1>`;
-    tooltipSection.innerHTML = `<p>${upgrade.description}</p>`;
+    tooltipSection.innerHTML = `
+    <p>${upgrade.description}</p>
+    <p class="trivia">"${upgrade.trivia}"</p>`;
     setToolTipPos(upgradeElement);
     tooltip.classList.add('visible');
 }
@@ -91,6 +95,7 @@ function showUpgradeToolTip(upgradeElement, upgrade) {
     tooltipHead.innerHTML = `<h1>${upgrade.name}</h1>`;
     tooltipSection.innerHTML = `
     <p>${upgrade.description}</p>
+    <p class="trivia">"${upgrade.trivia}"</p>
     <img src="images/research-bulb-icon.png" class="researchicon" alt="Research"> <span>${formatShortScale(upgrade.cost)}</span>`;
     setToolTipPos(upgradeElement);
     tooltip.classList.add('visible');
@@ -144,6 +149,26 @@ function showWordleTutorialTooltip(element) {
         </div>
         <p><strong>W</strong> is not in the word.</p>
     </div>`;
+    setToolTipPos(element); 
+    tooltip.classList.add('visible');
+}
+function showStockBuyTooltip(element, count, stock) {
+    tooltip.style.backgroundImage = `url("images/tooltips/buildings/${StockMarket.id}.jpg")`;
+    tooltipHead.innerHTML = `
+    <h1>${stock.name}</h1>
+    <h2>Buy Stocks</h2>`;
+    tooltipSection.innerHTML = `
+    <p>Buy ${count} stocks at $${formatShortScale(count * stock.price)} (<img src="images/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin">${formatShortScale(dollarsToKeystrokes(count * stock.price))})</p>`;
+    setToolTipPos(element); 
+    tooltip.classList.add('visible');
+}
+function showStockSellTooltip(element, count, stock) {
+    tooltip.style.backgroundImage = `url("images/tooltips/buildings/${StockMarket.id}.jpg")`;
+    tooltipHead.innerHTML = `
+    <h1>${stock.name}</h1>
+    <h2>Sell Stocks</h2>`;
+    tooltipSection.innerHTML = `
+    <p>Sell ${count} stocks for $${formatShortScale(count * stock.price)} (<img src="images/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin">${formatShortScale(dollarsToKeystrokes(count * stock.price))})</p>`;
     setToolTipPos(element); 
     tooltip.classList.add('visible');
 }

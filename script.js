@@ -23,6 +23,10 @@ const tabs = {
         tab: document.getElementById("arena-tab"),
         page: document.getElementById("arenaPage")
     },
+    stock: {
+        tab: document.getElementById("stock-tab"),
+        page: document.getElementById("stockPage")
+    },
     settings: {
         tab: document.getElementById("settings-tab"),
         page: document.getElementById("settingsPage")
@@ -57,6 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initUpgrades();
     initBuildings();
     initReports();
+    initStockMarket();
     //==========================================
     document.getElementById('reset-button').addEventListener('click', () => {
         if(confirm("Are you sure you want to reset your save?")) {
@@ -192,6 +197,7 @@ function updateStats() {
     document.getElementById('manual-words').textContent = formatShortScale(manualKeystrokes / 5);
     
     document.getElementById('keystrokes-bank').textContent = formatShortScale(keystrokesBank);
+    document.getElementById('keystrokes-bank2').textContent = formatShortScale(keystrokesBank);
     document.getElementById('total-research').textContent = formatShortScale(totalResearchPoints);
     
     document.getElementById('currentAchievementCount').textContent = achievements.filter(a => a.unlocked).length;
@@ -217,6 +223,7 @@ function updateStats() {
     displayUpgrades();
     displayReports();
     displayArena();
+    displayStockMarket();
 }
 
 function createFallingWord(word) {
