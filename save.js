@@ -12,6 +12,8 @@ let arenaGoldMedals = 0;
 let arenaBeatNormal = 0;
 let arenaBeatHard = 0;
 let arenaBeatVeryHard = 0;
+let stockProfitDollars = 0; // Profit in dollars
+let stockProfitKeystrokes = 0; // Profit in keystrokes
 let wpm = 0;
 
 function saveGame() {
@@ -36,6 +38,8 @@ function saveGame() {
         arenaBeatVeryHard,
         finishRaceBoostRemaining,
         championArenaBuffRemaining,
+        stockProfitDollars,
+        stockProfitKeystrokes,
         buildings: buildings.map(building => ({ id: building.id, level: building.level, totalProduce: building.totalProduce })),
         upgrades: upgrades.map(upgrade => ({ id: upgrade.id, unlocked: upgrade.unlocked })),
         achievements: achievements.map(achievement => ({ id: achievement.id, unlocked: achievement.unlocked })),
@@ -72,6 +76,8 @@ function loadGame() {
         arenaBeatVeryHard = savedData.arenaBeatVeryHard || 0;
         let finishRaceBoostRemaining = savedData.finishRaceBoostRemaining || 0;
         let championArenaBuffRemaining = savedData.championArenaBuffRemaining || 0;
+        stockProfitDollars = savedData.stockProfitDollars || 0;
+        stockProfitKeystrokes = savedData.stockProfitKeystrokes || 0;
         savedData.buildings.forEach(savedBuilding => {
             const building = buildings.find(b => b.id === savedBuilding.id);
             if (building) {
@@ -152,7 +158,12 @@ function loadGame() {
             keystrokesBank += offlineProduction;
             totalKeystrokes += offlineProduction;
             cashEarnedBuildings += offlineProduction;
-            showNotification(`<p><strong>Offline Earnings:</strong> <img src="images/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin">${offlineProduction.toFixed(2)} from Cyber Cafes!</p>`);
+            showNotification(
+                `<h1>Welcome back!</h1>
+                <h2>Offline Earnings</h2>`,
+                `<p><strong>Offline Earnings:</strong> <img src="images/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin">${offlineProduction.toFixed(2)} from Cyber Cafes!</p>`,
+                `url('images/tooltips/buildings/${CyberCafe.id}.jpg')`
+            );
         }
     }
 }

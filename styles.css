@@ -332,10 +332,31 @@ button:disabled {
     justify-content: space-between;
 }
 .achievement {
+    background-size: cover;
+    background-position: center; 
+    background-repeat: no-repeat;
     padding: 0.625rem;
     margin: 0.313rem 0;
     border: 1px solid #8B4513; 
     border-radius: 5px;
+    color: #FFF5E1;
+    height: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.achievement div {
+    background-color: #1d1d1dd8; 
+    padding: 5px;
+    border-radius: 5px;
+}
+.achievement-trivia {
+    font-style: italic;
+    font-size: 0.85rem;
+    background-color: rgb(193 255 154);
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid rgb(0, 0, 0, 0.5);
 }
 .owned-upgrade, .upgrade {
     background-size: cover;
@@ -360,10 +381,12 @@ button:disabled {
 .achievement.unlocked {
     background-color: #E0FFE0; /* Light green for unlocked */
     border-color: #4caf50;
+    box-shadow: 0 0 10px 2px #4caf50; /* Green glow */
 }
 .achievement.locked {
     background-color: #FFE0E0; /* Light red for locked */
     border-color: #f44336;
+    box-shadow: 0 0 10px 2px #f44336; /* Red glow */
 }
 #achievements-parent, #upgrades-parent, #ownedupgrades-parent, #stats-parent {
     padding: 0.625rem;
@@ -379,19 +402,29 @@ button:disabled {
 */
 /* Notifications */
 #notification-container {
+    
     position: fixed;
     top: 10px;
     left: 10px;
     z-index: 1000;
 }
 .notification {
+    background-size: cover;
+    background-position: center; 
+    background-repeat: no-repeat;
     background-color: #4caf4fb2; 
-    color: white;
-    padding: 0.625rem 1.25rem;
     margin: 5px 0;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    animation: fadeOut 3s ease forwards;
+    color: #fdebc9; 
+    border: 1px solid #8B4513; 
+    border-radius: 10px;
+    padding: 0.625rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.7);
+    animation: fadeOut 7s ease forwards;
+    max-width: 35rem;
+    word-wrap: break-word;
+    white-space: normal;
+    z-index: 10;
 }
 @keyframes fadeOut {
     0% {
@@ -434,7 +467,7 @@ button:disabled {
     word-wrap: break-word;
     white-space: normal;
 }
-.tooltip-body {
+.tooltip-body, .notification-body {
     border: 1px solid rgb(0 0 0);
     box-shadow: 0 0px 2px 1px rgb(0 0 0 / 75%);
 }
@@ -452,20 +485,20 @@ button:disabled {
     color: #dbdbdb;
     font-style: italic;
 }
-.tooltip-header {
+.tooltip-header, .notification-header {
     background-color: #1d1d1dd8; 
     padding: 0.625rem;
     border-bottom: 2px solid #8B4513;
 }
-.tooltip-header h1 {
+.tooltip-header h1, .notification-header h1 {
     font-size: 1.5rem;
     margin-bottom: 0.313rem;
 }
-.tooltip-header h2 {
+.tooltip-header h2, .notification-header h2 {
     font-size: 1rem;
     margin-top: 0;
 }
-.tooltip-section {
+.tooltip-section, .notification-section {
     padding: 0.625rem;
     background-color: #1d1d1dd8; 
 }
@@ -819,8 +852,8 @@ button:disabled {
 
 /* Container for the entire stock market section */
 #stock-market-container {
+    font-size: 16px;
     display: flex;
-    flex-wrap: wrap;
     gap: 1rem;            /* Space between stock cards */
     padding: 1rem;
     margin: 0 auto;       /* Center the container horizontally */
@@ -831,34 +864,41 @@ button:disabled {
   
   /* Each individual stock card */
   .stock {
-    background-color: #FFF5E1; /* Light beige background */
+    background-size: cover;
+    background-position: center; 
+    background-repeat: no-repeat;
+    background-color: #3E2723; /* Dark brown background */
     border: 1px solid #8B4513; /* Dark brown border */
     border-radius: 6px;
     padding: 1rem;
-    width: 200px;         /* Fixed width for each card */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 220px; /* Fixed width for each card */         
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  .stock-info {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #8B4513;
+    background-color: rgb(24 22 18 / 90%); /* Transparent overlay over background image */
   }
   
   /* Stock name styling */
   .stock h3 {
     margin-top: 0;
     margin-bottom: 0.5rem;
-    font-size: 1.2rem;
-    color: #4B2E39; /* Deep brown color */
+    font-size: 19.2px;
+    color: #FFD700; /* Gold color */
   }
   
   /* Price and owned styling */
   .stock p {
     margin: 0.25rem 0;
-    font-size: 1rem;
-    color: #4B2E39; /* Deep brown color */
+    color: #FFD700; /* Gold color */
   }
   
   /* Container for the buy/sell buttons and label */
   .stock-buttons {
     display: flex;
     align-items: center;
-    margin: 0.5rem 0;
   }
   
   /* “Buy” or “Sell” label */
@@ -867,24 +907,23 @@ button:disabled {
     margin-right: 0.5rem;
     font-weight: bold;
     min-width: 40px;
-    color: #4B2E39; /* Deep brown color */
+    color: #FFD700; /* Gold color */
   }
   
   /* Style for the actual buttons */
   .stock-buttons button {
-    margin-right: 0.5rem;
-    padding: 0.3rem 0.5rem;
+    padding: 5px 8px;
     cursor: pointer;
-    background-color: #D2B48C; /* Light brown background */
+    background-color: #5C4033; /* Coffee brown background */
     border: 1px solid #8B4513; /* Dark brown border */
     border-radius: 4px;
-    font-size: 0.9rem;
+    font-size: 12px;
     transition: background-color 0.2s ease;
-    color: #4B2E39; /* Deep brown color */
+    color: #FFD700; /* Gold color */
   }
   
   .stock-buttons button:hover:not(:disabled) {
-    background-color: #C19A6B; /* Darker light brown on hover */
+    background-color: #4E342E; /* Darker coffee brown on hover */
   }
   
   .stock-buttons button:disabled {

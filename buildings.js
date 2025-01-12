@@ -206,6 +206,7 @@ const StockMarket = {
     lockedicon: "images/stock-market-locked-icon.png",
 };
 
+
 const buildings = [
     AutoWriter, Printer, ResearchLab, CyberCafe, ServerFarm, TypingArena, ITOffice, StockMarket
 ];
@@ -249,8 +250,7 @@ function initBuildings() {
 function displayBuildings() {
     const buildingsContainer = document.getElementById('buildings-container');
     const researchContainer = document.getElementById('upgrades-parent');
-    const wordleGame = document.getElementById('wordle-game'); // Select the Wordle game div
-
+    
     
     if(ResearchLab.level == 0) {
         researchContainer.style.display = 'none';
@@ -266,12 +266,6 @@ function displayBuildings() {
         }
         updateBuildingElement(buildingElement, building);
     });
-
-    if (AutoWriter.level > 0) {
-        wordleGame.style.display = 'block';
-    } else {
-        wordleGame.style.display = 'none';
-    }
 }
 
 function updateBuildingElement(buildingElement, building) {

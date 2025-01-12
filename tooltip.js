@@ -26,7 +26,7 @@ function setToolTipPos(element) {
     const tooltipWidth = tooltip.offsetWidth;
     const windowHeight = window.innerHeight;
     const windowWidth = window.innerWidth;
-
+    
     // Calculate potential positions
     const topPosition = rect.top - tooltipHeight;
     const bottomPosition = rect.bottom;
@@ -37,7 +37,7 @@ function setToolTipPos(element) {
         Math.max(centeredLeftPosition, 0),
         windowWidth - tooltipWidth
     );
-
+    
     // Determine vertical placement (above or below)
     if (topPosition >= 0) {
         tooltip.style.top = `${topPosition}px`;
@@ -153,7 +153,7 @@ function showWordleTutorialTooltip(element) {
     tooltip.classList.add('visible');
 }
 function showStockBuyTooltip(element, count, stock) {
-    tooltip.style.backgroundImage = `url("images/tooltips/buildings/${StockMarket.id}.jpg")`;
+    tooltip.style.backgroundImage = `url("${stock.icon}")`;
     tooltipHead.innerHTML = `
     <h1>${stock.name}</h1>
     <h2>Buy Stocks</h2>`;
@@ -163,13 +163,28 @@ function showStockBuyTooltip(element, count, stock) {
     tooltip.classList.add('visible');
 }
 function showStockSellTooltip(element, count, stock) {
-    tooltip.style.backgroundImage = `url("images/tooltips/buildings/${StockMarket.id}.jpg")`;
+    tooltip.style.backgroundImage = `url("${stock.icon}")`;
     tooltipHead.innerHTML = `
     <h1>${stock.name}</h1>
     <h2>Sell Stocks</h2>`;
     tooltipSection.innerHTML = `
     <p>Sell ${count} stocks for $${formatShortScale(count * stock.price)} (<img src="images/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin">${formatShortScale(dollarsToKeystrokes(count * stock.price))})</p>`;
     setToolTipPos(element); 
+    tooltip.classList.add('visible');
+}
+function showAchievementTooltip(element, achievement) {
+    if(achievement.unlocked) {
+        tooltip.style.backgroundImage = `url("images/tooltips/achievements/${achievement.id}.webp")`;
+        tooltipHead.innerHTML = `<h1>${achievement.name}</h1>`;
+        tooltipSection.innerHTML = `
+    <p>${achievement.description}</p>
+    <p class="trivia">"${achievement.trivia}"</p>`;
+    } else {
+        tooltip.style.backgroundImage = `url("images/tooltips/achievements/0.webp")`;
+        tooltipHead.innerHTML = `<h1>Hidden Achievement</h1>`;
+        tooltipSection.innerHTML = `<p>Unlock this achievement to reveal it.</p>`;
+    }
+    setToolTipPos(element);
     tooltip.classList.add('visible');
 }
 

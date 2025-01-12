@@ -282,18 +282,24 @@ function generateFallingWords() {
     }
 }
 
-function showNotification(message) {
+function showNotification(head, message, background) {
     const container = document.getElementById('notification-container');
     const notification = document.createElement('div');
     notification.className = 'notification';
-    notification.innerHTML = message;
+    notification.style.backgroundImage = background;
+    notification.innerHTML = `
+    <div class="notification-body">
+        <div class="notification-header">${head}</div>
+        <div class="notification-section">${message}</div>
+    </div>
+    `;
     
     container.appendChild(notification);
     
     // Remove the notification after it fades out
     setTimeout(() => {
         container.removeChild(notification);
-    }, 3000); // 3 seconds
+    }, 7000);
 }
 
 function formatShortScale(number) {
