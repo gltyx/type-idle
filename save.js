@@ -55,10 +55,14 @@ function saveGame() {
         }
     };
     localStorage.setItem('typingGameSaveV3', JSON.stringify(gameData));
+    return gameData;
 }
 
-function loadGame() {
-    const savedData = JSON.parse(localStorage.getItem('typingGameSaveV3'));
+function loadLocalSave() {
+    loadGame(JSON.parse(localStorage.getItem('typingGameSaveV3')));
+}
+
+function loadGame(savedData) {
     if (savedData) {
         totalKeystrokes = savedData.totalKeystrokes;
         manualKeystrokes = savedData.manualKeystrokes;
@@ -165,6 +169,8 @@ function loadGame() {
                 `url('images/tooltips/buildings/${CyberCafe.id}.jpg')`
             );
         }
+    } else {
+        console.log('No save data found.');
     }
 }
 
@@ -173,3 +179,33 @@ function resetGame() {
     localStorage.removeItem('typingGameSaveV3');
     location.reload();
 }
+
+document.getElementById('export-button').addEventListener('click', () => {
+    const saveData = JSON.stringify(saveGame());
+    const blob = new Blob([saveData], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'typeidle_save.json';
+    a.click();
+    URL.revokeObjectURL(url);
+});
+
+document.getElementById('import-button').addEventListener('click', () => {
+    document.getElementById('import-file').click();
+});
+
+document.getElementById('import-file').addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            autosave = false;
+            const saveData = JSON.parse(e.target.result);
+            loadGame(saveData);
+            saveGame();
+            location.reload();
+        };
+        reader.readAsText(file);
+    }
+});

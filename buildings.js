@@ -326,4 +326,7 @@ function generateKeystrokesAndResearchFromBuildings() {
 
     updateStats();
     wordsToGenerate += totalProduction / 5; // 5 keystrokes per word
+    if(wordsToGenerate >= 2) {
+        wordsToGenerate = 2;
+    }
 }

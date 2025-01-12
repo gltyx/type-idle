@@ -3,7 +3,7 @@ const achievements = [
         id: 1,
         name: "First Steps",
         description: "Reach 100 keystrokes.",
-        trivia: "The average person types at 40 words per minute, which is about 200 keystrokes per minute. This achievement is about 30 seconds of typing for the average person.",
+        trivia: "You're just getting started!",
         unlocked: false,
         condition: () => totalKeystrokes >= 100
     },

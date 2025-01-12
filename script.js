@@ -34,8 +34,7 @@ const tabs = {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-    loadGame(); // Load saved game data
-    
+    loadLocalSave(); // Load saved game data
     // Initialize the words to type from words.js
     for (let i = 0; i < 30; i++) {
         wordsToType.push(getRandomWord());
@@ -315,12 +314,12 @@ function formatShortScale(number) {
     ];
     const tier = Math.floor(Math.log10(Math.abs(number)) / 3); // Determine the tier (1000^tier)
 
-    if (tier === 0 || number < 1000) return number.toFixed(1); // For numbers below 1000, return as is
+    if (tier === 0 || number < 1000) return number.toFixed(2); // For numbers below 1000, return as is
 
     const scaled = number / Math.pow(10, tier * 3); // Scale the number to its tier
     const suffix = suffixes[tier] || `e${tier * 3}`; // Fallback to scientific notation for very large numbers
 
-    return `${scaled.toFixed(1).replace(/\.0$/, '')} ${suffix}`; // Format with one decimal, remove .0 if unnecessary
+    return `${scaled.toFixed(2)} ${suffix}`; // Format with one decimal, remove .0 if unnecessary
 }
 
 function switchTab(activeTab) {
