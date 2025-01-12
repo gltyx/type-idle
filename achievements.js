@@ -67,7 +67,7 @@ const achievements = [
         id: 9,
         name: "Research Pioneer",
         description: "Own 10 Research Labs.",
-        trivia: "Lab coat not included.",
+        trivia: "e=mc^2",
         unlocked: false,
         condition: () => ResearchLab.level >= 10
     },
@@ -75,7 +75,7 @@ const achievements = [
         id: 10,
         name: "Cyber Cafe Manager",
         description: "Own 5 Cyber Cafes.",
-        trivia: "Free Wi-Fi included.",
+        trivia: "Quickest internet in town!",
         unlocked: false,
         condition: () => CyberCafe.level >= 5
     },
@@ -83,7 +83,7 @@ const achievements = [
         id: 11,
         name: "Server Farm Lord",
         description: "Own 3 Server Farms.",
-        trivia: "It's not a real farm.",
+        trivia: "Zettabytes of data!",
         unlocked: false,
         condition: () => ServerFarm.level >= 3
     },

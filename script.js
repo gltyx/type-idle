@@ -33,7 +33,7 @@ const tabs = {
     }
 };
 
-document.addEventListener('DOMContentLoaded', () => {
+function initGame() {
     loadLocalSave(); // Load saved game data
     // Initialize the words to type from words.js
     for (let i = 0; i < 30; i++) {
@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('toggle-skip-mistake').checked = skipOnMistake;
     //==========================================
     sendHeartbeat(); // send the first heartbeat
-});
+}
 
 document.getElementById('input-box').addEventListener('input', function() {
     const inputBox = document.getElementById('input-box');

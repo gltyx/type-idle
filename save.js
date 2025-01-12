@@ -122,6 +122,7 @@ function loadGame(savedData) {
         if (savedData.wordle) {
             currentWordleWord = savedData.wordle.currentWord || "";
             wordleBoostRemaining = savedData.wordle.boostEndTime || 0;
+            wordleUIState = "load";
             if(wordleBoostRemaining > 0) {
                 modifiers.push({
                     name: "Wordle Boost",
@@ -165,7 +166,7 @@ function loadGame(savedData) {
             showNotification(
                 `<h1>Welcome back!</h1>
                 <h2>Offline Earnings</h2>`,
-                `<p><strong>Offline Earnings:</strong> <img src="images/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin">${offlineProduction.toFixed(2)} from Cyber Cafes!</p>`,
+                `<p><strong>Offline Earnings:</strong> <img src="images/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin">${formatShortScale(offlineProduction)} from Cyber Cafes!</p>`,
                 `url('images/tooltips/buildings/${CyberCafe.id}.jpg')`
             );
         }
@@ -202,8 +203,7 @@ document.getElementById('import-file').addEventListener('change', (event) => {
         reader.onload = (e) => {
             autosave = false;
             const saveData = JSON.parse(e.target.result);
-            loadGame(saveData);
-            saveGame();
+            localStorage.setItem('typingGameSaveV3', JSON.stringify(saveData));
             location.reload();
         };
         reader.readAsText(file);

@@ -16,7 +16,38 @@ body {
     justify-content: center; 
     align-items: center;
 }
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #ffffffc2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 1000;
+    transition: opacity 0.5s;
+}
 
+#top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 2px;
+    height: 20px;
+    background-color: #5c4033be;
+    color: #fdebc9;
+}
+#top-bar * {
+    margin: 0;
+}
+#top-bar a {
+    color: #ffb428;
+    text-decoration: none;
+}
 /* Main Container */
 #main-container {
     display: flex;
