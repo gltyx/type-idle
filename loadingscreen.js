@@ -9,7 +9,7 @@ const imagesToPreload = [
 
 buildings.forEach(building => {
     imagesToPreload.push(building.icon);
-    imagesToPreload.push(building.lockedIcon);
+    imagesToPreload.push(building.lockedicon);
     imagesToPreload.push(`images/tooltips/buildings/${building.id}.jpg`);
 });
 
