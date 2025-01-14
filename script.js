@@ -335,7 +335,7 @@ function switchTab(activeTab) {
 }
 
 function sendHeartbeat() {
-    if(window.location.host !== 'www.typeidle.com') return; // Don't send heartbeats in development
+    if(window.location.host !== 'www.typeidle.com' && window.location.host !== 'typeidle.com') return; // Don't send heartbeats in development
     fetch('heartbeat.php', {
         method: 'POST',
         credentials: 'same-origin'
