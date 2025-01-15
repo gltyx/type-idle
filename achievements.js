@@ -174,6 +174,14 @@ const achievements = [
         trivia: "You're a stock market genius!",
         unlocked: false,
         condition: () => stockProfitDollars >= 100000
+    },
+    {
+        id: 23,
+        name: "Golden Scoop",
+        description: "Click on a golden news article.",
+        trivia: "Not all that glitters is gold, except when it's a news article! You've uncovered a golden opportunity and clicked your way to success.",
+        unlocked: false,
+        condition: () => goldNewsClicks > 0
     }
 ];
 
@@ -184,9 +192,6 @@ function checkAchievements() {
             playAchievementSound();
             displayAchievements();
             showAchievement(achievement);
-            //showNotification(`
-            //    <p><strong>Achievement Unlocked: ${achievement.name}</strong></p>
-            //    <p><i>${achievement.description}</i></p>`);
         }
     });
 }

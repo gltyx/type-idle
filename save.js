@@ -14,13 +14,11 @@ let arenaBeatHard = 0;
 let arenaBeatVeryHard = 0;
 let stockProfitDollars = 0; // Profit in dollars
 let stockProfitKeystrokes = 0; // Profit in keystrokes
+let goldNewsClicks = 0;
 let wpm = 0;
 
 function saveGame() {
     lastSave = Date.now();
-    let wordleBoostRemaining = modifiers.find(modifier => modifier.name === "Wordle Boost")?.duration || 0;
-    let finishRaceBoostRemaining = modifiers.find(modifier => modifier.name === "Race Finish Buff")?.duration || 0;
-    let championArenaBuffRemaining = modifiers.find(modifier => modifier.name === "Champion of the Arena")?.duration || 0;
     const gameData = {
         totalKeystrokes,
         manualKeystrokes,
@@ -36,10 +34,9 @@ function saveGame() {
         arenaBeatNormal,
         arenaBeatHard,
         arenaBeatVeryHard,
-        finishRaceBoostRemaining,
-        championArenaBuffRemaining,
         stockProfitDollars,
         stockProfitKeystrokes,
+        goldNewsClicks,
         buildings: buildings.map(building => ({ id: building.id, level: building.level, totalProduce: building.totalProduce })),
         upgrades: upgrades.map(upgrade => ({ id: upgrade.id, unlocked: upgrade.unlocked })),
         achievements: achievements.map(achievement => ({ id: achievement.id, unlocked: achievement.unlocked })),
@@ -49,9 +46,12 @@ function saveGame() {
             owned: stock.owned,
             history: stock.history
         })),
+        buffs: modifiers.filter(mod => mod.duration).map(mod => ({
+            boostID: mod.boostID,
+            duration: mod.duration
+        })),
         wordle: {
-            currentWord: currentWordleWord,
-            boostEndTime: wordleBoostRemaining
+            currentWord: currentWordleWord
         }
     };
     localStorage.setItem('typingGameSaveV3', JSON.stringify(gameData));
@@ -78,10 +78,9 @@ function loadGame(savedData) {
         arenaBeatNormal = savedData.arenaBeatNormal || 0;
         arenaBeatHard = savedData.arenaBeatHard || 0;
         arenaBeatVeryHard = savedData.arenaBeatVeryHard || 0;
-        let finishRaceBoostRemaining = savedData.finishRaceBoostRemaining || 0;
-        let championArenaBuffRemaining = savedData.championArenaBuffRemaining || 0;
         stockProfitDollars = savedData.stockProfitDollars || 0;
         stockProfitKeystrokes = savedData.stockProfitKeystrokes || 0;
+        goldNewsClicks = savedData.goldNewsClicks || 0;
         savedData.buildings.forEach(savedBuilding => {
             const building = buildings.find(b => b.id === savedBuilding.id);
             if (building) {
@@ -121,40 +120,14 @@ function loadGame(savedData) {
         // Load Wordle state
         if (savedData.wordle) {
             currentWordleWord = savedData.wordle.currentWord || "";
-            wordleBoostRemaining = savedData.wordle.boostEndTime || 0;
             wordleUIState = "load";
-            if(wordleBoostRemaining > 0) {
-                modifiers.push({
-                    name: "Wordle Boost",
-                    description: "Doubles production from Auto Writers and manually typed words.",
-                    affectedBuildings: [0, AutoWriter.id], // 0 for manually typed words
-                    multiplier: 2,
-                    duration: wordleBoostRemaining
-                  });
-            }
         }
         
-        if(finishRaceBoostRemaining > 0) {
-            modifiers.push({
-                name: "Race Finish Buff",
-                description: "",
-                affectedBuildings: [],
-                multiplier: 1,
-                duration: finishRaceBoostRemaining
+        if (savedData.buffs) {
+            savedData.buffs.forEach(savedBuff => {
+                spawnBoost(savedBuff.boostID, savedBuff.duration);
             });
         }
-
-        if(championArenaBuffRemaining > 0) {
-            modifiers.push({
-                name: "Champion of the Arena",
-                description: "",
-                affectedBuildings: [0, AutoWriter.id],
-                multiplier: 2,
-                KPStoManual: 0.01,
-                duration: championArenaBuffRemaining
-            }); 
-        }
-
         
         const now = Date.now();
         const offlineTime = (now - (savedData.lastSave || now)) / 1000;

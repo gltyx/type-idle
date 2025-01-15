@@ -33,13 +33,19 @@
     <audio id="achievementSound" src="sounds/item_pickup.mp3"></audio>
     <audio id="winSound" src="sounds/win.mp3"></audio>
     <audio id="loseSound" src="sounds/lose.mp3"></audio>
+    <audio id="clickSound" src="sounds/click.mp3"></audio>
+    <audio id="menuSound1" src="sounds/menu_switch.mp3"></audio>
+    <audio id="menuSound2" src="sounds/menu_switch.mp3"></audio>
+    <audio id="menuSound3" src="sounds/menu_switch.mp3"></audio>
     <div id="loading-screen">
         <h1>Loading... <span id="load-progress">0%</span></h1>
         <div id="loader"></div>
     </div>
     <div id="top-bar">
         <p>
-            TypeIdle.com - Typing Idle Game - <a href="https://www.youtube.com/@santtuz112" target="_blank">YouTube</a> - <a href="https://github.com/santtuz112/TypeIdle" target="_blank">GitHub</a>
+            TypeIdle.com - Typing Idle Game - 
+            <a href="https://www.youtube.com/@santtuz112" target="_blank">YouTube</a> - 
+            <a href="https://github.com/santtuz112/TypeIdle" target="_blank">GitHub</a>
         </p>
     </div>
     <div id="main-container">
@@ -78,6 +84,11 @@
             </div>
             <div id="gamePage">
                 <div id="game-container">
+                    <div id="news-container" style="display: none;">
+                    </div>
+                    <div id="buffs-container">
+                        
+                    </div>
                     <h1 id="game-title">Typing Idle Game</h1>
                     <div id="typing-panel">
                         <p style="text-align: center;"><img src="images/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"><span id="keystrokes-bank">0</span></p>
@@ -190,14 +201,15 @@
         <script src="audio.js"></script>
         <script src="save.js"></script> 
         <script src="words.js"></script> 
-        <script src="upgrades.js"></script>
-        <script src="buildings.js"></script>    
+        <script src="buildings.js"></script>  
         <script src="achievements.js"></script>
         <script src="arena.js"></script>
         <script src="reports.js"></script>
         <script src="wordle.js"></script>
         <script src="stockmarket.js"></script>
         <script src="script.js"></script>
+        <script src="upgrades.js"></script>  
+        <script src="news.js"></script>
         <script src="loadingscreen.js"></script>
     </body>
     </html>

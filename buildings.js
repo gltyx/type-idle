@@ -205,10 +205,31 @@ const StockMarket = {
     icon: "images/stock-market-icon.png",
     lockedicon: "images/stock-market-locked-icon.png",
 };
+const MagazinePublisher = {
+    id: 9,
+    name: "Magazine Publisher",
+    description: "Publishes typing magazines.",
+    trivia: "The only magazine about typing.",
+    lockdescription: "Unlocks at 500,000 total keystrokes.",
+    special: "Publishes news every 20 seconds. Some news are golden. Clicking on golden news gives a temporary boost.",
+    unlockCondition: () => totalKeystrokes >= 500000,
+    locked: true,
+    getCost: () => 500000 * Math.pow(MagazinePublisher.level + 1, 2) * Math.log(MagazinePublisher.level + 2) * (ITOffice.level > 0 ? Math.pow(0.99, ITOffice.level) : 1),
+    baseProduce: 500,
+    getProduceSingle: () => {
+        return applyModifiers(MagazinePublisher.id, MagazinePublisher.baseProduce);
+    },
+    getProduce: () => MagazinePublisher.getProduceSingle() * MagazinePublisher.level,
+    level: 0,
+    totalProduce: 0,
+    icon: "images/magazine-publisher-icon.png",
+    lockedicon: "images/magazine-publisher-locked-icon.png",
+}
+
 
 
 const buildings = [
-    AutoWriter, Printer, ResearchLab, CyberCafe, ServerFarm, TypingArena, ITOffice, StockMarket
+    AutoWriter, Printer, ResearchLab, CyberCafe, ServerFarm, TypingArena, ITOffice, StockMarket, MagazinePublisher
 ];
 
 
@@ -270,10 +291,12 @@ function displayBuildings() {
 
 function updateBuildingElement(buildingElement, building) {
     if (building.locked) {
-        buildingElement.innerHTML = `<img src="${building.lockedicon}" class="icon">???`;
+        const newHtml = `<img src="${building.lockedicon}" class="icon">???`;
+        if(buildingElement.innerHTML !== newHtml) buildingElement.innerHTML = newHtml;
         buildingElement.disabled = true;
     } else {
-        buildingElement.innerHTML = `<span>Purchase ${building.name}</span><img src="${building.icon}" class="icon"><span><img src="images/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"> ${formatShortScale(building.getCost())}</span> <span>${building.level}x owned</span>`;
+        const newHtml = `<span>Purchase ${building.name}</span><img src="${building.icon}" class="icon"><span><img src="images/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"> ${formatShortScale(building.getCost())}</span> <span>${building.level}x owned</span>`;
+        if(buildingElement.innerHTML !== newHtml) buildingElement.innerHTML = newHtml;
         buildingElement.disabled = building.getCost() > keystrokesBank;
     }
 }

@@ -8,6 +8,7 @@ function playSound(soundId)
 
 let currentTypeTrack = 1;
 let currentBuyTrack = 1;
+let currentMenuTrack = 1;
 function playTypeSound() {
     playSound(`typeSound${currentTypeTrack}`);
     currentTypeTrack++;
@@ -23,8 +24,18 @@ function playBuySound() {
         currentBuyTrack = 1;
     }
 }
+function playMenuSound() {
+    playSound(`menuSound${currentMenuTrack}`);
+    currentMenuTrack++;
+    if(currentMenuTrack > 3) {
+        currentMenuTrack = 1;
+    }
+}
 function playTypoSound() {
     playLoseSound();
+}
+function playClickSound() {
+    playSound("clickSound");
 }
 function playAchievementSound() {
     playSound("achievementSound");

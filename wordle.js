@@ -1,21 +1,7 @@
 let currentWordleWord = "";
-//let wordleActive = false;
 let wordleBoostRemaining = 0;
 let currentGuessCount = 0;
 const maxGuesses = 5;
-/*
-function startWordle() {
-  if (wordleActive) return;
-  
-  wordleActive = true;
-  currentWordleWord = getRandomWord();
-  while (currentWordleWord.length > 5) {
-    currentWordleWord = getRandomWord();
-  }
-  currentGuessCount = 0;
-  initWordle();
-}
-*/
 let wordleUIState = "";
 
 function displayWordle() {
@@ -159,46 +145,5 @@ function prepareNextRow() {
 }
 function activateWordleBoost() {
   wordlesSolved++;
-  //wordleBoostRemaining = Tickrate * 3 * 60; // 3 minutes
-  modifiers.push({
-    name: "Wordle Boost",
-    description: "Doubles production from Auto Writers and manually typed words.",
-    affectedBuildings: [0, AutoWriter.id], // 0 for manually typed words
-    multiplier: 2,
-    duration: Tickrate * 3 * 60
-  });
+  spawnBoost(0);
 }
-/*
-function activateWordleBoost() {
-  wordlesSolved++;
-  const wordleGame = document.getElementById('wordle-game');
-  wordleBoostRemaining = Tickrate * 3 * 60; // 3 minutes
-  modifiers.push({
-    name: "Wordle Boost",
-    description: "Doubles production from Auto Writers and manually typed words.",
-    affectedBuildings: [0, AutoWriter.id], // 0 for manually typed words
-    multiplier: 2
-  });
-  wordleGame.classList.add('boost-active');
-}
-
-function checkWorldeBuff() {
-  const wordleGame = document.getElementById('wordle-game');
-  const wordleBoost = document.getElementById('wordle-boost-remaining');
-  if (!wordleActive) {
-    wordleBoostRemaining--;
-    if (wordleBoostRemaining < 0) {
-      // remove wordle boost.
-      const index = modifiers.findIndex(modifier => modifier.name === "Wordle Boost");
-      if (index !== -1) {
-        modifiers.splice(index, 1);
-      }
-      wordleGame.classList.remove('boost-active');
-      wordleBoost.innerText = "";
-      startWordle();
-    } else {
-      wordleBoost.innerText = `Boost remaining: ${(wordleBoostRemaining / Tickrate).toFixed(0)}s`;
-    }
-  }
-}
-*/

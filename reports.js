@@ -103,8 +103,8 @@ function displayReports() {
                     <ul>${modifiersDetails}</ul>
                     <p><strong>Total Multiplier:</strong> ${totalMultiplier.toFixed(2)}x</p>
                     <hr>
-                    <p><strong>Single Production:</strong> ${singleProduce.toFixed(2)} keystrokes/second</p>
-                    <p><strong>Total Production:</strong> ${totalProduction.toFixed(2)} keystrokes/second</p>
+                    <p><strong>Single Production:</strong> ${formatShortScale(singleProduce)} keystrokes/second</p>
+                    <p><strong>Total Production:</strong> ${formatShortScale(totalProduction)} keystrokes/second</p>
                     </div>
                     `;
                 
@@ -192,7 +192,7 @@ function updateManualReport() {
         <ul>${modifiersDetails}</ul>
         <p><strong>Total Multiplier:</strong> ${totalMultiplier.toFixed(2)}x</p>
         <hr>
-        <p><strong>Value after multiplier modifiers:</strong> ${modifiedManualKeystrokeValue.toFixed(2)} keystrokes</p>
+        <p><strong>Value after multiplier modifiers:</strong> ${formatShortScale(modifiedManualKeystrokeValue)} keystrokes</p>
         </div>
         `;
     if(manualIncomeReport.innerHTML != newHTML) {

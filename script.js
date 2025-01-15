@@ -223,6 +223,8 @@ function updateStats() {
     displayReports();
     displayArena();
     displayStockMarket();
+    displayNews();
+    displayBuffs();
 }
 
 function createFallingWord(word) {
@@ -332,6 +334,7 @@ function switchTab(activeTab) {
             tabs[key].tab.classList.remove("active");
         }
     }
+    playMenuSound();
 }
 
 function sendHeartbeat() {

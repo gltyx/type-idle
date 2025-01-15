@@ -248,23 +248,9 @@ function triggerWinEffect() {
 }
 
 function applyRaceFinishBuff() {
-    modifiers.push({
-        name: "Race Finish Buff",
-        description: "",
-        affectedBuildings: [],
-        multiplier: 1,
-        duration: 5 * 60 * Tickrate
-    });
-    
+    spawnBoost(1);
 }
 
 function applyArenaChampionBuff() {
-    modifiers.push({
-        name: "Champion of the Arena",
-        description: "",
-        affectedBuildings: [0, AutoWriter.id],
-        multiplier: 2,
-        KPStoManual: 0.01,
-        duration: 5 * 60 * Tickrate
-    }); 
+    spawnBoost(2);
 }

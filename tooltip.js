@@ -19,7 +19,10 @@ document.body.appendChild(tooltip);
 function hideTooltip() {
     tooltip.classList.remove('visible');
 }
-
+/**
+ * This prefers to position the tooltip above the element, then below, then left, then right.
+ * @param {*} element The element to position the tooltip relative to
+ */
 function setToolTipPos(element) {
     const rect = element.getBoundingClientRect();
     const tooltipHeight = tooltip.offsetHeight;
@@ -60,6 +63,94 @@ function setToolTipPos(element) {
     }
 }
 
+/**
+ * This prefers to position the tooltip left of the element, then right, then above, then below.
+ * @param {*} element The element to position the tooltip relative to
+ */
+function setToolTipPos2(element) {
+    const rect = element.getBoundingClientRect();
+    const tooltipHeight = tooltip.offsetHeight;
+    const tooltipWidth = tooltip.offsetWidth;
+    const windowHeight = window.innerHeight;
+    const windowWidth = window.innerWidth;
+    
+    // Calculate potential positions
+    const leftPosition = rect.left - tooltipWidth;
+    const rightPosition = rect.right;
+    const topPosition = rect.top - tooltipHeight;
+    const bottomPosition = rect.bottom;
+    const centeredTopPosition = rect.top + (rect.height / 2) - (tooltipHeight / 2);
+    const clampedTopPosition = Math.min(
+        Math.max(centeredTopPosition, 0),
+        windowHeight - tooltipHeight
+    );
+    
+    // Determine horizontal placement (left or right)
+    if (leftPosition >= 0) {
+        tooltip.style.top = `${clampedTopPosition}px`;
+        tooltip.style.left = `${leftPosition}px`;
+    } else if (rightPosition + tooltipWidth <= windowWidth) {
+        tooltip.style.top = `${clampedTopPosition}px`;
+        tooltip.style.left = `${rightPosition}px`;
+    } else if (topPosition >= 0) {
+        // If it doesn't fit left or right, try to position above
+        tooltip.style.top = `${topPosition}px`;
+        tooltip.style.left = `${rect.left + (rect.width / 2) - (tooltipWidth / 2)}px`;
+    } else if (bottomPosition + tooltipHeight <= windowHeight) {
+        // If it doesn't fit above, try below
+        tooltip.style.top = `${bottomPosition}px`;
+        tooltip.style.left = `${rect.left + (rect.width / 2) - (tooltipWidth / 2)}px`;
+    } else {
+        // Default to showing it right of the element if no other options fit
+        tooltip.style.top = `${clampedTopPosition}px`;
+        tooltip.style.left = `${rightPosition}px`;
+    }
+}
+
+/**
+ * This prefers to position the tooltip right of the element, then left, then above, then below.
+ * @param {*} element The element to position the tooltip relative to
+ */
+function setToolTipPos3(element) {
+    const rect = element.getBoundingClientRect();
+    const tooltipHeight = tooltip.offsetHeight;
+    const tooltipWidth = tooltip.offsetWidth;
+    const windowHeight = window.innerHeight;
+    const windowWidth = window.innerWidth;
+    
+    // Calculate potential positions
+    const rightPosition = rect.right;
+    const leftPosition = rect.left - tooltipWidth;
+    const topPosition = rect.top - tooltipHeight;
+    const bottomPosition = rect.bottom;
+    const centeredTopPosition = rect.top + (rect.height / 2) - (tooltipHeight / 2);
+    const clampedTopPosition = Math.min(
+        Math.max(centeredTopPosition, 0),
+        windowHeight - tooltipHeight
+    );
+    
+    // Determine horizontal placement (right or left)
+    if (rightPosition + tooltipWidth <= windowWidth) {
+        tooltip.style.top = `${clampedTopPosition}px`;
+        tooltip.style.left = `${rightPosition}px`;
+    } else if (leftPosition >= 0) {
+        tooltip.style.top = `${clampedTopPosition}px`;
+        tooltip.style.left = `${leftPosition}px`;
+    } else if (topPosition >= 0) {
+        // If it doesn't fit right or left, try to position above
+        tooltip.style.top = `${topPosition}px`;
+        tooltip.style.left = `${rect.left + (rect.width / 2) - (tooltipWidth / 2)}px`;
+    } else if (bottomPosition + tooltipHeight <= windowHeight) {
+        // If it doesn't fit above, try below
+        tooltip.style.top = `${bottomPosition}px`;
+        tooltip.style.left = `${rect.left + (rect.width / 2) - (tooltipWidth / 2)}px`;
+    } else {
+        // Default to showing it right of the element if no other options fit
+        tooltip.style.top = `${clampedTopPosition}px`;
+        tooltip.style.left = `${rightPosition}px`;
+    }
+}
+
 function showBuildingTooltip(buildingElement, building) {
     if(building.locked) {
         tooltip.style.backgroundImage = `url("images/tooltips/buildings/locked.jpg")`;
@@ -76,7 +167,7 @@ function showBuildingTooltip(buildingElement, building) {
         <p class="totalproduced">Total produced: ${formatShortScale(building.totalProduce)} keystrokes.</p>
         <p class="trivia">"${building.trivia}"</p>`;
     }
-    setToolTipPos(buildingElement);
+    setToolTipPos2(buildingElement);
     tooltip.classList.add('visible');
 }
 
@@ -86,7 +177,7 @@ function showOwnedUpgradeToolTip(upgradeElement, upgrade) {
     tooltipSection.innerHTML = `
     <p>${upgrade.description}</p>
     <p class="trivia">"${upgrade.trivia}"</p>`;
-    setToolTipPos(upgradeElement);
+    setToolTipPos3(upgradeElement);
     tooltip.classList.add('visible');
 }
 
@@ -184,7 +275,15 @@ function showAchievementTooltip(element, achievement) {
         tooltipHead.innerHTML = `<h1>Hidden Achievement</h1>`;
         tooltipSection.innerHTML = `<p>Unlock this achievement to reveal it.</p>`;
     }
-    setToolTipPos(element);
+    setToolTipPos3(element);
+    tooltip.classList.add('visible');
+}
+
+function showBuffTooltip(element, buff) {
+    tooltip.style.backgroundImage = `url("${buff.icon}")`;
+    tooltipHead.innerHTML = `<h1>${buff.name}</h1>`;
+    tooltipSection.innerHTML = buff.description
+    setToolTipPos(element); 
     tooltip.classList.add('visible');
 }
 

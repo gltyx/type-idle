@@ -1,4 +1,4 @@
-Images generated with Bing image creator.
+Images generated with DALL-E 3
 --
 building purchase
 achievement
@@ -15,3 +15,9 @@ win.mp3 by David819 -- https://freesound.org/s/668436/ -- License: Creative Comm
 --
 arena lose/typo
 Retro You Lose SFX  by suntemple -- https://freesound.org/s/253174/ -- License: Creative Commons 0
+--
+menu switch
+Button Clicking 1 by Sheyvan -- https://freesound.org/s/475188/ -- License: Creative Commons 0
+--
+gold news click
+Click.wav by kwahmah_02 -- https://freesound.org/s/256116/ -- License: Creative Commons 0

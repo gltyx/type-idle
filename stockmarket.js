@@ -180,6 +180,7 @@ function fluctuateStockPrices() {
 }
 
 function buyStock(stockIndex, amount) {
+    playClickSound();
     const stock = stocks[stockIndex];
     const cost = dollarsToKeystrokes(stock.price * amount);
     if (keystrokesBank >= cost && stock.owned + amount <= maxStockOwned) {
@@ -191,6 +192,7 @@ function buyStock(stockIndex, amount) {
 }
 
 function sellStock(stockIndex, amount) {
+    playClickSound();
     const stock = stocks[stockIndex];
     if (stock.owned >= amount) {
         const revenue = dollarsToKeystrokes(stock.price * amount);
