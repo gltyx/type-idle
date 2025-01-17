@@ -16,20 +16,7 @@ body {
     justify-content: center; 
     align-items: center;
 }
-#loading-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background-color: #ffffffc2;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    z-index: 1000;
-    transition: opacity 0.5s;
-}
+
 
 #top-bar {
     position: fixed;
@@ -262,7 +249,9 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    
 }
+
 #stats-panel {
     overflow-y: auto;
     flex: 1;
@@ -320,7 +309,7 @@ body {
 }
 #words-to-type-container, #arena-words-to-type-container {
     position: relative;
-    background-color: #FFF5E1;
+    background-color: #FFFACD; /* Lemon chiffon background color */
     padding: 0.313rem;
     border-radius: 10px;
     border: 1px solid #8B4513;
@@ -341,15 +330,19 @@ body {
     z-index: 2;
 }
 
+
 /* Typing Colors */
 .correct {
     color: #4caf50; /* Green for correct letters */
+    text-shadow: 0 0 10px rgba(76, 175, 80, 0.8); /* Green glow for correct letters */
 }
 .mistake {
     color: #f44336; /* Red for mistakes */
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.8); /* Red glow for mistakes */
 }
 .current {
     color: #4B2E39; /* Deep brown for current letter */
+    text-shadow: 0 0 10px rgba(75, 46, 57, 0.8); /* Deep brown glow for current letter */
 }
 
 /* Buttons */
@@ -458,13 +451,16 @@ button:disabled {
     align-items: center;
     flex-direction: column;
     justify-content: space-between;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+    perspective: 9rem; /* Perspective for 3D effect */
 }
 .icon {
     transition: transform 0.3s ease; /* Smooth transition */
 }
 .building:not(:disabled):hover .icon {
-    transform: scale(1.1);
+    transform: scale(1.1) rotateY(var(--rotateY)) rotateX(var(--rotateX));
 }
+
 .achievement {
     background-size: cover;
     background-position: center; 
@@ -478,6 +474,11 @@ button:disabled {
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: transform 0.3s ease; /* Smooth transition */
+}
+
+.achievement:hover {
+    transform: scale(1.1);
 }
 .achievement div {
     background-color: #1d1d1dd8; 
@@ -543,6 +544,7 @@ button:disabled {
     border-color: #f44336;
     box-shadow: 0 0 10px 2px #f44336; /* Red glow */
 }
+
 #achievements-parent, #upgrades-parent, #ownedupgrades-parent, #stats-parent {
     padding: 0.625rem;
     border: 1px solid #8B4513;
@@ -608,9 +610,9 @@ button:disabled {
     font-size: 0.8rem;
     white-space: nowrap;
     z-index: 10;
-    visibility: hidden;
     opacity: 0;
-    transition: opacity 0.3s;
+    transition: opacity 0.3s, transform 0.1s ease;
+    transform:scale(0) rotate(5deg);
     background-color: #1d1d1d; 
     color: #fdebc9; 
     border: 1px solid #8B4513; 
@@ -627,8 +629,8 @@ button:disabled {
     box-shadow: 0 0px 2px 1px rgb(0 0 0 / 75%);
 }
 .tooltip.visible {
-    visibility: visible;
     opacity: 1;
+    transform:scale(1) rotate(0);
 }
 .production {
     color: #ffe2b6;
@@ -736,6 +738,100 @@ button:disabled {
     display: flex;
     justify-content: center;
     margin-bottom: 5px;
+}
+
+/* Wordle Keyboard */
+
+#wordle-keyboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.wordle-keyboard-row {
+    display: flex;
+    justify-content: center;
+}
+
+.wordle-key {
+    width: 2.5rem;
+    height: 2.5rem;
+    margin: 0.25rem;
+    border: 1px solid #8B4513;
+    border-radius: 5px;
+    background-color: #d3d3d3b4;
+    color: #4B2E39;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+    line-height: 2.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.wordle-key.illegal-key {
+    background-color: #0000004d; /* Dark gray to indicate not allowed */
+    cursor: not-allowed;
+}
+
+.wordle-key.correct {
+    background-color: #ffeb3b;
+}
+
+.wordle-key.present {
+    background-color: #ffeb3b;
+}
+
+.wordle-key.absent {
+    cursor: not-allowed;
+    background-color: #0000004d;
+}
+
+/* Game Keyboard */
+#game-keyboard {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+    max-width: 30rem;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 10;
+    background-color: #fff5e1b9; /* Light beige background */
+    border-radius: 15px;
+}
+
+.game-keyboard-row {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+}
+
+.game-key {
+    width: 2.5rem;
+    height: 2.5rem;
+    margin: 0.25rem;
+    border: 1px solid #8B4513;
+    border-radius: 5px;
+    background-color: #d3d3d3b4;
+    color: #4B2E39;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+    line-height: 2.5rem;
+    transition: background-color 0.3s;
+}
+
+.game-key.highlight {
+    background-color: #2196F3; /* Blue background for highlight */
+    color: #ffffff; /* White text for contrast */
+}
+.game-key.invalid {
+    background-color: #f44336;
+    color: #ffffff;
+}
+.game-key.disabled {
+    background-color: #0000004d;
 }
 
 /* 
@@ -973,6 +1069,21 @@ button:disabled {
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(255, 255, 0, 0.8);
     animation: arena-win-pop-up 0.5s ease-out, arena-win-fade-out 2.5s ease-out forwards;
+}
+
+#game-keyboard-word-definition-toggle {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    z-index: 10;
+}
+#game-keyboard-word-definition-toggle button {
+    padding: 0.2rem;
+    border-radius: 0;
+}
+#game-keyboard-word-definition-toggle button.active {
+    background-color: #4caf50;
+
 }
 
 @keyframes arena-win-pop-up {

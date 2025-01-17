@@ -37,10 +37,6 @@
     <audio id="menuSound1" src="sounds/menu_switch.mp3"></audio>
     <audio id="menuSound2" src="sounds/menu_switch.mp3"></audio>
     <audio id="menuSound3" src="sounds/menu_switch.mp3"></audio>
-    <div id="loading-screen">
-        <h1>Loading... <span id="load-progress">0%</span></h1>
-        <div id="loader"></div>
-    </div>
     <div id="top-bar">
         <p>
             TypeIdle.com - Typing Idle Game - 
@@ -97,10 +93,16 @@
                             <p>Words Per Minute: <span id="wpm">0</span></p>
                             <p>Passive Income: <span id="passive-income">0</span>/sec</p>
                         </div>
-                        <textarea id="input-box"></textarea>
+                        <textarea id="input-box" placeholder="Type the words below here..."></textarea>
                         <div id="words-to-type-container">
                             <div id="words-to-type"></div>
                         </div>
+                    </div>
+                    <div id="game-keyboard-word-definition-toggle">
+                        <button id="toggle-word-definition">Word definitions</button>
+                        <button id="toggle-game-keyboard">Keyboard highlight</button>
+                    </div>
+                    <div id="game-keyboard">
                     </div>
                 </div>
                 <div id="current-word-definition"></div>
@@ -116,6 +118,8 @@
                         <p id="wordle-feedback"></p>
                         <p id="wordle-boost-remaining"></p>
                     </div>
+                </div>
+                <div id="wordle-keyboard">
                 </div>
             </div>
             <div id="arenaPage" style="display: none;">
@@ -193,6 +197,15 @@
                         <input type="checkbox" id="toggle-skip-mistake"> Skip words on mistake
                     </label>
                     <hr>
+                    <label for="keyboard-layout">
+                        Keyboard layout
+                        <select id="keyboard-layout">
+                            <option value="qwerty-nordic">Qwerty Nordic</option>
+                            <option value="qwerty-us">Qwerty US</option>
+                            <option value="qwerty-uk">Qwerty UK</option>
+                            <option value="dvorak">Dvorak</option>
+                        </select>
+                    </label>
                     <h2>Save/Load</h2>
                     <button id="export-button">Export Save</button>
                     <button id="import-button">Import Save</button>
@@ -245,3 +258,4 @@
         <script src="loadingscreen.js"></script>
     </body>
     </html>
+    

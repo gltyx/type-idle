@@ -3,7 +3,13 @@ let wordleBoostRemaining = 0;
 let currentGuessCount = 0;
 const maxGuesses = 5;
 let wordleUIState = "";
-
+const keyboardLayouts = {
+    'qwerty-nordic': ['QWERTYUIOPÅ¨', 'ASDFGHJKLÖÄ\'', '<ZXCVBNM,.-'],
+    'qwerty-us': ['QWERTYUIOP[]', 'ASDFGHJKL;\'', 'ZXCVBNM,./'],
+    'qwerty-uk': ['QWERTYUIOP[]', 'ASDFGHJKL;\'#', 'ZXCVBNM,./'],
+    'dvorak': ['\'",.PYFGCRL/?=', 'AOEUIDHTNS-', ';QJKXBMWVZ']
+};
+const legalKeys = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ\''];
 function displayWordle() {
   if(AutoWriter.level > 0) {
     document.getElementById('wordle-tab').style.display = "block";
@@ -38,6 +44,7 @@ function displayWordle() {
       document.getElementById('additional-wordle-hint').textContent = `Example: ${censorWord(wordsList[currentWordleWord].example)}`;
       document.getElementById('wordle-feedback').textContent = "Solve the Wordle to earn a boost!";
       resetWordleGrid();
+      renderWordleKeyboard();
     }
   }
 }
@@ -45,7 +52,8 @@ function displayWordle() {
 function censorWord(example) {
   return example.replace(new RegExp(currentWordleWord, 'gi'), '*'.repeat(currentWordleWord.length));
 }
-
+let focusedTile;
+let focusLostTimeout;
 function resetWordleGrid() {
   const grid = document.getElementById('wordle-grid');
   grid.innerHTML = '';
@@ -61,6 +69,16 @@ function resetWordleGrid() {
       tile.setAttribute('contenteditable', i === currentGuessCount ? 'true' : 'false');
       tile.addEventListener('input', handleTileInput);
       tile.addEventListener('keydown', handleTileNavigation);
+      // add focus events
+      tile.addEventListener('focusin', (event) => {
+        clearTimeout(focusLostTimeout);
+        focusedTile = event.target;
+      });
+      tile.addEventListener('focusout', () => {
+       focusLostTimeout = setTimeout(() => {
+          focusedTile = null;
+        }, 100);
+      });
       row.appendChild(tile);
     }
     grid.appendChild(row);
@@ -112,12 +130,16 @@ function validateWord(row) {
   
   tiles.forEach((tile, index) => {
     const letter = guess[index];
+    const keyElement = document.querySelector(`.wordle-key[data-key="${letter}"]`);
     if (currentWordleWord.toUpperCase()[index] === letter) {
       tile.classList.add('correct');
+      if (keyElement) keyElement.classList.add('correct');
     } else if (currentWordleWord.toUpperCase().includes(letter)) {
       tile.classList.add('present');
+      if (keyElement) keyElement.classList.add('present');
     } else {
       tile.classList.add('absent');
+      if (keyElement) keyElement.classList.add('absent');
     }
     tile.setAttribute('contenteditable', 'false'); // Make the tile non-editable after submission
   });
@@ -151,4 +173,46 @@ function prepareNextRow() {
 function activateWordleBoost() {
   wordlesSolved++;
   spawnBoost(0);
+}
+
+function renderWordleKeyboard() {
+  const keyboardContainer = document.getElementById('wordle-keyboard');
+  keyboardContainer.innerHTML = '';
+  const layout = keyboardLayouts[keyboardLayout];
+  layout.forEach(row => {
+    const rowElement = document.createElement('div');
+    rowElement.className = 'wordle-keyboard-row';
+    row.split('').forEach(key => {
+      const keyElement = document.createElement('div');
+      keyElement.className = 'wordle-key';
+      keyElement.textContent = key;
+      keyElement.setAttribute('data-key', key);
+      if(legalKeys.includes(key)) {
+      keyElement.addEventListener('click', () => handleKeyClick(key));
+      } else {
+        keyElement.classList.add("illegal-key");
+      }
+      rowElement.appendChild(keyElement);
+    });
+    keyboardContainer.appendChild(rowElement);
+  });
+}
+
+function handleKeyClick(key) {
+    const activeRow = document.querySelector('.wordle-guess-row .wordle-tile[contenteditable="true"]');
+    if (activeRow) {
+        const row = activeRow.parentNode;
+        const tiles = Array.from(row.getElementsByClassName('wordle-tile'));
+        if (focusedTile) {
+          console.log("focus");
+          focusedTile.textContent = key;
+          handleTileInput({ target: focusedTile });
+          return;
+        }
+        const emptyTile = tiles.find(tile => tile.textContent === '');
+        if (emptyTile) {
+            emptyTile.textContent = key;
+            handleTileInput({ target: emptyTile });
+        }
+    }
 }

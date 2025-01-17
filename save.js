@@ -16,6 +16,8 @@ let stockProfitDollars = 0; // Profit in dollars
 let stockProfitKeystrokes = 0; // Profit in keystrokes
 let goldNewsClicks = 0;
 let currentGuildTask = '';
+let keyboardLayout = 'qwerty-nordic';
+let gameKeyboardOrDefintion = 'keyboard';
 let wpm = 0;
 
 function saveGame() {
@@ -39,6 +41,8 @@ function saveGame() {
         stockProfitKeystrokes,
         goldNewsClicks,
         currentGuildTask,
+        keyboardLayout,
+        gameKeyboardOrDefintion,
         buildings: buildings.map(building => ({ id: building.id, level: building.level, totalProduce: building.totalProduce })),
         upgrades: upgrades.map(upgrade => ({ id: upgrade.id, unlocked: upgrade.unlocked })),
         achievements: achievements.map(achievement => ({ id: achievement.id, unlocked: achievement.unlocked })),
@@ -84,6 +88,8 @@ function loadGame(savedData) {
         stockProfitKeystrokes = savedData.stockProfitKeystrokes || 0;
         goldNewsClicks = savedData.goldNewsClicks || 0;
         currentGuildTask = savedData.currentGuildTask || '';
+        keyboardLayout = savedData.keyboardLayout || 'qwerty-nordic';
+        gameKeyboardOrDefintion = savedData.gameKeyboardOrDefintion || 'keyboard';
         savedData.buildings.forEach(savedBuilding => {
             const building = buildings.find(b => b.id === savedBuilding.id);
             if (building) {

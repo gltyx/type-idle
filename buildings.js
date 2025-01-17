@@ -110,7 +110,7 @@ const ResearchLab = {
         return applyModifiers(ResearchLab.id, ResearchLab.baseProduce);
     },
     getProduce: () => { return ResearchLab.getProduceSingle() * ResearchLab.level; },
-    getResearchProduceSingle: () => { return applyResearchModifiers(ResearchLab.id, 0.1); },
+    getResearchProduceSingle: () => { return applyResearchModifiers(ResearchLab.id, 0.5); },
     getResearchProduce: () => { return ResearchLab.getResearchProduceSingle() * ResearchLab.level; },
     level: 0,
     totalProduce: 0,
@@ -282,14 +282,12 @@ function initBuildings() {
         buildingElement.setAttribute('data-index', index);
         updateBuildingElement(buildingElement, building);
         
-        // Add tooltip element
-        /*
-        const tooltip = document.createElement('div');
-        tooltip.className = 'tooltip';
-        buildingsContainer.appendChild(tooltip);
-        */
         buildingElement.addEventListener('mouseover', () => showBuildingTooltip(buildingElement, building));
         buildingElement.addEventListener('mouseout', () => hideTooltip());
+        
+        // Add event listeners for 3D effect
+        buildingElement.addEventListener('mousemove', handleMouseMoveBuildingRotate);
+        buildingElement.addEventListener('mouseleave', handleMouseLeaveBuildingRotate);
         
         buildingsContainer.appendChild(buildingElement);
     });
@@ -303,7 +301,25 @@ function initBuildings() {
         });
     });
 }
+function handleMouseMoveBuildingRotate(event) {
+    const building = event.currentTarget;
+    const rect = building.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = ((y - centerY) / centerY) * -25; // Adjust the multiplier for more/less tilt
+    const rotateY = ((x - centerX) / centerX) * 25; // Adjust the multiplier for more/less tilt
 
+    building.style.setProperty('--rotateX', `${rotateX}deg`);
+    building.style.setProperty('--rotateY', `${rotateY}deg`);
+}
+
+function handleMouseLeaveBuildingRotate(event) {
+    const building = event.currentTarget;
+    building.style.setProperty('--rotateX', `0deg`);
+    building.style.setProperty('--rotateY', `0deg`);
+}
 
 function displayBuildings() {
     const buildingsContainer = document.getElementById('buildings-container');

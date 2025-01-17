@@ -41,6 +41,63 @@ const tabs = {
     }
 };
 
+
+function renderGameKeyboard() {
+    const keyboardContainer = document.getElementById('game-keyboard');
+    keyboardContainer.innerHTML = '';
+    const layout = keyboardLayouts[keyboardLayout];
+    layout.forEach(row => {
+        const rowElement = document.createElement('div');
+        rowElement.className = 'game-keyboard-row';
+        row.split('').forEach(key => {
+            const keyElement = document.createElement('div');
+            keyElement.className = 'game-key';
+            if(!legalKeys.includes(key)) keyElement.classList.add('disabled');
+            keyElement.textContent = key;
+            keyElement.setAttribute('data-key', key);
+            rowElement.appendChild(keyElement);
+        });
+        keyboardContainer.appendChild(rowElement);
+    });
+}
+
+function highlightNextKey() {
+    let mistakeFound = false;
+    const inputText = document.getElementById('input-box').value.trim();
+    for(let i = 0; i < inputText.length; i++) {
+        if(inputText[i] !== wordsToType[0][i]) {
+            mistakeFound = true;
+            break;
+        }
+    }
+    if(inputText.length > wordsToType[0].length) mistakeFound = true;
+    if(inputText.length === 0) mistakeFound = false;
+    if(mistakeFound) {
+        document.querySelectorAll('.game-key').forEach(keyElement => {
+            keyElement.classList.remove('highlight');
+            keyElement.classList.add('invalid');
+        }); 
+    } else {
+        if(inputText.length === wordsToType[0].length) {
+            document.querySelectorAll('.game-key').forEach(keyElement => {
+                keyElement.classList.remove('invalid');
+                keyElement.classList.add('highlight');
+            }); 
+        } else {
+            const nextKey = wordsToType[0][inputText.length].toUpperCase();
+            document.querySelectorAll('.game-key').forEach(keyElement => {
+                keyElement.classList.remove('invalid');
+                if (keyElement.getAttribute('data-key') === nextKey) {
+                    keyElement.classList.add('highlight');
+                } else {
+                    keyElement.classList.remove('highlight');
+                }
+            }); 
+        }
+    }
+    
+}
+
 function initGame() {
     loadLocalSave(); // Load saved game data
     // Initialize the words to type from words.js
@@ -60,7 +117,7 @@ function initGame() {
             saveGame();
         }
     }, 5000); // Save every 5 seconds
-
+    
     // Send heartbeat every 5 minutes (300000 milliseconds)
     setInterval(sendHeartbeat, 300000);
     
@@ -69,6 +126,8 @@ function initGame() {
     initBuildings();
     initReports();
     initStockMarket();
+    renderGameKeyboard();
+    highlightNextKey();
     //==========================================
     document.getElementById('reset-button').addEventListener('click', () => {
         if(confirm("Are you sure you want to reset your save?")) {
@@ -104,6 +163,38 @@ function initGame() {
         skipOnMistake = this.checked;
     });
     document.getElementById('toggle-skip-mistake').checked = skipOnMistake;
+    //==========================================
+    document.getElementById('keyboard-layout').addEventListener('change', function () {
+        keyboardLayout = this.value;
+        renderWordleKeyboard(); // Update the Wordle keyboard layout
+        renderGameKeyboard();
+        highlightNextKey();
+    });
+    document.getElementById('keyboard-layout').value = keyboardLayout;
+    //==========================================
+    document.getElementById('toggle-word-definition').addEventListener('click', () => {
+        document.getElementById('toggle-word-definition').classList.add('active');
+        document.getElementById('toggle-game-keyboard').classList.remove('active');
+        document.getElementById('current-word-definition').style.display = 'block';
+        document.getElementById('game-keyboard').style.display = 'none';
+        gameKeyboardOrDefintion = 'definition';
+    });
+    document.getElementById('toggle-game-keyboard').addEventListener('click', () => {
+        document.getElementById('toggle-game-keyboard').classList.add('active');
+        document.getElementById('toggle-word-definition').classList.remove('active');
+        document.getElementById('current-word-definition').style.display = 'none';
+        document.getElementById('game-keyboard').style.display = 'flex';
+        gameKeyboardOrDefintion = 'keyboard';
+    });
+    if(gameKeyboardOrDefintion === 'definition') {
+        document.getElementById('toggle-word-definition').classList.add('active');
+        document.getElementById('current-word-definition').style.display = 'block';
+        document.getElementById('game-keyboard').style.display = 'none';
+    } else {
+        document.getElementById('toggle-game-keyboard').classList.add('active');
+        document.getElementById('current-word-definition').style.display = 'none';
+        document.getElementById('game-keyboard').style.display = 'flex';
+    }
     //==========================================
     sendHeartbeat(); // send the first heartbeat
 }
@@ -146,6 +237,7 @@ document.getElementById('input-box').addEventListener('input', function() {
             playTypoSound();
         }
         inputBox.value = '';
+        highlightNextKey();
         updateStats();
     }
 });
@@ -165,9 +257,11 @@ function getRandomWord() {
 function updateWordsToType() {
     colorText('');
     displayWordDefinition(wordsToType[0]);
+    document.getElementById('input-box').placeholder = `Type '${wordsToType[0]}' here...`;
 }
 
 function colorText(inputText) {
+    highlightNextKey();
     const wordsDisplay = document.getElementById('words-to-type');
     const firstWord = wordsToType[0];
     let coloredText = '';
@@ -325,13 +419,13 @@ function formatShortScale(number) {
         'novemdecillion', 'vigintillion'
     ];
     const tier = Math.floor(Math.log10(Math.abs(number)) / 3); // Determine the tier (1000^tier)
-
+    
     if (tier === 0 || number < 1000) return number.toFixed(2); // For numbers below 1000, return as is
-
+    
     const scaled = number / Math.pow(10, tier * 3); // Scale the number to its tier
     const suffix = suffixes[tier] || `e${tier * 3}`; // Fallback to scientific notation for very large numbers
-
-    return `${scaled.toFixed(2)} ${suffix}`; // Format with one decimal, remove .0 if unnecessary
+    
+    return `${scaled.toFixed(2)} ${suffix}`; 
 }
 
 function switchTab(activeTab) {
@@ -366,3 +460,6 @@ function sendHeartbeat() {
         console.error('There was a problem with the heartbeat request:', error);
     });
 }
+
+
+
