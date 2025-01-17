@@ -80,6 +80,7 @@
                 <button id="wordle-tab" style="display: none;">Wordle</button>
                 <button id="arena-tab" style="display: none;">Arena</button>
                 <button id="stock-tab" style="display: none;">Stocks</button>
+                <button id="guild-tab" style="display: none;">Guild</button>
                 <button id="settings-tab">Settings</button>
             </div>
             <div id="gamePage">
@@ -111,6 +112,7 @@
                         <p id="wordle-tutorial"><u>(How to play)</u></p>
                         <div id="wordle-grid"></div>
                         <p id="wordle-hint"></p>
+                        <p id="additional-wordle-hint" style="display: none;"></p>
                         <p id="wordle-feedback"></p>
                         <p id="wordle-boost-remaining"></p>
                     </div>
@@ -160,6 +162,25 @@
                         <div id="stock-market-container"></div>
                     </div>
                 </div>
+                <div id="guildPage" style="display: none;">
+                    <h2>Guild</h2>
+                    <div id="guild-tasks">
+                        <h3>Select a Guild Task</h3>
+                        <p id="guild-task-change-remaining"></p>
+                        <div>
+                            <input type="radio" id="wordle-guild" name="guild-task" value="wordle">
+                            <label for="wordle-guild">Wordle guild (Additional wordle hint)</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="arena-guild" name="guild-task" value="arena">
+                            <label for="arena-guild">Arena guild (+10 Passive WPM increase in the arena)</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="publishing-guild" name="guild-task" value="publishing">
+                            <label for="publishing-guild">Publishing guild (2x the chance of golden news)</label>
+                        </div>
+                    </div>
+                </div>
                 <div id="settingsPage" style="display: none;">
                     <h2>Settings</h2>
                     <div id="volume-control">
@@ -185,12 +206,22 @@
                         <div id="report-manual" class="report"></div>
                     </div>
                 </div>
+                <div id="researchPage" style="display: none;">
+                    <h2>Research</h2>
+                    <p>Research Points: <img src="images/research-bulb-icon.png" class="researchicon" alt="Research"><span id="researchPoints">0</span></p>
+                    <h2>Research upgrades</h2>
+                    <div id="research-container"></div>
+                    <hr>
+                    <h2>Owned upgrades</h2>
+                    <div id="owned-research-container"></div>
+                </div>
             </div>
             <div id="upgrades-panel">
                 <div id="upgrades-parent" style="display: none;">
                     <strong>Research upgrades</strong>
                     <div id="researchPointsDiv"><img src="images/research-bulb-icon.png" class="researchicon" alt="Research"><span id="total-research">0</span></div>
                     <div id="upgrades-container"></div>
+                    <button id="research-tab" class="navbtn">View all</button>
                 </div>
                 <div id="buildings-container"></div>
             </div>
@@ -210,7 +241,7 @@
         <script src="script.js"></script>
         <script src="upgrades.js"></script>  
         <script src="news.js"></script>
+        <script src="guild.js"></script>
         <script src="loadingscreen.js"></script>
     </body>
     </html>
-    

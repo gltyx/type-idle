@@ -436,8 +436,8 @@ const wordsList = {
         "example": "The book was written by a famous author."
     },
     "call": {
-        "definition": "cry out (a word or words)",
-        "example": "She decided to call her friend to chat."
+        "definition": "give (a baby or animal) a specified name",
+        "example": "They decided to call their new puppy Max."
     },
     "camera": {
         "definition": "a device for recording visual images in the form of photographs, film, or video signals",

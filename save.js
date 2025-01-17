@@ -15,6 +15,7 @@ let arenaBeatVeryHard = 0;
 let stockProfitDollars = 0; // Profit in dollars
 let stockProfitKeystrokes = 0; // Profit in keystrokes
 let goldNewsClicks = 0;
+let currentGuildTask = '';
 let wpm = 0;
 
 function saveGame() {
@@ -37,6 +38,7 @@ function saveGame() {
         stockProfitDollars,
         stockProfitKeystrokes,
         goldNewsClicks,
+        currentGuildTask,
         buildings: buildings.map(building => ({ id: building.id, level: building.level, totalProduce: building.totalProduce })),
         upgrades: upgrades.map(upgrade => ({ id: upgrade.id, unlocked: upgrade.unlocked })),
         achievements: achievements.map(achievement => ({ id: achievement.id, unlocked: achievement.unlocked })),
@@ -81,6 +83,7 @@ function loadGame(savedData) {
         stockProfitDollars = savedData.stockProfitDollars || 0;
         stockProfitKeystrokes = savedData.stockProfitKeystrokes || 0;
         goldNewsClicks = savedData.goldNewsClicks || 0;
+        currentGuildTask = savedData.currentGuildTask || '';
         savedData.buildings.forEach(savedBuilding => {
             const building = buildings.find(b => b.id === savedBuilding.id);
             if (building) {

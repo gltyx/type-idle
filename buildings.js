@@ -1,32 +1,49 @@
 /**
- * Applies all multiplier modifiers to the base production of a building.
- * @param {number} buildingId ID of the building (0 for manually typed words)
- * @param {number} baseProduction Base production of the building
- * @returns {number} Production after modifiers
- */
+* Applies all multiplier modifiers to the base production of a building.
+* @param {number} buildingId ID of the building (0 for manually typed words)
+* @param {number} baseProduction Base production of the building
+* @returns {number} Production after modifiers
+*/
 function applyModifiers(buildingId, baseProduction) {
     let totalMultiplier = 1;
     modifiers.forEach(modifier => {
-        if (modifier.affectedBuildings.includes(buildingId)) {
+        if (modifier.affectedBuildings && modifier.affectedBuildings.includes(buildingId)) {
             totalMultiplier *= typeof modifier.getMultiplier === "function"
-                ? modifier.getMultiplier()
-                : modifier.multiplier || 1;
+            ? modifier.getMultiplier()
+            : modifier.multiplier || 1;
         }
     });
     return baseProduction * totalMultiplier;
 }
 /**
- * Applies passive income to manual keystrokes.
- * @param {number} keystrokes Manual keystrokes.
- * @returns {number} Manual keystrokes + passive income % to manual.
+ * Applies all research multiplier modifiers to the base research of a building
+ * @param {*} buildingId ID of the building
+ * @param {*} baseProduction Base research of the building
+ * @returns 
  */
+function applyResearchModifiers(buildingId, baseProduction) {
+    let totalMultiplier = 1;
+    modifiers.forEach(modifier => {
+        if (modifier.affectedBuildings && modifier.affectedBuildings.includes(buildingId)) {
+            totalMultiplier *= typeof modifier.getResearchMultiplier === "function"
+            ? modifier.getResearchMultiplier()
+            : modifier.researchMultiplier || 1;
+        }
+    });
+    return baseProduction * totalMultiplier;
+}
+/**
+* Applies passive income to manual keystrokes.
+* @param {number} keystrokes Manual keystrokes.
+* @returns {number} Manual keystrokes + passive income % to manual.
+*/
 function applyKPStoManual(keystrokes) {
     let totalMultiplier = 0;
     modifiers.forEach(modifier => {
-        if (modifier.affectedBuildings.includes(0)) {
+        if (modifier.affectedBuildings && modifier.affectedBuildings.includes(0)) {
             totalMultiplier += typeof modifier.getKPStoManual === "function"
-                ? modifier.getKPStoManual()
-                : modifier.KPStoManual || 0;
+            ? modifier.getKPStoManual()
+            : modifier.KPStoManual || 0;
         }
     });
     return keystrokes + (keystrokes * totalMultiplier * getPassiveIncome());
@@ -93,7 +110,7 @@ const ResearchLab = {
         return applyModifiers(ResearchLab.id, ResearchLab.baseProduce);
     },
     getProduce: () => { return ResearchLab.getProduceSingle() * ResearchLab.level; },
-    getResearchProduceSingle: () => { return 0.1; },
+    getResearchProduceSingle: () => { return applyResearchModifiers(ResearchLab.id, 0.1); },
     getResearchProduce: () => { return ResearchLab.getResearchProduceSingle() * ResearchLab.level; },
     level: 0,
     totalProduce: 0,
@@ -225,11 +242,31 @@ const MagazinePublisher = {
     icon: "images/magazine-publisher-icon.png",
     lockedicon: "images/magazine-publisher-locked-icon.png",
 }
+const TypingGuild = {
+    id: 10,
+    name: "Typing Guild",
+    description: "Join a guild of typing enthusiasts.",
+    trivia: "Guild meetings are held in the Typing Arena.",
+    lockdescription: "Unlocks at 1,000,000 total keystrokes.",
+    special: "Unlocks 'Guild' button in the navbar.",
+    unlockCondition: () => totalKeystrokes >= 1000000,
+    locked: true,
+    getCost: () => 1000000 * Math.pow(TypingGuild.level + 1, 2) * Math.log(TypingGuild.level + 2) * (ITOffice.level > 0 ? Math.pow(0.99, ITOffice.level) : 1),
+    baseProduce: 1000,
+    getProduceSingle: () => {
+        return applyModifiers(TypingGuild.id, TypingGuild.baseProduce);
+    },
+    getProduce: () => TypingGuild.getProduceSingle() * TypingGuild.level,
+    level: 0,
+    totalProduce: 0,
+    icon: "images/typing-guild-icon.png",
+    lockedicon: "images/typing-guild-locked-icon.png",
+}
 
 
 
 const buildings = [
-    AutoWriter, Printer, ResearchLab, CyberCafe, ServerFarm, TypingArena, ITOffice, StockMarket, MagazinePublisher
+    AutoWriter, Printer, ResearchLab, CyberCafe, ServerFarm, TypingArena, ITOffice, StockMarket, MagazinePublisher, TypingGuild
 ];
 
 
@@ -238,25 +275,25 @@ let totalResearchPoints = 0;
 function initBuildings() {
     const buildingsContainer = document.getElementById('buildings-container');
     buildingsContainer.innerHTML = '';
-
+    
     buildings.forEach((building, index) => {
         const buildingElement = document.createElement('button');
         buildingElement.className = 'building';
         buildingElement.setAttribute('data-index', index);
         updateBuildingElement(buildingElement, building);
-
+        
         // Add tooltip element
         /*
         const tooltip = document.createElement('div');
         tooltip.className = 'tooltip';
         buildingsContainer.appendChild(tooltip);
-         */
+        */
         buildingElement.addEventListener('mouseover', () => showBuildingTooltip(buildingElement, building));
         buildingElement.addEventListener('mouseout', () => hideTooltip());
-
+        
         buildingsContainer.appendChild(buildingElement);
     });
-
+    
     buildingsContainer.querySelectorAll('.building').forEach(buildingElement => {
         buildingElement.addEventListener('click', (event) => {
             const index = event.currentTarget.getAttribute('data-index');
@@ -313,9 +350,9 @@ function buyBuilding(index) {
 }
 
 /**
- * 
- * @returns {number} Total passive income from all buildings for 1 tick.
- */
+* 
+* @returns {number} Total passive income from all buildings for 1 tick.
+*/
 function getPassiveIncome() {
     let passiveIncome = 0;
     buildings.forEach(building => {
@@ -346,7 +383,7 @@ function generateKeystrokesAndResearchFromBuildings() {
     totalKeystrokes += totalProduction;
     totalResearchPoints += totalResearch;
     cashEarnedBuildings += totalProduction;
-
+    
     updateStats();
     wordsToGenerate += totalProduction / 5; // 5 keystrokes per word
     if(wordsToGenerate >= 2) {

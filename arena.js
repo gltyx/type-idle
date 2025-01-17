@@ -128,7 +128,7 @@ document.getElementById("arena-input-box").addEventListener("input", function ()
         }
         inputBox.value = "";
 
-        document.getElementById("player-progress").textContent = playerKeystrokes;
+        document.getElementById("player-progress").textContent = playerKeystrokes.toFixed(0);
         updateRaceProgress();
         if (playerKeystrokes >= raceTargetKeystrokes) {
             finishArenaRace(true);
@@ -163,11 +163,17 @@ function simulateOpponentTyping() {
         const opponentKPS = (finalWPM * 5) / 60; 
         
         // Add keystrokes each second
-        opponentKeystrokes += Math.round(opponentKPS);
+        opponentKeystrokes += opponentKPS;
+
+        if(currentGuildTask === "arena") {
+            const PlayerWPMBoost = (10 * 5) / 60;
+            playerKeystrokes += PlayerWPMBoost;
+            document.getElementById("player-progress").textContent = playerKeystrokes.toFixed(0);
+        }
 
         updateRaceProgress();
         document.getElementById("opponent-progress").textContent = Math.min(
-            opponentKeystrokes,
+            opponentKeystrokes.toFixed(0),
             raceTargetKeystrokes
         );
 

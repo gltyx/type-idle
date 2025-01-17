@@ -30,6 +30,14 @@ const tabs = {
     settings: {
         tab: document.getElementById("settings-tab"),
         page: document.getElementById("settingsPage")
+    },
+    research: {
+        tab: document.getElementById("research-tab"),
+        page: document.getElementById("researchPage")
+    },
+    guild: {
+        tab: document.getElementById("guild-tab"),
+        page: document.getElementById("guildPage")
     }
 };
 
@@ -198,6 +206,7 @@ function updateStats() {
     document.getElementById('keystrokes-bank').textContent = formatShortScale(keystrokesBank);
     document.getElementById('keystrokes-bank2').textContent = formatShortScale(keystrokesBank);
     document.getElementById('total-research').textContent = formatShortScale(totalResearchPoints);
+    document.getElementById('researchPoints').textContent = formatShortScale(totalResearchPoints);
     
     document.getElementById('currentAchievementCount').textContent = achievements.filter(a => a.unlocked).length;
     document.getElementById('maxAchievementCount').textContent = achievements.length;
@@ -225,6 +234,7 @@ function updateStats() {
     displayStockMarket();
     displayNews();
     displayBuffs();
+    displayGuild();
 }
 
 function createFallingWord(word) {

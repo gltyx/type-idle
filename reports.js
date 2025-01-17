@@ -24,7 +24,7 @@ function initReports() {
 
 function getReportSignature(building) {
     const activeModifiers = modifiers
-    .filter(mod => mod.affectedBuildings.includes(building.id))
+    .filter(mod => mod.affectedBuildings && mod.affectedBuildings.includes(building.id))
     .map(mod => {
         const multiplier = typeof mod.getMultiplier === 'function'
         ? mod.getMultiplier()
@@ -66,7 +66,7 @@ function displayReports() {
                 const totalProduction = building.getProduce();
                 
                 const activeModifiers = modifiers
-                .filter(mod => mod.affectedBuildings.includes(building.id))
+                .filter(mod => mod.affectedBuildings && mod.affectedBuildings.includes(building.id))
                 .map(mod => {
                     const multiplier = typeof mod.getMultiplier === 'function'
                     ? mod.getMultiplier()
@@ -132,7 +132,7 @@ function updateManualReport() {
     const passiveIncome = getPassiveIncome();
     // List modifiers that increase manual keystrokes value
     const manualModifiers = modifiers
-    .filter(mod => mod.affectedBuildings.includes(0))
+    .filter(mod => mod.affectedBuildings && mod.affectedBuildings.includes(0))
     .map(mod => {
         const kps = typeof mod.getKPStoManual === 'function'
         ? mod.getKPStoManual()
@@ -147,7 +147,7 @@ function updateManualReport() {
     
     // List multipliers for manual keystrokes
     const activeModifiers = modifiers
-    .filter(mod => mod.affectedBuildings.includes(0))
+    .filter(mod => mod.affectedBuildings && mod.affectedBuildings.includes(0))
     .map(mod => {
         const multiplier = typeof mod.getMultiplier === 'function'
         ? mod.getMultiplier()

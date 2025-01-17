@@ -110,7 +110,7 @@ function showNews() {
     const currentNews = newsElement?.innerText || '';
     const newsIndex = Math.floor(Math.random() * news.length);
     const newNews = news[newsIndex].text;
-    const isGoldenNews = Math.random() < 0.1; // 10% chance for golden news
+    const isGoldenNews = Math.random() < (0.1 * (currentGuildTask === "publishing" ? 2 : 1)); // 10% base chance for golden news
 
     if (currentNews !== newNews) {
         if (newsElement) {

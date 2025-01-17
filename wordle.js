@@ -35,10 +35,15 @@ function displayWordle() {
       document.getElementById('wordle-game').classList.remove('boost-active');
       document.getElementById('wordle-boost-remaining').textContent = ``;
       document.getElementById('wordle-hint').textContent = `Hint: ${wordsList[currentWordleWord].definition}`;
+      document.getElementById('additional-wordle-hint').textContent = `Example: ${censorWord(wordsList[currentWordleWord].example)}`;
       document.getElementById('wordle-feedback').textContent = "Solve the Wordle to earn a boost!";
       resetWordleGrid();
     }
   }
+}
+
+function censorWord(example) {
+  return example.replace(new RegExp(currentWordleWord, 'gi'), '*'.repeat(currentWordleWord.length));
 }
 
 function resetWordleGrid() {
