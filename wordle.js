@@ -7,7 +7,8 @@ const keyboardLayouts = {
     'qwerty-nordic': ['QWERTYUIOPÅ¨', 'ASDFGHJKLÖÄ\'', '<ZXCVBNM,.-'],
     'qwerty-us': ['QWERTYUIOP[]', 'ASDFGHJKL;\'', 'ZXCVBNM,./'],
     'qwerty-uk': ['QWERTYUIOP[]', 'ASDFGHJKL;\'#', 'ZXCVBNM,./'],
-    'dvorak': ['\'",.PYFGCRL/?=', 'AOEUIDHTNS-', ';QJKXBMWVZ']
+    'dvorak': ['\'",.PYFGCRL/?=', 'AOEUIDHTNS-', ';QJKXBMWVZ'],
+    'azerty': ['AZERTYUIOP¨£', 'QSDFGHJKLMù*', '<WXCVBN,;:!'],
 };
 const legalKeys = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ\''];
 function displayWordle() {
