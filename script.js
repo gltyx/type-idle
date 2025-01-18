@@ -45,13 +45,17 @@ const tabs = {
 function renderGameKeyboard() {
     const keyboardContainer = document.getElementById('game-keyboard');
     keyboardContainer.innerHTML = '';
-    const layout = keyboardLayouts[keyboardLayout];
-    layout.forEach(row => {
+    const layout = keyboardLayouts[keyboardLayout].row;
+    const margins = keyboardLayouts[keyboardLayout].margins;
+    const bumps = keyboardLayouts[keyboardLayout].bumps;
+    layout.forEach((row, index) => {
         const rowElement = document.createElement('div');
         rowElement.className = 'game-keyboard-row';
+        rowElement.style.marginLeft = margins[index];
         row.split('').forEach(key => {
             const keyElement = document.createElement('div');
             keyElement.className = 'game-key';
+            if(bumps.includes(key)) keyElement.classList.add('bump');
             if(!legalKeys.includes(key)) keyElement.classList.add('disabled');
             keyElement.textContent = key;
             keyElement.setAttribute('data-key', key);
@@ -59,7 +63,10 @@ function renderGameKeyboard() {
         });
         keyboardContainer.appendChild(rowElement);
     });
+    document.getElementById('hand').style.marginLeft = keyboardLayouts[keyboardLayout].handMargin;
 }
+
+
 
 function highlightNextKey() {
     let mistakeFound = false;
@@ -77,6 +84,9 @@ function highlightNextKey() {
             keyElement.classList.remove('highlight');
             keyElement.classList.add('invalid');
         }); 
+        document.querySelectorAll('.finger').forEach(finger => {
+            finger.classList.remove('highlight-finger');
+        });
     } else {
         if(inputText.length === wordsToType[0].length) {
             document.querySelectorAll('.game-key').forEach(keyElement => {
@@ -92,10 +102,29 @@ function highlightNextKey() {
                 } else {
                     keyElement.classList.remove('highlight');
                 }
-            }); 
+            });
+
+            const fingerName = getProperFingerName(keyboardLayout, nextKey.toUpperCase());
+            document.querySelectorAll('.finger').forEach(finger => {
+                finger.classList.remove('highlight-finger');
+                finger.classList.remove('toprow');
+                finger.classList.remove('midrow');
+                finger.classList.remove('botrow');
+            });
+            const fingerElement = document.getElementById(fingerName.toLowerCase().replace(' ', '-'));
+            if(fingerElement) {
+                fingerElement.classList.add('highlight-finger');
+                const rowIndex = keyboardLayouts[keyboardLayout].row.findIndex(row => row.includes(nextKey));
+                if (rowIndex === 0) {
+                    fingerElement.classList.add('toprow');
+                } else if (rowIndex === 1) {
+                    fingerElement.classList.add('midrow');
+                } else if (rowIndex === 2) {
+                    fingerElement.classList.add('botrow');
+                }
+            }
         }
     }
-    
 }
 
 function initGame() {
@@ -176,24 +205,24 @@ function initGame() {
         document.getElementById('toggle-word-definition').classList.add('active');
         document.getElementById('toggle-game-keyboard').classList.remove('active');
         document.getElementById('current-word-definition').style.display = 'block';
-        document.getElementById('game-keyboard').style.display = 'none';
+        document.getElementById('game-keyboard-container').style.display = 'none';
         gameKeyboardOrDefintion = 'definition';
     });
     document.getElementById('toggle-game-keyboard').addEventListener('click', () => {
         document.getElementById('toggle-game-keyboard').classList.add('active');
         document.getElementById('toggle-word-definition').classList.remove('active');
         document.getElementById('current-word-definition').style.display = 'none';
-        document.getElementById('game-keyboard').style.display = 'flex';
+        document.getElementById('game-keyboard-container').style.display = 'block';
         gameKeyboardOrDefintion = 'keyboard';
     });
     if(gameKeyboardOrDefintion === 'definition') {
         document.getElementById('toggle-word-definition').classList.add('active');
         document.getElementById('current-word-definition').style.display = 'block';
-        document.getElementById('game-keyboard').style.display = 'none';
+        document.getElementById('game-keyboard-container').style.display = 'none';
     } else {
         document.getElementById('toggle-game-keyboard').classList.add('active');
         document.getElementById('current-word-definition').style.display = 'none';
-        document.getElementById('game-keyboard').style.display = 'flex';
+        document.getElementById('game-keyboard-container').style.display = 'block';
     }
     //==========================================
     sendHeartbeat(); // send the first heartbeat

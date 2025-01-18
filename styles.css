@@ -755,8 +755,11 @@ button:disabled {
 }
 
 .wordle-key {
-    width: 2.5rem;
-    height: 2.5rem;
+    cursor: pointer;
+}
+.wordle-key, .game-key {
+    width: 2rem;
+    height: 2rem;
     margin: 0.25rem;
     border: 1px solid #8B4513;
     border-radius: 5px;
@@ -765,9 +768,22 @@ button:disabled {
     font-size: 1.2rem;
     font-weight: bold;
     text-align: center;
-    line-height: 2.5rem;
-    cursor: pointer;
+    line-height: 2rem;
     transition: background-color 0.3s;
+}
+.wordle-key.bump, .game-key.bump {
+    position: relative;
+}
+.wordle-key.bump:after, .game-key.bump:after {
+    content: '';
+    position: absolute;
+    bottom: 0.1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0.25rem;
+    height: 0.25rem;
+    background-color: #4B2E39; /* Deep brown color */
+    border-radius: 50%;
 }
 
 .wordle-key.illegal-key {
@@ -788,15 +804,62 @@ button:disabled {
     background-color: #0000004d;
 }
 
+/* Hand Graphic */
+#hand-graphic {
+    display: flex;
+    margin-top: 5rem;
+    position: absolute;
+    top: 0;
+}
+
+.hand {
+    display: flex;
+    width: 29rem;
+}
+.hand-divider {
+    width: 5.4rem;
+}
+.finger {
+    width: 2rem;
+    height: 2rem;
+    margin: 0.25rem;
+    background-color: #d3d3d3;
+    border: 1px solid #8B4513;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    text-align: center;
+    transition: background-color 0.3s, margin-top 0.3s;
+    opacity: 0.5;
+}
+
+.finger.toprow {
+    margin-top: -4rem;
+}
+.finger.midrow {
+    margin-top: -1rem;
+}
+.finger.botrow {
+    margin-top: 2rem;
+}
+.finger.highlight-finger {
+    background-color: #2196F3; /* Blue background for highlight */
+    color: #ffffff;
+}
+
 /* Game Keyboard */
+#game-keyboard-container {
+    z-index: 10;
+    position:relative;
+}
 #game-keyboard {
     display: flex;
     flex-direction: column;
     margin-top: 1rem;
-    max-width: 30rem;
     margin-left: auto;
     margin-right: auto;
-    z-index: 10;
     background-color: #fff5e1b9; /* Light beige background */
     border-radius: 15px;
 }
@@ -807,20 +870,6 @@ button:disabled {
     margin-bottom: 0.5rem;
 }
 
-.game-key {
-    width: 2.5rem;
-    height: 2.5rem;
-    margin: 0.25rem;
-    border: 1px solid #8B4513;
-    border-radius: 5px;
-    background-color: #d3d3d3b4;
-    color: #4B2E39;
-    font-size: 1.2rem;
-    font-weight: bold;
-    text-align: center;
-    line-height: 2.5rem;
-    transition: background-color 0.3s;
-}
 
 .game-key.highlight {
     background-color: #2196F3; /* Blue background for highlight */
@@ -1105,6 +1154,7 @@ button:disabled {
         opacity: 0;
     }
 }
+
 
 
 /* 
