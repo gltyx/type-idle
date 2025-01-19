@@ -80,7 +80,7 @@ function displayReports() {
                 });
                 
                 let modifiersDetails = activeModifiers.length
-                ? activeModifiers.map(mod => `<li>${mod.name}: +${mod.percentage}%</li>`).join("")
+                ? activeModifiers.map(mod => `<li><span class="modifierName">${mod.name}:</span> <span class="modifierValue">+${mod.percentage}%</span></li>`).join("")
                 : '<li>None</li>';
                 
                 // Compute total multiplier
@@ -139,7 +139,7 @@ function updateManualReport() {
         : mod.KPStoManual;
         if(kps) {
             const flatBoost = kps * getPassiveIncome();
-            return `<li>${mod.name}: +${formatShortScale(flatBoost)} (${(kps * 100).toFixed(2)}% of passive income)</li>`;
+            return `<li><span class="modifierName">${mod.name}:</span> <span class="modifierValue">+${formatShortScale(flatBoost)} (${(kps * 100).toFixed(2)}% of passive income)</span></li>`;
         } else {
             return ``;
         }
@@ -161,7 +161,7 @@ function updateManualReport() {
     });
     
     let modifiersDetails = activeModifiers.length
-    ? activeModifiers.map(mod => `<li>${mod.name}: +${mod.percentage}%</li>`).join("")
+    ? activeModifiers.map(mod => `<li><span class="modifierName">${mod.name}:</span> <span class="modifierValue">+${mod.percentage}%</span></li>`).join("")
     : '<li>None</li>';
     
     // Compute total multiplier

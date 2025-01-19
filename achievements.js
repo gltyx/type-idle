@@ -217,12 +217,11 @@ function displayAchievements() {
         if (achievement.unlocked) {
             achievementElement.classList.add('unlocked');
             achievementElement.style.backgroundImage = `url("images/tooltips/achievements/${achievement.id}.webp")`;
-            achievementElement.innerHTML = `
-            <div><strong>${achievement.name}</strong></div>`;
+            achievementElement.innerHTML = ``;
         } else {
             achievementElement.classList.add('locked');
             achievementElement.style.backgroundImage = `url("images/tooltips/achievements/0.webp")`
-            achievementElement.innerHTML = `<div><strong>Hidden Achievement</strong></div>`;
+            achievementElement.innerHTML = ``;
         }
 
         achievementsContainer.appendChild(achievementElement);

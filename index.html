@@ -37,222 +37,246 @@
     <audio id="menuSound1" src="sounds/menu_switch.mp3"></audio>
     <audio id="menuSound2" src="sounds/menu_switch.mp3"></audio>
     <audio id="menuSound3" src="sounds/menu_switch.mp3"></audio>
-    <div id="top-bar">
-        <p>
-            TypeIdle.com - Typing Idle Game - 
-            <a href="https://www.youtube.com/@santtuz112" target="_blank">YouTube</a> - 
-            <a href="https://github.com/santtuz112/TypeIdle" target="_blank">GitHub</a>
-        </p>
-    </div>
-    <div id="main-container">
-        <div id="stats-panel">
-            <div id="stats-parent">
-                <p>Bank</p>
-                <p><img src="images/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"><span id="keystrokes-bank2">0</span> Keystrokes</p>
-                <hr>
-                <p>Keystrokes earned</p>
-                <p>Passive: <img src="images/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"><span id="building-cash-earned">0</span></p>
-                <p>Active: <img src="images/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"><span id="manual-cash-earned">0</span></p>
-                <hr>
-                <p>Total Keystrokes: <span id="total-keystrokes">0</span></p>
-                <p>(~<span id="total-words">0</span> words)</p>
-                <hr>
-                <p>Manual Keystrokes: <span id="manual-keystrokes">0</span></p>
-                <p>(~<span id="manual-words">0</span> words)</p>
-            </div>
-            <div id="achievements-parent">
-                <strong>Achievements: (<span id="currentAchievementCount">0</span>/<span id="maxAchievementCount">0</span>)</strong>
-                <div id="achievements-container"></div>
-            </div>
-            <div id="ownedupgrades-parent">
-                <strong>Researched tech: <span id="currentUpgradesCount">0</span></strong>
-                <div id="ownedupgrades-container"></div>
-            </div>
+    <div id="page">
+        <div id="top-bar">
+            <p>
+                TypeIdle.com - Typing Idle Game - 
+                <a href="https://www.youtube.com/@santtuz112" target="_blank">YouTube</a> - 
+                <a href="https://github.com/santtuz112/TypeIdle" target="_blank">GitHub</a>
+            </p>
         </div>
-        <div id="main">
-            <div id="navbar">
-                <button id="main-tab" class="active">Main</button>
-                <button id="reports-tab" style="display: none;">Reports</button>
-                <button id="wordle-tab" style="display: none;">Wordle</button>
-                <button id="arena-tab" style="display: none;">Arena</button>
-                <button id="stock-tab" style="display: none;">Stocks</button>
-                <button id="guild-tab" style="display: none;">Guild</button>
-                <button id="settings-tab">Settings</button>
+        <div style="flex: 0 1 1rem;">-</div>
+        <div id="main-container">
+            <div id="stats-panel">
+                <div id="stats-parent">
+                    
+                </div>
+                
+                <div id="ownedupgrades-parent">
+                    <strong>Researched tech: <span id="currentUpgradesCount">0</span></strong>
+                    <div id="ownedupgrades-container"></div>
+                </div>
             </div>
-            <div id="gamePage">
-                <div id="game-container">
-                    <div id="news-container" style="display: none;">
+            <div id="main">
+                <div id="sticky-top">
+                    <div id="navbar">
+                        <button id="main-tab" class="active">Main</button>
+                        <button id="reports-tab" style="display: none;">Reports</button>
+                        <button id="wordle-tab" style="display: none;">Wordle</button>
+                        <button id="arena-tab" style="display: none;">Arena</button>
+                        <button id="stock-tab" style="display: none;">Stocks</button>
+                        <button id="guild-tab" style="display: none;">Guild</button>
+                        <button id="settings-tab">Settings</button>
                     </div>
-                    <div id="buffs-container">
-                        
-                    </div>
-                    <h1 id="game-title">Typing Idle Game</h1>
-                    <div id="typing-panel">
-                        <p style="text-align: center;"><img src="images/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"><span id="keystrokes-bank">0</span></p>
-                        <div id="trackers">
-                            <p>Words Per Minute: <span id="wpm">0</span></p>
-                            <p>Passive Income: <span id="passive-income">0</span>/sec</p>
+                    <div id="news-container" style="display: none;"></div>
+                </div>
+                <div id="gamePage">
+                    <div id="game">
+                        <div id="game-container">
+                            <div id="buffs-container"></div>
+                            <h1 id="game-title">Typing Idle Game</h1>
+                            <div id="typing-panel">
+                                <p style="text-align: center;"><img src="images/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"><span id="keystrokes-bank">0</span></p>
+                                <div id="trackers">
+                                    <p>Words Per Minute: <span id="wpm">0</span></p>
+                                    <p>Passive Income: <span id="passive-income">0</span>/sec</p>
+                                </div>
+                                <textarea id="input-box" placeholder="Type the words below here..."></textarea>
+                                <div id="words-to-type-container">
+                                    <div id="words-to-type"></div>
+                                </div>
+                                <div id="game-keyboard-word-definition-toggle">
+                                    <button class="navbtn" id="toggle-word-definition">Word definitions</button>
+                                    <button class="navbtn" id="toggle-game-keyboard">Keyboard highlight</button>
+                                </div>
+                            </div>
+                            <div id="game-keyboard-container">
+                                <div id="game-keyboard">
+                                </div>
+                                <div id="hand-graphic">
+                                    <div id="hand" class="hand">
+                                        <div class="finger" id="left-pinky">L. Pinky</div>
+                                        <div class="finger" id="left-ring">L. Ring</div>
+                                        <div class="finger" id="left-middle">L. Middle</div>
+                                        <div class="finger" id="left-index">L. Index</div>
+                                        <div class="hand-divider"></div>
+                                        <div class="finger" id="right-index">R. Index</div>
+                                        <div class="finger" id="right-middle">R. Middle</div>
+                                        <div class="finger" id="right-ring">R. Ring</div>
+                                        <div class="finger" id="right-pinky">R. Pinky</div>
+                                    </div>
+                                </div>
+                                <p id="finger-guide"></p>
+                            </div>
                         </div>
-                        <textarea id="input-box" placeholder="Type the words below here..."></textarea>
-                        <div id="words-to-type-container">
-                            <div id="words-to-type"></div>
+                        <div id="current-word-definition"></div>
+                        <div id="achievements-parent">
+                            <strong>Achievements: (<span id="currentAchievementCount">0</span>/<span id="maxAchievementCount">0</span>)</strong>
+                            <div id="achievements-container"></div>
                         </div>
                     </div>
-                    <div id="game-keyboard-word-definition-toggle">
-                        <button id="toggle-word-definition">Word definitions</button>
-                        <button id="toggle-game-keyboard">Keyboard highlight</button>
-                    </div>
-                    <div id="game-keyboard-container">
-                        <div id="game-keyboard">
+                </div>
+                <div id="wordlePage" style="display: none;">
+                    <div id="wordle-game">
+                        <div id="wordle">
+                            <h3>Wordle Challenge</h3>
+                            <p id="wordle-tutorial"><u>(How to play)</u></p>
+                            <div id="wordle-grid"></div>
+                            <p id="wordle-hint"></p>
+                            <p id="additional-wordle-hint" style="display: none;"></p>
+                            <p id="wordle-feedback"></p>
+                            <p id="wordle-boost-remaining"></p>
                         </div>
-                        <div id="hand-graphic">
-                            <div id="hand" class="hand">
-                                <div class="finger" id="left-pinky">L. Pinky</div>
-                                <div class="finger" id="left-ring">L. Ring</div>
-                                <div class="finger" id="left-middle">L. Middle</div>
-                                <div class="finger" id="left-index">L. Index</div>
-                                <div class="hand-divider"></div>
-                                <div class="finger" id="right-index">R. Index</div>
-                                <div class="finger" id="right-middle">R. Middle</div>
-                                <div class="finger" id="right-ring">R. Ring</div>
-                                <div class="finger" id="right-pinky">R. Pinky</div>
+                    </div>
+                    <div id="wordle-keyboard">
+                    </div>
+                </div>
+                <div id="arenaPage" style="display: none;">
+                    <div id="arena-stats">
+                        <p><img src="images/gold-medal.webp" class="goldmedal" alt="Gold Medal"> <span id="gold-medals">0</span></p>
+                        <div id="arena-result"></div>
+                        <div id="start-race">
+                            <p>Select race difficulty 
+                                <select id="difficulty-select">
+                                    <option value="Normal">Normal</option>
+                                    <option value="Hard">Hard</option>
+                                    <option value="VeryHard">Very Hard</option>
+                                </select></p>
+                                <p>Normal (~30 WPM)</p>
+                                <p>Hard (~50 WPM)</p>
+                                <p>Very Hard (~90 WPM)</p>
+                                <p>Winning gives a buff and medals.</p>
+                                <button id="startRaceButton" onclick="startArenaRace()">Start Race</button>
+                            </div>
+                        </div>
+                        <div id="arena-race" style="display: none">
+                            <div id="race-progress">
+                                <p>Your Progress: <span id="player-progress">0</span>/200 keystrokes</p>
+                                <div class="progress-container">
+                                    <div id="player-progress-bar" class="progress-bar"></div>
+                                </div>
+                                <p>Opponent's Progress: <span id="opponent-progress">0</span>/200 keystrokes</p>
+                                <div class="progress-container">
+                                    <div id="opponent-progress-bar" class="progress-bar"></div>
+                                </div>
+                            </div>
+                            <textarea id="arena-input-box" placeholder="Start typing..."></textarea>
+                            <div id="arena-words-to-type-container">
+                                <div id="arena-words-to-type"></div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div id="current-word-definition"></div>
-            </div>
-            <div id="wordlePage" style="display: none;">
-                <div id="wordle-game">
-                    <div id="wordle">
-                        <h3>Wordle Challenge</h3>
-                        <p id="wordle-tutorial"><u>(How to play)</u></p>
-                        <div id="wordle-grid"></div>
-                        <p id="wordle-hint"></p>
-                        <p id="additional-wordle-hint" style="display: none;"></p>
-                        <p id="wordle-feedback"></p>
-                        <p id="wordle-boost-remaining"></p>
-                    </div>
-                </div>
-                <div id="wordle-keyboard">
-                </div>
-            </div>
-            <div id="arenaPage" style="display: none;">
-                <div id="arena-stats">
-                    <p><img src="images/gold-medal.webp" class="goldmedal" alt="Gold Medal"> <span id="gold-medals">0</span></p>
-                    <div id="arena-result"></div>
-                    <div id="start-race">
-                        <p>Select race difficulty 
-                            <select id="difficulty-select">
-                                <option value="Normal">Normal</option>
-                                <option value="Hard">Hard</option>
-                                <option value="VeryHard">Very Hard</option>
-                            </select></p>
-                            <p>Normal (~30 WPM)</p>
-                            <p>Hard (~50 WPM)</p>
-                            <p>Very Hard (~90 WPM)</p>
-                            <p>Winning gives a buff and medals.</p>
-                            <button id="startRaceButton" onclick="startArenaRace()">Start Race</button>
+                    <div id="stockPage" style="display: none;">
+                        <h2>Stock Market</h2>
+                        <p>1$ = 1 second of passive keystroke income.</p>
+                        <p>1$ = <img src="images/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"><span id="dollarCost">0</span> Keystrokes</p>
+                        <p>Current profit: $<span id="stockProfitDollars">0</span> (<img src="images/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"><span id="stockProfitKeystrokes">0</span>)</p>
+                        <div id="stock-market">
+                            <div id="stock-market-container"></div>
                         </div>
                     </div>
-                    <div id="arena-race" style="display: none">
-                        <div id="race-progress">
-                            <p>Your Progress: <span id="player-progress">0</span>/200 keystrokes</p>
-                            <div class="progress-container">
-                                <div id="player-progress-bar" class="progress-bar"></div>
+                    <div id="guildPage" style="display: none;">
+                        <h2>Guild</h2>
+                        <div id="guild-tasks">
+                            <h3>Select a Guild Task</h3>
+                            <p id="guild-task-change-remaining"></p>
+                            <div>
+                                <input type="radio" id="wordle-guild" name="guild-task" value="wordle">
+                                <label for="wordle-guild">Wordle guild (Additional wordle hint)</label>
                             </div>
-                            <p>Opponent's Progress: <span id="opponent-progress">0</span>/200 keystrokes</p>
-                            <div class="progress-container">
-                                <div id="opponent-progress-bar" class="progress-bar"></div>
+                            <div>
+                                <input type="radio" id="arena-guild" name="guild-task" value="arena">
+                                <label for="arena-guild">Arena guild (+10 Passive WPM increase in the arena)</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="publishing-guild" name="guild-task" value="publishing">
+                                <label for="publishing-guild">Publishing guild (2x the chance of golden news)</label>
                             </div>
                         </div>
-                        <textarea id="arena-input-box" placeholder="Start typing..."></textarea>
-                        <div id="arena-words-to-type-container">
-                            <div id="arena-words-to-type"></div>
+                    </div>
+                    <div id="settingsPage" style="display: none;">
+                        <h2>Settings</h2>
+                        <div id="volume-control">
+                            <label for="volume-slider">Volume Control</label>
+                            <input type="range" id="volume-slider" min="0" max="100" value="100">
+                            <span id="volume-label">100%</span>
+                        </div>
+                        <hr>
+                        <label for="toggle-skip-mistake">
+                            <input type="checkbox" id="toggle-skip-mistake"> Skip words on mistake
+                        </label>
+                        <hr>
+                        <label for="keyboard-layout">
+                            Keyboard layout
+                            <select id="keyboard-layout">
+                                <option value="qwerty-nordic">Qwerty Nordic</option>
+                                <option value="qwerty-us">Qwerty US</option>
+                                <option value="qwerty-uk">Qwerty UK</option>
+                                <option value="dvorak">Dvorak</option>
+                                <option value="azerty">Azerty</option>
+                            </select>
+                        </label>
+                        <hr>
+                        <label for="theme-select">
+                            Theme
+                            <select id="theme-select">
+                                <option value="light-coffee">Light Coffee</option>
+                                <option value="dark-coffee">Dark Coffee</option>
+                                <option value="dark">Dark</option>
+                                <option value="midnight-blue">Midnight Blue</option>
+                                <option value="forest-green">Forest Green</option>
+                                <option value="desert-sunset">Desert Sunset</option>
+                                <option value="spring-blossom">Spring Blossom</option>
+                                <option value="cyberpunk-neon">Cyberpunk Neon</option>
+                            </select>
+                        </label>
+                        <hr>
+                        <h2>Save/Load</h2>
+                        <button id="export-button">Export Save</button>
+                        <button id="import-button">Import Save</button>
+                        <input type="file" id="import-file" style="display: none;">
+                        <hr>
+                        <button id="reset-button">Reset Game</button>
+                    </div>
+                    <div id="reportsPage" style="display: none;">
+                        <h2>Stats</h2>
+                        <div id="stats-reports">
+                            <div id="report-stats" class="report">
+                                <div class="report-receipt">
+                                    <p><strong>Bank:</strong> <span class="modifierValue"><img src="images/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"><span id="keystrokes-bank2">0</span> Keystrokes</span></p>
+                                    <p><strong>Produced by buildings:</strong> <span class="modifierValue"><img src="images/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"><span id="building-cash-earned">0</span></span></p>
+                                    <p><strong>Produced by typing:</strong> <span class="modifierValue"><img src="images/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"><span id="manual-cash-earned">0</span></span></p>
+                                    <p><strong>Total:</strong> <span class="modifierValue"><span id="total-keystrokes">0</span> keystrokes</span></p>
+                                    <p><span class="modifierValue">(~<span id="total-words">0</span> words)</span></p>
+                                    <p><strong>Manual Keystrokes:</strong> <span class="modifierValue"><span id="manual-keystrokes">0</span> keystrokes</span></p>
+                                    <p><span class="modifierValue">(~<span id="manual-words">0</span> words)</span></p>
+                                </div>
+                            </div>
+                        </div>
+                        <h2>Production Reports</h2>
+                        <div id="production-reports">
+                            <div id="report-manual" class="report"></div>
                         </div>
                     </div>
-                </div>
-                <div id="stockPage" style="display: none;">
-                    <h2>Stock Market</h2>
-                    <p>1$ = 1 second of passive keystroke income.</p>
-                    <p>1$ = <img src="images/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"><span id="dollarCost">0</span> Keystrokes</p>
-                    <p>Current profit: $<span id="stockProfitDollars">0</span> (<img src="images/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"><span id="stockProfitKeystrokes">0</span>)</p>
-                    <div id="stock-market">
-                        <div id="stock-market-container"></div>
+                    <div id="researchPage" style="display: none;">
+                        <h2>Research</h2>
+                        <p>Research Points: <img src="images/research-bulb-icon.png" class="researchicon" alt="Research"><span id="researchPoints">0</span></p>
+                        <h2>Research upgrades</h2>
+                        <div id="research-container"></div>
+                        <hr>
+                        <h2>Owned upgrades</h2>
+                        <div id="owned-research-container"></div>
                     </div>
                 </div>
-                <div id="guildPage" style="display: none;">
-                    <h2>Guild</h2>
-                    <div id="guild-tasks">
-                        <h3>Select a Guild Task</h3>
-                        <p id="guild-task-change-remaining"></p>
-                        <div>
-                            <input type="radio" id="wordle-guild" name="guild-task" value="wordle">
-                            <label for="wordle-guild">Wordle guild (Additional wordle hint)</label>
-                        </div>
-                        <div>
-                            <input type="radio" id="arena-guild" name="guild-task" value="arena">
-                            <label for="arena-guild">Arena guild (+10 Passive WPM increase in the arena)</label>
-                        </div>
-                        <div>
-                            <input type="radio" id="publishing-guild" name="guild-task" value="publishing">
-                            <label for="publishing-guild">Publishing guild (2x the chance of golden news)</label>
-                        </div>
+                <div id="upgrades-panel">
+                    <div id="upgrades-parent" style="display: none;">
+                        <strong>Research upgrades</strong>
+                        <div id="researchPointsDiv"><img src="images/research-bulb-icon.png" class="researchicon" alt="Research"><span id="total-research">0</span></div>
+                        <div id="upgrades-container"></div>
+                        <button id="research-tab" class="navbtn">View all</button>
                     </div>
+                    <div id="buildings-container"></div>
                 </div>
-                <div id="settingsPage" style="display: none;">
-                    <h2>Settings</h2>
-                    <div id="volume-control">
-                        <label for="volume-slider">Volume Control</label>
-                        <input type="range" id="volume-slider" min="0" max="100" value="100">
-                        <span id="volume-label">100%</span>
-                    </div>
-                    <hr>
-                    <label for="toggle-skip-mistake">
-                        <input type="checkbox" id="toggle-skip-mistake"> Skip words on mistake
-                    </label>
-                    <hr>
-                    <label for="keyboard-layout">
-                        Keyboard layout
-                        <select id="keyboard-layout">
-                            <option value="qwerty-nordic">Qwerty Nordic</option>
-                            <option value="qwerty-us">Qwerty US</option>
-                            <option value="qwerty-uk">Qwerty UK</option>
-                            <option value="dvorak">Dvorak</option>
-                            <option value="azerty">Azerty</option>
-                        </select>
-                    </label>
-                    <h2>Save/Load</h2>
-                    <button id="export-button">Export Save</button>
-                    <button id="import-button">Import Save</button>
-                    <input type="file" id="import-file" style="display: none;">
-                    <hr>
-                    <button id="reset-button">Reset Game</button>
-                </div>
-                <div id="reportsPage" style="display: none;">
-                    <h2>Production Reports</h2>
-                    <div id="production-reports">
-                        <div id="report-manual" class="report"></div>
-                    </div>
-                </div>
-                <div id="researchPage" style="display: none;">
-                    <h2>Research</h2>
-                    <p>Research Points: <img src="images/research-bulb-icon.png" class="researchicon" alt="Research"><span id="researchPoints">0</span></p>
-                    <h2>Research upgrades</h2>
-                    <div id="research-container"></div>
-                    <hr>
-                    <h2>Owned upgrades</h2>
-                    <div id="owned-research-container"></div>
-                </div>
-            </div>
-            <div id="upgrades-panel">
-                <div id="upgrades-parent" style="display: none;">
-                    <strong>Research upgrades</strong>
-                    <div id="researchPointsDiv"><img src="images/research-bulb-icon.png" class="researchicon" alt="Research"><span id="total-research">0</span></div>
-                    <div id="upgrades-container"></div>
-                    <button id="research-tab" class="navbtn">View all</button>
-                </div>
-                <div id="buildings-container"></div>
             </div>
         </div>
         <div id="notification-container"></div>

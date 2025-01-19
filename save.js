@@ -18,6 +18,7 @@ let goldNewsClicks = 0;
 let currentGuildTask = '';
 let keyboardLayout = 'qwerty-nordic';
 let gameKeyboardOrDefintion = 'keyboard';
+let currentTheme = 'dark';
 let wpm = 0;
 
 function saveGame() {
@@ -43,6 +44,7 @@ function saveGame() {
         currentGuildTask,
         keyboardLayout,
         gameKeyboardOrDefintion,
+        currentTheme,
         buildings: buildings.map(building => ({ id: building.id, level: building.level, totalProduce: building.totalProduce })),
         upgrades: upgrades.map(upgrade => ({ id: upgrade.id, unlocked: upgrade.unlocked })),
         achievements: achievements.map(achievement => ({ id: achievement.id, unlocked: achievement.unlocked })),
@@ -90,6 +92,7 @@ function loadGame(savedData) {
         currentGuildTask = savedData.currentGuildTask || '';
         keyboardLayout = savedData.keyboardLayout || 'qwerty-nordic';
         gameKeyboardOrDefintion = savedData.gameKeyboardOrDefintion || 'keyboard';
+        currentTheme = savedData.currentTheme || 'dark';
         savedData.buildings.forEach(savedBuilding => {
             const building = buildings.find(b => b.id === savedBuilding.id);
             if (building) {

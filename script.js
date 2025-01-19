@@ -6,6 +6,7 @@ let lastTypedWord = "";
 let Tickrate = 60;
 let Tickinterval = 1000 / Tickrate;
 
+let currentPage = "main-tab";
 const tabs = {
     main: {
         tab: document.getElementById("main-tab"),
@@ -41,91 +42,6 @@ const tabs = {
     }
 };
 
-
-function renderGameKeyboard() {
-    const keyboardContainer = document.getElementById('game-keyboard');
-    keyboardContainer.innerHTML = '';
-    const layout = keyboardLayouts[keyboardLayout].row;
-    const margins = keyboardLayouts[keyboardLayout].margins;
-    const bumps = keyboardLayouts[keyboardLayout].bumps;
-    layout.forEach((row, index) => {
-        const rowElement = document.createElement('div');
-        rowElement.className = 'game-keyboard-row';
-        rowElement.style.marginLeft = margins[index];
-        row.split('').forEach(key => {
-            const keyElement = document.createElement('div');
-            keyElement.className = 'game-key';
-            if(bumps.includes(key)) keyElement.classList.add('bump');
-            if(!legalKeys.includes(key)) keyElement.classList.add('disabled');
-            keyElement.textContent = key;
-            keyElement.setAttribute('data-key', key);
-            rowElement.appendChild(keyElement);
-        });
-        keyboardContainer.appendChild(rowElement);
-    });
-    document.getElementById('hand').style.marginLeft = keyboardLayouts[keyboardLayout].handMargin;
-}
-
-
-
-function highlightNextKey() {
-    let mistakeFound = false;
-    const inputText = document.getElementById('input-box').value.trim();
-    for(let i = 0; i < inputText.length; i++) {
-        if(inputText[i] !== wordsToType[0][i]) {
-            mistakeFound = true;
-            break;
-        }
-    }
-    if(inputText.length > wordsToType[0].length) mistakeFound = true;
-    if(inputText.length === 0) mistakeFound = false;
-    if(mistakeFound) {
-        document.querySelectorAll('.game-key').forEach(keyElement => {
-            keyElement.classList.remove('highlight');
-            keyElement.classList.add('invalid');
-        }); 
-        document.querySelectorAll('.finger').forEach(finger => {
-            finger.classList.remove('highlight-finger');
-        });
-    } else {
-        if(inputText.length === wordsToType[0].length) {
-            document.querySelectorAll('.game-key').forEach(keyElement => {
-                keyElement.classList.remove('invalid');
-                keyElement.classList.add('highlight');
-            }); 
-        } else {
-            const nextKey = wordsToType[0][inputText.length].toUpperCase();
-            document.querySelectorAll('.game-key').forEach(keyElement => {
-                keyElement.classList.remove('invalid');
-                if (keyElement.getAttribute('data-key') === nextKey) {
-                    keyElement.classList.add('highlight');
-                } else {
-                    keyElement.classList.remove('highlight');
-                }
-            });
-
-            const fingerName = getProperFingerName(keyboardLayout, nextKey.toUpperCase());
-            document.querySelectorAll('.finger').forEach(finger => {
-                finger.classList.remove('highlight-finger');
-                finger.classList.remove('toprow');
-                finger.classList.remove('midrow');
-                finger.classList.remove('botrow');
-            });
-            const fingerElement = document.getElementById(fingerName.toLowerCase().replace(' ', '-'));
-            if(fingerElement) {
-                fingerElement.classList.add('highlight-finger');
-                const rowIndex = keyboardLayouts[keyboardLayout].row.findIndex(row => row.includes(nextKey));
-                if (rowIndex === 0) {
-                    fingerElement.classList.add('toprow');
-                } else if (rowIndex === 1) {
-                    fingerElement.classList.add('midrow');
-                } else if (rowIndex === 2) {
-                    fingerElement.classList.add('botrow');
-                }
-            }
-        }
-    }
-}
 
 function initGame() {
     loadLocalSave(); // Load saved game data
@@ -200,6 +116,13 @@ function initGame() {
         highlightNextKey();
     });
     document.getElementById('keyboard-layout').value = keyboardLayout;
+    //==========================================
+    document.getElementById('theme-select').addEventListener('change', function () {
+        currentTheme = this.value;
+        applyTheme();
+    });
+    document.getElementById('theme-select').value = currentTheme;
+    applyTheme();
     //==========================================
     document.getElementById('toggle-word-definition').addEventListener('click', () => {
         document.getElementById('toggle-word-definition').classList.add('active');
@@ -457,7 +380,96 @@ function formatShortScale(number) {
     return `${scaled.toFixed(2)} ${suffix}`; 
 }
 
+function renderGameKeyboard() {
+    const keyboardContainer = document.getElementById('game-keyboard');
+    keyboardContainer.innerHTML = '';
+    const layout = keyboardLayouts[keyboardLayout].row;
+    const margins = keyboardLayouts[keyboardLayout].margins;
+    const bumps = keyboardLayouts[keyboardLayout].bumps;
+    layout.forEach((row, index) => {
+        const rowElement = document.createElement('div');
+        rowElement.className = 'game-keyboard-row';
+        rowElement.style.marginLeft = margins[index];
+        row.split('').forEach(key => {
+            const keyElement = document.createElement('div');
+            keyElement.className = 'game-key';
+            if(bumps.includes(key)) keyElement.classList.add('bump');
+            if(!legalKeys.includes(key)) keyElement.classList.add('disabled');
+            keyElement.textContent = key;
+            keyElement.setAttribute('data-key', key);
+            rowElement.appendChild(keyElement);
+        });
+        keyboardContainer.appendChild(rowElement);
+    });
+    document.getElementById('hand').style.marginLeft = keyboardLayouts[keyboardLayout].handMargin;
+}
+
+
+
+function highlightNextKey() {
+    let mistakeFound = false;
+    const inputText = document.getElementById('input-box').value.trim();
+    for(let i = 0; i < inputText.length; i++) {
+        if(inputText[i] !== wordsToType[0][i]) {
+            mistakeFound = true;
+            break;
+        }
+    }
+    if(inputText.length > wordsToType[0].length) mistakeFound = true;
+    if(inputText.length === 0) mistakeFound = false;
+    if(mistakeFound) {
+        document.querySelectorAll('.game-key').forEach(keyElement => {
+            keyElement.classList.remove('highlight');
+            keyElement.classList.add('invalid');
+        }); 
+        document.querySelectorAll('.finger').forEach(finger => {
+            finger.classList.remove('highlight-finger');
+        });
+    } else {
+        if(inputText.length === wordsToType[0].length) {
+            document.querySelectorAll('.game-key').forEach(keyElement => {
+                keyElement.classList.remove('invalid');
+                keyElement.classList.add('highlight');
+            }); 
+        } else {
+            const nextKey = wordsToType[0][inputText.length].toUpperCase();
+            document.querySelectorAll('.game-key').forEach(keyElement => {
+                keyElement.classList.remove('invalid');
+                if (keyElement.getAttribute('data-key') === nextKey) {
+                    keyElement.classList.add('highlight');
+                } else {
+                    keyElement.classList.remove('highlight');
+                }
+            });
+            
+            const fingerName = getProperFingerName(keyboardLayout, nextKey.toUpperCase());
+            document.querySelectorAll('.finger').forEach(finger => {
+                finger.classList.remove('highlight-finger');
+                finger.classList.remove('toprow');
+                finger.classList.remove('midrow');
+                finger.classList.remove('botrow');
+            });
+            const fingerElement = document.getElementById(fingerName.toLowerCase().replace(' ', '-'));
+            if(fingerElement) {
+                document.getElementById('finger-guide').innerHTML = `Use your <strong>${fingerName}</strong> finger to type the next key.`;
+                fingerElement.classList.add('highlight-finger');
+                const rowIndex = keyboardLayouts[keyboardLayout].row.findIndex(row => row.includes(nextKey));
+                if (rowIndex === 0) {
+                    fingerElement.classList.add('toprow');
+                } else if (rowIndex === 1) {
+                    fingerElement.classList.add('midrow');
+                } else if (rowIndex === 2) {
+                    fingerElement.classList.add('botrow');
+                }
+            } else {
+                document.getElementById('finger-guide').textContent = '';
+            }
+        }
+    }
+}
+
 function switchTab(activeTab) {
+    currentPage = activeTab.id;
     for (const key in tabs) {
         if (tabs[key].tab === activeTab) {
             tabs[key].page.style.display = "block";
@@ -467,9 +479,18 @@ function switchTab(activeTab) {
             tabs[key].tab.classList.remove("active");
         }
     }
+    document.body.className = `${currentTheme} ${currentPage}`;
+    if(currentPage === 'main-tab') {
+        document.getElementById('upgrades-panel').style.display = 'block';
+        document.getElementById('input-box').focus();
+    } else {
+        document.getElementById('upgrades-panel').style.display = 'none';
+    }
     playMenuSound();
 }
-
+function applyTheme() {
+    document.body.className = `${currentTheme} ${currentPage}`;
+}
 function sendHeartbeat() {
     if(window.location.host !== 'www.typeidle.com' && window.location.host !== 'typeidle.com') return; // Don't send heartbeats in development
     fetch('heartbeat.php', {

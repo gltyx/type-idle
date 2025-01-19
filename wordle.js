@@ -40,7 +40,7 @@ const keyboardLayouts = {
       // a  a | b | c | d d | g g | h i j
       'aabcddgghij'
     ],
-    margins: ['0','2rem','-3rem'],
+    margins: ['0','2rem','-6rem'],
     handMargin: '2rem',
     bumps: 'FJ'
   },
@@ -67,7 +67,7 @@ const keyboardLayouts = {
       // a b c d d | g g | h i j
       'abcddgghij'
     ],
-    margins: ['0','-1rem','-2rem'],
+    margins: ['0','-3rem','-3rem'],
     handMargin: '0.9rem',
     bumps: 'FJ'
   },
@@ -92,7 +92,7 @@ const keyboardLayouts = {
       // => same pattern as qwerty-us bottom row
       'abcddgghij'
     ],
-    margins: ['0','1.1rem','-2rem'],
+    margins: ['0','1.1rem','-3rem'],
     handMargin: '1.1rem',
     bumps: 'FJ'
   },
@@ -123,7 +123,7 @@ const keyboardLayouts = {
       //  (10 chars)
       'abcddgghij'
     ],
-    margins: ['0','-1rem','-1rem'],
+    margins: ['0','-3rem','-3rem'],
     handMargin: '0.9rem',
     bumps: 'UH'
   },
@@ -150,7 +150,7 @@ const keyboardLayouts = {
       // a a | b | c | d d | g g | h i j
       'aabcddgghij'
     ],
-    margins: ['0','1rem','-3rem'],
+    margins: ['0','1rem','-9rem'],
     handMargin: '1rem',
     bumps: 'FJ'
   }

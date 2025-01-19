@@ -546,17 +546,7 @@ function initUpgrades() {
         researchElement.style.backgroundImage = `url("images/tooltips/upgrades/${upgrade.id}.jpg")`;
         researchElement.className = 'bigUpgrade';
         researchElement.setAttribute('data-index', upgrade.id - 1);
-        researchElement.innerHTML = `
-                        <div class="tooltip-body">
-                            <div class="tooltip-header">
-                                <h1>${upgrade.name}</h1>
-                            </div>
-                            <div class="tooltip-section">
-                                <p>${upgrade.description}</p>
-                                <p class="trivia">"${upgrade.trivia}"</p>
-                                <img src="images/research-bulb-icon.png" class="researchicon" alt="Research">${upgrade.cost}
-                            </div>
-                        </div>`;
+        researchElement.innerHTML = ``;
         researchElement.disabled = upgrade.cost > totalResearchPoints || upgrade.unlocked;
         researchElement.addEventListener('click', () => {
             if (totalResearchPoints >= upgrade.cost && !upgrade.unlocked) {
@@ -572,19 +562,15 @@ function initUpgrades() {
         researchOwnedElement.className = 'owned-bigUpgrade';
         researchOwnedElement.setAttribute('data-index', upgrade.id - 1);
         researchOwnedElement.style.backgroundImage = `url("images/tooltips/upgrades/${upgrade.id}.jpg")`;
-        researchOwnedElement.innerHTML = `
-                        <div class="tooltip-body">
-                            <div class="tooltip-header">
-                                <h1>${upgrade.name}</h1>
-                            </div>
-                            <div class="tooltip-section">
-                                <p>${upgrade.description}</p>
-                                <p class="trivia">"${upgrade.trivia}"</p>
-                                <img src="images/research-bulb-icon.png" class="researchicon" alt="Research">${upgrade.cost}
-                            </div>
-                        </div>`;
+        researchOwnedElement.innerHTML = ``;
         researchOwnedElement.style.display = 'none'; // Initially hide owned upgrade element
         ownedResearchContainer.appendChild(researchOwnedElement);
+
+        researchElement.addEventListener('mouseover', () => showUpgradeToolTip(researchElement, upgrade));
+        researchElement.addEventListener('mouseout', () => hideTooltip());
+        
+        researchOwnedElement.addEventListener('mouseover', () => showOwnedUpgradeToolTip(researchOwnedElement, upgrade));
+        researchOwnedElement.addEventListener('mouseout', () => hideTooltip());
     });
 }
 
