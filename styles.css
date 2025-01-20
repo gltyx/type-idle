@@ -52,6 +52,7 @@ body.light-coffee {
     --news-container-bg: #5c4033ef; /* coffee alpha */
     --news-container-color: #FFF5E1;
     --golden-news-color: #FFD700;
+    --golden-news-glow: rgba(255, 215, 0, 0.8);
     --golden-news-clicked-color: #FFF5E1;
     
     --buff-bg: #5c4033ef;
@@ -183,6 +184,7 @@ body.dark-coffee {
     --news-container-bg: #2a2421;
     --news-container-color: #eae3d9;
     --golden-news-color: #ffd700;
+    --golden-news-glow: rgba(255, 215, 0, 0.8);
     --golden-news-clicked-color: #e2cda7;
 
     /* Buff / Status Panel */
@@ -325,6 +327,7 @@ body.dark {
     --news-container-bg: #353535;
     --news-container-color: #ddd;
     --golden-news-color: #FFD700;
+    --golden-news-glow: rgba(255, 215, 0, 0.8);
     --golden-news-clicked-color: #bbb;
     
     --buff-bg: #353535;
@@ -446,6 +449,7 @@ body.midnight-blue {
     --news-container-bg: #141d26;
     --news-container-color: #cfd9e8;
     --golden-news-color: #ffd700;
+    --golden-news-glow: rgba(255, 215, 0, 0.8);
     --golden-news-clicked-color: #9ea6b3;
 
     --buff-bg: #141d26;
@@ -566,6 +570,7 @@ body.forest-green {
     --news-container-bg: #1d2a18;
     --news-container-color: #d5e3d6;
     --golden-news-color: #ffd700;
+    --golden-news-glow: rgba(255, 215, 0, 0.8);
     --golden-news-clicked-color: #c5d2c9;
 
     --buff-bg: #1d2a18;
@@ -686,6 +691,7 @@ body.desert-sunset {
     --news-container-bg: #442d1f;
     --news-container-color: #f2e0d4;
     --golden-news-color: #ffd700;
+    --golden-news-glow: rgba(255, 215, 0, 0.8);
     --golden-news-clicked-color: #dabda7;
 
     --buff-bg: #442d1f;
@@ -805,7 +811,8 @@ body.spring-blossom {
 
     --news-container-bg: #edcadd;
     --news-container-color: #3e3e3e;
-    --golden-news-color: #ffd700;
+    --golden-news-color: #ff69b4;
+    --golden-news-glow: rgba(255, 105, 180, 0.8);
     --golden-news-clicked-color: #bbb;
 
     --buff-bg: #edcadd;
@@ -926,6 +933,7 @@ body.cyberpunk-neon {
     --news-container-bg: #180035;
     --news-container-color: #e3e3e3;
     --golden-news-color: #ffd700;
+    --golden-news-glow: rgba(255, 215, 0, 0.8);
     --golden-news-clicked-color: #bb9aa7;
 
     --buff-bg: #180035;
@@ -1148,7 +1156,7 @@ button {
     color: var(--golden-news-color);
     font-weight: bold;
     cursor: pointer;
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+    text-shadow: 0 0 10px var(--golden-news-glow);
 }
 .golden-news-clicked {
     color: var(--golden-news-clicked-color);
@@ -1410,6 +1418,7 @@ button:disabled {
     width: 2.6rem;
     height: 2.6rem;
     vertical-align: middle;
+    filter:drop-shadow(0 0 5px rgba(0, 0, 0, 0.5));
 }
 .icon {
     width: 5.2rem;
@@ -1477,7 +1486,7 @@ button:disabled {
     align-items: center;
     flex-direction: column;
     justify-content: space-between;
-    transition: transform 0.3s ease, box-shadow 0.3s ease; 
+    transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease; 
     perspective: 9rem;
 }
 .icon {
@@ -1485,6 +1494,7 @@ button:disabled {
 }
 .building:not(:disabled):hover .icon {
     transform: scale(1.1) rotateY(var(--rotateY)) rotateX(var(--rotateX));
+    filter:drop-shadow(0 0 5px rgba(255, 255, 255, 0.5)) brightness(1.2) contrast(1.2);
 }
 #achievements-container {
     display: flex;

@@ -26,6 +26,10 @@ function dollarsToKeystrokes(dollars) {
     return dollars * getPassiveIncome() / Tickrate * 60;
 }
 
+function keystrokesToDollars(keystrokes) {
+    return keystrokes / getPassiveIncome() * Tickrate / 60;
+}
+
 function initStockMarket() {
     const stockMarket = document.getElementById("stock-market-container");
     stocks.forEach((stock, index) => {
@@ -33,21 +37,21 @@ function initStockMarket() {
         stockElement.classList.add("stock");
         stockElement.style.backgroundImage = `url(${stock.icon})`;
         stockElement.innerHTML = `
-        <div class="stock-info">
+        <div class="stock-info" id="stock-${index}">
             <h3>${stock.name}</h3>
             <p>Price: <span id="stock-price-${index}">$${stock.price}</span></p>
             <p>Owned: <span id="stock-owned-${index}">${stock.owned}/${maxStockOwned}</span></p>
             <div class="stock-buttons">
               <p>Buy:</p>
-              <button id="stock-${index}-buy-1" onclick="buyStock(${index}, 1)" onmouseover="showStockBuyTooltip(this, 1, stocks[${index}])" onmouseout="hideTooltip()">1</button>
-              <button id="stock-${index}-buy-10" onclick="buyStock(${index}, 10)" onmouseover="showStockBuyTooltip(this, 10, stocks[${index}])" onmouseout="hideTooltip()">10</button>
-              <button id="stock-${index}-buy-100" onclick="buyStock(${index}, 100)" onmouseover="showStockBuyTooltip(this, 100, stocks[${index}])" onmouseout="hideTooltip()">100</button>
+              <button id="stock-${index}-buy-1" onclick="buyStock(${index}, 1)" onmouseover="showStockBuyTooltip(document.getElementById('stock-${index}'), 1, stocks[${index}])" onmouseout="hideTooltip()">1</button>
+              <button id="stock-${index}-buy-10" onclick="buyStock(${index}, 10)" onmouseover="showStockBuyTooltip(document.getElementById('stock-${index}'), 10, stocks[${index}])" onmouseout="hideTooltip()">10</button>
+              <button id="stock-${index}-buy-100" onclick="buyStock(${index}, 100)" onmouseover="showStockBuyTooltip(document.getElementById('stock-${index}'), 100, stocks[${index}])" onmouseout="hideTooltip()">100</button>
             </div>
             <div class="stock-buttons">
               <p>Sell:</p>
-              <button id="stock-${index}-sell-1" onclick="sellStock(${index}, 1)" onmouseover="showStockSellTooltip(this, 1, stocks[${index}])" onmouseout="hideTooltip()">1</button>
-              <button id="stock-${index}-sell-10" onclick="sellStock(${index}, 10)" onmouseover="showStockSellTooltip(this, 10, stocks[${index}])" onmouseout="hideTooltip()">10</button>
-              <button id="stock-${index}-sell-100" onclick="sellStock(${index}, 100)" onmouseover="showStockSellTooltip(this, 100, stocks[${index}])" onmouseout="hideTooltip()">100</button>
+              <button id="stock-${index}-sell-1" onclick="sellStock(${index}, 1)" onmouseover="showStockSellTooltip(document.getElementById('stock-${index}'), 1, stocks[${index}])" onmouseout="hideTooltip()">1</button>
+              <button id="stock-${index}-sell-10" onclick="sellStock(${index}, 10)" onmouseover="showStockSellTooltip(document.getElementById('stock-${index}'), 10, stocks[${index}])" onmouseout="hideTooltip()">10</button>
+              <button id="stock-${index}-sell-100" onclick="sellStock(${index}, 100)" onmouseover="showStockSellTooltip(document.getElementById('stock-${index}'), 100, stocks[${index}])" onmouseout="hideTooltip()">100</button>
             </div>
             <!-- Add a canvas for the Chart.js chart -->
             <div class="stock-chart-container">
@@ -122,6 +126,8 @@ function displayStockMarket() {
         document.getElementById("stock-tab").style.display = "block";
     }
     document.getElementById("dollarCost").textContent = formatShortScale(dollarsToKeystrokes(1));
+    document.getElementById("stockCurrentKeystrokes").textContent = formatShortScale(keystrokesBank);
+    document.getElementById("stockCurrentDollars").textContent = formatShortScale(keystrokesToDollars(keystrokesBank));
     document.getElementById("stockProfitDollars").textContent = formatShortScale(stockProfitDollars);
     document.getElementById("stockProfitKeystrokes").textContent = formatShortScale(stockProfitKeystrokes);
     stocks.forEach((stock, index) => {
