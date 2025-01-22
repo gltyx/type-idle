@@ -6,11 +6,13 @@ let lastTypedWord = "";
 let Tickrate = 60;
 let Tickinterval = 1000 / Tickrate;
 
+
 let currentPage = "main-tab";
 const tabs = {
     main: {
         tab: document.getElementById("main-tab"),
-        page: document.getElementById("gamePage")
+        page: document.getElementById("gamePage"),
+        sidePanel: document.getElementById("upgrades-panel")
     },
     reports: {
         tab: document.getElementById("reports-tab"),
@@ -18,7 +20,8 @@ const tabs = {
     },
     wordle: {
         tab: document.getElementById("wordle-tab"),
-        page: document.getElementById("wordlePage")
+        page: document.getElementById("wordlePage"),
+        sidePanel: document.getElementById("wordle-panel")
     },
     arena: {
         tab: document.getElementById("arena-tab"),
@@ -26,7 +29,8 @@ const tabs = {
     },
     stock: {
         tab: document.getElementById("stock-tab"),
-        page: document.getElementById("stockPage")
+        page: document.getElementById("stockPage"),
+        sidePanel: document.getElementById("stocks-panel")
     },
     settings: {
         tab: document.getElementById("settings-tab"),
@@ -41,6 +45,70 @@ const tabs = {
         page: document.getElementById("guildPage")
     }
 };
+
+let currentBusinessTier = 0;
+let businessTiers = [
+    { tier: 0, name: "Non existant business", jobTitle: "Unemployed", threshold: 0 },
+    { tier: 1, name: "Small Business", jobTitle: "Intern", threshold: 100 },
+    { tier: 2, name: "Medium Business", jobTitle: "Assistant", threshold: 50_000 },
+    { tier: 3, name: "Large Business", jobTitle: "Associate", threshold: 1_000_000 },
+    { tier: 4, name: "Corporation", jobTitle: "Manager", threshold: 100_000_000 },
+    { tier: 5, name: "Mega Corporation", jobTitle: "Director", threshold: 1_000_000_000 },
+    { tier: 6, name: "Global Conglomerate", jobTitle: "CEO", threshold: 1_000_000_000_000 },
+];
+
+let canPromote = true;
+function initPromotion() {
+    currentBusinessTier = businessTiers.reduce((acc, biz, i) => {
+        return (totalKeystrokes >= biz.threshold) ? i : acc;
+    }, 0);
+    const businessContainer = document.getElementById("business-title");
+    const jobTitleContainer = document.getElementById("job-title");
+    let newBizTitle = document.createElement('div');
+    newBizTitle.innerText = businessTiers[currentBusinessTier].name;
+    businessContainer.appendChild(newBizTitle);
+    let newJobTitle = document.createElement('div');
+    newJobTitle.innerText = businessTiers[currentBusinessTier].jobTitle;
+    jobTitleContainer.appendChild(newJobTitle);
+    if(currentBusinessTier === businessTiers.length - 1) {
+        document.getElementById("business-rankup-progress-bar").style.width = "100%";
+    }
+}
+function checkPromotion() {
+    if(!canPromote) return;
+    if (currentBusinessTier >= businessTiers.length - 1) return;
+    let lowerThreshold = businessTiers[currentBusinessTier].threshold;
+    let nextThreshold = businessTiers[currentBusinessTier + 1].threshold;
+    document.getElementById("business-rankup-progress-bar").style.width = `${((totalKeystrokes - lowerThreshold) / (nextThreshold - lowerThreshold) * 100).toFixed(2)}%`;
+    if(totalKeystrokes >= businessTiers[currentBusinessTier + 1].threshold) {
+        canPromote=false; // Limit to 1 promotion a time
+        const businessContainer = document.getElementById("business-title");
+        const jobTitleContainer = document.getElementById("job-title");
+
+        let oldBizTitle = businessContainer.querySelector('div');
+        let oldJobTitle = jobTitleContainer.querySelector('div');
+        if (oldBizTitle) oldBizTitle.style.animationName = 'scrollDown';
+        if (oldJobTitle) oldJobTitle.style.animationName = 'scrollDown';
+
+        setTimeout(() => {
+            currentBusinessTier++;
+            if (oldBizTitle) businessContainer.removeChild(oldBizTitle);
+            if (oldJobTitle) jobTitleContainer.removeChild(oldJobTitle);
+
+            let newBizTitle = document.createElement('div');
+            newBizTitle.innerText = businessTiers[currentBusinessTier].name;
+            newBizTitle.style.animationName = 'scrollUp';
+            businessContainer.appendChild(newBizTitle);
+
+            let newJobTitle = document.createElement('div');
+            newJobTitle.innerText = businessTiers[currentBusinessTier].jobTitle;
+            newJobTitle.style.animationName = 'scrollUp';
+            jobTitleContainer.appendChild(newJobTitle);
+            createFloatingWord(`Promoted to ${businessTiers[currentBusinessTier].jobTitle}`);
+            canPromote = true;
+        }, 1000);
+    }
+}
 
 
 function initGame() {
@@ -71,6 +139,7 @@ function initGame() {
     initBuildings();
     initReports();
     initStockMarket();
+    initPromotion();
     renderGameKeyboard();
     highlightNextKey();
     //==========================================
@@ -155,8 +224,8 @@ document.getElementById('input-box').addEventListener('input', function() {
     const inputBox = document.getElementById('input-box');
     const inputText = inputBox.value.trim();
     
-    colorText(inputText);
-    
+    colorText(inputText, document.getElementById('words-to-type'), wordsToType);
+    highlightNextKey();
     if (inputBox.value.endsWith(' ')) {
         if (inputText === wordsToType[0]) {
             manualKeystrokes += inputText.length;
@@ -190,7 +259,6 @@ document.getElementById('input-box').addEventListener('input', function() {
         }
         inputBox.value = '';
         highlightNextKey();
-        updateStats();
     }
 });
 
@@ -207,15 +275,15 @@ function getRandomWord() {
 
 
 function updateWordsToType() {
-    colorText('');
+    colorText('', document.getElementById('words-to-type'), wordsToType);
     displayWordDefinition(wordsToType[0]);
     document.getElementById('input-box').placeholder = `Type '${wordsToType[0]}' here...`;
+    highlightNextKey();
 }
 
-function colorText(inputText) {
-    highlightNextKey();
-    const wordsDisplay = document.getElementById('words-to-type');
-    const firstWord = wordsToType[0];
+function colorText(inputText, wordsDisplay, words) {
+    
+    const firstWord = words[0];
     let coloredText = '';
     let mistakeFound = false;
     
@@ -232,14 +300,20 @@ function colorText(inputText) {
         }
     }
     
-    for (let i = 1; i < wordsToType.length; i++) {
-        coloredText += ' ' + wordsToType[i];
+    for (let i = 1; i < words.length; i++) {
+        coloredText += ' ' + words[i];
     }
     
     wordsDisplay.innerHTML = coloredText;
 }
 
 function updateStats() {
+    scrollingKeystrokesBank += (keystrokesBank - scrollingKeystrokesBank) / Tickrate * 4;
+    scrollingWpm += (wpm - scrollingWpm) / Tickrate * 10;
+
+    scrollingWpmMultiplier += ((1 + wpm / 30) - scrollingWpmMultiplier) / Tickrate * 10;
+
+    scrollingPassiveIncome += (getPassiveIncome() - scrollingPassiveIncome) / Tickrate * 4;
     document.getElementById('building-cash-earned').textContent = formatShortScale(cashEarnedBuildings);
     document.getElementById('manual-cash-earned').textContent = formatShortScale(cashEarnedManually);
     
@@ -249,8 +323,10 @@ function updateStats() {
     document.getElementById('manual-keystrokes').textContent = formatShortScale(manualKeystrokes);
     document.getElementById('manual-words').textContent = formatShortScale(manualKeystrokes / 5);
     
-    document.getElementById('keystrokes-bank').textContent = formatShortScale(keystrokesBank);
-    document.getElementById('keystrokes-bank2').textContent = formatShortScale(keystrokesBank);
+    document.getElementById('keystrokes-bank').textContent = formatShortScale(scrollingKeystrokesBank);
+    document.getElementById('keystrokes-bank2').textContent = formatShortScale(scrollingKeystrokesBank);
+    //document.getElementById('keystrokes-bank').textContent = formatShortScale(keystrokesBank);
+    //document.getElementById('keystrokes-bank2').textContent = formatShortScale(keystrokesBank);
     document.getElementById('total-research').textContent = formatShortScale(totalResearchPoints);
     document.getElementById('researchPoints').textContent = formatShortScale(totalResearchPoints);
     
@@ -266,10 +342,11 @@ function updateStats() {
     const correctKeystrokesPerSecond = correctKeystrokesTimestamps.length / 5; // Number of correct keystrokes in the last 5 seconds
     const wordsTyped = correctKeystrokesPerSecond / 5; // Calculate words based on 5 keystrokes per word
     wpm = wordsTyped * 60; // Calculate WPM
-    document.getElementById('wpm').textContent = wpm.toFixed(2); // Update WPM display
+    document.getElementById('wpm').textContent = scrollingWpm.toFixed(2); // Update WPM display
+    document.getElementById('wpm-multiplier').textContent = scrollingWpmMultiplier.toFixed(2);
     
     // Update passive income display
-    document.getElementById('passive-income').textContent = formatShortScale(getPassiveIncome());
+    document.getElementById('passive-income').textContent = formatShortScale(scrollingPassiveIncome);
     
     checkAchievements();
     displayWordle();
@@ -281,6 +358,7 @@ function updateStats() {
     displayNews();
     displayBuffs();
     displayGuild();
+    checkPromotion();
 }
 
 function createFallingWord(word) {
@@ -473,18 +551,21 @@ function switchTab(activeTab) {
     for (const key in tabs) {
         if (tabs[key].tab === activeTab) {
             tabs[key].page.style.display = "block";
+            if(tabs[key].sidePanel) {
+                tabs[key].sidePanel.style.display = "block";
+            }
             tabs[key].tab.classList.add("active");
         } else {
             tabs[key].page.style.display = "none";
+            if(tabs[key].sidePanel) {
+                tabs[key].sidePanel.style.display = "none";
+            }
             tabs[key].tab.classList.remove("active");
         }
     }
     document.body.className = `${currentTheme} ${currentPage}`;
     if(currentPage === 'main-tab') {
-        document.getElementById('upgrades-panel').style.display = 'block';
         document.getElementById('input-box').focus();
-    } else {
-        document.getElementById('upgrades-panel').style.display = 'none';
     }
     playMenuSound();
 }

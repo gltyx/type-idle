@@ -142,6 +142,13 @@ function checkModifiers() {
     }
 }
 
+modifiers.push({
+    name: "WPM Boost",
+    description: "Every 30 WPM increases manual keystrokes production by 100%.",
+    affectedBuildings: [0, ...buildings.flatMap(b => b.id)], // 0 for manually typed words
+    getMultiplier: () => 1 + wpm / 30,
+});
+
 const upgrades = [
     {
         id: 1,

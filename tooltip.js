@@ -200,49 +200,6 @@ function showCurrentResearchCountTooltip(element) {
     tooltip.classList.add('visible');
 }
 
-function showWordleTutorialTooltip(element) {
-    tooltip.style.backgroundImage = 'url("images/tooltips/wordle-tutorial.jpg")';
-    tooltipHead.innerHTML = `
-    <h1>How to Play</h1>
-    <h2>Guess the word in 5 tries</h2>`;
-    tooltipSection.innerHTML = `
-    <h3>Examples</h3>
-    <div class="wordle-example">
-        <div class="wordle-grid">
-            <div class="wordle-guess-row">
-                <div class="wordle-tile correct">W</div>
-                <div class="wordle-tile">O</div>
-                <div class="wordle-tile">R</div>
-                <div class="wordle-tile">D</div>
-            </div>
-        </div>
-        <p><strong>W</strong> is in the word and in the correct position.</p>
-    </div>
-    <div class="wordle-example">
-        <div class="wordle-grid">
-            <div class="wordle-guess-row">
-                <div class="wordle-tile present">W</div>
-                <div class="wordle-tile">O</div>
-                <div class="wordle-tile">R</div>
-                <div class="wordle-tile">D</div>
-            </div>
-        </div>
-        <p><strong>W</strong> is in the word but in a different position.</p>
-    </div>
-    <div class="wordle-example">
-        <div class="wordle-grid">
-            <div class="wordle-guess-row">
-                <div class="wordle-tile absent">W</div>
-                <div class="wordle-tile">O</div>
-                <div class="wordle-tile">R</div>
-                <div class="wordle-tile">D</div>
-            </div>
-        </div>
-        <p><strong>W</strong> is not in the word.</p>
-    </div>`;
-    setToolTipPos(element); 
-    tooltip.classList.add('visible');
-}
 function showStockBuyTooltip(element, count, stock) {
     tooltip.style.backgroundImage = `url("${stock.icon}")`;
     tooltipHead.innerHTML = `
@@ -291,7 +248,3 @@ function showBuffTooltip(element, buff) {
 let researchPointsDiv = document.getElementById("researchPointsDiv");
 researchPointsDiv.addEventListener('mouseover', () => showCurrentResearchCountTooltip(researchPointsDiv));
 researchPointsDiv.addEventListener('mouseout', () => hideTooltip());
-
-let wordleTutorial = document.getElementById("wordle-tutorial");
-wordleTutorial.addEventListener('mouseover', () => showWordleTutorialTooltip(wordleTutorial.childNodes[0]));
-wordleTutorial.addEventListener('mouseout', () => hideTooltip());

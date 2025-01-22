@@ -49,17 +49,24 @@ function applyKPStoManual(keystrokes) {
     return keystrokes + (keystrokes * totalMultiplier * getPassiveIncome());
 }
 
+function getBuildingCost(building) {
+    const growthFactor = 1.15;
+    let cost = building.baseCost * Math.pow(growthFactor, building.level) * (building.level + 1);
+    let ITOfficeReduction = Math.max(0.8, Math.pow(0.995, ITOffice.level));
+    return Math.ceil(cost * ITOfficeReduction);
+}
+
 const AutoWriter = {
     id: 1,
     name: "Auto Writer",
     description: "Automatically types keystrokes for you.",
     trivia: "Gives you a break from typing.",
-    lockdescription: "Unlocks at 10 total keystrokes.",
+    lockdescription: "Unlocks at 100 total keystrokes.",
     special: "Unlocks wordle minigame. Each Auto Writer increases manually typed words production by 5%.",
-    unlockCondition: () => { return totalKeystrokes >= 10; },
+    unlockCondition: () => { return totalKeystrokes >= 100; },
     locked: true,
-    getCost: () => 10 * Math.pow(AutoWriter.level + 1, 2) * Math.log(AutoWriter.level + 2) * (ITOffice.level > 0 ? Math.pow(0.99, ITOffice.level) : 1),
-    baseProduce: 0.1,
+    baseCost: 100,
+    baseProduce: 1,
     getProduceSingle: () => {
         return applyModifiers(AutoWriter.id, AutoWriter.baseProduce);
     },
@@ -77,12 +84,12 @@ const Printer = {
     name: "Printer",
     description: "Produces keystrokes at a higher rate.",
     trivia: "You can print keystrokes?",
-    lockdescription: "Unlocks at 50 total keystrokes.",
+    lockdescription: "Unlocks at 500 total keystrokes.",
     special: "Unlocks 'Reports' button in the navbar. Each Printer increases all buildings income by 0.75%.",
-    unlockCondition: () => { return totalKeystrokes >= 50; },
+    unlockCondition: () => { return totalKeystrokes >= 500; },
     locked: true,
-    getCost: () => 50 * Math.pow(Printer.level + 1, 2) * Math.log(Printer.level + 2) * (ITOffice.level > 0 ? Math.pow(0.99, ITOffice.level) : 1),
-    baseProduce: 0.5,
+    baseCost: 500,
+    baseProduce: 5,
     getProduceSingle: () => {
         return applyModifiers(Printer.id, Printer.baseProduce);
     },
@@ -100,12 +107,12 @@ const ResearchLab = {
     name: "Research Lab",
     description: "Research new typing techniques.",
     trivia: "Lab coat not included.",
-    lockdescription: "Unlocks at 500 total keystrokes.",
+    lockdescription: "Unlocks at 2,000 total keystrokes.",
     special: "Unlocks research system. Grants research points.",
-    unlockCondition: () => { return totalKeystrokes >= 500; },
+    unlockCondition: () => { return totalKeystrokes >= 2000; },
     locked: true,
-    getCost: () => 200 * Math.pow(ResearchLab.level + 1, 2) * Math.log(ResearchLab.level + 2) * (ITOffice.level > 0 ? Math.pow(0.99, ITOffice.level) : 1),
-    baseProduce: 1,
+    baseCost: 2000,
+    baseProduce: 20,
     getProduceSingle: () => {
         return applyModifiers(ResearchLab.id, ResearchLab.baseProduce);
     },
@@ -123,12 +130,12 @@ const CyberCafe = {
     name: "Cyber Cafe",
     description: "Provides a social space for typing enthusiasts.",
     trivia: "Free Wi-Fi included.",
-    lockdescription: "Unlocks when you own 10 Auto Writers.",
+    lockdescription: "Unlocks at 10,000 total keystrokes.",
     special: "Produces keystrokes even when offline.",
-    unlockCondition: () => { return AutoWriter.level >= 10; },
+    unlockCondition: () => { return totalKeystrokes >= 10000; },
     locked: true,
-    getCost: () => 1000 * Math.pow(CyberCafe.level + 1, 2) * Math.log(CyberCafe.level + 2) * (ITOffice.level > 0 ? Math.pow(0.99, ITOffice.level) : 1),
-    baseProduce: 5,
+    baseCost: 10000,
+    baseProduce: 50,
     getProduceSingle: () => {
         return applyModifiers(CyberCafe.id, CyberCafe.baseProduce);
     },
@@ -144,12 +151,12 @@ const ServerFarm = {
     name: "Server Farm",
     description: "A massive server farm dedicated to typing tasks.",
     trivia: "It's not a real farm.",
-    lockdescription: "Unlocks at 5000 total keystrokes.",
+    lockdescription: "Unlocks at 50,000 total keystrokes.",
     special: "Each Server Farm adds 0.1% of passive income to manual keystrokes.",
-    unlockCondition: () => { return totalKeystrokes >= 5000; },
+    unlockCondition: () => { return totalKeystrokes >= 50000; },
     locked: true,
-    getCost: () => 5000 * Math.pow(ServerFarm.level + 1, 2) * Math.log(ServerFarm.level + 2) * (ITOffice.level > 0 ? Math.pow(0.99, ITOffice.level) : 1),
-    baseProduce: 20,
+    baseCost: 50000,
+    baseProduce: 200,
     getProduceSingle: () => {
         return applyModifiers(ServerFarm.id, ServerFarm.baseProduce);
     },
@@ -167,10 +174,10 @@ const TypingArena = {
     trivia: "No, you can't use autocorrect.",
     lockdescription: "Unlocks at 10,000 total keystrokes.",
     special: "Unlocks 'Arena' button in the navbar.",
-    unlockCondition: () => totalKeystrokes >= 10000,
+    unlockCondition: () => totalKeystrokes >= 100000,
     locked: true,
-    getCost: () => 10000 * Math.pow(TypingArena.level + 1, 2) * Math.log(TypingArena.level + 2) * (ITOffice.level > 0 ? Math.pow(0.99, ITOffice.level) : 1),
-    baseProduce: 40,
+    baseCost: 100000,
+    baseProduce: 500,
     getProduceSingle: () => {
         return applyModifiers(TypingArena.id, TypingArena.baseProduce);
     },
@@ -186,12 +193,12 @@ const ITOffice = {
     name: "IT Office",
     description: "Provides tech support for your typing business.",
     trivia: "Have you tried turning it off and on again?",
-    lockdescription: "Unlocks at 50,000 total keystrokes.",
-    special: "Each IT Office decreases the cost of all buildings by 1%.",
-    unlockCondition: () => totalKeystrokes >= 50000,
+    lockdescription: "Unlocks at 200,000 total keystrokes.",
+    special: "Decreases the cost of all buildings by 0.5%. (Capped at 20%)",
+    unlockCondition: () => totalKeystrokes >= 200000,
     locked: true,
-    getCost: () => 50000 * Math.pow(ITOffice.level + 1, 2) * Math.log(ITOffice.level + 2) * (ITOffice.level > 0 ? Math.pow(0.99, ITOffice.level) : 1),
-    baseProduce: 100,
+    baseCost: 200000,
+    baseProduce: 1000,
     getProduceSingle: () => {
         return applyModifiers(ITOffice.id, ITOffice.baseProduce);
     },
@@ -207,12 +214,12 @@ const StockMarket = {
     name: "Stock Market",
     description: "Invest keystrokes in the stock market.",
     trivia: "Buy low, sell high.",
-    lockdescription: "Unlocks at 100,000 total keystrokes.",
+    lockdescription: "Unlocks at 500,000 total keystrokes.",
     special: "Unlocks 'Stock Market' button in the navbar.",
-    unlockCondition: () => totalKeystrokes >= 100000,
+    unlockCondition: () => totalKeystrokes >= 500000,
     locked: true,
-    getCost: () => 100000 * Math.pow(StockMarket.level + 1, 2) * Math.log(StockMarket.level + 2) * (ITOffice.level > 0 ? Math.pow(0.99, ITOffice.level) : 1),
-    baseProduce: 200,
+    baseCost: 500000,
+    baseProduce: 2000,
     getProduceSingle: () => {
         return applyModifiers(StockMarket.id, StockMarket.baseProduce);
     },
@@ -227,12 +234,12 @@ const MagazinePublisher = {
     name: "Magazine Publisher",
     description: "Publishes typing magazines.",
     trivia: "The only magazine about typing.",
-    lockdescription: "Unlocks at 500,000 total keystrokes.",
+    lockdescription: "Unlocks at 1,000,000 total keystrokes.",
     special: "Publishes news every 20 seconds. Some news are golden. Clicking on golden news gives a temporary boost.",
-    unlockCondition: () => totalKeystrokes >= 500000,
+    unlockCondition: () => totalKeystrokes >= 1000000,
     locked: true,
-    getCost: () => 500000 * Math.pow(MagazinePublisher.level + 1, 2) * Math.log(MagazinePublisher.level + 2) * (ITOffice.level > 0 ? Math.pow(0.99, ITOffice.level) : 1),
-    baseProduce: 500,
+    baseCost: 1000000,
+    baseProduce: 5000,
     getProduceSingle: () => {
         return applyModifiers(MagazinePublisher.id, MagazinePublisher.baseProduce);
     },
@@ -247,12 +254,12 @@ const TypingGuild = {
     name: "Typing Guild",
     description: "Join a guild of typing enthusiasts.",
     trivia: "Guild meetings are held in the Typing Arena.",
-    lockdescription: "Unlocks at 1,000,000 total keystrokes.",
+    lockdescription: "Unlocks at 2,000,000 total keystrokes.",
     special: "Unlocks 'Guild' button in the navbar.",
-    unlockCondition: () => totalKeystrokes >= 1000000,
+    unlockCondition: () => totalKeystrokes >= 2000000,
     locked: true,
-    getCost: () => 1000000 * Math.pow(TypingGuild.level + 1, 2) * Math.log(TypingGuild.level + 2) * (ITOffice.level > 0 ? Math.pow(0.99, ITOffice.level) : 1),
-    baseProduce: 1000,
+    baseCost: 2000000,
+    baseProduce: 10000,
     getProduceSingle: () => {
         return applyModifiers(TypingGuild.id, TypingGuild.baseProduce);
     },
@@ -348,16 +355,16 @@ function updateBuildingElement(buildingElement, building) {
         if(buildingElement.innerHTML !== newHtml) buildingElement.innerHTML = newHtml;
         buildingElement.disabled = true;
     } else {
-        const newHtml = `<span>Purchase ${building.name}</span><img src="${building.icon}" class="icon"><span><img src="images/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"> ${formatShortScale(building.getCost())}</span> <span>${building.level}x owned</span>`;
+        const newHtml = `<span>Purchase ${building.name}</span><img src="${building.icon}" class="icon"><span><img src="images/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"> ${formatShortScale(getBuildingCost(building))}</span> <span>${building.level}x owned</span>`;
         if(buildingElement.innerHTML !== newHtml) buildingElement.innerHTML = newHtml;
-        buildingElement.disabled = building.getCost() > keystrokesBank;
+        buildingElement.disabled = getBuildingCost(building) > keystrokesBank;
     }
 }
 
 function buyBuilding(index) {
     const building = buildings[index];
-    if (keystrokesBank >= building.getCost()) {
-        keystrokesBank -= building.getCost();
+    if (keystrokesBank >= getBuildingCost(building)) {
+        keystrokesBank -= getBuildingCost(building);
         building.level += 1;
         updateStats();
         displayBuildings();

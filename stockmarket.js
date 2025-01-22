@@ -53,7 +53,6 @@ function initStockMarket() {
               <button id="stock-${index}-sell-10" onclick="sellStock(${index}, 10)" onmouseover="showStockSellTooltip(document.getElementById('stock-${index}'), 10, stocks[${index}])" onmouseout="hideTooltip()">10</button>
               <button id="stock-${index}-sell-100" onclick="sellStock(${index}, 100)" onmouseover="showStockSellTooltip(document.getElementById('stock-${index}'), 100, stocks[${index}])" onmouseout="hideTooltip()">100</button>
             </div>
-            <!-- Add a canvas for the Chart.js chart -->
             <div class="stock-chart-container">
               <canvas id="stock-chart-${index}" width="300" height="150"></canvas>
             </div>

@@ -4,6 +4,7 @@ html {
     --body-bg-image: url('bg.jpg');
     --wordle-bg-image: url('images/wordle_bg.jpeg');
     --settings-bg-image: url('images/pages/settings.webp');
+    --arena-bg-image: url('images/pages/arena.webp');
 }
 
 /* =======================
@@ -128,6 +129,11 @@ body.light-coffee {
     --arena-race-bg: #fff5e1;
     
     --scrollbar-track: #D2B48C;
+
+    --player-progress-gradient1: #f9a825;
+    --player-progress-gradient2: #ffeb3b;
+    --opponent-progress-gradient1: #f44336;
+    --opponent-progress-gradient2: #ff8a65;
 }
 /* =======================
 DARK COFFEE THEME VARIABLES
@@ -277,6 +283,12 @@ body.dark-coffee {
 
     /* Scrollbar Track */
     --scrollbar-track: #805f4e;
+
+    /* Player Progress Bar */
+    --player-progress-gradient1: #ffb428;
+    --player-progress-gradient2: #ffeb3b;
+    --opponent-progress-gradient1: #f44336;
+    --opponent-progress-gradient2: #ff8a65;
 }
 
 
@@ -402,6 +414,11 @@ body.dark {
     --arena-race-bg: #333333;
     
     --scrollbar-track: #555555;
+
+    --player-progress-gradient1: #81c784;
+    --player-progress-gradient2: #a5d6a7;
+    --opponent-progress-gradient1: #f44336;
+    --opponent-progress-gradient2: #ff8a65;
 }
 /* =======================
 MIDNIGHT BLUE THEME VARIABLES
@@ -523,6 +540,11 @@ body.midnight-blue {
     --arena-race-bg: #263141;
 
     --scrollbar-track: #394b5a;
+
+    --player-progress-gradient1: #81c784;
+    --player-progress-gradient2: #a5d6a7;
+    --opponent-progress-gradient1: #f44336;
+    --opponent-progress-gradient2: #ff8a65;
 }
 /* =======================
 FOREST GREEN THEME VARIABLES
@@ -644,6 +666,11 @@ body.forest-green {
     --arena-race-bg: #2b3e26;
 
     --scrollbar-track: #597b52;
+
+    --player-progress-gradient1: #81c784;
+    --player-progress-gradient2: #a5d6a7;
+    --opponent-progress-gradient1: #f44336;
+    --opponent-progress-gradient2: #ff8a65;
 }
 /* =======================
 DESERT SUNSET THEME VARIABLES
@@ -765,6 +792,11 @@ body.desert-sunset {
     --arena-race-bg: #4f2b13;
 
     --scrollbar-track: #ad856c;
+
+    --player-progress-gradient1: #edb879;
+    --player-progress-gradient2: #f9c99a;
+    --opponent-progress-gradient1: #f44336;
+    --opponent-progress-gradient2: #ff8a65;
 }
 /* =======================
 SPRING BLOSSOM THEME VARIABLES
@@ -886,6 +918,11 @@ body.spring-blossom {
     --arena-race-bg: #ffeef5;
 
     --scrollbar-track: #ffc8e1;
+
+    --player-progress-gradient1: #64a364;
+    --player-progress-gradient2: #a5d6a7;
+    --opponent-progress-gradient1: #f44336;
+    --opponent-progress-gradient2: #ff8a65;
 }
 /* =======================
 CYBERPUNK NEON THEME VARIABLES
@@ -1007,6 +1044,11 @@ body.cyberpunk-neon {
     --arena-race-bg: #200046;
 
     --scrollbar-track: #34176b;
+
+    --player-progress-gradient1: #00ffa0;
+    --player-progress-gradient2: #7c13f0;
+    --opponent-progress-gradient1: #ff2c70;
+    --opponent-progress-gradient2: #ff8a65;
 }
 
 
@@ -1028,6 +1070,9 @@ body.wordle-tab {
 }
 body.settings-tab {
     background-image: var(--settings-bg-image);
+}
+body.arena-tab {
+    background-image: var(--arena-bg-image);
 }
 #page {
     height: 100vh;
@@ -1070,7 +1115,7 @@ button {
     z-index: 10;
 }
 /* Navbar */
-#navbar {
+#navbar, #arena-nav {
     background-color: var(--navbar-bg);
     display: flex;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -1080,7 +1125,7 @@ button {
     background-color: var(--navbar-button-bg);
     border-radius: 0;
 }
-#navbar button {
+#navbar button, #arena-nav button {
     width: auto;
 }
 #navbar button.active, .navbtn.active {
@@ -1233,6 +1278,9 @@ button {
     padding: 1.25rem;
     min-height: 100vh;
 }
+#gamePage {
+    padding:0;
+}
 
 #volume-control {
     margin-top: 1.25rem;
@@ -1259,16 +1307,12 @@ button {
 }
 
 /* Panels */
-#stats-panel, #upgrades-panel {
+.side-panel {
     padding: 0.25rem;
-}
-
-#stats-panel {
-    background: linear-gradient(to right, var(--side-gradient1), var(--side-gradient2));
-}
-
-#upgrades-panel {
     background: linear-gradient(to left, var(--side-gradient1), var(--side-gradient2));
+    overflow-y: auto;
+    flex: 1;
+    border-left: 1px solid var(--panel-border);
 }
 
 #stats-panel {
@@ -1293,8 +1337,16 @@ button {
 }
 #game-title {
     font-size: 2rem;
-    margin-bottom: 1.25rem;
     text-align: center;
+    margin:0;
+    padding-top: 0.5rem;
+}
+#game-description {
+    font-size: 1rem;
+    text-align: center;
+    margin: 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
 }
 
 /* Typing Panel */
@@ -1312,7 +1364,7 @@ button {
     margin: 0;
     font-size: 1rem;
 }
-#input-box, #arena-input-box {
+#input-box, #arena-input-box, #practice-input-box {
     width: 90%;
     height: 1.5rem; 
     font-size: 1rem;
@@ -1344,7 +1396,8 @@ button {
         box-shadow: 0 0 5px var(--input-border);
     }
 }
-#words-to-type-container, #arena-words-to-type-container {
+
+.words-to-type-container{
     position: relative;
     background-color: var(--typing-panel-bg);
     padding: 0.313rem;
@@ -1407,18 +1460,59 @@ button:disabled {
     cursor: not-allowed;
 }
 
-/* Upgrades Panel */
-#upgrades-panel {
-    overflow-y: auto;
-    flex: 1;
-    background-color: var(--panel-bg);
-    border-left: 1px solid var(--panel-border);
-}
+
 .currencyicon, .researchicon, .goldmedal, .silvermedal {
     width: 2.6rem;
     height: 2.6rem;
     vertical-align: middle;
     filter:drop-shadow(0 0 5px rgba(0, 0, 0, 0.5));
+}
+.currencyiconBig {
+    width: 5rem;
+    height: 5rem;
+    vertical-align: middle;
+    filter:drop-shadow(0 0 5px rgba(0, 0, 0, 0.5));
+}
+#keystrokes-container {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    padding-top: 0.5rem;
+}
+#title-container {
+    width:100%;
+    background-color: var(--bg-alpha1);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 1rem;
+}
+#business-container {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 0.5rem;
+    gap: 5rem;
+}
+#business-title {
+    color: var(--color1);
+    text-shadow: 0 0 8px var(--color1);
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+}
+#job-title {
+    color: var(--color2);
+    text-shadow: 0 0 8px var(--color2);
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+}
+#business-title div, #job-title div {
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+#business-title span {
+    transform: translateY(50%);
 }
 .icon {
     width: 5.2rem;
@@ -1927,7 +2021,7 @@ button:disabled {
 
 /* REPORTS PAGE */
 
-#production-reports, #arena-stats {
+#production-reports {
     padding: 1rem;
     background-color: var(--bg-color1);
     border: 1px solid var(--border);
@@ -1993,8 +2087,8 @@ button:disabled {
 }
 
 /* ARENA */
-#arena-stats {
-    
+#arena-stats, #practice-stats {
+    background-color: var(--bgcolor2);
     border: 2px solid var(--border);
     border-radius: 10px;
     padding: 1rem;
@@ -2017,9 +2111,10 @@ button:disabled {
     color: var(--color1);
     margin-top: 1rem;
 }
-#start-race {
+#start-race, #start-practice {
     padding: 1rem;
-    background: var(--input-bg);
+    margin-bottom: 1rem;
+    background: var(--bg-alpha1);
     border: 1px solid var(--border);
     border-radius: 10px;
     text-align: center;
@@ -2037,7 +2132,6 @@ button:disabled {
     padding: 0.75rem 1.5rem;
     border: none;
     border-radius: 5px;
-    cursor: pointer;
     transition: all 0.3s ease-in-out;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
@@ -2045,7 +2139,7 @@ button:disabled {
     background-color: #388e3c;
     box-shadow: 0 4px 10px rgba(56, 142, 60, 0.3);
 }
-#arena-race {
+#arena-race, #practice-race {
     background: var(--arena-race-bg);
     border: 1px solid var(--border);
     border-radius: 10px;
@@ -2076,12 +2170,24 @@ button:disabled {
     width: 0;
 }
 #player-progress-bar {
-    background: linear-gradient(135deg, var(--correct-color), #388e3c);
+    background: linear-gradient(135deg, var(--player-progress-gradient1), var(--player-progress-gradient2));
+}
+#practice-progress-bar {
+    transition: width 0.05s ease-in-out;
+    background: linear-gradient(135deg, var(--player-progress-gradient1), var(--player-progress-gradient2));
 }
 #opponent-progress-bar {
-    background: linear-gradient(135deg, #f44336, #d32f2f);
+    background: linear-gradient(135deg, var(--opponent-progress-gradient1), var(--opponent-progress-gradient2));
 }
-
+#business-rankup-progress {
+    width: 100%;
+    overflow: hidden;
+    height: 10px;
+    position: relative;
+}
+#business-rankup-progress-bar {
+    background: linear-gradient(135deg, var(--player-progress-gradient1), var(--player-progress-gradient2));
+}
 .win-effect {
     font-size: 2rem;
     color: var(--arena-gold-color);
@@ -2248,7 +2354,7 @@ select {
     #game-title {
         font-size: 1.75rem;
     }
-    #stats-panel, #upgrades-panel {
+    .side-panel {
         font-size: 0.9rem;
     }
 }
@@ -2261,7 +2367,7 @@ select {
         border-right: none;
         border-bottom: 1px solid var(--panel-border);
     }
-    #upgrades-panel {
+    .side-panel {
         border-left: none;
         border-top: 1px solid var(--panel-border);
     }

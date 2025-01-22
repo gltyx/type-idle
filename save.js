@@ -2,6 +2,13 @@ let totalKeystrokes = 0;
 let manualKeystrokes = 0;
 let cashEarnedManually = 0;
 let cashEarnedBuildings = 0;
+
+/**
+ * This will 'scroll' to keystrokesBank.
+ */
+let scrollingKeystrokesBank = 0;
+let scrollingPassiveIncome = 0;
+let scrollingWpm = 0;
 let keystrokesBank = 0;
 let wordlesSolved = 0;
 let skipOnMistake = false;
@@ -20,6 +27,7 @@ let keyboardLayout = 'qwerty-nordic';
 let gameKeyboardOrDefintion = 'keyboard';
 let currentTheme = 'dark';
 let wpm = 0;
+let scrollingWpmMultiplier = 1;
 
 function saveGame() {
     lastSave = Date.now();
