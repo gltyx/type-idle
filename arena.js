@@ -2,9 +2,12 @@ let raceStartTime = 0;
 let playerKeystrokes = 0;
 let opponentKeystrokes = 0;
 let raceActive = false;
+let raceTimerStarted = false;
 let practiceActive = false;
+let practiceTimerStarted = false;
 let arenaWords = [];
 let playerWPM = 0;
+let practiceWPM = 0;
 let opponentWPM = 0;
 let selectedDifficulty = "Normal";
 let opponentELO = 1000;
@@ -64,6 +67,7 @@ function displayPracticeTab() {
             document.getElementById("practice-result").innerHTML = "";
             document.getElementById("practice-input-box").focus();
         }
+        if(!practiceTimerStarted) return;
         const practiceDurationSeconds = (performance.now() - raceStartTime) / 1000; 
         if(practiceDurationSeconds >= 60) {
             finishPracticeRace();
@@ -150,9 +154,14 @@ function updateRaceProgress() {
 }
 function updatePracticeProgress() {
     const practiceProgressBar = document.getElementById("practice-progress-bar");
-    const practiceDurationSeconds = (performance.now() - raceStartTime) / 1000; 
-    document.getElementById("practice-time-left").textContent = (60 - practiceDurationSeconds).toFixed(0);
-    practiceProgressBar.style.width = `${100 - ((practiceDurationSeconds / 60) * 100)}%`;
+    if(practiceTimerStarted) {
+        const practiceDurationSeconds = (performance.now() - raceStartTime) / 1000; 
+        document.getElementById("practice-time-left").textContent = (60 - practiceDurationSeconds).toFixed(0);
+        practiceProgressBar.style.width = `${100 - ((practiceDurationSeconds / 60) * 100)}%`;
+    } else {
+        practiceProgressBar.style.width = "100%";
+        document.getElementById("practice-time-left").textContent = "60";
+    }
 }
 function startArenaRace() {
     if (raceActive || practiceActive) return;
@@ -161,8 +170,6 @@ function startArenaRace() {
     playerKeystrokes = 0;
     opponentKeystrokes = 0;
     
-    // Record the start time (in milliseconds)
-    raceStartTime = performance.now();
     
     // Generate words for typing race
     arenaWords = [];
@@ -174,8 +181,7 @@ function startArenaRace() {
     const selectedDifficultyConfig = difficultySettings[selectedDifficulty];
     opponentELO = selectedDifficultyConfig.baseELO;
     medalsToGain = selectedDifficultyConfig.goldMedals;
-    // Start opponent's typing simulation
-    simulateOpponentTyping();
+    
     
     // Update UI
     document.getElementById("player-progress").textContent = "0";
@@ -188,8 +194,6 @@ function startPracticeRace() {
     practiceActive = true;
     playerKeystrokes = 0;
     
-    // Record the start time (in milliseconds)
-    raceStartTime = performance.now();
     
     // Generate words for typing race
     arenaWords = [];
@@ -197,6 +201,7 @@ function startPracticeRace() {
         arenaWords.push(getRandomWord());
     }
     updateArenaWordList(true);
+    updatePracticeProgress();
 }
 
 
@@ -209,6 +214,10 @@ function updateArenaWordList(practice) {
 }
 
 document.getElementById("practice-input-box").addEventListener("input", function () {
+    if(!practiceTimerStarted) { 
+        raceStartTime = performance.now();
+        practiceTimerStarted = true;
+    }
     const inputBox = document.getElementById("practice-input-box");
     const inputText = inputBox.value.trim();
     colorText(inputText, document.getElementById('practice-words-to-type'), arenaWords);
@@ -226,6 +235,11 @@ document.getElementById("practice-input-box").addEventListener("input", function
 });
 
 document.getElementById("arena-input-box").addEventListener("input", function () {
+    if(!raceTimerStarted) {
+        raceStartTime = performance.now();
+        raceTimerStarted = true;
+        simulateOpponentTyping();
+    }
     const inputBox = document.getElementById("arena-input-box");
     const inputText = inputBox.value.trim();
     colorText(inputText, document.getElementById('arena-words-to-type'), arenaWords);
@@ -295,16 +309,18 @@ function simulateOpponentTyping() {
 }
 
 function finishPracticeRace() {
+    practiceTimerStarted = false;
     practiceActive = false;
     const practiceEndTime = performance.now();
     const practiceDurationSeconds = (practiceEndTime - raceStartTime) / 1000; 
     // Avoid division by zero if for some reason raceDurationSeconds is 0
     const safeDuration = practiceDurationSeconds > 0 ? practiceDurationSeconds : 0.1;
-    playerWPM = Math.round((playerKeystrokes / 5) / (safeDuration / 60));
-    document.getElementById("practice-result").innerHTML = `Your WPM: ${playerWPM}`;
+    practiceWPM = Math.round((playerKeystrokes / 5) / (safeDuration / 60));
+    document.getElementById("practice-result").innerHTML = `Your WPM: ${practiceWPM}`;
 }
 
 function finishArenaRace(playerWon) {
+    raceTimerStarted = false;
     raceActive = false;
     const raceEndTime = performance.now();
     const raceDurationSeconds = (raceEndTime - raceStartTime) / 1000; 

@@ -134,6 +134,15 @@ body.light-coffee {
     --player-progress-gradient2: #ffeb3b;
     --opponent-progress-gradient1: #f44336;
     --opponent-progress-gradient2: #ff8a65;
+
+    --code-snippet-color: #5C4033;
+    --code-snippet-bg: #FFF5E1;
+    --code-snippet-comment-color: #8B4513;
+    --code-snippet-string-color: #FFB428;
+    --code-snippet-keyword-color: #5C4033;
+    --code-snippet-function-color: #8B4513;
+    --code-snippet-variable-color: #FFB428;
+    --code-snippet-number-color: #FFD700;
 }
 /* =======================
 DARK COFFEE THEME VARIABLES
@@ -289,6 +298,15 @@ body.dark-coffee {
     --player-progress-gradient2: #ffeb3b;
     --opponent-progress-gradient1: #f44336;
     --opponent-progress-gradient2: #ff8a65;
+
+    --code-snippet-color: #eae3d9;
+    --code-snippet-bg: #2a2421;
+    --code-snippet-comment-color: #8b5a35;
+    --code-snippet-string-color: #ffb428;
+    --code-snippet-keyword-color: #5c3d2e;
+    --code-snippet-function-color: #8b5a35;
+    --code-snippet-variable-color: #ffb428;
+    --code-snippet-number-color: #ffd700;
 }
 
 
@@ -419,6 +437,15 @@ body.dark {
     --player-progress-gradient2: #a5d6a7;
     --opponent-progress-gradient1: #f44336;
     --opponent-progress-gradient2: #ff8a65;
+
+    --code-snippet-color: #ccc;
+    --code-snippet-bg: #2f2f2f;
+    --code-snippet-comment-color: #b37a51;
+    --code-snippet-string-color: #ffb428;
+    --code-snippet-keyword-color: #a78779;
+    --code-snippet-function-color: #b37a51;
+    --code-snippet-variable-color: #ffb428;
+    --code-snippet-number-color: #ffd700;
 }
 /* =======================
 MIDNIGHT BLUE THEME VARIABLES
@@ -545,6 +572,15 @@ body.midnight-blue {
     --player-progress-gradient2: #a5d6a7;
     --opponent-progress-gradient1: #f44336;
     --opponent-progress-gradient2: #ff8a65;
+
+    --code-snippet-color: #cfd9e8;
+    --code-snippet-bg: #151d26;
+    --code-snippet-comment-color: #4a6a8a;
+    --code-snippet-string-color: #ffb428;
+    --code-snippet-keyword-color: #3a506b;
+    --code-snippet-function-color: #4a6a8a;
+    --code-snippet-variable-color: #ffb428;
+    --code-snippet-number-color: #ffd700;
 }
 /* =======================
 FOREST GREEN THEME VARIABLES
@@ -671,6 +707,15 @@ body.forest-green {
     --player-progress-gradient2: #a5d6a7;
     --opponent-progress-gradient1: #f44336;
     --opponent-progress-gradient2: #ff8a65;
+
+    --code-snippet-color: #d5e3d6;
+    --code-snippet-bg: #23341e;
+    --code-snippet-comment-color: #3c6e47;
+    --code-snippet-string-color: #ffb428;
+    --code-snippet-keyword-color: #2f4f2f;
+    --code-snippet-function-color: #3c6e47;
+    --code-snippet-variable-color: #ffb428;
+    --code-snippet-number-color: #ffd700;
 }
 /* =======================
 DESERT SUNSET THEME VARIABLES
@@ -797,6 +842,15 @@ body.desert-sunset {
     --player-progress-gradient2: #f9c99a;
     --opponent-progress-gradient1: #f44336;
     --opponent-progress-gradient2: #ff8a65;
+
+    --code-snippet-color: #f2e0d4;
+    --code-snippet-bg: #442d1f;
+    --code-snippet-comment-color: #d18a54;
+    --code-snippet-string-color: #ffb428;
+    --code-snippet-keyword-color: #b5743b;
+    --code-snippet-function-color: #d18a54;
+    --code-snippet-variable-color: #ffb428;
+    --code-snippet-number-color: #ffd700;
 }
 /* =======================
 SPRING BLOSSOM THEME VARIABLES
@@ -923,6 +977,15 @@ body.spring-blossom {
     --player-progress-gradient2: #a5d6a7;
     --opponent-progress-gradient1: #f44336;
     --opponent-progress-gradient2: #ff8a65;
+
+    --code-snippet-color: #3e3e3e;
+    --code-snippet-bg: #21141b;
+    --code-snippet-comment-color: #ffc2d3;
+    --code-snippet-string-color: #ff28b3;
+    --code-snippet-keyword-color: #e586b5;
+    --code-snippet-function-color: #ffc2d3;
+    --code-snippet-variable-color: #ff28d1;
+    --code-snippet-number-color: #ffd700;
 }
 /* =======================
 CYBERPUNK NEON THEME VARIABLES
@@ -1049,6 +1112,15 @@ body.cyberpunk-neon {
     --player-progress-gradient2: #7c13f0;
     --opponent-progress-gradient1: #ff2c70;
     --opponent-progress-gradient2: #ff8a65;
+
+    --code-snippet-color: #e3e3e3;
+    --code-snippet-bg: #180035;
+    --code-snippet-comment-color: #00fff0;
+    --code-snippet-string-color: #ffb428;
+    --code-snippet-keyword-color: #f217a5;
+    --code-snippet-function-color: #00fff0;
+    --code-snippet-variable-color: #ffb428;
+    --code-snippet-number-color: #ffd700;
 }
 
 
@@ -1274,7 +1346,8 @@ button {
 }
 
 /* Page Sections */
-#gamePage, #settingsPage, #statsPage, #achievementsPage, #upgradesPage, #wordlePage, #reportsPage, #arenaPage, #stockPage, #researchPage, #guildPage {
+#gamePage, #settingsPage, #statsPage, #achievementsPage, #upgradesPage, #wordlePage, #reportsPage, #arenaPage, #stockPage, #researchPage, #guildPage, #hackerPage {
+    position:relative;
     padding: 1.25rem;
     min-height: 100vh;
 }
@@ -1313,6 +1386,13 @@ button {
     overflow-y: auto;
     flex: 1;
     border-left: 1px solid var(--panel-border);
+}
+
+.wordle-panel, .stocks-panel {
+    margin: 0.5rem 0;
+}
+.side-panel strong, .side-panel h1, .side-panel h2, .side-panel h3 {
+    color: var(--color1);
 }
 
 #stats-panel {
@@ -1377,10 +1457,9 @@ button {
     color: var(--body-color);
     border-radius: 5px;
     z-index: 2;
-}
-#input-box, #arena-input-box {
     animation: pulse-border 2s infinite;
 }
+
 
 @keyframes pulse-border {
     0% {
@@ -1408,6 +1487,7 @@ button {
     font-size: 1.25rem;
     white-space: nowrap; 
     z-index: 2;
+    user-select: none;
 }
 #current-word-definition {
     font-size: 0.9rem;
@@ -1694,6 +1774,65 @@ button:disabled {
 }
 #stats-parent {
     font-size: 0.8rem;
+}
+
+#hacker-game {
+    z-index: 2;
+    opacity: 0.95;
+    width: 50%;
+    margin-top: 5rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+#hacker-cooldown {
+    z-index: 2;
+    opacity: 0.95;
+    margin-top: 5rem;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+#hacker-code-snippet {
+    position:absolute;
+    left:0;
+    top:0;
+}
+#hackerPage {
+    background-color: var(--code-snippet-bg);
+}
+.code-snippet {
+    color: var(--code-snippet-color);
+    pointer-events: none;
+}
+
+.code-snippet span.comment {
+    color: var(--code-snippet-comment-color);
+}
+.code-snippet span.string {
+    color: var(--code-snippet-string-color);
+}
+.code-snippet span.keyword {
+    color: var(--code-snippet-keyword-color);
+}
+.code-snippet span.function {
+    color: var(--code-snippet-function-color);
+}
+.code-snippet span.variable {
+    color: var(--code-snippet-variable-color);
+}
+.code-snippet span.number {
+    color: var(--code-snippet-number-color);
+}
+.code-snippet span.string {
+    color: var(--code-snippet-string-color);
+}
+
+#hacker-canvas {
+    border: 1px solid var(--border);
+    background-color: var(--bg-alpha1);
+    display: block;
+    margin: 0 auto;
+    border-radius: 5px;
 }
 
 /* Notifications */

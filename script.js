@@ -3,7 +3,7 @@ let wordsToType = [];
 let correctKeystrokesTimestamps = [];
 let lastTypedWord = "";
 
-let Tickrate = 60;
+let Tickrate = 30;
 let Tickinterval = 1000 / Tickrate;
 
 
@@ -43,18 +43,37 @@ const tabs = {
     guild: {
         tab: document.getElementById("guild-tab"),
         page: document.getElementById("guildPage")
+    },
+    hacker: {
+        tab: document.getElementById("hacker-tab"),
+        page: document.getElementById("hackerPage")
     }
 };
 
 let currentBusinessTier = 0;
 let businessTiers = [
-    { tier: 0, name: "Non existant business", jobTitle: "Unemployed", threshold: 0 },
-    { tier: 1, name: "Small Business", jobTitle: "Intern", threshold: 100 },
-    { tier: 2, name: "Medium Business", jobTitle: "Assistant", threshold: 50_000 },
-    { tier: 3, name: "Large Business", jobTitle: "Associate", threshold: 1_000_000 },
-    { tier: 4, name: "Corporation", jobTitle: "Manager", threshold: 100_000_000 },
-    { tier: 5, name: "Mega Corporation", jobTitle: "Director", threshold: 1_000_000_000 },
-    { tier: 6, name: "Global Conglomerate", jobTitle: "CEO", threshold: 1_000_000_000_000 },
+    { tier: 0,  name: "Hobby Typing",                   jobTitle: "Newcomer",         threshold: 0 },
+    { tier: 1,  name: "Neighborhood Typing Booth",      jobTitle: "Apprentice",       threshold: 100 },
+    { tier: 2,  name: "Local Typing Agency",            jobTitle: "Assistant",        threshold: 1_000 },
+    { tier: 3,  name: "Regional Typing Office",         jobTitle: "Associate",        threshold: 10_000 },
+    { tier: 4,  name: "Nationwide Typing Firm",         jobTitle: "Supervisor",       threshold: 100_000 },
+    { tier: 5,  name: "Continental Typing Corp",        jobTitle: "Manager",          threshold: 1_000_000 },
+    { tier: 6,  name: "International Typing Group",     jobTitle: "Director",         threshold: 50_000_000 },
+    { tier: 7,  name: "Global Typing Empire",           jobTitle: "Vice President",   threshold: 250_000_000 },
+    { tier: 8,  name: "Interplanetary Typing Holdings", jobTitle: "Executive VP",     threshold: 1_000_000_000 },
+    { tier: 9,  name: "Galactic Typing Conglomerate",   jobTitle: "CEO",              threshold: 10_000_000_000 },
+    { tier: 10, name: "Cosmic Typing Dominion",         jobTitle: "Chairman",         threshold: 100_000_000_000 },
+    { tier: 11, name: "Multiversal Typing Ascendancy",  jobTitle: "Supreme Typer",    threshold: 1_000_000_000_000 },
+    { tier: 12, name: "Planar Typing Federation",       jobTitle: "Omni-Lexicographer", threshold: 10_000_000_000_000 },
+    { tier: 13, name: "Ethereal Typing Conglomeration", jobTitle: "Arch Wordsmith",     threshold: 100_000_000_000_000 },
+    { tier: 14, name: "Astral Typing Authority",        jobTitle: "Cosmos Pianist",     threshold: 500_000_000_000_000 },
+    { tier: 15, name: "Void Typing Sanctum",            jobTitle: "Infinity Keymaster", threshold: 1_000_000_000_000_000 },
+    { tier: 16, name: "Eldritch Typing Pantheon",       jobTitle: "Chronicle Wielder",  threshold: 5_000_000_000_000_000 },
+    { tier: 17, name: "Mythical Typing Dominion",       jobTitle: "Fate Scribe",        threshold: 10_000_000_000_000_000 },
+    { tier: 18, name: "Transcendent Typing Empire",     jobTitle: "All-lingual Overseer", threshold: 100_000_000_000_000_000 },
+    { tier: 19, name: "Eternal Typing Oneness",         jobTitle: "Type Infinity",        threshold: 1_000_000_000_000_000_000 },
+    { tier: 20, name: "Typing Deity",                   jobTitle: "Typing Deity",         threshold: 10_000_000_000_000_000_000 },
+    { tier: 21, name: "Typing God",                     jobTitle: "Typing God",           threshold: 100_000_000_000_000_000_000 }
 ];
 
 let canPromote = true;
@@ -358,10 +377,12 @@ function updateStats() {
     displayNews();
     displayBuffs();
     displayGuild();
+    displayHacker();
     checkPromotion();
 }
 
 function createFallingWord(word) {
+    if(currentPage !== 'main-tab') return;
     const gameContainer = document.getElementById('game-container');
     const fallingWord = document.createElement('div');
     fallingWord.textContent = word;
@@ -439,23 +460,30 @@ function showNotification(head, message, background) {
 
 function formatShortScale(number) {
     if (!Number.isFinite(number)) return '∞'; // Handle infinite numbers
-    if (number === 0) return '0'; // Handle zero
+    if (number === 0) return '0';             // Handle zero
     
+    const sign = number < 0 ? -1 : 1;         // Preserve the sign
+    const absVal = Math.abs(number);
+
     const suffixes = [
-        '', 'k', 'million', 'billion', 'trillion', 'quadrillion', 'quintillion', 
-        'sextillion', 'septillion', 'octillion', 'nonillion', 'decillion', 
-        'undecillion', 'duodecillion', 'tredecillion', 'quattuordecillion', 
-        'quindecillion', 'sexdecillion', 'septendecillion', 'octodecillion', 
+        '', 'k', 'million', 'billion', 'trillion', 'quadrillion', 'quintillion',
+        'sextillion', 'septillion', 'octillion', 'nonillion', 'decillion',
+        'undecillion', 'duodecillion', 'tredecillion', 'quattuordecillion',
+        'quindecillion', 'sexdecillion', 'septendecillion', 'octodecillion',
         'novemdecillion', 'vigintillion'
     ];
-    const tier = Math.floor(Math.log10(Math.abs(number)) / 3); // Determine the tier (1000^tier)
-    
-    if (tier === 0 || number < 1000) return number.toFixed(2); // For numbers below 1000, return as is
-    
-    const scaled = number / Math.pow(10, tier * 3); // Scale the number to its tier
-    const suffix = suffixes[tier] || `e${tier * 3}`; // Fallback to scientific notation for very large numbers
-    
-    return `${scaled.toFixed(2)} ${suffix}`; 
+
+    // Determine the tier (1000^tier) based on absolute value.
+    const tier = Math.floor(Math.log10(absVal) / 3);
+
+    // For numbers below 1000 in absolute value, just return them as is.
+    if (tier === 0 || absVal < 1000) return (sign * absVal).toFixed(2);
+
+    // Scale the absolute value down to its tier, then reapply the sign.
+    const scaled = sign * (absVal / Math.pow(10, tier * 3));
+    const suffix = suffixes[tier] || `e${tier * 3}`;
+
+    return `${scaled.toFixed(2)} ${suffix}`;
 }
 
 function renderGameKeyboard() {

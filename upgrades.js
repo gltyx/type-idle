@@ -70,6 +70,14 @@ let boosts = [
         duration: 5 * 60 * Tickrate,
         maxduration: 5 * 60 * Tickrate,
         hidden: true,
+    },
+    {
+        id: 6,
+        name: "Hacker cooldown",
+        description: "Hacking minigame is on cooldown.",
+        duration: 0.1 * 60 * Tickrate,
+        maxduration: 0.1 * 60 * Tickrate,
+        hidden: true,
     }
 ]
 

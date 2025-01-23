@@ -109,7 +109,7 @@ const ResearchLab = {
     trivia: "Lab coat not included.",
     lockdescription: "Unlocks at 2,000 total keystrokes.",
     special: "Unlocks research system. Grants research points.",
-    unlockCondition: () => { return totalKeystrokes >= 2000; },
+    unlockCondition: () => { return totalKeystrokes >= 2_000; },
     locked: true,
     baseCost: 2000,
     baseProduce: 20,
@@ -132,7 +132,7 @@ const CyberCafe = {
     trivia: "Free Wi-Fi included.",
     lockdescription: "Unlocks at 10,000 total keystrokes.",
     special: "Produces keystrokes even when offline.",
-    unlockCondition: () => { return totalKeystrokes >= 10000; },
+    unlockCondition: () => { return totalKeystrokes >= 10_000; },
     locked: true,
     baseCost: 10000,
     baseProduce: 50,
@@ -153,7 +153,7 @@ const ServerFarm = {
     trivia: "It's not a real farm.",
     lockdescription: "Unlocks at 50,000 total keystrokes.",
     special: "Each Server Farm adds 0.1% of passive income to manual keystrokes.",
-    unlockCondition: () => { return totalKeystrokes >= 50000; },
+    unlockCondition: () => { return totalKeystrokes >= 50_000; },
     locked: true,
     baseCost: 50000,
     baseProduce: 200,
@@ -172,9 +172,9 @@ const TypingArena = {
     name: "Typing Arena",
     description: "Compete in typing races and earn buffs based on your performance.",
     trivia: "No, you can't use autocorrect.",
-    lockdescription: "Unlocks at 10,000 total keystrokes.",
+    lockdescription: "Unlocks at 100,000 total keystrokes.",
     special: "Unlocks 'Arena' button in the navbar.",
-    unlockCondition: () => totalKeystrokes >= 100000,
+    unlockCondition: () => totalKeystrokes >= 100_000,
     locked: true,
     baseCost: 100000,
     baseProduce: 500,
@@ -195,7 +195,7 @@ const ITOffice = {
     trivia: "Have you tried turning it off and on again?",
     lockdescription: "Unlocks at 200,000 total keystrokes.",
     special: "Decreases the cost of all buildings by 0.5%. (Capped at 20%)",
-    unlockCondition: () => totalKeystrokes >= 200000,
+    unlockCondition: () => totalKeystrokes >= 200_000,
     locked: true,
     baseCost: 200000,
     baseProduce: 1000,
@@ -216,7 +216,7 @@ const StockMarket = {
     trivia: "Buy low, sell high.",
     lockdescription: "Unlocks at 500,000 total keystrokes.",
     special: "Unlocks 'Stock Market' button in the navbar.",
-    unlockCondition: () => totalKeystrokes >= 500000,
+    unlockCondition: () => totalKeystrokes >= 500_000,
     locked: true,
     baseCost: 500000,
     baseProduce: 2000,
@@ -236,7 +236,7 @@ const MagazinePublisher = {
     trivia: "The only magazine about typing.",
     lockdescription: "Unlocks at 1,000,000 total keystrokes.",
     special: "Publishes news every 20 seconds. Some news are golden. Clicking on golden news gives a temporary boost.",
-    unlockCondition: () => totalKeystrokes >= 1000000,
+    unlockCondition: () => totalKeystrokes >= 1_000_000,
     locked: true,
     baseCost: 1000000,
     baseProduce: 5000,
@@ -252,14 +252,14 @@ const MagazinePublisher = {
 const TypingGuild = {
     id: 10,
     name: "Typing Guild",
-    description: "Join a guild of typing enthusiasts.",
+    description: "Setup a guild of typing enthusiasts.",
     trivia: "Guild meetings are held in the Typing Arena.",
     lockdescription: "Unlocks at 2,000,000 total keystrokes.",
     special: "Unlocks 'Guild' button in the navbar.",
-    unlockCondition: () => totalKeystrokes >= 2000000,
+    unlockCondition: () => totalKeystrokes >= 2_000_000,
     locked: true,
     baseCost: 2000000,
-    baseProduce: 10000,
+    baseProduce: 10_000,
     getProduceSingle: () => {
         return applyModifiers(TypingGuild.id, TypingGuild.baseProduce);
     },
@@ -269,11 +269,30 @@ const TypingGuild = {
     icon: "images/typing-guild-icon.png",
     lockedicon: "images/typing-guild-locked-icon.png",
 }
-
+const HackerGroup = {
+    id: 11,
+    name: "Hacker Group",
+    description: "Recruit hackers to help your keystroke business.",
+    trivia: "Ethical hacking only.",
+    lockdescription: "Unlocks at 100,000,000 total keystrokes.",
+    special: "Unlocks 'Hacker' button in the navbar.",
+    unlockCondition: () => totalKeystrokes >= 100_000_000,
+    locked: true,
+    baseCost: 100_000_000,
+    baseProduce: 500_000,
+    getProduceSingle: () => {
+        return applyModifiers(HackerGroup.id, HackerGroup.baseProduce);
+    },
+    getProduce: () => HackerGroup.getProduceSingle() * HackerGroup.level,
+    level: 0,
+    totalProduce: 0,
+    icon: "images/hacker-group-icon.png",
+    lockedicon: "images/hacker-group-locked-icon.png",
+}
 
 
 const buildings = [
-    AutoWriter, Printer, ResearchLab, CyberCafe, ServerFarm, TypingArena, ITOffice, StockMarket, MagazinePublisher, TypingGuild
+    AutoWriter, Printer, ResearchLab, CyberCafe, ServerFarm, TypingArena, ITOffice, StockMarket, MagazinePublisher, TypingGuild, HackerGroup
 ];
 
 
