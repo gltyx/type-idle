@@ -183,6 +183,9 @@ document.getElementById('export-button').addEventListener('click', () => {
     a.download = 'typeidle_save.json';
     a.click();
     URL.revokeObjectURL(url);
+    gtag('event', 'save_export', {
+        'event_category': 'Save'
+      });
 });
 
 document.getElementById('import-button').addEventListener('click', () => {
@@ -194,6 +197,9 @@ document.getElementById('import-file').addEventListener('change', (event) => {
     if (file) {
         const reader = new FileReader();
         reader.onload = (e) => {
+            gtag('event', 'save_import', {
+                'event_category': 'Save'
+              });
             autosave = false;
             const saveData = JSON.parse(e.target.result);
             localStorage.setItem('typingGameSaveV3', JSON.stringify(saveData));

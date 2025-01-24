@@ -192,6 +192,11 @@ function checkAchievements() {
             playAchievementSound();
             displayAchievements();
             showAchievement(achievement);
+            gtag('event', 'achievement_unlock', {
+                'event_category': 'Achievements',
+                'achievement_id': achievement.id,
+                'achievement_name': achievement.name
+              });
         }
     });
 }

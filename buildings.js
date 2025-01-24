@@ -401,6 +401,11 @@ function buyBuilding(index) {
         updateStats();
         displayBuildings();
         playBuySound();
+        gtag('event', 'building_purchase', {
+            'event_category': 'engagement',
+            'building': building.name,
+            'level': building.level
+          });
     }
 }
 

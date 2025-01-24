@@ -268,6 +268,10 @@ document.getElementById('input-box').addEventListener('input', function() {
             createFloatingWord(`<img src="images/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"> +${formatShortScale(keyStrokeModCount)}`);
             updateWordsToType();
             playTypeSound();
+            gtag('event', 'word_input', {
+                'wpm': wpm,
+                'event_category': 'typing'
+              });
         } else {
             if (skipOnMistake) {
                 wordsToType.shift();
@@ -596,9 +600,17 @@ function switchTab(activeTab) {
         document.getElementById('input-box').focus();
     }
     playMenuSound();
+    gtag('event', 'switch_tab', {
+        'active_tab': currentPage,
+        'event_category': 'navigation'
+      });
 }
 function applyTheme() {
     document.body.className = `${currentTheme} ${currentPage}`;
+    gtag('event', 'apply_theme', {
+        'active_theme': currentTheme,
+        'event_category': 'settings'
+      });
 }
 function sendHeartbeat() {
     if(window.location.host !== 'www.typeidle.com' && window.location.host !== 'typeidle.com') return; // Don't send heartbeats in development

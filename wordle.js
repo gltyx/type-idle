@@ -361,6 +361,10 @@ function validateWord(row) {
   if (guess === currentWordleWord.toUpperCase()) {
     document.getElementById('wordle-feedback').textContent = "Correct! Boost activated! Doubled production from Auto Writers and manually typed words.";
     activateWordleBoost();
+    gtag('event', 'wordle_win', {
+      'event_category': 'Wordle',
+      'word': currentWordleWord
+    });
   } else if (currentGuessCount >= maxGuesses) {
     document.getElementById('wordle-feedback').innerHTML = `Out of guesses! The word was: <strong>${currentWordleWord}</strong>. Starting a new Wordle...`;
     wordleUIState = "loss";
@@ -368,9 +372,23 @@ function validateWord(row) {
     setTimeout(() => {
       wordleUIState = "";
     }, 5000);
+    gtag('event', 'wordle_wrong_guess', {
+      'event_category': 'Wordle',
+      'word': currentWordleWord,
+      'guess': guess
+    });
+    gtag('event', 'wordle_loss', {
+      'event_category': 'Wordle',
+      'word': currentWordleWord
+    });
   } else {
     document.getElementById('wordle-feedback').textContent = "Try again!";
     prepareNextRow();
+    gtag('event', 'wordle_wrong_guess', {
+      'event_category': 'Wordle',
+      'word': currentWordleWord,
+      'guess': guess
+    });
   }
 }
 

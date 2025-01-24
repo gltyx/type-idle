@@ -216,10 +216,18 @@ function finishHackMinigame(won) {
 
     if(!won) {
         playLoseSound();
-        hackerCurrentLevel = 1;
         spawnBoost(6); // Hacker cooldown
+        gtag('event', 'hacker_lost', {
+            'event_category': 'hacker',
+            'level': hackerCurrentLevel
+          });
+        hackerCurrentLevel = 1;
     } else {
         playWinSound();
+        gtag('event', 'hacker_won', {
+            'event_category': 'hacker',
+            'level': hackerCurrentLevel
+          });
         hackerCurrentLevel++;
     }
 }

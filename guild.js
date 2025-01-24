@@ -57,6 +57,9 @@ function handleGuildTaskChange(event) {
     activatePublishingGuild();
     break;
     }
+    gtag('event', 'guild_task_change', {
+        'guild_task': currentGuildTask
+      });
 }
 function activateWordleGuild() {
     document.getElementById('additional-wordle-hint').style.display = 'block';

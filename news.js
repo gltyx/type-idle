@@ -135,6 +135,10 @@ function showNews() {
                     newNewsItem.classList.add('golden-news-clicked');
                     applyGoldenNewsBoost();
                     goldNewsClicks++;
+                    gtag('event', 'gold_news_click', {
+                        'event_category': 'news',
+                        'total_clicks': goldNewsClicks
+                      });
                 });
             }
 

@@ -317,6 +317,10 @@ function finishPracticeRace() {
     const safeDuration = practiceDurationSeconds > 0 ? practiceDurationSeconds : 0.1;
     practiceWPM = Math.round((playerKeystrokes / 5) / (safeDuration / 60));
     document.getElementById("practice-result").innerHTML = `Your WPM: ${practiceWPM}`;
+    gtag('event', 'arena_speedtest', {
+        'event_category': 'arena',
+        'wpm': practiceWPM
+      });
 }
 
 function finishArenaRace(playerWon) {
@@ -344,8 +348,11 @@ function finishArenaRace(playerWon) {
     } else {
         playLoseSound();
     }
-    
     applyRaceFinishBuff();
+    gtag('event', 'arena_result', {
+        'event_category': 'arena',
+        'player_wpm': playerWPM
+      });
 }
 
 
