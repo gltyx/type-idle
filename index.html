@@ -27,9 +27,10 @@
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        
-        gtag('config', 'G-WGVTCXZH42');
+        function initializeAnalytics() {
+            gtag('js', new Date());
+            gtag('config', 'G-WGVTCXZH42');
+        }
     </script>
 </head>
 <body>
@@ -46,6 +47,9 @@
     <audio id="menuSound1" src="sounds/menu_switch.mp3"></audio>
     <audio id="menuSound2" src="sounds/menu_switch.mp3"></audio>
     <audio id="menuSound3" src="sounds/menu_switch.mp3"></audio>
+    <div id="consent-banner" class="consent-banner" style="display: none;">
+        <p>We use cookies to improve your experience and for traffic analysis. By using our site, you agree to our use of cookies. <button id="accept-cookies">Okay</button></p>
+    </div>
     <div id="page">
         <div id="top-bar">
             <p>
@@ -412,5 +416,22 @@
     <script src="news.js"></script>
     <script src="guild.js"></script>
     <script src="loadingscreen.js"></script>
+    <script>
+        document.getElementById('accept-cookies').addEventListener('click', function() {
+            document.getElementById('consent-banner').style.display = 'none';
+            localStorage.setItem('cookiesAccepted', 'true');
+            initializeAnalytics();
+            gtag('event', 'cookie_consent', {
+                'event_category': 'cookie_consent'
+            });
+        });
+
+        if (localStorage.getItem('cookiesAccepted') === 'true') {
+            document.getElementById('consent-banner').style.display = 'none';
+            initializeAnalytics();
+        } else {
+            document.getElementById('consent-banner').style.display = 'block';
+        }
+    </script>
 </body>
 </html>

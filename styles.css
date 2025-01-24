@@ -2514,6 +2514,27 @@ select {
     margin-left: 0.5rem;
 }
 
+.consent-banner {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    text-align: center;
+    padding: 10px;
+    z-index: 1000;
+}
+.consent-banner button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+.consent-banner button:hover {
+    background-color: #45a049;
+}
+
 /* MEDIA QUERIES */
 @media (max-width: 1024px) {
     #game-title {
