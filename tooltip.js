@@ -2,6 +2,9 @@
 const tooltip = document.createElement('div');
 tooltip.className = 'tooltip';
 
+const tooltipBackground = document.createElement('div');
+tooltipBackground.className = 'tooltip-background';
+
 const tooltipBody = document.createElement('div');
 tooltipBody.className = 'tooltip-body';
 
@@ -13,7 +16,8 @@ tooltipSection.className = 'tooltip-section';
 
 tooltipBody.appendChild(tooltipHead);
 tooltipBody.appendChild(tooltipSection);
-tooltip.appendChild(tooltipBody);
+tooltipBackground.appendChild(tooltipBody);
+tooltip.appendChild(tooltipBackground);
 document.body.appendChild(tooltip);
 
 function hideTooltip() {
@@ -159,12 +163,29 @@ function showBuildingTooltip(buildingElement, building) {
     } else {
         tooltip.style.backgroundImage = `url("images/tooltips/buildings/${building.id}.jpg")`;
         tooltipHead.innerHTML = `<h1>${building.name}</h1>`;
+        let researchHtml = '';
+        let currentBoost = getSpecialBoost(building);
+        if(currentBoost.length > 0) {
+            currentBoost = `
+                <li><strong>${currentBoost}</strong></li>
+            `;
+        }
+        if(typeof building.getResearchProduceSingle === "function") {
+            researchHtml = `
+                <li>Each <strong>${building.name}</strong> produces <strong><img src="images/research-bulb-icon.png" class="researchicon" alt="Research">${building.getResearchProduceSingle().toFixed(2)} per second.</strong></li>
+                <li><strong>${building.level} ${building.name}s</strong> produces <strong><img src="images/research-bulb-icon.png" class="researchicon" alt="Research">${formatShortScale(building.getResearchProduce())} per second.</strong></li>
+            `;
+        }
         tooltipSection.innerHTML = `
         <p>${building.description}</p>
-        <p class="production">- Each ${building.name} produces <strong>${formatShortScale(building.getProduceSingle())}</strong> keystrokes per second.<br>- ${building.level} ${building.name}s producing <strong>${formatShortScale(building.getProduce())}</strong> keystrokes per second.</p>
-        ${typeof building.getResearchProduceSingle === "function" ? `<p class="research">- Each ${building.name} produces <strong>${building.getResearchProduceSingle().toFixed(2)}</strong> research points per second.<br>- ${building.level} ${building.name}s producing <strong>${building.getResearchProduce().toFixed(2)}</strong> research points per second.</p>` : ''}
-        <p class="special">Special: ${building.special}</p>
-        <p class="totalproduced">Total produced: ${formatShortScale(building.totalProduce)} keystrokes.</p>
+        <ul class="tooltip-stats">
+            <li><strong>${building.special}</strong></li>
+            ${currentBoost}
+            <li>Each <strong>${building.name}</strong> produces <strong><img src="images/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin">${formatShortScale(building.getProduceSingle())} per second.</strong></li>
+            <li><strong>${building.level} ${building.name}s</strong> produces <strong><img src="images/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin">${formatShortScale(building.getProduce())} per second.</strong></li>
+            <li><strong>Total produced: <img src="images/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin">${formatShortScale(building.totalProduce)}</strong></li>
+        ${researchHtml}
+        </ul>
         <p class="trivia">"${building.trivia}"</p>`;
     }
     setToolTipPos2(buildingElement);

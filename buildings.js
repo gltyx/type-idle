@@ -56,6 +56,19 @@ function getBuildingCost(building) {
     return Math.ceil(cost * ITOfficeReduction);
 }
 
+function getSpecialBoost(building) {
+    if(building.id === AutoWriter.id) {
+        return `${(AutoWriter.level * 5).toFixed(2)}% boost to manual keystrokes`;
+    } else if (building.id === Printer.id) {
+        return `${(Printer.level * 0.75).toFixed(2)}% boost to all buildings`;
+    } else if (building.id === ServerFarm.id) {
+        return `${(ServerFarm.level * 0.1).toFixed(2)}% of passive income to manual keystrokes`;
+    } else if (building.id === ITOffice.id) {
+        return `${(100 - (Math.max(0.8, Math.pow(0.995, ITOffice.level)) * 100)).toFixed(2)}% discount on all buildings`;
+    }
+    return '';
+}
+
 const AutoWriter = {
     id: 1,
     name: "Auto Writer",

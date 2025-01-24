@@ -175,16 +175,17 @@ function calculateUntangleProgress() {
 }
 
 function linesIntersect(line1, line2) {
+    const epsilon = 1e-7;
     const { start: a, end: b } = line1;
     const { start: c, end: d } = line2;
-    
+
     const det = (b.x - a.x) * (d.y - c.y) - (b.y - a.y) * (d.x - c.x);
-    if (det === 0) return false;
-    
+    if (Math.abs(det) < epsilon) return false;
+
     const lambda = ((d.y - c.y) * (d.x - a.x) + (c.x - d.x) * (d.y - a.y)) / det;
     const gamma = ((a.y - b.y) * (d.x - a.x) + (b.x - a.x) * (d.y - a.y)) / det;
-    
-    return (0 < lambda && lambda < 1) && (0 < gamma && gamma < 1);
+
+    return (epsilon < lambda && lambda < 1 - epsilon) && (epsilon < gamma && gamma < 1 - epsilon);
 }
 
 function getPartialCodeSnippet(fullCode, progressPercent) {

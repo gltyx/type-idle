@@ -186,7 +186,7 @@ function updateManualReport() {
         <p><strong>Base Value:</strong> 1 keystroke</p>
         <p><strong>Flat Modifiers:</strong></p>
         <ul>${manualFlatModifiersDetails}</ul>
-        <p><strong>Value after flat modifiers:</strong> ${baseManualKeystrokeValue.toFixed(2)} keystrokes</p>
+        <p><strong>Value after flat modifiers:</strong> ${formatShortScale(baseManualKeystrokeValue)} keystrokes</p>
         <hr>
         <p><strong>Multiplier Modifiers:</strong></p>
         <ul>${modifiersDetails}</ul>

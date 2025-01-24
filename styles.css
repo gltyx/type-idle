@@ -1,6 +1,12 @@
 /* Base Styles */
 html {
     font-size: 16px; /* scale app for higher res */
+    --main-font: 'Roboto', sans-serif;
+    --button-font: 'Roboto', sans-serif;
+    --typing-font: 'Courier Prime', monospace;
+    --keyboard-font: 'Courier Prime', monospace;
+    --tooltip-font: 'Exo 2', sans-serif;
+    --title-font: 'Courier New', Courier, monospace;
     --body-bg-image: url('bg.jpg');
     --wordle-bg-image: url('images/wordle_bg.jpeg');
     --settings-bg-image: url('images/pages/settings.webp');
@@ -87,7 +93,8 @@ body.light-coffee {
     --notification-bg: #4caf4fb2;
     --notification-text: #fdebc9;
     
-    --tooltip-bg: #1d1d1d;
+    --tooltip-bg: #5c4033d8;
+    --tooltip-bg2: #5c403321;
     --tooltip-text: #fdebc9;
     --tooltip-border: #8B4513;
     
@@ -241,7 +248,8 @@ body.dark-coffee {
     --notification-text: #f8f4f1;
 
     /* Tooltips */
-    --tooltip-bg: #1d1d1d;
+    --tooltip-bg: #2a2421d8;
+    --tooltip-bg2: #2a242121;
     --tooltip-text: #f8f4f1;
     --tooltip-border: #8b5a35;
 
@@ -391,7 +399,8 @@ body.dark {
     --notification-bg: #558b2f;
     --notification-text: #fff;
     
-    --tooltip-bg: #1d1d1d;
+    --tooltip-bg: #1d1d1dd8;
+    --tooltip-bg2: #1d1d1d21;
     --tooltip-text: #fdebc9;
     --tooltip-border: #5c4033;
     
@@ -526,7 +535,8 @@ body.midnight-blue {
     --notification-bg: #3e8641cc;
     --notification-text: #e1eaf7;
 
-    --tooltip-bg: #1d1d1d;
+    --tooltip-bg: #263141d8;
+    --tooltip-bg2: #26314121;
     --tooltip-text: #cfd9e8;
     --tooltip-border: #344966;
 
@@ -661,7 +671,8 @@ body.forest-green {
     --notification-bg: #6caf50cc;
     --notification-text: #f0fff0;
 
-    --tooltip-bg: #1d1d1d;
+    --tooltip-bg: #2b3e26d8;
+    --tooltip-bg2: #2b3e2621;
     --tooltip-text: #d5e3d6;
     --tooltip-border: #3c6e47;
 
@@ -796,7 +807,8 @@ body.desert-sunset {
     --notification-bg: #ffb428cc;
     --notification-text: #fff6ef;
 
-    --tooltip-bg: #1d1d1d;
+    --tooltip-bg: #2b1b14d8;
+    --tooltip-bg2: #2b1b1421;
     --tooltip-text: #f2e0d4;
     --tooltip-border: #d18a54;
 
@@ -931,7 +943,8 @@ body.spring-blossom {
     --notification-bg: #d85e90cc;
     --notification-text: #ffe9ef;
 
-    --tooltip-bg: #555555;
+    --tooltip-bg: #2f1723d8;
+    --tooltip-bg2: #f2bbd621;
     --tooltip-text: #ffe4ee;
     --tooltip-border: #f2bbd6;
 
@@ -1066,7 +1079,8 @@ body.cyberpunk-neon {
     --notification-bg: #f217a5cc;
     --notification-text: #fff2ff;
 
-    --tooltip-bg: #210022;
+    --tooltip-bg: #180035d8;
+    --tooltip-bg2: #18003521;
     --tooltip-text: #ffbffc;
     --tooltip-border: #f217a5;
 
@@ -1126,7 +1140,7 @@ body.cyberpunk-neon {
 
 /* Body */
 body {
-    font-family: 'Courier New', Courier, monospace; /* Typewriter-like font */
+    font-family: var(--main-font);
     background-color: var(--body-background);
     background-size: cover;
     background-position: center; 
@@ -1152,7 +1166,7 @@ body.arena-tab {
     flex-direction: column;
 }
 button {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: var(--button-font);
 }
 
 /* Top Bar */
@@ -1416,6 +1430,7 @@ button {
     justify-content: center;
 }
 #game-title {
+    font-family: var(--title-font);
     font-size: 2rem;
     text-align: center;
     margin:0;
@@ -1477,6 +1492,7 @@ button {
 }
 
 .words-to-type-container{
+    font-family: var(--typing-font);
     position: relative;
     background-color: var(--typing-panel-bg);
     padding: 0.313rem;
@@ -1877,10 +1893,10 @@ button:disabled {
 
 /* Tooltip */
 .tooltip {
+    font-family: var(--tooltip-font);
     background-size: cover; 
     background-position: center; 
     position: fixed; 
-    font-size: 0.8rem;
     white-space: nowrap;
     z-index: 10;
     opacity: 0;
@@ -1890,12 +1906,20 @@ button:disabled {
     color: var(--tooltip-text);
     border: 1px solid var(--tooltip-border);
     border-radius: 10px;
-    padding: 0.625rem;
+    padding: 0;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.7);
     max-width: 35rem;
     word-wrap: break-word;
     white-space: normal;
+}
+.tooltip-background {
+    background-color: var(--tooltip-bg2);
+    padding: 0.625rem;
+}
+.tooltip-stats li {
+    list-style-type: none;
+    padding: 0.313rem;
+    border-bottom: 1px solid var(--border);
 }
 .tooltip-body, .notification-body {
     border: 1px solid rgb(0 0 0);
@@ -1916,7 +1940,7 @@ button:disabled {
     font-style: italic;
 }
 .tooltip-header, .notification-header {
-    background-color: #1d1d1dd8; 
+    background-color: var(--tooltip-bg); 
     padding: 0.625rem;
     border-bottom: 2px solid var(--border);
 }
@@ -1930,7 +1954,7 @@ button:disabled {
 }
 .tooltip-section, .notification-section {
     padding: 0.625rem;
-    background-color: #1d1d1dd8; 
+    background-color: var(--tooltip-bg); 
 }
 
 /* WORDLE GAME */
@@ -1999,7 +2023,7 @@ button:disabled {
 .wordle-example {
     margin-bottom: 1rem;
     padding: 0.625rem;
-    background-color: #1d1d1dd8; 
+    background-color: var(--bg-alpha1); 
     border-radius: 5px;
     border: 1px solid var(--border);
 }
@@ -2015,6 +2039,7 @@ button:disabled {
 
 /* Wordle Keyboard */
 #wordle-keyboard {
+    font-family: var(--keyboard-font);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -2130,6 +2155,7 @@ button:disabled {
     position: relative;
 }
 #game-keyboard {
+    font-family: var(--keyboard-font);
     display: flex;
     flex-direction: column;
     margin-top: 1rem;
