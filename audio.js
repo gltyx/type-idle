@@ -9,6 +9,7 @@ function playSound(soundId)
 let currentTypeTrack = 1;
 let currentBuyTrack = 1;
 let currentMenuTrack = 1;
+let currentExplosionTrack = 1;
 function playTypeSound() {
     playSound(`typeSound${currentTypeTrack}`);
     currentTypeTrack++;
@@ -29,6 +30,13 @@ function playMenuSound() {
     currentMenuTrack++;
     if(currentMenuTrack > 3) {
         currentMenuTrack = 1;
+    }
+}
+function playExplosionSound() {
+    playSound(`explosionSound${currentExplosionTrack}`);
+    currentExplosionTrack++;
+    if(currentExplosionTrack > 3) {
+        currentExplosionTrack = 1;
     }
 }
 function playTypoSound() {

@@ -49,9 +49,6 @@
     <audio id="menuSound1" src="sounds/menu_switch.mp3"></audio>
     <audio id="menuSound2" src="sounds/menu_switch.mp3"></audio>
     <audio id="menuSound3" src="sounds/menu_switch.mp3"></audio>
-    <audio id="explosionSound1" src="sounds/explosion.mp3"></audio>
-    <audio id="explosionSound2" src="sounds/explosion.mp3"></audio>
-    <audio id="explosionSound3" src="sounds/explosion.mp3"></audio>
     <div id="consent-banner" class="consent-banner" style="display: none;">
         <p>We use cookies to improve your experience and for traffic analysis. By using our site, you agree to our use of cookies. <button id="accept-cookies">Okay</button></p>
     </div>
@@ -61,7 +58,7 @@
                 TypeIdle.com - Typing Idle Game - 
                 <a href="https://www.youtube.com/@santtuz112" target="_blank">YouTube</a> - 
                 <a href="https://github.com/santtuz112/TypeIdle" target="_blank">GitHub</a> -
-                (Work in progress) - Last updated 27 Jan 2025
+                (Work in progress) - Last updated 24 Jan 2025
             </p>
         </div>
         <div style="flex: 0 1 1rem;">-</div>
@@ -86,16 +83,26 @@
                         <button id="stock-tab" style="display: none;">Stocks</button>
                         <button id="guild-tab" style="display: none;">Guild</button>
                         <button id="hacker-tab" style="display: none;">Hacker</button>
-                        <button id="arcade-tab" style="display: none;">Arcade</button>
-                        <button id="solitaire-tab" style="display: none;">Solitaire</button>
                         <button id="settings-tab">Settings</button>
                     </div>
                     <div id="news-container" style="display: none;"></div>
                 </div>
-                <div id="gamePage" class="page">
+                <div id="gamePage">
                     <div id="game">
                         <div id="game-container">
                             <div id="buffs-container"></div>
+                            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1521366078670362"
+                            crossorigin="anonymous"></script>
+                            <!-- Above title ad -->
+                            <ins class="adsbygoogle"
+                            style="display:block"
+                            data-ad-client="ca-pub-1521366078670362"
+                            data-ad-slot="9015733908"
+                            data-ad-format="auto"
+                            data-full-width-responsive="true"></ins>
+                            <script>
+                                (adsbygoogle = window.adsbygoogle || []).push({});
+                            </script>
                             <div id="title-container">
                                 <h1 id="game-title">Typing Idle Game</h1>
                                 <p id="game-description">Improve your typing speed, unlock achievements, and upgrade buildings to boost your keystroke production!</p>
@@ -154,9 +161,19 @@
                             <strong>Achievements: (<span id="currentAchievementCount">0</span>/<span id="maxAchievementCount">0</span>)</strong>
                             <div id="achievements-container"></div>
                         </div>
+                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1521366078670362"
+                        crossorigin="anonymous"></script>
+                        <ins class="adsbygoogle"
+                        style="display:block"
+                        data-ad-format="autorelaxed"
+                        data-ad-client="ca-pub-1521366078670362"
+                        data-ad-slot="3268583209"></ins>
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
                     </div>
                 </div>
-                <div id="wordlePage" class="page" style="display: none;">
+                <div id="wordlePage" style="display: none;">
                     <div id="wordle-game">
                         <div id="wordle">
                             <h3>Wordle Challenge</h3>
@@ -170,7 +187,7 @@
                     <div id="wordle-keyboard">
                     </div>
                 </div>
-                <div id="arenaPage" class="page" style="display: none;">
+                <div id="arenaPage" style="display: none;">
                     <div id="arena-nav">
                         <button class="navbtn active" id="arena-stats-tab" class="active">Arena</button>
                         <button class="navbtn" id="practice-stats-tab">Typing test</button>
@@ -234,13 +251,13 @@
                         </div>
                     </div>
                 </div>
-                <div id="stockPage" class="page" style="display: none;">
+                <div id="stockPage" style="display: none;">
                     <h2>Stock Market</h2>
                     <div id="stock-market">
                         <div id="stock-market-container"></div>
                     </div>
                 </div>
-                <div id="guildPage" class="page" style="display: none;">
+                <div id="guildPage" style="display: none;">
                     <h2>Guild</h2>
                     <div id="guild-tasks">
                         <h3>Select a Guild Task</h3>
@@ -259,7 +276,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="hackerPage" class="page" style="display: none;">
+                <div id="hackerPage" style="display: none;">
                     <pre class="code-snippet" id="hacker-code-snippet"></pre>
                     <div id="hacker-game">
                         <canvas id="hacker-canvas" width="800" height="600"></canvas>
@@ -274,33 +291,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="arcadePage" class="page" style="display: none;">
-                    <h2>Arcade - Alien Invasion</h2>
-                    <div id="arcade-game">
-                        <div id="arcade-game-canvas"></div>
-                        <div id="arcade-start" style="display: none;">
-                            <h2>Alien Invasion</h2>
-                            <p>Defend the planet from the alien invasion!</p>
-                            <p>Use the keyboard to type the words on the alien ships to destroy them.</p>
-                            <select id="arcade-difficulty-select">
-                                <option value="1">Easy</option>
-                                <option value="2">Normal</option>
-                                <option value="3">Hard</option>
-                            </select>
-                            <button id="arcade-start-button" onclick="startArcadeMinigame()">Start Game</button>
-                        </div>
-                        <div id="arcade-timeleft" style="display: none;">
-                            <textarea id="arcade-input-box" placeholder="Start typing..."></textarea>
-                            <p>Score: <span id="arcade-score">0</span></p>
-                        </div>
-                        <div id="arcade-cooldown" style="display: none;">
-                            <p>Game Over!</p>
-                            <p>Score: <span id="arcade-score2">0</span></p>
-                            <p>You can play again in: <span id="arcade-cooldown-remaining">0</span>s</p>
-                        </div>
-                    </div>
-                </div>
-                <div id="settingsPage" class="page" style="display: none;">
+                <div id="settingsPage" style="display: none;">
                     <h2>Settings</h2>
                     <div id="volume-control">
                         <label for="volume-slider">Volume Control</label>
@@ -344,7 +335,7 @@
                     <hr>
                     <button id="reset-button">Reset Game</button>
                 </div>
-                <div id="reportsPage" class="page" style="display: none;">
+                <div id="reportsPage" style="display: none;">
                     <h2>Stats</h2>
                     <div id="stats-reports">
                         <div id="report-stats" class="report">
@@ -364,7 +355,7 @@
                         <div id="report-manual" class="report"></div>
                     </div>
                 </div>
-                <div id="researchPage" class="page" style="display: none;">
+                <div id="researchPage" style="display: none;">
                     <h2>Research</h2>
                     <p>Research Points: <img src="images/research-bulb-icon.png" class="researchicon" alt="Research"><span id="researchPoints">0</span></p>
                     <h2>Research upgrades</h2>
@@ -444,7 +435,6 @@
     <script src="wordle.js"></script>
     <script src="stockmarket.js"></script>
     <script src="hacker.js"></script>
-    <script src="arcade.js"></script>
     <script src="script.js"></script>
     <script src="upgrades.js"></script>  
     <script src="news.js"></script>

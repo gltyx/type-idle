@@ -11,6 +11,7 @@ html {
     --wordle-bg-image: url('images/wordle_bg.jpeg');
     --settings-bg-image: url('images/pages/settings.webp');
     --arena-bg-image: url('images/pages/arena.webp');
+    --arcade-bg-image: url('images/pages/arcade.jpg');
 }
 
 /* =======================
@@ -1160,6 +1161,9 @@ body.settings-tab {
 body.arena-tab {
     background-image: var(--arena-bg-image);
 }
+body.arcade-tab {
+    background-image: var(--arcade-bg-image);
+}
 #page {
     height: 100vh;
     display:flex;
@@ -1360,7 +1364,7 @@ button {
 }
 
 /* Page Sections */
-#gamePage, #settingsPage, #statsPage, #achievementsPage, #upgradesPage, #wordlePage, #reportsPage, #arenaPage, #stockPage, #researchPage, #guildPage, #hackerPage {
+.page {
     position:relative;
     padding: 1.25rem;
     min-height: 100vh;
@@ -1459,7 +1463,7 @@ button {
     margin: 0;
     font-size: 1rem;
 }
-#input-box, #arena-input-box, #practice-input-box {
+#input-box, #arena-input-box, #practice-input-box, #arcade-input-box {
     width: 90%;
     height: 1.5rem; 
     font-size: 1rem;
@@ -1810,15 +1814,16 @@ button:disabled {
 }
 #hacker-code-snippet {
     position:absolute;
+    pointer-events: none;
     left:0;
     top:0;
 }
 #hackerPage {
     background-color: var(--code-snippet-bg);
 }
+
 .code-snippet {
     color: var(--code-snippet-color);
-    pointer-events: none;
 }
 
 .code-snippet span.comment {
@@ -1916,8 +1921,14 @@ button:disabled {
     background-color: var(--tooltip-bg2);
     padding: 0.625rem;
 }
+.tooltip-stats {
+    margin-left: 0;
+    margin-block-start: 0;
+    padding-inline-start: 1rem;
+}
 .tooltip-stats li {
-    list-style-type: none;
+    margin-left: 0;
+    list-style-type: "-";
     padding: 0.313rem;
     border-bottom: 1px solid var(--border);
 }
@@ -2151,7 +2162,7 @@ button:disabled {
 
 /* Game Keyboard */
 #game-keyboard-container {
-    z-index: 10;
+    z-index: 5;
     position: relative;
 }
 #game-keyboard {
@@ -2500,6 +2511,85 @@ button:disabled {
     border-radius: 5px;
     padding: 0.5rem;
     font-weight: bold;
+}
+
+/* Arcade Game */
+#arcade-game {
+    position: relative;
+    width: 800px;
+    height: 600px;
+    background-color: var(--bg-alpha1);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.arcade-invader {
+    position: absolute;
+    font-family: var(--typing-font);
+    font-size: 1.5rem;
+    color: var(--correct-color);
+    text-shadow: 0 0 10px var(--correct-color);
+    white-space: nowrap;
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    user-select: none;
+}
+.arcade-remove-animation {
+    opacity: 0;
+    transform: scale(0.5);
+}
+
+#arcade-start {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+#arcade-start-button {
+    background-color: var(--button-bg);
+    color: var(--button-text-color);
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#arcade-start-button:hover {
+    background-color: var(--button-bg-hover);
+}
+
+#arcade-timeleft {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: var(--body-color);
+    font-size: 1.2rem;
+}
+
+#arcade-cooldown {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: var(--body-color);
+    font-size: 1.5rem;
+}
+
+
+#arcade-input-box {
+    opacity: 0.75;
+}
+
+#arcade-wave, #arcade-score, #arcade-timeleft-remaining {
+    display: inline-block;
+    margin: 0 10px;
 }
 
 input[type="radio"] {

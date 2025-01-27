@@ -303,9 +303,52 @@ const HackerGroup = {
     lockedicon: "images/hacker-group-locked-icon.png",
 }
 
+const GameArcade = {
+    id: 12,
+    name: "Game Arcade",
+    description: "Setup a game arcade with typing games.",
+    trivia: "No, you can't play Fortnite here.",
+    lockdescription: "Unlocks at 1,000,000,000 total keystrokes.",
+    special: "Unlocks 'Arcade' button in the navbar.",
+    unlockCondition: () => totalKeystrokes >= 1_000_000_000,
+    locked: true,
+    baseCost: 1_000_000_000,
+    baseProduce: 4_000_000,
+    getProduceSingle: () => {
+        return applyModifiers(GameArcade.id, GameArcade.baseProduce);
+    },
+    getProduce: () => GameArcade.getProduceSingle() * GameArcade.level,
+    level: 0,
+    totalProduce: 0,
+    icon: "images/game-arcade-icon.png",
+    lockedicon: "images/game-arcade-locked-icon.png",
+}
+
+/*
+const AIAgent = {
+    id: 12,
+    name: "AI Agent",
+    description: "Deploy AI to generate keystrokes.",
+    trivia: "AI-generated keystrokes.",
+    lockdescription: "Unlocks at 1,000,000,000 total keystrokes.",
+    special: "Zero human interaction required at the stock market.",
+    unlockCondition: () => totalKeystrokes >= 1_000_000_000,
+    locked: true,
+    baseCost: 1_000_000_000,
+    baseProduce: 5_000_000,
+    getProduceSingle: () => {
+        return applyModifiers(AIAgent.id, AIAgent.baseProduce);
+    },
+    getProduce: () => AIAgent.getProduceSingle() * AIAgent.level,
+    level: 0,
+    totalProduce: 0,
+    icon: "images/ai-agent-icon.png",
+    lockedicon: "images/ai-agent-locked-icon.png",
+}
+*/
 
 const buildings = [
-    AutoWriter, Printer, ResearchLab, CyberCafe, ServerFarm, TypingArena, ITOffice, StockMarket, MagazinePublisher, TypingGuild, HackerGroup
+    AutoWriter, Printer, ResearchLab, CyberCafe, ServerFarm, TypingArena, ITOffice, StockMarket, MagazinePublisher, TypingGuild, HackerGroup, GameArcade
 ];
 
 

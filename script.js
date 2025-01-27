@@ -47,6 +47,10 @@ const tabs = {
     hacker: {
         tab: document.getElementById("hacker-tab"),
         page: document.getElementById("hackerPage")
+    },
+    arcade: {
+        tab: document.getElementById("arcade-tab"),
+        page: document.getElementById("arcadePage")
     }
 };
 
@@ -103,22 +107,22 @@ function checkPromotion() {
         canPromote=false; // Limit to 1 promotion a time
         const businessContainer = document.getElementById("business-title");
         const jobTitleContainer = document.getElementById("job-title");
-
+        
         let oldBizTitle = businessContainer.querySelector('div');
         let oldJobTitle = jobTitleContainer.querySelector('div');
         if (oldBizTitle) oldBizTitle.style.animationName = 'scrollDown';
         if (oldJobTitle) oldJobTitle.style.animationName = 'scrollDown';
-
+        
         setTimeout(() => {
             currentBusinessTier++;
             if (oldBizTitle) businessContainer.removeChild(oldBizTitle);
             if (oldJobTitle) jobTitleContainer.removeChild(oldJobTitle);
-
+            
             let newBizTitle = document.createElement('div');
             newBizTitle.innerText = businessTiers[currentBusinessTier].name;
             newBizTitle.style.animationName = 'scrollUp';
             businessContainer.appendChild(newBizTitle);
-
+            
             let newJobTitle = document.createElement('div');
             newJobTitle.innerText = businessTiers[currentBusinessTier].jobTitle;
             newJobTitle.style.animationName = 'scrollUp';
@@ -236,6 +240,16 @@ function initGame() {
         document.getElementById('game-keyboard-container').style.display = 'block';
     }
     //==========================================
+    document.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            gtag('event', 'link_clicked', {
+                'link_text': link.textContent,
+                'link_url': link.href,
+                'event_category': 'navigation'
+            });
+        });
+    });
+    //==========================================
     sendHeartbeat(); // send the first heartbeat
 }
 
@@ -271,7 +285,7 @@ document.getElementById('input-box').addEventListener('input', function() {
             gtag('event', 'word_input', {
                 'wpm': wpm,
                 'event_category': 'typing'
-              });
+            });
         } else {
             if (skipOnMistake) {
                 wordsToType.shift();
@@ -292,8 +306,16 @@ function displayWordDefinition(word) {
 }
 
 const AllWords = Object.keys(wordsList);
-function getRandomWord() {
-    return AllWords[Math.floor(Math.random() * AllWords.length)]; // Select a random key
+function getRandomWord(length) {
+    if (length) {
+        let randomWord = AllWords[Math.floor(Math.random() * AllWords.length)];
+        while(randomWord.length !== length) {
+            randomWord = AllWords[Math.floor(Math.random() * AllWords.length)];
+        }
+        return randomWord;
+    } else {
+        return AllWords[Math.floor(Math.random() * AllWords.length)]; // Select a random key
+    }
 }
 
 
@@ -333,9 +355,9 @@ function colorText(inputText, wordsDisplay, words) {
 function updateStats() {
     scrollingKeystrokesBank += (keystrokesBank - scrollingKeystrokesBank) / Tickrate * 4;
     scrollingWpm += (wpm - scrollingWpm) / Tickrate * 10;
-
+    
     scrollingWpmMultiplier += ((1 + wpm / 30) - scrollingWpmMultiplier) / Tickrate * 10;
-
+    
     scrollingPassiveIncome += (getPassiveIncome() - scrollingPassiveIncome) / Tickrate * 4;
     document.getElementById('building-cash-earned').textContent = formatShortScale(cashEarnedBuildings);
     document.getElementById('manual-cash-earned').textContent = formatShortScale(cashEarnedManually);
@@ -382,6 +404,7 @@ function updateStats() {
     displayBuffs();
     displayGuild();
     displayHacker();
+    displayArcade();
     checkPromotion();
 }
 
@@ -468,7 +491,7 @@ function formatShortScale(number) {
     
     const sign = number < 0 ? -1 : 1;         // Preserve the sign
     const absVal = Math.abs(number);
-
+    
     const suffixes = [
         '', 'k', 'million', 'billion', 'trillion', 'quadrillion', 'quintillion',
         'sextillion', 'septillion', 'octillion', 'nonillion', 'decillion',
@@ -476,17 +499,17 @@ function formatShortScale(number) {
         'quindecillion', 'sexdecillion', 'septendecillion', 'octodecillion',
         'novemdecillion', 'vigintillion'
     ];
-
+    
     // Determine the tier (1000^tier) based on absolute value.
     const tier = Math.floor(Math.log10(absVal) / 3);
-
+    
     // For numbers below 1000 in absolute value, just return them as is.
     if (tier === 0 || absVal < 1000) return (sign * absVal).toFixed(2);
-
+    
     // Scale the absolute value down to its tier, then reapply the sign.
     const scaled = sign * (absVal / Math.pow(10, tier * 3));
     const suffix = suffixes[tier] || `e${tier * 3}`;
-
+    
     return `${scaled.toFixed(2)} ${suffix}`;
 }
 
@@ -603,14 +626,14 @@ function switchTab(activeTab) {
     gtag('event', 'switch_tab', {
         'active_tab': currentPage,
         'event_category': 'navigation'
-      });
+    });
 }
 function applyTheme() {
     document.body.className = `${currentTheme} ${currentPage}`;
     gtag('event', 'apply_theme', {
         'active_theme': currentTheme,
         'event_category': 'settings'
-      });
+    });
 }
 function sendHeartbeat() {
     if(window.location.host !== 'www.typeidle.com' && window.location.host !== 'typeidle.com') return; // Don't send heartbeats in development
@@ -632,5 +655,11 @@ function sendHeartbeat() {
     });
 }
 
+function cheat_code() {
+    let gain = buildings[buildings.length - 1].baseCost;
+    keystrokesBank += gain;
+    totalKeystrokes += gain;
+    createFloatingWord(`Cheat Code: +${formatShortScale(gain)}`);
+}
 
 

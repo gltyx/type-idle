@@ -78,6 +78,14 @@ let boosts = [
         duration: 0.1 * 60 * Tickrate,
         maxduration: 0.1 * 60 * Tickrate,
         hidden: true,
+    },
+    {
+        id: 7,
+        name: "Arcade cooldown",
+        description: "Arcade minigame is on cooldown.",
+        duration: 0.1 * 60 * Tickrate,
+        maxduration: 0.1 * 60 * Tickrate,
+        hidden: true,
     }
 ]
 
