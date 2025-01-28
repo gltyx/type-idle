@@ -312,17 +312,35 @@
                     <h3>(Work in progress)</h3>
                     <div id="casino-game">
                         <div id="casino-board">
-                            <div id="casino-win-feedback">Spin to Win!</div>
+                            <div id="casino-win-feedback">
+                                <p id="casino-win-feedback1">Spin to Win!</p>
+                                <p id="casino-win-feedback2"></p>
+                            </div>
                             <div id="casino-win-feed"></div>
                         </div>
                         <div id="casino-controls">
-                            <button id="casino-start-button" onclick="startCasinoGame()">Spin (Free)</button>
+                            <div>
+                                <p>Balance: $<span id="casino-balance">0</span></p>
+                            </div>
+                            <button id="casino-start-button" onclick="startCasinoGame()"></button>
                             <div id="casino-bet">
                                 <button id="casino-wage-up" onclick="changeCasinoWage(1)">+</button>
-                                <span id="casino-wager">1</span>
+                                <p>Bet: $<span id="casino-wager">1</span></p>
                                 <button id="casino-wage-down" onclick="changeCasinoWage(-1)">-</button>
                             </div>
                         </div>
+                    </div>
+                    <div id="slot-details">
+                        <h2>Slot details</h2>
+                        <strong>No theoretical max win</strong>
+                        <p>No bonus yet programmed.</p>
+                        <p>Result of 1 million 1$ spins:</p>
+                        <p>Total cost = $1000000.00</p>
+                        <p>Total payout = $940641.17</p>
+                        <p>High win = $18001.26</p>
+                        <p>High multiplier = 100x</p>
+                        <p>High total mult = 3200000x</p>
+                        <p>RTP = 94.06%</p>
                     </div>
                 </div>
                 <div id="settingsPage" class="page" style="display: none;">

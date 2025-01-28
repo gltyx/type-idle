@@ -2,23 +2,39 @@
 
 // Define the possible symbols and their optional multiplier probability
 const CASINO_SYMBOLS = ["A", "B", "C", "D", "E", "F", "G", "H"];
-const CASINO_SYMBOLS_VALUES = [0.01, 0.01, 0.01, 0.01, 0.01, 0.05, 0.05, 0.1];
-const CASINO_MULTIPLIER_CHANCE = 0.01;
+const CASINO_SYMBOLS_VALUES = [0.0075, 0.0075, 0.0075, 0.0075, 0.0075, 0.03, 0.03, 0.06];
+const CASINO_MULTIPLIER_CHANCE = 0.02;
 const CASINO_BONUS_CHANCE = 0.01;
 const CASINO_BONUS_SYMBOL = "BONUS";
+const CASINO_WAGER_TIERS = [1, 10, 100, 1000, 10000, 100000, 1000000, 10000000];
 
 const CASINO_REELS = 9; // Number of reels
 const CASINO_ROWS = 5;  // Number of rows per reel
-const CASINO_SYMBOLS_TO_WIN = 10; // Number of symbols to win
+const CASINO_SYMBOLS_TO_WIN = 12; // Number of symbols to win
 
 // Initialize the board
 let casinoBoard = Array.from({ length: CASINO_REELS }, () => Array(CASINO_ROWS).fill(null));
 let casinoInit = false;
 let casinoBusy = false;
+let casinoWagerTier = 0;
+let casinoScrollingCurrentPot = 0;
+let casinoCurrentPot = 0;
+
+
+function changeCasinoWage(tier) {
+    if(casinoBusy) return; // Don't change wager while spinning
+    if(tier > 0) {
+        casinoWagerTier++;
+        casinoWagerTier = Math.min(casinoWagerTier, CASINO_WAGER_TIERS.length - 1);
+    } else {
+        casinoWagerTier--;
+        casinoWagerTier = Math.max(casinoWagerTier, 0);
+    }
+}
 
 function getWin(symbol, count) {
     let value = CASINO_SYMBOLS_VALUES[CASINO_SYMBOLS.indexOf(symbol)];
-    return value * count;
+    return value * count * CASINO_WAGER_TIERS[casinoWagerTier];
 }
 
 function displayCasino() {
@@ -28,6 +44,10 @@ function displayCasino() {
     if(!casinoInit) {
         initCasino();
     }
+    document.getElementById("casino-wager").textContent = formatShortScale(CASINO_WAGER_TIERS[casinoWagerTier]);
+    document.getElementById("casino-balance").textContent = formatShortScale(keystrokesToDollars(keystrokesBank));
+    casinoScrollingCurrentPot += (casinoCurrentPot - casinoScrollingCurrentPot) / Tickrate * 4;
+    document.getElementById("casino-win-feedback2").textContent = `Win: $${formatShortScale(casinoScrollingCurrentPot)}`;
 }
 
 function initCasino() {
@@ -49,7 +69,7 @@ function initCasino() {
             symbolContainer.appendChild(slotDiv);
             
             let symbolElement = document.createElement("div");
-            symbolElement.classList.add("symbol-NULL");
+            symbolElement.classList.add("symbol-null");
             slotDiv.appendChild(symbolElement);
             reelDiv.appendChild(symbolContainer);
             
@@ -66,7 +86,7 @@ function drawBoard() {
             CASINO_SYMBOLS.forEach(symbol => {
                 element.classList.remove(`symbol-${symbol}`);
             });
-            element.classList.remove("symbol-NULL", `symbol-${CASINO_BONUS_SYMBOL}`, "symbol-x2", "symbol-x3", "symbol-x4", "symbol-x5");
+            element.classList.remove("symbol-null", `symbol-${CASINO_BONUS_SYMBOL}`, "symbol-x2", "symbol-x3", "symbol-x5", "symbol-x10", "symbol-x20", "symbol-x50", "symbol-x100");
             element.classList.add(`symbol-${symbol}`);
             if(symbol?.startsWith("x") || symbol === CASINO_BONUS_SYMBOL) {
                 element.innerHTML = casinoBoard[reel][row];
@@ -82,7 +102,7 @@ function drawSlot(reel, row) {
     CASINO_SYMBOLS.forEach(symbol => {
         element.classList.remove(`symbol-${symbol}`);
     });
-    element.classList.remove("symbol-NULL", `symbol-${CASINO_BONUS_SYMBOL}`, "symbol-x2", "symbol-x3", "symbol-x4", "symbol-x5");
+    element.classList.remove("symbol-null", `symbol-${CASINO_BONUS_SYMBOL}`, "symbol-x2", "symbol-x3", "symbol-x5", "symbol-x10", "symbol-x20", "symbol-x50", "symbol-x100");
     element.classList.add(`symbol-${symbol}`);
     if(symbol?.startsWith("x") || symbol === CASINO_BONUS_SYMBOL) {
         element.innerHTML = casinoBoard[reel][row];
@@ -108,11 +128,23 @@ function spinReels() {
     }
 }
 
+function randomMultiplier() {
+    const r = Math.random();
+    if (r < 0.0025) return 100; // chance: 0.25% 
+    if (r < 0.01) return 50; // chance: 1%   
+    if (r < 0.025) return 20; // chance: 2.5% 
+    if (r < 0.05) return 10; // chance: 5%  
+    if (r < 0.1) return 5; // chance: 10%  
+    if (r < 0.15) return 3; // chance: 15% 
+
+    return 2;
+}
+
 // Get a random symbol or multiplier
 function randomSymbol() {
     if (Math.random() < CASINO_MULTIPLIER_CHANCE) {
         // Return a multiplier like x2, x3, etc.
-        const multiplier = Math.floor(Math.random() * 4) + 2;
+        const multiplier = randomMultiplier();
         return `x${multiplier}`;
     }
     
@@ -147,7 +179,7 @@ async function checkWins() {
         } else if (symbol.startsWith("x")) {
             // Multiply total wins
             const factor = parseInt(symbol.replace("x", ""), 10);
-            totalMultiplier += factor;
+            totalMultiplier *= factor;
         } else {
             tally[symbol] = (tally[symbol] || 0) + 1;
         }
@@ -159,9 +191,10 @@ async function checkWins() {
         if (tally[symbol] >= CASINO_SYMBOLS_TO_WIN) {
             let win = getWin(symbol, tally[symbol]) * totalMultiplier;
             totalWin += win;
-            document.getElementById("casino-win-feedback").innerHTML = `<div><div class="casino-slot tiny-slot"><div class="symbol-${symbol}"></div></div>${tally[symbol]}x ($${getWin(symbol, tally[symbol]).toFixed(2)}) * ${totalMultiplier}x = $${win.toFixed(2)}</div>`;
+            casinoCurrentPot += win;
+            document.getElementById("casino-win-feedback1").innerHTML = `<div><div class="casino-slot tiny-slot"><div class="symbol-${symbol}"></div></div>${tally[symbol]}x ($${formatShortScale(getWin(symbol, tally[symbol]))}) * ${totalMultiplier}x = $${formatShortScale(win)}</div>`;
             let winFeedElement = document.createElement("div");
-            winFeedElement.innerHTML = `<div><div class="casino-slot tiny-slot"><div class="symbol-${symbol}"></div></div>${tally[symbol]}x * ${totalMultiplier}x = $${win.toFixed(2)}</div>`;
+            winFeedElement.innerHTML = `<div><div class="casino-slot tiny-slot"><div class="symbol-${symbol}"></div></div>${tally[symbol]}x * ${totalMultiplier}x = $${formatShortScale(win)}</div>`;
             document.getElementById("casino-win-feed").appendChild(winFeedElement);
             removeSymbol(symbol);
             playSlotWinSound();
@@ -459,12 +492,19 @@ async function animateReel(reelIndex, finalSymbols, spins = 15, spinDelay = 60) 
 
 async function startCasinoGame() {
     if (casinoBusy) return;
+    let cost_in_keystrokes = dollarsToKeystrokes(CASINO_WAGER_TIERS[casinoWagerTier]);
+    if (keystrokesBank < cost_in_keystrokes) {
+        document.getElementById("casino-win-feedback1").innerHTML = `<i>Not enough funds!</i>`;
+        return;
+    }
+    keystrokesBank -= cost_in_keystrokes;
+    casinoScrollingCurrentPot = 0;
+
     casinoBusy = true;
-    
+    casinoCurrentPot = 0;
     // Clear any old win messages
     document.getElementById("casino-win-feed").innerHTML = "";
-    document.getElementById("casino-win-feedback").innerHTML = `<i>Good luck!</i>`;
-    
+    document.getElementById("casino-win-feedback1").innerHTML = `<i>Good luck!</i>`;
     // 2) Fade out existing symbols (your existing code)
     // ------------------------------------------------
     for (let reel = 0; reel < CASINO_REELS; reel++) {
@@ -507,24 +547,22 @@ async function startCasinoGame() {
     
     // 5) Now that all reels are on their final symbols, check for wins
     // ----------------------------------------------------------------
-    let totalWin = 0;
     let win = await checkWins();
     while (win > 0) {
-        totalWin += win;
-        document.getElementById("casino-win-feedback").innerHTML = `You won: $${totalWin.toFixed(2)}`;
+        //casinoCurrentPot += win;
         win = await checkWins();
         await new Promise(resolve => setTimeout(resolve, 100));
     }
-    if (totalWin > 0) {
-        document.getElementById("casino-win-feedback").innerHTML = `You won: $${totalWin.toFixed(2)}`;
+    if (casinoCurrentPot > 0) {
+        keystrokesBank += dollarsToKeystrokes(casinoCurrentPot);
     } else {
-        document.getElementById("casino-win-feedback").innerHTML = `Better luck next time!`;
+        document.getElementById("casino-win-feedback1").innerHTML = `Better luck next time!`;
     }
     
     gtag('event', 'casino', {
         'event_category': 'play',
-        'slot_outcome': totalWin.toFixed(2)
+        'slot_outcome': casinoCurrentPot.toFixed(2)
     });
-    
+
     casinoBusy = false;
 }

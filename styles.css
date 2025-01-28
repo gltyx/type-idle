@@ -2658,22 +2658,38 @@ button:disabled {
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: center;
     gap: 0.5rem;
+    background-color: var(--bg-alpha1);
+    border: 1px solid var(--border);
 }
 
-#casino-controls button {
-    background-color: var(--button-bg);
-    color: var(--button-text-color);
-    border: none;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+#casino-bet {
+    width: 10rem;
+}
+#casino-start-button {
+    background: url("images/casino-spin-button.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 7.5rem;
+    height: 7.5rem;
+    transition: filter 0.3s ease;
+    box-shadow: 0 0 10px 2px rgba(0, 255, 0, 0.8);
+    animation: pulse-border 2s infinite;
+    transition: transform 0.3s ease;
+    border-radius: 50%;
 }
 
-#casino-controls button:hover {
-    background-color: var(--button-bg-hover);
+
+#casino-start-button:hover {
+    transform: rotate(5deg);
+    filter: brightness(1.1) contrast(1.1) scale(1.05);
+}
+
+#casino-start-button:hover:active {
+    transform: rotate(-5deg) scale(0.95);
+    filter: brightness(0.9) contrast(0.9);
 }
 
 .casino-reel {
@@ -2819,11 +2835,20 @@ button:disabled {
 .casino-slot:has(.symbol-x3) {
     background-color: rgb(10,10,20);
 }
-.casino-slot:has(.symbol-x4) {
+.casino-slot:has(.symbol-x5) {
     background-color: rgb(10,10,30);
 }
-.casino-slot:has(.symbol-x5) {
+.casino-slot:has(.symbol-x10) {
     background-color: rgb(30,10,10);
+}
+.casino-slot:has(.symbol-x20) {
+    background-color: rgb(10,30,10);
+}
+.casino-slot:has(.symbol-x50) {
+    background-color: rgb(10,40,10);
+}
+.casino-slot:has(.symbol-x100) {
+    background-color: rgb(10,50,10);
 }
 .casino-slot:has(.symbol-BONUS) {
     background-color: rgb(75,75,10);

@@ -607,6 +607,7 @@ function highlightNextKey() {
 }
 
 function switchTab(activeTab) {
+    if(casinoBusy) return; // Prevent switching tabs while casino is busy as it will break the casino
     currentPage = activeTab.id;
     for (const key in tabs) {
         if (tabs[key].tab === activeTab) {

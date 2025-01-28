@@ -15,6 +15,17 @@ function applyModifiers(buildingId, baseProduction) {
     });
     return baseProduction * totalMultiplier;
 }
+function applyNonTempModifiers(buildingId, baseProduction) {
+    let totalMultiplier = 1;
+    modifiers.forEach(modifier => {
+        if (!modifier.duration && modifier.affectedBuildings && modifier.affectedBuildings.includes(buildingId)) {
+            totalMultiplier *= typeof modifier.getMultiplier === "function"
+            ? modifier.getMultiplier()
+            : modifier.multiplier || 1;
+        }
+    });
+    return baseProduction * totalMultiplier;
+}
 /**
  * Applies all research multiplier modifiers to the base research of a building
  * @param {*} buildingId ID of the building
@@ -482,6 +493,15 @@ function getPassiveIncome() {
     buildings.forEach(building => {
         if (building.level > 0) {
             passiveIncome += building.getProduce();
+        }
+    });
+    return passiveIncome;
+}
+function getPassiveIncomeWithoutTempBoosts() {
+    let passiveIncome = 0;
+    buildings.forEach(building => {
+        if (building.level > 0) {
+            passiveIncome += applyNonTempModifiers(building.id, building.baseProduce) * building.level;
         }
     });
     return passiveIncome;

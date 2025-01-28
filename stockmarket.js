@@ -23,11 +23,11 @@ const maxStockOwned = 100;
  * @returns 
  */
 function dollarsToKeystrokes(dollars) {
-    return dollars * getPassiveIncome() / Tickrate * 60;
+    return dollars * getPassiveIncomeWithoutTempBoosts();
 }
 
 function keystrokesToDollars(keystrokes) {
-    return keystrokes / getPassiveIncome() * Tickrate / 60;
+    return keystrokes / getPassiveIncomeWithoutTempBoosts();
 }
 
 function initStockMarket() {
