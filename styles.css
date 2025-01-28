@@ -12,6 +12,7 @@ html {
     --settings-bg-image: url('images/pages/settings.webp');
     --arena-bg-image: url('images/pages/arena.webp');
     --arcade-bg-image: url('images/pages/arcade.jpg');
+    --slot-machine-bg-image: url('images/slot-machine-bg.jpg');
 }
 
 /* =======================
@@ -2590,6 +2591,257 @@ button:disabled {
 #arcade-wave, #arcade-score, #arcade-timeleft-remaining {
     display: inline-block;
     margin: 0 10px;
+}
+
+/* Casino Minigame Styles */
+#casino-game {
+    background: linear-gradient(var(--bg-overlay3), var(--bg-overlay4)), var(--slot-machine-bg-image);
+    background-blend-mode: multiply;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+#casino-board {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.1rem;
+    margin-bottom: 1rem;
+}
+#casino-back-grid {
+    position:absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    gap: 0.1rem;
+}
+#casino-win-feedback {
+    position: absolute;
+    top:0;
+    width: 50%;
+    left: 50%;
+    right: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--bg-alpha1);
+    padding: 1rem;
+    border-radius: 5px;
+    border: 1px solid var(--border);
+    opacity: 0.85;
+    z-index: 4;
+}
+#casino-win-feed {
+    position:absolute;
+    left:0;
+    top:0;
+    width: 15rem;
+    height: 30rem;
+    background-color: var(--bg-alpha1);
+    overflow-y: scroll;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column-reverse;
+    z-index: 4;
+}
+#casino-controls {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+#casino-controls button {
+    background-color: var(--button-bg);
+    color: var(--button-text-color);
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#casino-controls button:hover {
+    background-color: var(--button-bg-hover);
+}
+
+.casino-reel {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    z-index: 3;
+}
+.casino-slot {
+    background-color: var(--input-bg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 6rem;
+    height: 6rem;
+    border: 1px solid var(--input-border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--body-color);
+    transition: transform 0.3s ease;
+}
+.casino-slot-back {
+    background-color: var(--bg-alpha1);
+    border-radius: 0;
+}
+.tiny-slot {
+    width: 2rem;
+    height: 2rem;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.casino-slot:hover {
+    transform: scale(1.1);
+}
+.casino-slot * {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.casino-slot:has(.symbol-A) {
+    background-color: rgb(10,10,10);
+}
+.casino-slot .symbol-A {
+    background: url("images/auto-writer-icon.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.casino-slot:has(.symbol-B) {
+    background-color: rgb(15,15,15);
+}
+.casino-slot .symbol-B {
+    background: url("images/printer-icon.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.casino-slot:has(.symbol-C) {
+    background-color: rgb(20,20,20);
+}
+.casino-slot .symbol-C {
+    background: url("images/research-lab-icon.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.casino-slot:has(.symbol-D) {
+    background-color: rgb(30,30,30);
+}
+.casino-slot .symbol-D {
+    background: url("images/cyber-cafe-icon.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.casino-slot:has(.symbol-E) {
+    background-color: rgb(40,40,40);
+}
+.casino-slot .symbol-E {
+    background: url("images/keystroke-coin-icon.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.casino-slot:has(.symbol-F) {
+    background-color: rgb(10,10,50);
+}
+.casino-slot .symbol-F {
+    background: url("images/typing-arena-icon.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.casino-slot:has(.symbol-G) {
+    background-color: rgb(10,10,60);
+}
+.casino-slot .symbol-G {
+    background: url("images/it-office-icon.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.casino-slot:has(.symbol-H) {
+    background-color: rgb(50,10,10);
+}
+.casino-slot .symbol-H {
+    background: url("images/magazine-publisher-icon.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.casino-slot:has(.symbol-x2) {
+    background-color: rgb(5,5,5);
+}
+.casino-slot:has(.symbol-x3) {
+    background-color: rgb(10,10,20);
+}
+.casino-slot:has(.symbol-x4) {
+    background-color: rgb(10,10,30);
+}
+.casino-slot:has(.symbol-x5) {
+    background-color: rgb(30,10,10);
+}
+.casino-slot:has(.symbol-BONUS) {
+    background-color: rgb(75,75,10);
+}
+@keyframes slot-popOut {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.25); opacity: 1; }
+    100% { transform: scale(0); opacity: 0; }
+}
+
+@keyframes slot-popIn {
+    0% { transform: scale(0); opacity: 0; }
+    50% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+@keyframes slot-fadeOut {
+    0% { transform:scale(1); opacity: 1; }
+    100% { transform:scale(0); opacity: 0; }
+}
+@keyframes slot-falldown {
+    0% { transform: translateY(0); }
+    25% { transform: translateY(-5px); }
+    50% { transform: translateY(5px); }
+    75% { transform: translateY(-5px); }
+    100% { transform: translateY(0); }
+}
+
+.slot-pop-out {
+    animation: slot-popOut 1s forwards;
+    box-shadow: 0 0 10px green;
+    border: 2px solid green;
+}
+
+.slot-pop-in {
+    animation: slot-popIn 0.5s forwards;
+}
+.slot-fall-down {
+    animation: slot-falldown 0.5s;
+}
+.slot-fade-out {
+    animation: slot-fadeOut 0.5s forwards;
 }
 
 input[type="radio"] {

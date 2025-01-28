@@ -25,3 +25,9 @@ Click.wav by kwahmah_02 -- https://freesound.org/s/256116/ -- License: Creative 
 Arcade explosion
 Retro, Underwater Explosion.wav by MATRIXXX_ -- https://freesound.org/s/459150/ -- License: Creative Commons 0
 --
+Slot win
+magic_game_win_success.wav by MLaudio -- https://freesound.org/s/615099/ -- License: Creative Commons 0
+--
+Slot fall
+Punch 1 by qubodup -- https://freesound.org/s/773737/ -- License: Creative Commons 0
+--

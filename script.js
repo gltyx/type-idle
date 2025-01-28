@@ -51,6 +51,10 @@ const tabs = {
     arcade: {
         tab: document.getElementById("arcade-tab"),
         page: document.getElementById("arcadePage")
+    },
+    casino: {
+        tab: document.getElementById("casino-tab"),
+        page: document.getElementById("casinoPage")
     }
 };
 
@@ -405,6 +409,7 @@ function updateStats() {
     displayGuild();
     displayHacker();
     displayArcade();
+    displayCasino();
     checkPromotion();
 }
 

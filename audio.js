@@ -10,6 +10,8 @@ let currentTypeTrack = 1;
 let currentBuyTrack = 1;
 let currentMenuTrack = 1;
 let currentExplosionTrack = 1;
+let currentSlotWinTrack = 1;
+let currentSlotFallTrack = 1;
 function playTypeSound() {
     playSound(`typeSound${currentTypeTrack}`);
     currentTypeTrack++;
@@ -37,6 +39,20 @@ function playExplosionSound() {
     currentExplosionTrack++;
     if(currentExplosionTrack > 3) {
         currentExplosionTrack = 1;
+    }
+}
+function playSlotWinSound() {
+    playSound(`slotWinSound${currentSlotWinTrack}`);
+    currentSlotWinTrack++;
+    if(currentSlotWinTrack > 3) {
+        currentSlotWinTrack = 1;
+    }
+}
+function playSlotFallSound() {
+    playSound(`slotFallSound${currentSlotFallTrack}`);
+    currentSlotFallTrack++;
+    if(currentSlotFallTrack > 3) {
+        currentSlotFallTrack = 1;
     }
 }
 function playTypoSound() {

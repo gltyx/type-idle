@@ -52,6 +52,12 @@
     <audio id="explosionSound1" src="sounds/explosion.mp3"></audio>
     <audio id="explosionSound2" src="sounds/explosion.mp3"></audio>
     <audio id="explosionSound3" src="sounds/explosion.mp3"></audio>
+    <audio id="slotWinSound1" src="sounds/slot_win.mp3"></audio>
+    <audio id="slotWinSound2" src="sounds/slot_win.mp3"></audio>
+    <audio id="slotWinSound3" src="sounds/slot_win.mp3"></audio>
+    <audio id="slotFallSound1" src="sounds/slot_fall.mp3"></audio>
+    <audio id="slotFallSound2" src="sounds/slot_fall.mp3"></audio>
+    <audio id="slotFallSound3" src="sounds/slot_fall.mp3"></audio>
     <div id="consent-banner" class="consent-banner" style="display: none;">
         <p>We use cookies to improve your experience and for traffic analysis. By using our site, you agree to our use of cookies. <button id="accept-cookies">Okay</button></p>
     </div>
@@ -61,7 +67,7 @@
                 TypeIdle.com - Typing Idle Game - 
                 <a href="https://www.youtube.com/@santtuz112" target="_blank">YouTube</a> - 
                 <a href="https://github.com/santtuz112/TypeIdle" target="_blank">GitHub</a> -
-                (Work in progress) - Last updated 27 Jan 2025
+                (Work in progress) - Last updated 28 Jan 2025
             </p>
         </div>
         <div style="flex: 0 1 1rem;">-</div>
@@ -87,7 +93,7 @@
                         <button id="guild-tab" style="display: none;">Guild</button>
                         <button id="hacker-tab" style="display: none;">Hacker</button>
                         <button id="arcade-tab" style="display: none;">Arcade</button>
-                        <button id="solitaire-tab" style="display: none;">Solitaire</button>
+                        <button id="casino-tab" style="display: none;">Casino</button>
                         <button id="settings-tab">Settings</button>
                     </div>
                     <div id="news-container" style="display: none;"></div>
@@ -276,6 +282,7 @@
                 </div>
                 <div id="arcadePage" class="page" style="display: none;">
                     <h2>Arcade - Alien Invasion</h2>
+                    <h3>(Work in progress)</h3>
                     <div id="arcade-game">
                         <div id="arcade-game-canvas"></div>
                         <div id="arcade-start" style="display: none;">
@@ -297,6 +304,24 @@
                             <p>Game Over!</p>
                             <p>Score: <span id="arcade-score2">0</span></p>
                             <p>You can play again in: <span id="arcade-cooldown-remaining">0</span>s</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="casinoPage" class="page" style="display: none;">
+                    <h2>Casino</h2>
+                    <h3>(Work in progress)</h3>
+                    <div id="casino-game">
+                        <div id="casino-board">
+                            <div id="casino-win-feedback">Spin to Win!</div>
+                            <div id="casino-win-feed"></div>
+                        </div>
+                        <div id="casino-controls">
+                            <button id="casino-start-button" onclick="startCasinoGame()">Spin (Free)</button>
+                            <div id="casino-bet">
+                                <button id="casino-wage-up" onclick="changeCasinoWage(1)">+</button>
+                                <span id="casino-wager">1</span>
+                                <button id="casino-wage-down" onclick="changeCasinoWage(-1)">-</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -445,6 +470,7 @@
     <script src="stockmarket.js"></script>
     <script src="hacker.js"></script>
     <script src="arcade.js"></script>
+    <script src="casino.js"></script>
     <script src="script.js"></script>
     <script src="upgrades.js"></script>  
     <script src="news.js"></script>

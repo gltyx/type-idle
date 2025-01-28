@@ -324,6 +324,27 @@ const GameArcade = {
     lockedicon: "images/game-arcade-locked-icon.png",
 }
 
+const KeystrokeCasino = {
+    id: 13,
+    name: "Keystroke Casino",
+    description: "Setup a casino for typing enthusiasts.",
+    trivia: "The house always wins.",
+    lockdescription: "Unlocks at 100,000,000,000 total keystrokes.",
+    special: "Unlocks 'Casino' button in the navbar.",
+    unlockCondition: () => totalKeystrokes >= 100_000_000_000,
+    locked: true,
+    baseCost: 100_000_000_000,
+    baseProduce: 400_000_000,
+    getProduceSingle: () => {
+        return applyModifiers(KeystrokeCasino.id, KeystrokeCasino.baseProduce);
+    },
+    getProduce: () => KeystrokeCasino.getProduceSingle() * KeystrokeCasino.level,
+    level: 0,
+    totalProduce: 0,
+    icon: "images/keystroke-casino-icon.png",
+    lockedicon: "images/keystroke-casino-locked-icon.png",
+}
+
 /*
 const AIAgent = {
     id: 12,
@@ -348,7 +369,7 @@ const AIAgent = {
 */
 
 const buildings = [
-    AutoWriter, Printer, ResearchLab, CyberCafe, ServerFarm, TypingArena, ITOffice, StockMarket, MagazinePublisher, TypingGuild, HackerGroup, GameArcade
+    AutoWriter, Printer, ResearchLab, CyberCafe, ServerFarm, TypingArena, ITOffice, StockMarket, MagazinePublisher, TypingGuild, HackerGroup, GameArcade, KeystrokeCasino
 ];
 
 
