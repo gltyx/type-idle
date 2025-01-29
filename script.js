@@ -54,7 +54,8 @@ const tabs = {
     },
     casino: {
         tab: document.getElementById("casino-tab"),
-        page: document.getElementById("casinoPage")
+        page: document.getElementById("casinoPage"),
+        sidePanel: document.getElementById("casino-panel")
     }
 };
 

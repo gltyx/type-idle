@@ -309,7 +309,6 @@
                 </div>
                 <div id="casinoPage" class="page" style="display: none;">
                     <h2>Casino</h2>
-                    <h3>(Work in progress)</h3>
                     <div id="casino-game">
                         <div id="casino-board">
                             <div id="casino-win-feedback">
@@ -319,6 +318,7 @@
                             <div id="casino-win-feed"></div>
                         </div>
                         <div id="casino-controls">
+                            <div id="casino-current-multiplier-container"><span id="casino-current-multiplier-span"><span id="casino-current-multiplier">1</span>x</span></div>
                             <div>
                                 <p>Balance: $<span id="casino-balance">0</span></p>
                             </div>
@@ -329,18 +329,6 @@
                                 <button id="casino-wage-down" onclick="changeCasinoWage(-1)">-</button>
                             </div>
                         </div>
-                    </div>
-                    <div id="slot-details">
-                        <h2>Slot details</h2>
-                        <strong>No theoretical max win</strong>
-                        <p>No bonus yet programmed.</p>
-                        <p>Result of 1 million 1$ spins:</p>
-                        <p>Total cost = $1000000.00</p>
-                        <p>Total payout = $940641.17</p>
-                        <p>High win = $18001.26</p>
-                        <p>High multiplier = 100x</p>
-                        <p>High total mult = 3200000x</p>
-                        <p>RTP = 94.06%</p>
                     </div>
                 </div>
                 <div id="settingsPage" class="page" style="display: none;">
@@ -470,6 +458,23 @@
                     </div>
                     <p><strong>W</strong> is not in the word.</p>
                 </div>
+            </div>
+            <div class="side-panel" id="casino-panel" style="display: none;">
+                <h1>Casino</h1>
+                <h2>Slot Machine</h2>
+                <p>Spin the slot machine and try to match the symbols!</p>
+                <p>Match 13 or more of the same symbol to win big!</p>
+                <p>3 or more bonus symbols grant free spins.</p>
+                <p>Max multiplier = 10000x</p>
+                <h2>Slot Details</h2>
+                <p>Result of 1 million 1$ spins:</p>
+                <p>Total Bet: $1000000.00</p>
+                <p>Total Returned: $940353.64</p>
+                <p>Highest Win: $5255.30</p>
+                <p>Times Entered Bonus: 15073</p>
+                <p>Bonus Games Played: 305850</p>
+                <p>Chance of Entering Bonus: 1.51%</p>
+                <p>RTP: 94.04%</p>
             </div>
         </div>
     </div>

@@ -2641,6 +2641,30 @@ button:disabled {
     opacity: 0.85;
     z-index: 4;
 }
+#casino-current-multiplier-container {
+    top: 0;
+    left: 16rem;
+    width: 5rem;
+    height:5rem;
+    padding: 0.5rem;
+    background-color: var(--bg-alpha1);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease;
+    font-size: 1.5rem;
+}
+#casino-current-multiplier-container.updated {
+    background-color: var(--correct-color);
+}
+#casino-current-multiplier-span {
+    transition: transform 0.3s ease;
+}
+#casino-current-multiplier-container.updated #casino-current-multiplier-span {
+    transform: scale(2.5);
+}
 #casino-win-feed {
     position:absolute;
     left:0;
@@ -2832,26 +2856,74 @@ button:disabled {
 .casino-slot:has(.symbol-x2) {
     background-color: rgb(5,5,5);
 }
+.casino-slot .symbol-x2 {
+    background: url("/images/casino-x2-multiplier.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
 .casino-slot:has(.symbol-x3) {
     background-color: rgb(10,10,20);
+}
+.casino-slot .symbol-x3 {
+    background: url("/images/casino-x3-multiplier.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 .casino-slot:has(.symbol-x5) {
     background-color: rgb(10,10,30);
 }
+.casino-slot .symbol-x5 {
+    background: url("/images/casino-x5-multiplier.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
 .casino-slot:has(.symbol-x10) {
     background-color: rgb(30,10,10);
 }
-.casino-slot:has(.symbol-x20) {
-    background-color: rgb(10,30,10);
+.casino-slot .symbol-x10 {
+    background: url("/images/casino-x10-multiplier.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 .casino-slot:has(.symbol-x50) {
     background-color: rgb(10,40,10);
 }
+.casino-slot .symbol-x50 {
+    background: url("/images/casino-x50-multiplier.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
 .casino-slot:has(.symbol-x100) {
     background-color: rgb(10,50,10);
 }
+.casino-slot .symbol-x100 {
+    background: url("/images/casino-x100-multiplier.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
 .casino-slot:has(.symbol-BONUS) {
     background-color: rgb(75,75,10);
+}
+.casino-slot .symbol-BONUS {
+    background: url("/images/casino-bonus-symbol.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.casino-slot:has(.symbol-WILD) {
+    background-color: rgb(10,75,10);
+}
+.casino-slot .symbol-WILD {
+    background: url("/images/casino-wild-symbol.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 @keyframes slot-popOut {
     0% { transform: scale(1); opacity: 1; }
@@ -2862,6 +2934,11 @@ button:disabled {
 @keyframes slot-popIn {
     0% { transform: scale(0); opacity: 0; }
     50% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+@keyframes slot-popWin {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.25); opacity: 1; }
     100% { transform: scale(1); opacity: 1; }
 }
 @keyframes slot-fadeOut {
@@ -2884,6 +2961,11 @@ button:disabled {
 
 .slot-pop-in {
     animation: slot-popIn 0.5s forwards;
+}
+.slot-pop-win {
+    animation: slot-popWin 0.5s forwards;
+    box-shadow: 0 0 10px green;
+    border: 2px solid green;
 }
 .slot-fall-down {
     animation: slot-falldown 0.5s;
