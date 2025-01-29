@@ -207,7 +207,7 @@ function showAchievement(achievement) {
         <h2>Achievement Unlocked</h2>`,
         `<p>${achievement.description}</p>
         <p class="trivia">"${achievement.trivia}"</p>`,
-        `url("images/tooltips/achievements/${achievement.id}.webp")`);
+        `url("/images/tooltips/achievements/${achievement.id}.webp")`);
 }
 
 function displayAchievements() {
@@ -221,11 +221,11 @@ function displayAchievements() {
         achievementElement.onmouseleave = () => hideTooltip();
         if (achievement.unlocked) {
             achievementElement.classList.add('unlocked');
-            achievementElement.style.backgroundImage = `url("images/tooltips/achievements/${achievement.id}.webp")`;
+            achievementElement.style.backgroundImage = `url("/images/tooltips/achievements/${achievement.id}.webp")`;
             achievementElement.innerHTML = ``;
         } else {
             achievementElement.classList.add('locked');
-            achievementElement.style.backgroundImage = `url("images/tooltips/achievements/0.webp")`
+            achievementElement.style.backgroundImage = `url("/images/tooltips/achievements/0.webp")`
             achievementElement.innerHTML = ``;
         }
 

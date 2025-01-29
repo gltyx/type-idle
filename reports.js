@@ -14,7 +14,7 @@ function initReports() {
             const reportDiv = document.createElement('div');
             reportDiv.id = `report-${building.id}`;
             reportDiv.className = "report";
-            reportDiv.style.backgroundImage = `url("images/tooltips/buildings/${building.id}.jpg")`;
+            reportDiv.style.backgroundImage = `url("/images/tooltips/buildings/${building.id}.jpg")`;
             reportsContainer.appendChild(reportDiv);
         });
         reportsInitialized = true;

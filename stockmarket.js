@@ -1,14 +1,14 @@
 const stocks = [
-    { id: 0, name: "Logifetch", icon: "images/stocks/logifetch.webp", price: 60, owned: 0, history: [] },
-    { id: 1, name: "Coarseair", icon: "images/stocks/coarseair.webp", price: 60, owned: 0, history: [] },
-    { id: 2, name: "Laser", icon: "images/stocks/laser.webp", price: 60, owned: 0, history: [] },
-    { id: 3, name: "PlasticSeries", icon: "images/stocks/plasticseries.webp", price: 60, owned: 0, history: [] },
-    { id: 4, name: "Megasoft", icon: "images/stocks/megasoft.webp", price: 60, owned: 0, history: [] },
-    { id: 5, name: "Pineapple", icon: "images/stocks/pineapple.webp", price: 60, owned: 0, history: [] },
-    { id: 6, name: "HP Sauce", icon: "images/stocks/hp-sauce.webp", price: 60, owned: 0, history: [] },
-    { id: 7, name: "Smell", icon: "images/stocks/smell.webp", price: 60, owned: 0, history: [] },
-    { id: 8, name: "AS IF", icon: "images/stocks/as-if.webp", price: 60, owned: 0, history: [] },
-    { id: 9, name: "Cooler Blaster", icon: "images/stocks/cooler-blaster.webp", price: 60, owned: 0, history: [] }
+    { id: 0, name: "Logifetch", icon: "/images/stocks/logifetch.webp", price: 60, owned: 0, history: [] },
+    { id: 1, name: "Coarseair", icon: "/images/stocks/coarseair.webp", price: 60, owned: 0, history: [] },
+    { id: 2, name: "Laser", icon: "/images/stocks/laser.webp", price: 60, owned: 0, history: [] },
+    { id: 3, name: "PlasticSeries", icon: "/images/stocks/plasticseries.webp", price: 60, owned: 0, history: [] },
+    { id: 4, name: "Megasoft", icon: "/images/stocks/megasoft.webp", price: 60, owned: 0, history: [] },
+    { id: 5, name: "Pineapple", icon: "/images/stocks/pineapple.webp", price: 60, owned: 0, history: [] },
+    { id: 6, name: "HP Sauce", icon: "/images/stocks/hp-sauce.webp", price: 60, owned: 0, history: [] },
+    { id: 7, name: "Smell", icon: "/images/stocks/smell.webp", price: 60, owned: 0, history: [] },
+    { id: 8, name: "AS IF", icon: "/images/stocks/as-if.webp", price: 60, owned: 0, history: [] },
+    { id: 9, name: "Cooler Blaster", icon: "/images/stocks/cooler-blaster.webp", price: 60, owned: 0, history: [] }
 ];
 
 

@@ -254,6 +254,20 @@ function initGame() {
         });
     });
     //==========================================
+    displayModules(); // Reveal all unlocked tabs.
+    const pathSegments = window.location.pathname.split('/');
+    const initialTabId = pathSegments[1] || currentPage;
+    const initialTab = document.getElementById(initialTabId);
+    if (initialTab) {
+        if (initialTab.style.display !== 'none') {
+            switchTab(initialTab, false);
+        } else {
+            //TODO: Show a message that the tab is locked
+        }
+    } else {
+        // TODO: Show a message that the tab is not found
+    }
+    //==========================================
     sendHeartbeat(); // send the first heartbeat
 }
 
@@ -398,18 +412,7 @@ function updateStats() {
     document.getElementById('passive-income').textContent = formatShortScale(scrollingPassiveIncome);
     
     checkAchievements();
-    displayWordle();
-    displayBuildings();
-    displayUpgrades();
-    displayReports();
-    displayArena();
-    displayStockMarket();
-    displayNews();
-    displayBuffs();
-    displayGuild();
-    displayHacker();
-    displayArcade();
-    displayCasino();
+    displayModules();
     checkPromotion();
 }
 
@@ -606,7 +609,7 @@ function highlightNextKey() {
     }
 }
 
-function switchTab(activeTab) {
+function switchTab(activeTab, pushState = true) {
     if(casinoBusy) return; // Prevent switching tabs while casino is busy as it will break the casino
     currentPage = activeTab.id;
     for (const key in tabs) {
@@ -633,7 +636,23 @@ function switchTab(activeTab) {
         'active_tab': currentPage,
         'event_category': 'navigation'
     });
+
+    if (pushState) {
+        const url = new URL(window.location);
+        url.pathname = `/${currentPage}`;
+        history.pushState({ tab: currentPage }, '', url);
+    }
 }
+
+window.addEventListener('popstate', (event) => {
+    if (event.state && event.state.tab) {
+        const tabToActivate = document.getElementById(event.state.tab);
+        if (tabToActivate) {
+            switchTab(tabToActivate, false);
+        }
+    }
+});
+
 function applyTheme() {
     document.body.className = `${currentTheme} ${currentPage}`;
     gtag('event', 'apply_theme', {
@@ -669,3 +688,17 @@ function cheat_code() {
 }
 
 
+function displayModules() {
+    displayWordle();
+    displayBuildings();
+    displayUpgrades();
+    displayReports();
+    displayArena();
+    displayStockMarket();
+    displayNews();
+    displayBuffs();
+    displayGuild();
+    displayHacker();
+    displayArcade();
+    displayCasino();
+}

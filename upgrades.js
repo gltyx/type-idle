@@ -20,7 +20,7 @@ let boosts = [
         multiplier: 2,
         duration: Tickrate * 3 * 60,
         maxduration: Tickrate * 3 * 60,
-        icon: "images/boost/wordle.webp"
+        icon: "/images/boost/wordle.webp"
     },
     {
         id: 1,
@@ -41,7 +41,7 @@ let boosts = [
         KPStoManual: 0.01,
         duration: Tickrate * 5 * 60,
         maxduration: Tickrate * 5 * 60,
-        icon: "images/boost/arena.webp"
+        icon: "/images/boost/arena.webp"
     },
     {
         id: 3,
@@ -51,7 +51,7 @@ let boosts = [
         maxduration: 60 * Tickrate,
         multiplier: 7,
         affectedBuildings: buildings.flatMap(b => b.id),
-        icon: "images/boost/news.webp"
+        icon: "/images/boost/news.webp"
     },
     {
         id: 4,
@@ -61,7 +61,7 @@ let boosts = [
         maxduration: 60 * Tickrate,
         multiplier: 7,
         affectedBuildings: [0], // 0 for manually typed keystrokes,
-        icon: "images/boost/news.webp"
+        icon: "/images/boost/news.webp"
     },
     {
         id: 5,
@@ -530,10 +530,10 @@ function initUpgrades() {
     sortedUpgrades.forEach((upgrade, index) => {
         // Small buttons
         const upgradeElement = document.createElement('button');
-        upgradeElement.style.backgroundImage = `url("images/tooltips/upgrades/${upgrade.id}.jpg")`;
+        upgradeElement.style.backgroundImage = `url("/images/tooltips/upgrades/${upgrade.id}.jpg")`;
         const ownedUpgradeElement = document.createElement('div');
         ownedUpgradeElement.className = 'owned-upgrade';
-        ownedUpgradeElement.style.backgroundImage = `url("images/tooltips/upgrades/${upgrade.id}.jpg")`;
+        ownedUpgradeElement.style.backgroundImage = `url("/images/tooltips/upgrades/${upgrade.id}.jpg")`;
         ownedUpgradeElement.innerHTML = `<div><strong>${upgrade.name}</strong></div>`;
         ownedUpgradeElement.style.display = 'none'; // Initially hide owned upgrade element
         ownedUpgradesContainer.appendChild(ownedUpgradeElement);
@@ -566,7 +566,7 @@ function initUpgrades() {
         
         // Big buttons
         const researchElement = document.createElement('button');
-        researchElement.style.backgroundImage = `url("images/tooltips/upgrades/${upgrade.id}.jpg")`;
+        researchElement.style.backgroundImage = `url("/images/tooltips/upgrades/${upgrade.id}.jpg")`;
         researchElement.className = 'bigUpgrade';
         researchElement.setAttribute('data-index', upgrade.id - 1);
         researchElement.innerHTML = ``;
@@ -584,7 +584,7 @@ function initUpgrades() {
         const researchOwnedElement = document.createElement('div');
         researchOwnedElement.className = 'owned-bigUpgrade';
         researchOwnedElement.setAttribute('data-index', upgrade.id - 1);
-        researchOwnedElement.style.backgroundImage = `url("images/tooltips/upgrades/${upgrade.id}.jpg")`;
+        researchOwnedElement.style.backgroundImage = `url("/images/tooltips/upgrades/${upgrade.id}.jpg")`;
         researchOwnedElement.innerHTML = ``;
         researchOwnedElement.style.display = 'none'; // Initially hide owned upgrade element
         ownedResearchContainer.appendChild(researchOwnedElement);

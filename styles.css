@@ -7,12 +7,12 @@ html {
     --keyboard-font: 'Courier Prime', monospace;
     --tooltip-font: 'Exo 2', sans-serif;
     --title-font: 'Courier New', Courier, monospace;
-    --body-bg-image: url('bg.jpg');
-    --wordle-bg-image: url('images/wordle_bg.jpeg');
-    --settings-bg-image: url('images/pages/settings.webp');
-    --arena-bg-image: url('images/pages/arena.webp');
-    --arcade-bg-image: url('images/pages/arcade.jpg');
-    --slot-machine-bg-image: url('images/slot-machine-bg.jpg');
+    --body-bg-image: url('/bg.jpg');
+    --wordle-bg-image: url('/images/wordle_bg.jpeg');
+    --settings-bg-image: url('/images/pages/settings.webp');
+    --arena-bg-image: url('/images/pages/arena.webp');
+    --arcade-bg-image: url('/images/pages/arcade.jpg');
+    --slot-machine-bg-image: url('/images/slot-machine-bg.jpg');
 }
 
 /* =======================
@@ -2668,7 +2668,7 @@ button:disabled {
     width: 10rem;
 }
 #casino-start-button {
-    background: url("images/casino-spin-button.webp");
+    background: url("/images/casino-spin-button.webp");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -2761,7 +2761,7 @@ button:disabled {
     background-color: rgb(10,10,10);
 }
 .casino-slot .symbol-A {
-    background: url("images/auto-writer-icon.png");
+    background: url("/images/auto-writer-icon.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -2770,7 +2770,7 @@ button:disabled {
     background-color: rgb(15,15,15);
 }
 .casino-slot .symbol-B {
-    background: url("images/printer-icon.png");
+    background: url("/images/printer-icon.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -2779,7 +2779,7 @@ button:disabled {
     background-color: rgb(20,20,20);
 }
 .casino-slot .symbol-C {
-    background: url("images/research-lab-icon.png");
+    background: url("/images/research-lab-icon.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -2788,7 +2788,7 @@ button:disabled {
     background-color: rgb(30,30,30);
 }
 .casino-slot .symbol-D {
-    background: url("images/cyber-cafe-icon.png");
+    background: url("/images/cyber-cafe-icon.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -2797,7 +2797,7 @@ button:disabled {
     background-color: rgb(40,40,40);
 }
 .casino-slot .symbol-E {
-    background: url("images/keystroke-coin-icon.png");
+    background: url("/images/keystroke-coin-icon.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -2806,7 +2806,7 @@ button:disabled {
     background-color: rgb(10,10,50);
 }
 .casino-slot .symbol-F {
-    background: url("images/typing-arena-icon.png");
+    background: url("/images/typing-arena-icon.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -2815,7 +2815,7 @@ button:disabled {
     background-color: rgb(10,10,60);
 }
 .casino-slot .symbol-G {
-    background: url("images/it-office-icon.png");
+    background: url("/images/it-office-icon.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -2824,7 +2824,7 @@ button:disabled {
     background-color: rgb(50,10,10);
 }
 .casino-slot .symbol-H {
-    background: url("images/magazine-publisher-icon.png");
+    background: url("/images/magazine-publisher-icon.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
