@@ -2615,18 +2615,7 @@ button:disabled {
     gap: 0.25rem;
     margin-bottom: 1rem;
 }
-#casino-back-grid {
-    position:absolute;
-    top:0;
-    left:0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 2;
-    gap: 0.1rem;
-}
+
 #casino-win-feedback {
     position: absolute;
     top:0;
@@ -2686,10 +2675,21 @@ button:disabled {
     gap: 0.5rem;
     background-color: var(--bg-alpha1);
     border: 1px solid var(--border);
+    
 }
 
+#casino-feature-menu {
+    width: 10rem;
+}
+#casino-feature-menu button,
+#casino-bet button {
+    margin: 0;
+    border-radius: 0;
+}
 #casino-bet {
     width: 10rem;
+    background-color: var(--bg-alpha1);
+    border: 1px solid var(--border);
 }
 #casino-start-button {
     background: url("/images/casino-spin-button.webp");
@@ -2753,6 +2753,11 @@ button:disabled {
     color: var(--body-color);
     transition: transform 0.3s ease;
 }
+/*
+#casino-board.casino-bonus .casino-symbol-container {
+    animation: pulse-border 2s infinite;
+}
+    */
 .slot-hidden {
     visibility: hidden;
 }
@@ -2830,7 +2835,7 @@ button:disabled {
     background-color: rgb(10,10,50);
 }
 .casino-slot .symbol-F {
-    background: url("/images/typing-arena-icon.png");
+    background: url("/images/casino-f-symbol.webp");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -2839,7 +2844,7 @@ button:disabled {
     background-color: rgb(10,10,60);
 }
 .casino-slot .symbol-G {
-    background: url("/images/it-office-icon.png");
+    background: url("/images/casino-g-symbol.webp");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -2848,7 +2853,7 @@ button:disabled {
     background-color: rgb(50,10,10);
 }
 .casino-slot .symbol-H {
-    background: url("/images/magazine-publisher-icon.png");
+    background: url("/images/casino-h-symbol.webp");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

@@ -2,10 +2,13 @@
 
 // Define the possible symbols and their optional multiplier probability
 const CASINO_SYMBOLS = ["A", "B", "C", "D", "E", "F", "G", "H"];
-const CASINO_SYMBOLS_VALUES = [0.0075, 0.0075, 0.0075, 0.0075, 0.0075, 0.03, 0.03, 0.06];
-const CASINO_MULTIPLIER_CHANCE = 0.02;
+const CASINO_SYMBOLS_VALUES_LOW = 0.01;
+const CASINO_SYMBOLS_VALUES_MEDIUM = 0.055;
+const CASINO_SYMBOLS_VALUES_HIGH = 0.105;
+const CASINO_SYMBOLS_VALUES = [CASINO_SYMBOLS_VALUES_LOW, CASINO_SYMBOLS_VALUES_LOW, CASINO_SYMBOLS_VALUES_LOW, CASINO_SYMBOLS_VALUES_LOW, CASINO_SYMBOLS_VALUES_LOW, CASINO_SYMBOLS_VALUES_MEDIUM, CASINO_SYMBOLS_VALUES_MEDIUM, CASINO_SYMBOLS_VALUES_HIGH];
+const CASINO_MULTIPLIER_CHANCE = 0.01;
 const CASINO_MAX_MULTIPLIER = 10000;
-const CASINO_BONUS_CHANCE = 0.01;
+const CASINO_BONUS_CHANCE = 0.0025;
 const CASINO_BONUS_SYMBOL = "BONUS";
 const CASINO_STICKY_WILD_CHANCE = 0.02;
 const CASINO_STICKY_WILD_SYMBOL = "WILD";
@@ -28,7 +31,7 @@ let casinoReelsWithBonus = [];
 let casinoMultiplier = 1;
 let casinoLastMultiplier = 1;
 let casinoBonusCount = 0;
-
+let casinoInBonus = false;
 
 function changeCasinoWage(tier) {
     if(casinoBusy) return; // Don't change wager while spinning
@@ -39,6 +42,18 @@ function changeCasinoWage(tier) {
         casinoWagerTier--;
         casinoWagerTier = Math.max(casinoWagerTier, 0);
     }
+    document.getElementById("casino-payout-single-low").innerText = `$${formatShortScale(getWin("A", 1))}`;
+    document.getElementById("casino-payout-13-low").innerText = `$${formatShortScale(getWin("A", 13))}`;
+    
+    document.getElementById("casino-payout-single-medium").innerText = `$${formatShortScale(getWin("F", 1))}`;
+    document.getElementById("casino-payout-13-medium").innerText = `$${formatShortScale(getWin("F", 13))}`;
+    
+    document.getElementById("casino-payout-single-high").innerText = `$${formatShortScale(getWin("H", 1))}`;
+    document.getElementById("casino-payout-13-high").innerText = `$${formatShortScale(getWin("H", 13))}`;
+    
+    document.getElementById("casino-feature1-cost").innerText = `$${formatShortScale(CASINO_WAGER_TIERS[casinoWagerTier] * 180)}`;
+    document.getElementById("casino-feature2-cost").innerText = `$${formatShortScale(CASINO_WAGER_TIERS[casinoWagerTier] * 300)}`;
+    document.getElementById("casino-feature3-cost").innerText = `$${formatShortScale(CASINO_WAGER_TIERS[casinoWagerTier] * 450)}`;
 }
 
 function getWin(symbol, count) {
@@ -123,16 +138,16 @@ function randomMultiplier() {
 }
 let casinoMultiplierUpdateClear;
 // Get a random symbol or multiplier
-function randomSymbol(reel, visual = false) {
-    if (Math.random() < CASINO_MULTIPLIER_CHANCE) {
+function randomSymbol(reel, visual = false, guaranteedBonusCount = 0) {
+    if (Math.random() < CASINO_MULTIPLIER_CHANCE * (casinoInBonus ? 2 : 1)) {
         // Return a multiplier like x2, x3, etc.
         const multiplier = randomMultiplier();
         if(!visual) {
-            casinoMultiplier *= multiplier;
+            casinoMultiplier += multiplier;
             casinoMultiplier = Math.min(casinoMultiplier, CASINO_MAX_MULTIPLIER);
         }
         return `x${multiplier}`;
-    } else if(!casinoReelsWithBonus.includes(reel) && Math.random() < CASINO_BONUS_CHANCE) {
+    } else if(!casinoReelsWithBonus.includes(reel) && (Math.random() < CASINO_BONUS_CHANCE || guaranteedBonusCount > casinoReelsWithBonus.length)) {
         if(!visual) { 
             casinoReelsWithBonus.push(reel);
             casinoBonusCount++;
@@ -161,31 +176,29 @@ function randomSymbol(reel, visual = false) {
     return CASINO_SYMBOLS[CASINO_SYMBOLS.length - 1];
 }
 
-async function checkWins() {
+async function checkWins(simulation = false) {
     // Flatten the board to count symbol occurrences
     const allSymbols = casinoBoard.flat();
     let tally = {};
     
-    if(casinoMultiplier > casinoLastMultiplier) {
-        casinoLastMultiplier = casinoMultiplier;
-        document.getElementById("casino-current-multiplier").textContent = casinoMultiplier;
-        document.getElementById("casino-current-multiplier-container").classList.add("updated");
-        if (casinoMultiplierUpdateClear) {
-            clearTimeout(casinoMultiplierUpdateClear);
+    if(!simulation) {
+        if(casinoMultiplier > casinoLastMultiplier) {
+            casinoLastMultiplier = casinoMultiplier;
+            document.getElementById("casino-current-multiplier").textContent = casinoMultiplier;
+            document.getElementById("casino-current-multiplier-container").classList.add("updated");
+            if (casinoMultiplierUpdateClear) {
+                clearTimeout(casinoMultiplierUpdateClear);
+            }
+            casinoMultiplierUpdateClear = setTimeout(() => {
+                document.getElementById("casino-current-multiplier-container").classList.remove("updated");
+            }, 500);
         }
-        casinoMultiplierUpdateClear = setTimeout(() => {
-            document.getElementById("casino-current-multiplier-container").classList.remove("updated");
-        }, 500);
     }
     
     allSymbols.forEach(symbol => {
-        if (symbol === CASINO_BONUS_SYMBOL) {
-            
-        } else if (symbol.startsWith("x")) {
-            
-        } else {
-            tally[symbol] = (tally[symbol] || 0) + 1;
-        }
+        
+        tally[symbol] = (tally[symbol] || 0) + 1;
+        
     });
     
     // Add wilds to tally of each symbol
@@ -198,58 +211,93 @@ async function checkWins() {
     
     // Identify all symbols with at least 7 matches
     let totalWin = 0;
+    let symbolsRemoved = 0;
+    // first remove multipliers
     for (let symbol in tally) {
-        if (tally[symbol] >= CASINO_SYMBOLS_TO_WIN) {
-            let win = getWin(symbol, tally[symbol]) * casinoMultiplier;
-            totalWin += win;
-            casinoCurrentPot += win;
-            document.getElementById("casino-win-feedback1").innerHTML = `<div><div class="casino-slot tiny-slot"><div class="symbol-${symbol}"></div></div>${tally[symbol]}x ($${formatShortScale(getWin(symbol, tally[symbol]))}) * ${casinoMultiplier}x = $${formatShortScale(win)}</div>`;
-            let winFeedElement = document.createElement("div");
-            winFeedElement.innerHTML = `<div><div class="casino-slot tiny-slot"><div class="symbol-${symbol}"></div></div>${tally[symbol]}x * ${casinoMultiplier}x = $${formatShortScale(win)}</div>`;
-            document.getElementById("casino-win-feed").appendChild(winFeedElement);
-            removeSymbol(symbol);
-            playSlotWinSound();
-            await new Promise(resolve => setTimeout(resolve, 1500));
-            for (let reel = 0; reel < CASINO_REELS; reel++) {
-                for (let row = 0; row < CASINO_ROWS; row++) {
-                    const element = document.querySelector(`#casino-reel${reel + 1}-slot${row + 1}`);
-                    element.classList.remove('slot-pop-win'); // Remove the win animation from wilds
+        if(symbol.startsWith("x")) {
+            symbolsRemoved++;
+            removeSymbol(symbol, simulation);
+            if(!simulation) {
+                playSlotWinSound();
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                for (let reel = 0; reel < CASINO_REELS; reel++) {
+                    for (let row = 0; row < CASINO_ROWS; row++) {
+                        const element = document.querySelector(`#casino-reel${reel + 1}-slot${row + 1}`);
+                        element.classList.remove('slot-pop-win'); // Remove the win animation from wilds
+                    }
                 }
             }
         }
     }
-    if(totalWin > 0) {
-        await FallSymbols();
-        await new Promise(resolve => setTimeout(resolve, 700));
-        drawBoard();
-    }
-    for (let reel = 0; reel < CASINO_REELS; reel++) {
-        for (let row = 0; row < CASINO_ROWS; row++) {
-            const element = document.querySelector(`#casino-reel${reel + 1}-slot${row + 1}`);
-            if(element.classList.contains('slot-pop-out') || element.classList.contains('slot-fade-out') || element.classList.contains('slot-hidden')) {
-                element.classList.remove('slot-pop-out');
-                element.classList.remove('slot-fade-out');
-                element.classList.remove('slot-hidden');
-                element.classList.add('slot-pop-in');
-                await new Promise(resolve => setTimeout(resolve, 50));
+    // remove other symbols
+    for (let symbol in tally) {
+        if(symbol.startsWith("x")) {
+            
+        } else if(symbol === CASINO_BONUS_SYMBOL) {
+            
+        }else if (tally[symbol] >= CASINO_SYMBOLS_TO_WIN) {
+            symbolsRemoved++;
+            let win = getWin(symbol, tally[symbol]) * casinoMultiplier;
+            totalWin += win;
+            casinoCurrentPot += win;
+            if(!simulation) {
+                document.getElementById("casino-win-feedback1").innerHTML = `<div><div class="casino-slot tiny-slot"><div class="symbol-${symbol}"></div></div>${tally[symbol]}x ($${formatShortScale(getWin(symbol, tally[symbol]))}) * ${casinoMultiplier}x = $${formatShortScale(win)}</div>`;
+                let winFeedElement = document.createElement("div");
+                winFeedElement.innerHTML = `<div><div class="casino-slot tiny-slot"><div class="symbol-${symbol}"></div></div>${tally[symbol]}x * ${casinoMultiplier}x = $${formatShortScale(win)}</div>`;
+                document.getElementById("casino-win-feed").appendChild(winFeedElement);
+            }
+            removeSymbol(symbol, simulation);
+            if(!simulation) {
+                playSlotWinSound();
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                for (let reel = 0; reel < CASINO_REELS; reel++) {
+                    for (let row = 0; row < CASINO_ROWS; row++) {
+                        const element = document.querySelector(`#casino-reel${reel + 1}-slot${row + 1}`);
+                        element.classList.remove('slot-pop-win'); // Remove the win animation from wilds
+                    }
+                }
             }
         }
     }
-    await new Promise(resolve => setTimeout(resolve, 300));
-    for (let reel = 0; reel < CASINO_REELS; reel++) {
-        for (let row = 0; row < CASINO_ROWS; row++) {
-            const element = document.querySelector(`#casino-reel${reel + 1}-slot${row + 1}`);
-            element.classList.remove('slot-pop-out');
-            element.classList.remove('slot-pop-in');
-            element.classList.remove('slot-fade-out');
-            element.classList.remove('slot-fall-down');
+    
+    
+    if(symbolsRemoved > 0) {
+        await FallSymbols(simulation);
+        if(!simulation) {
+            await new Promise(resolve => setTimeout(resolve, 700));
+            drawBoard();
+        }
+    }
+    if(!simulation) {
+        for (let reel = 0; reel < CASINO_REELS; reel++) {
+            for (let row = 0; row < CASINO_ROWS; row++) {
+                const element = document.querySelector(`#casino-reel${reel + 1}-slot${row + 1}`);
+                if(element.classList.contains('slot-pop-out') || element.classList.contains('slot-fade-out') || element.classList.contains('slot-hidden')) {
+                    element.classList.remove('slot-pop-out');
+                    element.classList.remove('slot-fade-out');
+                    element.classList.remove('slot-hidden');
+                    element.classList.add('slot-pop-in');
+                    playBuySound();
+                    await new Promise(resolve => setTimeout(resolve, 50));
+                }
+            }
+        }
+        await new Promise(resolve => setTimeout(resolve, 300));
+        for (let reel = 0; reel < CASINO_REELS; reel++) {
+            for (let row = 0; row < CASINO_ROWS; row++) {
+                const element = document.querySelector(`#casino-reel${reel + 1}-slot${row + 1}`);
+                element.classList.remove('slot-pop-out');
+                element.classList.remove('slot-pop-in');
+                element.classList.remove('slot-fade-out');
+                element.classList.remove('slot-fall-down');
+            }
         }
     }
     
-    return totalWin;
+    return {totalWin, symbolsRemoved};
 }
 
-async function FallSymbols() {
+async function FallSymbols(simulation = false) {
     // We'll handle each reel separately
     const fallPromises = [];
     
@@ -265,23 +313,32 @@ async function FallSymbols() {
         // Combine them to form the new reel (top are new, bottom are old)
         const newReel = [...newSymbols, ...remainingSymbols];
         
-        // 3) Animate from the old reel to the new reel
-        //    (the actual falling transition)
-        fallPromises.push(animateFall(reel, oldReelSymbols, newReel).then(() => {
-            // 4) Now that the reel has visually animated,
-            //    finalize the new arrangement in `casinoBoard`
+        if(simulation) {
+            // If we're simulating, just update the board
             for (let row = 0; row < CASINO_ROWS; row++) {
                 casinoBoard[reel][row] = newReel[row].symbol;
             }
-        }));
+        } else {
+            // 3) Animate from the old reel to the new reel
+            //    (the actual falling transition)
+            fallPromises.push(animateFall(reel, oldReelSymbols, newReel).then(() => {
+                // 4) Now that the reel has visually animated,
+                //    finalize the new arrangement in `casinoBoard`
+                for (let row = 0; row < CASINO_ROWS; row++) {
+                    casinoBoard[reel][row] = newReel[row].symbol;
+                }
+            }));
+        }
     }
     
     // Wait for all reels to finish falling
     await Promise.all(fallPromises);
     
     // 5) Finally draw the board so the real slots match the new arrangement
-    drawBoard();
-    playSlotFallSound();
+    if(!simulation) {
+        drawBoard();
+        playSlotFallSound();
+    }
 }
 /**
 * Animate a single reel's transition from `oldReel` to `newReel`.
@@ -452,23 +509,27 @@ function getRemInPixels() {
     return parseFloat(getComputedStyle(document.documentElement).fontSize);
 }
 // Remove a matched symbol and drop new ones
-function removeSymbol(symbol) {
+function removeSymbol(symbol, simulation = false) {
     // Mark all instances of the symbol as null and add pop-out animation
     for (let reel = 0; reel < CASINO_REELS; reel++) {
         for (let row = 0; row < CASINO_ROWS; row++) {
             if (casinoBoard[reel][row] === symbol) {
-                const element = document.querySelector(`#casino-reel${reel + 1}-slot${row + 1}`);
-                if (element) {
-                    element.classList.add('slot-pop-out');
-                    element.classList.remove('slot-pop-in');
+                if(!simulation) {
+                    const element = document.querySelector(`#casino-reel${reel + 1}-slot${row + 1}`);
+                    if (element) {
+                        element.classList.add('slot-pop-out');
+                        element.classList.remove('slot-pop-in');
+                    }
                 }
                 casinoBoard[reel][row] = null;
             } else if(casinoBoard[reel][row] !== null) {
-                if(casinoBoard[reel][row] === CASINO_STICKY_WILD_SYMBOL || casinoBoard[reel][row].startsWith("x")) {
-                    const element = document.querySelector(`#casino-reel${reel + 1}-slot${row + 1}`);
-                    if (element) {
-                        element.classList.add('slot-pop-win');
-                        element.classList.remove('slot-pop-in');
+                if(!simulation) {
+                    if(casinoBoard[reel][row] === CASINO_STICKY_WILD_SYMBOL || casinoBoard[reel][row].startsWith("x")) {
+                        const element = document.querySelector(`#casino-reel${reel + 1}-slot${row + 1}`);
+                        if (element) {
+                            element.classList.add('slot-pop-win');
+                            element.classList.remove('slot-pop-in');
+                        }
                     }
                 }
             }
@@ -502,44 +563,159 @@ async function animateReel(reelIndex, finalSymbols, spins = 15, spinDelay = 60) 
                 
                 // Done spinning this reel
                 document.getElementById(`casino-reel${reelIndex + 1}`).classList.remove('casino-reel-spinning');
+                playClickSound();
                 resolve();
             }
         }, spinDelay);
     });
 }
-async function spinReels() {
-    // 1) Fade out all slots
-    for (let reel = 0; reel < CASINO_REELS; reel++) {
-        for (let row = 0; row < CASINO_ROWS; row++) {
-            document.querySelector(`#casino-reel${reel + 1}-slot${row + 1}`).classList.add('slot-fade-out');
+async function spinReels(simulation = false, guaranteedBonusCount = 0) {
+    if(simulation) {
+        for (let reel = 0; reel < CASINO_REELS; reel++) {
+            for (let row = 0; row < CASINO_ROWS; row++) {
+                casinoBoard[reel][row] = randomSymbol(reel, false, guaranteedBonusCount);
+            }
         }
-    }
-    await new Promise(resolve => setTimeout(resolve, 700));  // Wait for fade out
-    
-    // 2) Generate the final spin results, but store them separately
-    // ------------------------------------------------------------
-    // Instead of writing directly to casinoBoard, we build a 2D array of final results
-    let finalBoard = Array.from({ length: CASINO_REELS }, () => Array(CASINO_ROWS).fill(null));
-    
-    for (let reel = 0; reel < CASINO_REELS; reel++) {
-        for (let row = 0; row < CASINO_ROWS; row++) {
-            finalBoard[reel][row] = randomSymbol(reel);
+    } else {
+        // 1) Fade out all slots
+        for (let reel = 0; reel < CASINO_REELS; reel++) {
+            for (let row = 0; row < CASINO_ROWS; row++) {
+                document.querySelector(`#casino-reel${reel + 1}-slot${row + 1}`).classList.add('slot-fade-out');
+            }
         }
-    }
-    
-    // 3) Animate each reel in sequence (typical slot-machine style)
-    for (let reel = 0; reel < CASINO_REELS; reel++) {
-        // Remove the fade-out class so we can begin spinning
-        for (let row = 0; row < CASINO_ROWS; row++) {
-            let slotElem = document.querySelector(`#casino-reel${reel + 1}-slot${row + 1}`);
-            slotElem.classList.remove('slot-fade-out');
+        await new Promise(resolve => setTimeout(resolve, 700));  // Wait for fade out
+        
+        // 2) Generate the final spin results, but store them separately
+        // ------------------------------------------------------------
+        // Instead of writing directly to casinoBoard, we build a 2D array of final results
+        let finalBoard = Array.from({ length: CASINO_REELS }, () => Array(CASINO_ROWS).fill(null));
+        
+        for (let reel = 0; reel < CASINO_REELS; reel++) {
+            for (let row = 0; row < CASINO_ROWS; row++) {
+                finalBoard[reel][row] = randomSymbol(reel, false, guaranteedBonusCount);
+            }
         }
+        
+        // 3) Animate each reel in sequence (typical slot-machine style)
+        for (let reel = 0; reel < CASINO_REELS; reel++) {
+            // Remove the fade-out class so we can begin spinning
+            for (let row = 0; row < CASINO_ROWS; row++) {
+                let slotElem = document.querySelector(`#casino-reel${reel + 1}-slot${row + 1}`);
+                slotElem.classList.remove('slot-fade-out');
+            }
+        }
+        await Promise.all(Array.from({ length: CASINO_REELS }, (_, i) => animateReel(i, finalBoard[i], 15 + i * 15, 10)));
     }
-    await Promise.all(Array.from({ length: CASINO_REELS }, (_, i) => animateReel(i, finalBoard[i], 15 + i * 15, 10)));
 }
-async function startCasinoGame() {
+
+let casinoSimulationTimesEnteredBonus = 0;
+let casinoSimulationBonusGamesPlayed = 0;
+
+async function SimulateSpin(guaranteedBonusCount = 0) {
+    casinoBusy = true;
+    casinoCurrentPot = 0;
+    casinoStickyWildCount = 0;
+    casinoReelsWithBonus = [];
+    casinoMultiplier = 1;
+    casinoLastMultiplier = 1;
+    casinoBonusCount = 0;
+    casinoInBonus = false;
+    
+    await spinReels(true, guaranteedBonusCount);
+    let totalWin = 0;
+    let win = await checkWins(true);
+    while (win.symbolsRemoved > 0) {
+        win = await checkWins(true);
+        totalWin += win.totalWin;
+    }
+    if(casinoBonusCount >= 3) {
+        casinoInBonus = true;
+        casinoSimulationTimesEnteredBonus++;
+        let bonusGames = casinoBonusCount * 5;
+        let bonusTotalWin = 0;
+        for (let i = 0; i < bonusGames; i++) {
+            casinoSimulationBonusGamesPlayed++;
+            casinoStickyWildCount = 0;
+            casinoBonusCount = 0;
+            await spinReels(true);
+            let bonusWin = await checkWins(true);
+            while (bonusWin.symbolsRemoved > 0) {
+                bonusTotalWin += bonusWin.totalWin;
+                bonusWin = await checkWins(true);
+            }
+            if(casinoBonusCount > 3) {
+                bonusGames += casinoBonusCount * 5;
+            }
+        }
+        totalWin += bonusTotalWin;
+    }
+    casinoInBonus = false;
+    casinoBusy = false;
+    return totalWin;
+}
+async function simulateBonus(bonusCount) {
+    return await SimulateSpin(bonusCount);
+}
+
+async function SimulateSpins(count) {
+    casinoSimulationTimesEnteredBonus = 0;
+    casinoSimulationBonusGamesPlayed = 0;
+    let totalWin = 0;
+    let highestWin = 0;
+    let totalBet = count * CASINO_WAGER_TIERS[casinoWagerTier];
+    for (let i = 0; i < count; i++) {
+        let win = await SimulateSpin();
+        totalWin += win;
+        highestWin = Math.max(highestWin, win);
+    }
+    const rtp = (totalWin / totalBet) * 100;
+    console.log(`Completed ${count} spins at $${CASINO_WAGER_TIERS[casinoWagerTier]} each`);
+    console.log(`Total Bet: $${totalBet.toFixed(2)}`);
+    console.log(`Total Returned: $${totalWin.toFixed(2)}`);
+    console.log(`Highest Win: $${highestWin.toFixed(2)}`);
+    console.log(`Times Entered Bonus: ${casinoSimulationTimesEnteredBonus}`);
+    console.log(`Bonus Games Played: ${casinoSimulationBonusGamesPlayed}`);
+    console.log(`Chance of Entering Bonus: ${(casinoSimulationTimesEnteredBonus / count * 100).toFixed(2)}%`);
+    console.log(`RTP: ${rtp.toFixed(2)}%`);
+    return totalWin;
+}
+async function SimulateBonuses(count, bonusCount) {
+    let totalWin = 0;
+    let highestWin = 0;
+    let totalBet = count * CASINO_WAGER_TIERS[casinoWagerTier];
+    for (let i = 0; i < count; i++) {
+        let win = await simulateBonus(bonusCount);
+        totalWin += win;
+        highestWin = Math.max(highestWin, win);
+    }
+    const rtp = (totalWin / totalBet) * 100;
+    const suggestedPrice = (totalWin / 0.95) / count; // Calculate suggested price for 95% RTP
+    console.log(`Completed ${count} bonus games with guaranteed ${bonusCount} bonus symbols each`);
+    console.log(`Total Bet: $${totalBet.toFixed(2)}`);
+    console.log(`Total Returned: $${totalWin.toFixed(2)}`);
+    console.log(`Average Win: $${(totalWin / count).toFixed(2)}`);
+    console.log(`Highest Win: $${highestWin.toFixed(2)}`);
+    console.log(`RTP: ${rtp.toFixed(2)}%`);
+    console.log(`Suggested Price for 95% RTP: $${suggestedPrice.toFixed(2)}`);
+    return totalWin;
+}
+async function startCasinoGame(bonusBuy = 0) {
     if (casinoBusy) return;
-    let cost_in_keystrokes = dollarsToKeystrokes(CASINO_WAGER_TIERS[casinoWagerTier]);
+    let bonusBuyCostMultiplier = 1;
+    let guaranteedBonusCount = 0;
+    if(bonusBuy === 1) {
+        bonusBuyCostMultiplier = 180;
+        guaranteedBonusCount = 3;
+    }
+    if(bonusBuy === 2) {
+        bonusBuyCostMultiplier = 300;
+        guaranteedBonusCount = 4;
+    }
+    if(bonusBuy === 3) {
+        bonusBuyCostMultiplier = 450;
+        guaranteedBonusCount = 5;
+    }
+    let cost_in_keystrokes = dollarsToKeystrokes(CASINO_WAGER_TIERS[casinoWagerTier] * bonusBuyCostMultiplier);
     if (keystrokesBank < cost_in_keystrokes) {
         document.getElementById("casino-win-feedback1").innerHTML = `<i>Not enough funds!</i>`;
         return;
@@ -554,24 +730,32 @@ async function startCasinoGame() {
     casinoMultiplier = 1;
     casinoLastMultiplier = 1;
     casinoBonusCount = 0;
+    casinoInBonus = false;
+    document.getElementById("casino-bonus-display").style.display = "none";
+    document.getElementById("casino-board").classList.remove("casino-bonus");
     document.getElementById("casino-current-multiplier").textContent = "1";
     // Clear any old win messages
     document.getElementById("casino-win-feed").innerHTML = "";
     document.getElementById("casino-win-feedback1").innerHTML = `<i>Good luck!</i>`;
     
     // Spin the reels
-    await spinReels();
-
-
+    await spinReels(false, guaranteedBonusCount);
+    
+    
     let win = await checkWins();
-    while (win > 0) {
+    while (win.symbolsRemoved > 0) {
         //casinoCurrentPot += win;
         win = await checkWins();
         await new Promise(resolve => setTimeout(resolve, 100));
     }
-
+    
     if (casinoBonusCount >= 3) {
+        playAchievementSound();
+        document.getElementById("casino-board").classList.add("casino-bonus");
+        document.getElementById("casino-bonus-display").style.display = "block";
+        casinoInBonus = true;
         let bonusGames = casinoBonusCount * 5;
+        document.getElementById("casino-bonus-display").innerHTML = `Bonus game 0/${bonusGames}`;
         document.getElementById("casino-win-feedback1").innerHTML = `You've unlocked ${bonusGames} bonus games!`;
         for (let reel = 0; reel < CASINO_REELS; reel++) {
             for (let row = 0; row < CASINO_ROWS; row++) {
@@ -596,14 +780,16 @@ async function startCasinoGame() {
         for (let i = 0; i < bonusGames; i++) {
             casinoStickyWildCount = 0;
             casinoBonusCount = 0;
-            document.getElementById("casino-win-feedback1").innerHTML = `Bonus game ${i + 1}/${bonusGames}`;
+            document.getElementById("casino-bonus-display").innerHTML = `Bonus game ${i + 1}/${bonusGames}`;
             await spinReels();
             let bonusWin = await checkWins();
-            while (bonusWin > 0) {
+            while (bonusWin.symbolsRemoved > 0) {
+                bonusTotalWin += bonusWin.totalWin;
                 bonusWin = await checkWins();
                 await new Promise(resolve => setTimeout(resolve, 100));
             }
             if(casinoBonusCount > 3) {
+                playAchievementSound();
                 bonusGames += casinoBonusCount * 5;
                 document.getElementById("casino-win-feedback1").innerHTML = `You've unlocked ${casinoBonusCount * 5} bonus games!`;
                 for (let reel = 0; reel < CASINO_REELS; reel++) {
@@ -626,14 +812,12 @@ async function startCasinoGame() {
                 }
                 await new Promise(resolve => setTimeout(resolve, 500));
             }
-            bonusTotalWin += bonusWin;
         }
         document.getElementById("casino-win-feedback1").innerHTML = `You've won $${formatShortScale(bonusTotalWin)} in bonus games!`;
-        casinoCurrentPot += bonusTotalWin;
         await new Promise(resolve => setTimeout(resolve, 1000));
     }
-
-
+    
+    
     if (casinoCurrentPot > 0) {
         keystrokesBank += dollarsToKeystrokes(casinoCurrentPot);
     } else {
@@ -642,8 +826,11 @@ async function startCasinoGame() {
     
     gtag('event', 'casino', {
         'event_category': 'play',
-        'slot_outcome': casinoCurrentPot.toFixed(2)
+        'slot_outcome': casinoCurrentPot.toFixed(2),
+        'bonus_buy': bonusBuy,
+        'wager': CASINO_WAGER_TIERS[casinoWagerTier],
     });
     
+    casinoInBonus = false;
     casinoBusy = false;
 }
