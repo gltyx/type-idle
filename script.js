@@ -1,4 +1,6 @@
 // script.js
+
+let currentWordIndex = 0;
 let wordsToType = [];
 let correctKeystrokesTimestamps = [];
 let lastTypedWord = "";
@@ -56,6 +58,10 @@ const tabs = {
         tab: document.getElementById("casino-tab"),
         page: document.getElementById("casinoPage"),
         sidePanel: document.getElementById("casino-panel")
+    },
+    memory: {
+        tab: document.getElementById("memory-tab"),
+        page: document.getElementById("memoryPage")
     }
 };
 
@@ -142,7 +148,7 @@ function checkPromotion() {
 function initGame() {
     loadLocalSave(); // Load saved game data
     // Initialize the words to type from words.js
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 60; i++) {
         wordsToType.push(getRandomWord());
     }
     updateWordsToType();
@@ -221,29 +227,25 @@ function initGame() {
     document.getElementById('theme-select').value = currentTheme;
     applyTheme();
     //==========================================
-    document.getElementById('toggle-word-definition').addEventListener('click', () => {
-        document.getElementById('toggle-word-definition').classList.add('active');
-        document.getElementById('toggle-game-keyboard').classList.remove('active');
-        document.getElementById('current-word-definition').style.display = 'block';
-        document.getElementById('game-keyboard-container').style.display = 'none';
-        gameKeyboardOrDefintion = 'definition';
+    document.getElementById('toggle-keyboard-highlight').addEventListener('change', function () {
+        tenFingerAssitance = this.checked;
+        if(tenFingerAssitance) {
+            document.getElementById('game-keyboard-container').style.display = 'block';
+        } else {
+            document.getElementById('game-keyboard-container').style.display = 'none';
+        }
     });
-    document.getElementById('toggle-game-keyboard').addEventListener('click', () => {
-        document.getElementById('toggle-game-keyboard').classList.add('active');
-        document.getElementById('toggle-word-definition').classList.remove('active');
-        document.getElementById('current-word-definition').style.display = 'none';
+    if(tenFingerAssitance) {
+        document.getElementById('toggle-keyboard-highlight').checked = true;
         document.getElementById('game-keyboard-container').style.display = 'block';
-        gameKeyboardOrDefintion = 'keyboard';
-    });
-    if(gameKeyboardOrDefintion === 'definition') {
-        document.getElementById('toggle-word-definition').classList.add('active');
-        document.getElementById('current-word-definition').style.display = 'block';
-        document.getElementById('game-keyboard-container').style.display = 'none';
     } else {
-        document.getElementById('toggle-game-keyboard').classList.add('active');
-        document.getElementById('current-word-definition').style.display = 'none';
-        document.getElementById('game-keyboard-container').style.display = 'block';
+        document.getElementById('toggle-keyboard-highlight').checked = false;
+        document.getElementById('game-keyboard-container').style.display = 'none';
     }
+    //==========================================
+    document.getElementById('toggle-word-fall').addEventListener('change', function () {
+        fallingWordsEnabled = this.checked;
+    });
     //==========================================
     document.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', () => {
@@ -276,10 +278,10 @@ document.getElementById('input-box').addEventListener('input', function() {
     const inputBox = document.getElementById('input-box');
     const inputText = inputBox.value.trim();
     
-    colorText(inputText, document.getElementById('words-to-type'), wordsToType);
+    colorText(inputText, document.getElementById('words-to-type'), wordsToType, currentWordIndex);
     highlightNextKey();
     if (inputBox.value.endsWith(' ')) {
-        if (inputText === wordsToType[0]) {
+        if (inputText === wordsToType[currentWordIndex]) {
             manualKeystrokes += inputText.length;
             //let keyStrokeModCount = inputText.length + (inputText.length * (arenaGoldMedals * 0.01 * getPassiveIncome()));
             let keyStrokeModCount = applyKPStoManual(inputText.length);
@@ -289,8 +291,10 @@ document.getElementById('input-box').addEventListener('input', function() {
             keystrokesBank += keyStrokeModCount;
             cashEarnedManually += keyStrokeModCount;
             lastTypedWord = inputText;
-            wordsToType.shift(); // Remove the first word
-            wordsToType.push(getRandomWord()); // Add a new random word
+
+            currentWordIndex++;
+            //wordsToType.shift(); // Remove the first word
+            //wordsToType.push(getRandomWord()); // Add a new random word
             
             // Track each keystroke of the correct word using original inputText.length for WPM calculation
             for (let i = 0; i < inputText.length; i++) {
@@ -301,28 +305,23 @@ document.getElementById('input-box').addEventListener('input', function() {
             createFloatingWord(`<img src="images/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"> +${formatShortScale(keyStrokeModCount)}`);
             updateWordsToType();
             playTypeSound();
+            inputBox.value = '';
             gtag('event', 'word_input', {
                 'wpm': wpm,
                 'event_category': 'typing'
             });
         } else {
             if (skipOnMistake) {
-                wordsToType.shift();
-                wordsToType.push(getRandomWord());
+                currentWordIndex++;
                 updateWordsToType();
+                inputBox.value = '';
+                playTypoSound();
             }
-            playTypoSound();
         }
-        inputBox.value = '';
         highlightNextKey();
     }
 });
 
-function displayWordDefinition(word) {
-    const currentWordDefinitionElement = document.getElementById('current-word-definition');
-    const WordObj = wordsList[word];
-    currentWordDefinitionElement.innerHTML = `<p><strong>${word}</strong></p><p>Definition: ${WordObj.definition}</p><p>Example: <i>${WordObj.example}</i></p>`;
-}
 
 const AllWords = Object.keys(wordsList);
 function getRandomWord(length) {
@@ -339,15 +338,39 @@ function getRandomWord(length) {
 
 
 function updateWordsToType() {
-    colorText('', document.getElementById('words-to-type'), wordsToType);
-    displayWordDefinition(wordsToType[0]);
-    document.getElementById('input-box').placeholder = `Type '${wordsToType[0]}' here...`;
+    const wordsDisplay = document.getElementById('words-to-type');
+    if(currentWordIndex > 0) {
+        let firstElement = wordsDisplay.children[0];
+        const currentElement = wordsDisplay.children[currentWordIndex];
+        let toRemove = [];
+        while (currentElement.getBoundingClientRect().top > firstElement.getBoundingClientRect().top) {
+            toRemove.push(wordsDisplay.children[toRemove.length]);
+            firstElement = wordsDisplay.children[toRemove.length];
+        }
+        if(toRemove.length > 0) {
+            for(let i = 0; i < toRemove.length; i++) {
+                wordsDisplay.removeChild(toRemove[i]);
+                wordsToType.shift();
+                wordsToType.push(getRandomWord());
+            }
+            currentWordIndex = 0;
+        }
+    }
+    if(wordsDisplay.children.length < wordsToType.length) {
+        for(let i = wordsDisplay.children.length; i < wordsToType.length; i++) {
+            const wordElement = document.createElement('div');
+            wordElement.className = 'word';
+            wordElement.textContent = wordsToType[i];
+            wordsDisplay.appendChild(wordElement);
+        }
+    }
+    colorText('', wordsDisplay, wordsToType, currentWordIndex);
+    document.getElementById('input-box').placeholder = `Type '${wordsToType[currentWordIndex]}' here...`;
     highlightNextKey();
 }
 
-function colorText(inputText, wordsDisplay, words) {
-    
-    const firstWord = words[0];
+function colorText(inputText, wordsDisplay, words, currentIndex) {
+    const firstWord = words[currentIndex];
     let coloredText = '';
     let mistakeFound = false;
     
@@ -363,12 +386,12 @@ function colorText(inputText, wordsDisplay, words) {
             }
         }
     }
-    
+    /*
     for (let i = 1; i < words.length; i++) {
         coloredText += ' ' + words[i];
     }
-    
-    wordsDisplay.innerHTML = coloredText;
+    */
+    wordsDisplay.children[currentIndex].innerHTML = coloredText;
 }
 
 function updateStats() {
@@ -419,6 +442,7 @@ function updateStats() {
 
 function createFallingWord(word) {
     if(currentPage !== 'main-tab') return;
+    if(!fallingWordsEnabled) return;
     const gameContainer = document.getElementById('game-container');
     const fallingWord = document.createElement('div');
     fallingWord.textContent = word;
@@ -552,12 +576,12 @@ function highlightNextKey() {
     let mistakeFound = false;
     const inputText = document.getElementById('input-box').value.trim();
     for(let i = 0; i < inputText.length; i++) {
-        if(inputText[i] !== wordsToType[0][i]) {
+        if(inputText[i] !== wordsToType[currentWordIndex][i]) {
             mistakeFound = true;
             break;
         }
     }
-    if(inputText.length > wordsToType[0].length) mistakeFound = true;
+    if(inputText.length > wordsToType[currentWordIndex].length) mistakeFound = true;
     if(inputText.length === 0) mistakeFound = false;
     if(mistakeFound) {
         document.querySelectorAll('.game-key').forEach(keyElement => {
@@ -568,13 +592,13 @@ function highlightNextKey() {
             finger.classList.remove('highlight-finger');
         });
     } else {
-        if(inputText.length === wordsToType[0].length) {
+        if(inputText.length === wordsToType[currentWordIndex].length) {
             document.querySelectorAll('.game-key').forEach(keyElement => {
                 keyElement.classList.remove('invalid');
                 keyElement.classList.add('highlight');
             }); 
         } else {
-            const nextKey = wordsToType[0][inputText.length].toUpperCase();
+            const nextKey = wordsToType[currentWordIndex][inputText.length].toUpperCase();
             document.querySelectorAll('.game-key').forEach(keyElement => {
                 keyElement.classList.remove('invalid');
                 if (keyElement.getAttribute('data-key') === nextKey) {
@@ -688,7 +712,6 @@ function cheat_code() {
     createFloatingWord(`Cheat Code: +${formatShortScale(gain)}`);
 }
 
-
 function displayModules() {
     displayWordle();
     displayBuildings();
@@ -702,4 +725,5 @@ function displayModules() {
     displayHacker();
     displayArcade();
     displayCasino();
+    displayMemory();
 }

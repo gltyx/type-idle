@@ -5,8 +5,8 @@ let hackerLines = [];
 let hackerUIState = "";
 let hackerCodeBackDrop = "";
 const hackerRaceTargetKeystrokes = 300;
-const canvas = document.getElementById('hacker-canvas');
-const ctx = canvas.getContext('2d');
+const hackerCanvas = document.getElementById('hacker-canvas');
+const hackerCtx = hackerCanvas.getContext('2d');
 let hackerDraggingPoint = null;
 let hackerCurrentLevel = 1;
 
@@ -43,6 +43,13 @@ function displayHacker() {
             document.getElementById('hacker-cooldown').style.display = "block";
             document.getElementById('hacker-start').style.display = "none";
             document.getElementById('hacker-timeleft').style.display = "none";
+            if(finishBoost.id === 6) {
+                document.getElementById('hacker-access-granted').textContent = "Access Denied";
+                document.getElementById('hacker-reward').style.display = "none";
+            } else {
+                document.getElementById('hacker-access-granted').textContent = "Access Granted";
+                document.getElementById('hacker-reward').style.display = "block";
+            }
         }
         document.getElementById('hacker-cooldown-remaining').innerText = (finishBoost.duration / Tickrate).toFixed(0);
     }
@@ -60,9 +67,9 @@ function startHackMinigame() {
     hackerPoints = generateRandomPoints(5 + 5 * hackerCurrentLevel);
     hackerLines = generateRandomLines(hackerPoints);
     
-    canvas.addEventListener('mousedown', onMouseDown);
-    canvas.addEventListener('mousemove', onMouseMove);
-    canvas.addEventListener('mouseup', onMouseUp);
+    hackerCanvas.addEventListener('mousedown', onMouseDown);
+    hackerCanvas.addEventListener('mousemove', onMouseMove);
+    hackerCanvas.addEventListener('mouseup', onMouseUp);
     
     updateHackMinigameProgress();
 }
@@ -71,8 +78,8 @@ function generateRandomPoints(count) {
     const points = [];
     for (let i = 0; i < count; i++) {
         points.push({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
+            x: Math.random() * hackerCanvas.width,
+            y: Math.random() * hackerCanvas.height,
             radius: 10
         });
     }
@@ -115,7 +122,7 @@ function onMouseUp() {
 
 function updateHackMinigameProgress() {
     if(!hackerRaceActive) return;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    hackerCtx.clearRect(0, 0, hackerCanvas.width, hackerCanvas.height);
     drawLines();
     drawPoints();
     const progressPercent = calculateUntangleProgress();
@@ -137,22 +144,22 @@ function updateHackMinigameProgress() {
 
 function drawPoints() {
     for (const point of hackerPoints) {
-        ctx.beginPath();
-        ctx.arc(point.x, point.y, point.radius, 0, Math.PI * 2);
-        ctx.fillStyle = 'gray';
-        ctx.strokeStyle = 'black';
-        ctx.fill();
-        ctx.stroke();
+        hackerCtx.beginPath();
+        hackerCtx.arc(point.x, point.y, point.radius, 0, Math.PI * 2);
+        hackerCtx.fillStyle = 'gray';
+        hackerCtx.strokeStyle = 'black';
+        hackerCtx.fill();
+        hackerCtx.stroke();
     }
 }
 
 function drawLines() {
     for (const line of hackerLines) {
-        ctx.beginPath();
-        ctx.moveTo(line.start.x, line.start.y);
-        ctx.lineTo(line.end.x, line.end.y);
-        ctx.strokeStyle = line.tangled ? 'red' : 'green';
-        ctx.stroke();
+        hackerCtx.beginPath();
+        hackerCtx.moveTo(line.start.x, line.start.y);
+        hackerCtx.lineTo(line.end.x, line.end.y);
+        hackerCtx.strokeStyle = line.tangled ? 'red' : 'green';
+        hackerCtx.stroke();
     }
 }
 
@@ -210,13 +217,13 @@ function finishHackMinigame(won) {
     hackerRaceActive = false;
     // final draw
     calculateUntangleProgress();
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    hackerCtx.clearRect(0, 0, hackerCanvas.width, hackerCanvas.height);
     drawLines();
     drawPoints();
 
     if(!won) {
         playLoseSound();
-        spawnBoost(6); // Hacker cooldown
+        spawnBoost(6); // Hacker lost cooldown
         gtag('event', 'hacker_lost', {
             'event_category': 'hacker',
             'level': hackerCurrentLevel
@@ -228,6 +235,19 @@ function finishHackMinigame(won) {
             'event_category': 'hacker',
             'level': hackerCurrentLevel
           });
-        hackerCurrentLevel++;
+        
+        if(hackerCurrentLevel === 2) {
+            hackerCurrentLevel = 1;
+            // generate random reward of 600-3600$
+            const reward = Math.floor(Math.random() * 3000 + 600);
+            const rewardInKeystrokes = dollarsToKeystrokes(reward);
+            
+            document.getElementById('hacker-reward-dollars').innerText = formatShortScale(reward);
+            document.getElementById('hacker-reward-keystrokes').innerText = formatShortScale(rewardInKeystrokes);
+            keystrokesBank += rewardInKeystrokes;
+            spawnBoost(10); // Hacker won cooldown
+        } else {
+            hackerCurrentLevel++;
+        }
     }
 }

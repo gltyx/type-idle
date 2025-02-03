@@ -79,7 +79,6 @@ body.light-coffee {
     
     --typing-panel-bg: #FFFACD;
     --typing-panel-border: #8B4513;
-    --current-word-definition-bg: #ffd6848c;
     
     --correct-color: #4caf50;
     --mistake-color: #f44336;
@@ -229,7 +228,6 @@ body.dark-coffee {
     /* Typing Panel */
     --typing-panel-bg: #3f3229;
     --typing-panel-border: #6f4c3b;
-    --current-word-definition-bg: #845f48af; /* Slightly transparent overlay */
 
     /* Typing Feedback Colors */
     --correct-color: #6caf50;  /* A slightly muted green */
@@ -385,7 +383,6 @@ body.dark {
     
     --typing-panel-bg: #444444;
     --typing-panel-border: #666666;
-    --current-word-definition-bg: #5f5f5f;
     
     --correct-color: #81c784;
     --mistake-color: #e57373;
@@ -521,7 +518,6 @@ body.midnight-blue {
 
     --typing-panel-bg: #2c3b4c;
     --typing-panel-border: #3d5370;
-    --current-word-definition-bg: #49638ca8;
 
     --correct-color: #81c784;
     --mistake-color: #e57373;
@@ -657,7 +653,6 @@ body.forest-green {
 
     --typing-panel-bg: #324b2e;
     --typing-panel-border: #4e6f46;
-    --current-word-definition-bg: #60885c9a;
 
     --correct-color: #81c784;
     --mistake-color: #e57373;
@@ -793,7 +788,6 @@ body.desert-sunset {
 
     --typing-panel-bg: #6e3f27;
     --typing-panel-border: #8c4c2f;
-    --current-word-definition-bg: #af77514f;
 
     --correct-color: #edb879; 
     --mistake-color: #f89684; 
@@ -929,7 +923,6 @@ body.spring-blossom {
 
     --typing-panel-bg: #ffe2ee;
     --typing-panel-border: #df9ab8;
-    --current-word-definition-bg: #ffcde4a8;
 
     --correct-color: #64a364;
     --mistake-color: #f44336;
@@ -1065,7 +1058,6 @@ body.cyberpunk-neon {
 
     --typing-panel-bg: #47217d;
     --typing-panel-border: #6430b4;
-    --current-word-definition-bg: #a336ffe2;
 
     --correct-color: #00ffa0;
     --mistake-color: #ff2c70;
@@ -1193,6 +1185,8 @@ button {
     text-shadow: 0 0 5px var(--top-bar-link-color);
     text-decoration: none;
 }
+
+
 
 /* Main Container */
 #main-container {
@@ -1370,6 +1364,11 @@ button {
     padding: 1.25rem;
     min-height: 100vh;
 }
+#reportsPage,
+#arenaPage {
+    max-width: 1000px;
+    margin: 0 auto 0 auto;
+}
 #gamePage {
     padding:0;
 }
@@ -1420,6 +1419,9 @@ button {
     background-color: var(--stats-panel-bg);
     border-right: 1px solid var(--panel-border);
     display: none;
+}
+#achievements-parent {
+    margin: 5rem;
 }
 #stats-parent, #achievements-parent, #ownedupgrades-parent, #upgrades-parent {
     background-color: var(--panel-tint);
@@ -1506,20 +1508,16 @@ button {
     overflow: hidden;
     margin-top: 0.625rem;
     font-size: 1.25rem;
-    white-space: nowrap; 
+    height:3rem;
     z-index: 2;
     user-select: none;
 }
-#current-word-definition {
-    font-size: 0.9rem;
-    position: relative;
-    background-color: var(--current-word-definition-bg);
-    padding: 0.313rem;
-    margin: 0.625rem;
-    border-radius: 10px;
-    border: 1px solid var(--border);
-    z-index: 2;
+
+.word {
+    display: inline-block;
+    margin-right: 0.5rem;
 }
+
 
 /* Typing Colors */
 .correct {
@@ -1697,6 +1695,52 @@ button:disabled {
     justify-content: center;
     gap: 0.625rem;
 }
+
+.achievement {
+    width: 25rem;
+    height: 10rem;
+    background-color: var(--bgcolor2);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    display: flex;
+    padding: 0.5rem;
+    align-items: center;
+    flex-direction: row;
+}
+.achievement-details {
+    margin-left: 1rem;
+    flex: auto;
+}
+.achievement img {
+    width: 128px;
+    height: 128px;
+    margin: 0.625rem;
+    border-radius: 5px;
+    border: 1px solid var(--border);
+}
+.achievement:hover img, .achievement:hover .progress-container {
+    filter:drop-shadow(0 0 5px rgba(255, 255, 255, 0.5)) brightness(1.2) contrast(1.2);
+}
+
+.achievement.locked .achievement-name {
+    color: var(--mistake-color);
+}
+.achievement.unlocked .achievement-name {
+    color: var(--correct-color);
+}
+
+.achievement.locked img {
+    filter:grayscale(100%) blur(5px);
+}
+.achievement.locked .trivia {
+    filter:blur(5px);
+    user-select: none;
+}
+
+.achievement .progress-container .progress-bar {
+    background: linear-gradient(135deg, var(--wordle-correct-bg), var(--wordle-present-bg));
+}
+/*
 .achievement {
     background-size: cover;
     background-position: center; 
@@ -1715,7 +1759,7 @@ button:disabled {
 .achievement:hover {
     transform: scale(1.1);
 }
-
+*/
 .achievement-trivia {
     font-style: italic;
     font-size: 0.85rem;
@@ -1779,16 +1823,6 @@ button:disabled {
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
 }
-.achievement.unlocked {
-    background-color: #E0FFE0;
-    border-color: #4caf50;
-    box-shadow: 0 0 10px 2px #4caf50;
-}
-.achievement.locked {
-    background-color: #FFE0E0;
-    border-color: #f44336;
-    box-shadow: 0 0 10px 2px #f44336;
-}
 #achievements-parent, #upgrades-parent, #ownedupgrades-parent, #stats-parent {
     padding: 0.625rem;
     border: 1px solid var(--border);
@@ -1798,6 +1832,9 @@ button:disabled {
 }
 
 #hacker-game {
+    border: none;
+    background-color: transparent;
+    box-shadow: none;
     z-index: 2;
     opacity: 0.95;
     width: 50%;
@@ -1805,13 +1842,16 @@ button:disabled {
     margin-left: auto;
     margin-right: auto;
 }
-#hacker-cooldown {
-    z-index: 2;
-    opacity: 0.95;
-    margin-top: 5rem;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
+#hacker-cooldown,
+#hacker-start {
+    user-select: none;
+    background-color: var(--bg-color1);
+    padding: 0.625rem;
+    border-radius: 5px;
+    border: 1px solid var(--border);
+}
+#hacker-timeleft {
+    pointer-events: none;
 }
 #hacker-code-snippet {
     position:absolute;
@@ -2341,6 +2381,11 @@ button:disabled {
     position: relative;
     margin: 0.5rem 0;
 }
+.progress-text {
+    margin:0;
+    color:black;
+    width: 100%;
+}
 .progress-bar {
     height: 100%;
     transition: width 0.3s ease-in-out;
@@ -2396,16 +2441,6 @@ button:disabled {
     100% {
         opacity: 0;
     }
-}
-#game-keyboard-word-definition-toggle {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    z-index: 10;
-}
-#game-keyboard-word-definition-toggle button {
-    padding: 0.2rem;
-    border-radius: 0;
 }
 
 
@@ -2515,7 +2550,7 @@ button:disabled {
 }
 
 /* Arcade Game */
-#arcade-game {
+.game-box {
     position: relative;
     width: 800px;
     height: 600px;
@@ -2542,7 +2577,7 @@ button:disabled {
     transform: scale(0.5);
 }
 
-#arcade-start {
+.abscenter {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -2550,7 +2585,7 @@ button:disabled {
     text-align: center;
 }
 
-#arcade-start-button {
+.game-start-button {
     background-color: var(--button-bg);
     color: var(--button-text-color);
     border: none;
@@ -2561,7 +2596,7 @@ button:disabled {
     transition: background-color 0.3s ease;
 }
 
-#arcade-start-button:hover {
+.game-start-button:hover {
     background-color: var(--button-bg-hover);
 }
 
@@ -2591,6 +2626,30 @@ button:disabled {
 #arcade-wave, #arcade-score, #arcade-timeleft-remaining {
     display: inline-block;
     margin: 0 10px;
+}
+
+#memory-games {
+    display:flex;
+    gap: 5rem;
+}
+.memory-game {
+    background-color: var(--bg-alpha1);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 1rem;
+    min-width: 15rem;
+    transition: filter 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+}
+
+.memory-icon {
+    width: 7.5rem;
+    height: 7.5rem;
+    border-radius: 50%;
+}
+.memory-game:hover {
+    filter: brightness(1.1) contrast(1.1);
+    transform: scale(1.05);
 }
 
 /* Casino Minigame Styles */

@@ -355,29 +355,27 @@ const KeystrokeCasino = {
     icon: "/images/keystroke-casino-icon.png",
     lockedicon: "/images/keystroke-casino-locked-icon.png",
 }
-
-/*
 const AIAgent = {
-    id: 12,
+    id: 14,
     name: "AI Agent",
     description: "Deploy AI to generate keystrokes.",
     trivia: "AI-generated keystrokes.",
-    lockdescription: "Unlocks at 1,000,000,000 total keystrokes.",
-    special: "Zero human interaction required at the stock market.",
-    unlockCondition: () => totalKeystrokes >= 1_000_000_000,
+    lockdescription: "Unlocks at 1,000,000,000,000 total keystrokes.",
+    special: "Unlocks 'Memory' button in the navbar. Zero human interaction required at the stock market.",
+    unlockCondition: () => totalKeystrokes >= 1_000_000_000_000,
     locked: true,
-    baseCost: 1_000_000_000,
-    baseProduce: 5_000_000,
+    baseCost: 1_000_000_000_000,
+    baseProduce: 5_000_000_000,
     getProduceSingle: () => {
         return applyModifiers(AIAgent.id, AIAgent.baseProduce);
     },
     getProduce: () => AIAgent.getProduceSingle() * AIAgent.level,
     level: 0,
     totalProduce: 0,
-    icon: "images/ai-agent-icon.png",
-    lockedicon: "images/ai-agent-locked-icon.png",
+    icon: "/images/ai-agent-icon.png",
+    lockedicon: "/images/ai-agent-locked-icon.png",
 }
-*/
+
 
 const buildings = [
     AutoWriter, Printer, ResearchLab, CyberCafe, ServerFarm, TypingArena, ITOffice, StockMarket, MagazinePublisher, TypingGuild, HackerGroup, GameArcade, KeystrokeCasino

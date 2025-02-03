@@ -5,6 +5,7 @@ let raceActive = false;
 let raceTimerStarted = false;
 let practiceActive = false;
 let practiceTimerStarted = false;
+let arenaCurrentWordIndex = 0;
 let arenaWords = [];
 let playerWPM = 0;
 let practiceWPM = 0;
@@ -173,9 +174,10 @@ function startArenaRace() {
     
     // Generate words for typing race
     arenaWords = [];
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 60; i++) {
         arenaWords.push(getRandomWord());
     }
+    arenaCurrentWordIndex = 0;
     updateArenaWordList(false);
     
     const selectedDifficultyConfig = difficultySettings[selectedDifficulty];
@@ -197,20 +199,52 @@ function startPracticeRace() {
     
     // Generate words for typing race
     arenaWords = [];
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 60; i++) {
         arenaWords.push(getRandomWord());
     }
+    arenaCurrentWordIndex = 0;
     updateArenaWordList(true);
     updatePracticeProgress();
 }
 
 
 function updateArenaWordList(practice) {
+    let wordsDisplay;
+    let inputBox;
     if(practice) {
-        colorText('', document.getElementById('practice-words-to-type'), arenaWords);
+        wordsDisplay = document.getElementById('practice-words-to-type');
+        inputBox = document.getElementById('practice-input-box');
     } else {
-        colorText('', document.getElementById('arena-words-to-type'), arenaWords);
+        wordsDisplay = document.getElementById('arena-words-to-type');
+        inputBox = document.getElementById('arena-input-box');
     }
+    if(arenaCurrentWordIndex > 0) {
+        let firstElement = wordsDisplay.children[0];
+        const currentElement = wordsDisplay.children[arenaCurrentWordIndex];
+        let toRemove = [];
+        while (currentElement.getBoundingClientRect().top > firstElement.getBoundingClientRect().top) {
+            toRemove.push(wordsDisplay.children[toRemove.length]);
+            firstElement = wordsDisplay.children[toRemove.length];
+        }
+        if(toRemove.length > 0) {
+            for(let i = 0; i < toRemove.length; i++) {
+                wordsDisplay.removeChild(toRemove[i]);
+                arenaWords.shift();
+                arenaWords.push(getRandomWord());
+            }
+            arenaCurrentWordIndex = 0;
+        }
+    }
+    if(wordsDisplay.children.length < arenaWords.length) {
+        for(let i = wordsDisplay.children.length; i < arenaWords.length; i++) {
+            const wordElement = document.createElement('div');
+            wordElement.className = 'word';
+            wordElement.textContent = arenaWords[i];
+            wordsDisplay.appendChild(wordElement);
+        }
+    }
+    inputBox.placeholder = `Type '${arenaWords[arenaCurrentWordIndex]}' here...`;
+    colorText('', wordsDisplay, arenaWords, arenaCurrentWordIndex);
 }
 
 document.getElementById("practice-input-box").addEventListener("input", function () {
@@ -220,15 +254,20 @@ document.getElementById("practice-input-box").addEventListener("input", function
     }
     const inputBox = document.getElementById("practice-input-box");
     const inputText = inputBox.value.trim();
-    colorText(inputText, document.getElementById('practice-words-to-type'), arenaWords);
+    colorText(inputText, document.getElementById('practice-words-to-type'), arenaWords, arenaCurrentWordIndex);
     if (inputBox.value.endsWith(" ")) {
-        if (inputText === arenaWords[0]) {
+        if (inputText === arenaWords[arenaCurrentWordIndex]) {
             playerKeystrokes += inputText.length;
-            arenaWords.shift(); 
-            arenaWords.push(getRandomWord());
+            arenaCurrentWordIndex++;
             updateArenaWordList(true);
+            inputBox.value = "";
+        } else {
+            if(skipOnMistake) {
+                arenaCurrentWordIndex++;
+                updateArenaWordList(true);
+                inputBox.value = "";
+            }
         }
-        inputBox.value = "";
         
         updatePracticeProgress();
     }
@@ -242,15 +281,20 @@ document.getElementById("arena-input-box").addEventListener("input", function ()
     }
     const inputBox = document.getElementById("arena-input-box");
     const inputText = inputBox.value.trim();
-    colorText(inputText, document.getElementById('arena-words-to-type'), arenaWords);
+    colorText(inputText, document.getElementById('arena-words-to-type'), arenaWords, arenaCurrentWordIndex);
     if (inputBox.value.endsWith(" ")) {
-        if (inputText === arenaWords[0]) {
+        if (inputText === arenaWords[arenaCurrentWordIndex]) {
             playerKeystrokes += inputText.length;
-            arenaWords.shift(); 
-            arenaWords.push(getRandomWord());
+            arenaCurrentWordIndex++;
             updateArenaWordList(false);
+            inputBox.value = "";
+        } else {
+            if(skipOnMistake) {
+                arenaCurrentWordIndex++;
+                updateArenaWordList(false);
+                inputBox.value = "";
+            }
         }
-        inputBox.value = "";
         
         document.getElementById("player-progress").textContent = playerKeystrokes.toFixed(0);
         updateRaceProgress();
@@ -320,7 +364,7 @@ function finishPracticeRace() {
     gtag('event', 'arena_speedtest', {
         'event_category': 'arena',
         'wpm': practiceWPM
-      });
+    });
 }
 
 function finishArenaRace(playerWon) {
@@ -352,7 +396,7 @@ function finishArenaRace(playerWon) {
     gtag('event', 'arena_result', {
         'event_category': 'arena',
         'player_wpm': playerWPM
-      });
+    });
 }
 
 
