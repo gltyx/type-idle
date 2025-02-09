@@ -1,10 +1,14 @@
 <?php
 $MINIFY_SCRIPTS = true;
+$destination = 'build/';
 
+if (!is_dir($destination)) {
+    mkdir($destination, 0777, true);
+}
 include('resize.php');
 
 $files = ['attribution.txt', 'bg.jpg', 'favicon.png', 'styles.css', 'index.html', 'chart.js', 'loadingscreen.js', 'updates.json'];
-$destination = 'build/';
+
 
 foreach ($files as $file) {
     if (file_exists($file)) {

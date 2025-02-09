@@ -24,6 +24,7 @@ function loadJS() {
     });
 }
 
+let texturesLoaded = 0;
 function loadTextures() {
     let textures = ['bg.jpg', 'images/icons/128/keystroke-coin-icon.png'];
     buildings.forEach(building => {
@@ -41,8 +42,9 @@ function loadTextures() {
             img.src = src;
             img.onload = resolve;
             img.onerror = reject;
+            texturesLoaded++;
             document.getElementById('loading-text').innerHTML = `Loading textures... (${textures.indexOf(src) + 1}/${textures.length})`;
-            document.getElementById('loading-progress').style.width = `${(textures.indexOf(src) + 1) / textures.length * 100}%`;
+            document.getElementById('loading-progress').style.width = `${texturesLoaded / textures.length * 100}%`;
         });
     }));
 }
