@@ -12,7 +12,7 @@ let hackerCurrentLevel = 1;
 
 function displayHacker() {
     if(HackerGroup.level > 0) {
-        document.getElementById('hacker-tab').style.display = "block";
+        document.getElementById('hacker-tab').disabled = false;
     }
     let finishBoost = modifiers.find(modifier => modifier.name === "Hacker cooldown");
     if(!finishBoost) {

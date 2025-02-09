@@ -302,7 +302,7 @@ document.getElementById('input-box').addEventListener('input', function() {
             }
             
             createFallingWord(inputText); // Create falling word effect
-            createFloatingWord(`<img src="images/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"> +${formatShortScale(keyStrokeModCount)}`);
+            createFloatingWord(`<img src="images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"> +${formatShortScale(keyStrokeModCount)}`);
             updateWordsToType();
             playTypeSound();
             inputBox.value = '';

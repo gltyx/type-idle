@@ -278,7 +278,7 @@ function showAchievement(achievement) {
         <h2>Achievement Unlocked</h2>`,
         `<p>${achievement.description}</p>
         <p class="trivia">"${achievement.trivia}"</p>`,
-        `url("/images/tooltips/achievements/${achievement.id}.webp")`);
+        `url("/images/tooltips/achievements/448/${achievement.id}.webp")`);
     }
     function updateAchievement(achievement) {
         const achievementElement = document.getElementById(`achievement-${achievement.id}`);
@@ -311,7 +311,7 @@ function showAchievement(achievement) {
             achievementElement.classList.add(achievement.unlocked ? 'unlocked' : 'locked');
             
             const achievementIcon = document.createElement('img');
-            achievementIcon.src = `/images/tooltips/achievements/${achievement.id}.webp`;
+            achievementIcon.src = `/images/tooltips/achievements/448/${achievement.id}.webp`;
             achievementIcon.alt = achievement.name;
             achievementIcon.classList.add('achievement-icon');
             achievementElement.appendChild(achievementIcon);

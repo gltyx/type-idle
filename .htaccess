@@ -1,13 +1,12 @@
 RewriteEngine On
 
+# 1) If the requested path is empty (root), serve the index.html file directly
+RewriteRule ^$ build/index.html [L]
 
-# If the request is for a file or directory that exists, serve it directly
+# 2) If the requested file or folder physically exists in the root, serve it directly
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^ - [L]
 
-# Otherwise, rewrite tab-related requests to index.html
-RewriteRule ^(main-tab|reports-tab|wordle-tab|arena-tab|stock-tab|settings-tab|research-tab|guild-tab|hacker-tab|arcade-tab|casino-tab|memory-tab)$ index.html [L]
-
-# For all other requests, generate a 404 error
-RewriteRule ^ - [R=404,L]
+# 3) Otherwise, internally rewrite everything to the current version's folder
+RewriteRule ^(.*)$ build/$1 [L]

@@ -545,10 +545,10 @@ function initUpgrades() {
     sortedUpgrades.forEach((upgrade, index) => {
         // Small buttons
         const upgradeElement = document.createElement('button');
-        upgradeElement.style.backgroundImage = `url("/images/tooltips/upgrades/${upgrade.id}.jpg")`;
+        upgradeElement.style.backgroundImage = `url("/images/tooltips/upgrades/448/${upgrade.id}.jpg")`;
         const ownedUpgradeElement = document.createElement('div');
         ownedUpgradeElement.className = 'owned-upgrade';
-        ownedUpgradeElement.style.backgroundImage = `url("/images/tooltips/upgrades/${upgrade.id}.jpg")`;
+        ownedUpgradeElement.style.backgroundImage = `url("/images/tooltips/upgrades/448/${upgrade.id}.jpg")`;
         ownedUpgradeElement.innerHTML = `<div><strong>${upgrade.name}</strong></div>`;
         ownedUpgradeElement.style.display = 'none'; // Initially hide owned upgrade element
         ownedUpgradesContainer.appendChild(ownedUpgradeElement);
@@ -581,7 +581,7 @@ function initUpgrades() {
         
         // Big buttons
         const researchElement = document.createElement('button');
-        researchElement.style.backgroundImage = `url("/images/tooltips/upgrades/${upgrade.id}.jpg")`;
+        researchElement.style.backgroundImage = `url("/images/tooltips/upgrades/448/${upgrade.id}.jpg")`;
         researchElement.className = 'bigUpgrade';
         researchElement.setAttribute('data-index', upgrade.id - 1);
         researchElement.innerHTML = ``;
@@ -599,7 +599,7 @@ function initUpgrades() {
         const researchOwnedElement = document.createElement('div');
         researchOwnedElement.className = 'owned-bigUpgrade';
         researchOwnedElement.setAttribute('data-index', upgrade.id - 1);
-        researchOwnedElement.style.backgroundImage = `url("/images/tooltips/upgrades/${upgrade.id}.jpg")`;
+        researchOwnedElement.style.backgroundImage = `url("/images/tooltips/upgrades/448/${upgrade.id}.jpg")`;
         researchOwnedElement.innerHTML = ``;
         researchOwnedElement.style.display = 'none'; // Initially hide owned upgrade element
         ownedResearchContainer.appendChild(researchOwnedElement);

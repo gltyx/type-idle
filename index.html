@@ -21,7 +21,39 @@
     <meta name="twitter:image" content="https://www.typeidle.com/images/favicon-og.jpg">
     <link rel="icon" type="image/x-icon" href="/favicon.png">
     <title>Typing Idle Game - Improve Your Typing Speed</title>
-    <link rel="stylesheet" href="/styles.css?v1">
+    <style>
+        /* Loading screen */
+        #loading-screen {
+            position: fixed;
+            font-family: 'Roboto', sans-serif;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgb(25,25,25);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        #loading-screen-content {
+            text-align: center;
+            color: #fff;
+            width: 300px;
+        }
+        #loading-bar {
+            width: 100%;
+            height: 1rem;
+            background-color: #333;
+            margin: 1rem 0;
+        }
+        #loading-progress {
+            width: 0;
+            height: 100%;
+            background-image: linear-gradient(45deg, green 25%, greenyellow 25%, greenyellow 50%, green 50%, green 75%, greenyellow 75%, greenyellow);
+            background-size: 5px 5px;
+        }
+    </style>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-WGVTCXZH42"></script>
     <script>
@@ -61,6 +93,15 @@
     <div id="consent-banner" class="consent-banner" style="display: none;">
         <p>We use cookies to improve your experience and for traffic analysis. By using our site, you agree to our use of cookies. <button id="accept-cookies">Okay</button></p>
     </div>
+    <div id="loading-screen">
+        <div id="loading-screen-content">
+            <h1>Loading...</h1>
+            <div id="loading-bar">
+                <div id="loading-progress"></div>
+            </div>
+            <p id="loading-text">Loading...</p>
+        </div>
+    </div>
     <div id="page">
         <div id="top-bar">
             <p>
@@ -68,7 +109,7 @@
                 TypeIdle.com - Typing Idle Game - 
                 <a href="https://www.youtube.com/@santtuz112" target="_blank">YouTube</a> - 
                 <a href="https://github.com/santtuz112/TypeIdle" target="_blank">GitHub</a> -
-                (Work in progress) - Last updated 3 Feb 2025 - v0.0.1
+                (Work in progress) - Last updated 9 Feb 2025 - v0.0.3
             </p>
         </div>
         <div style="flex: 0 1 1rem;">-</div>
@@ -87,15 +128,15 @@
                 <div id="sticky-top">
                     <div id="navbar">
                         <button id="main-tab" class="active">Main</button>
-                        <button id="reports-tab" style="display: none;">Reports</button>
-                        <button id="wordle-tab" style="display: none;">Wordle</button>
-                        <button id="arena-tab" style="display: none;">Arena</button>
-                        <button id="stock-tab" style="display: none;">Stocks</button>
-                        <button id="guild-tab" style="display: none;">Guild</button>
-                        <button id="hacker-tab" style="display: none;">Hacker</button>
-                        <button id="arcade-tab" style="display: none;">Arcade</button>
-                        <button id="casino-tab" style="display: none;">Casino</button>
-                        <button id="memory-tab" style="display: none;">Memory</button>
+                        <button id="reports-tab" disabled="true"><span>Reports</span></button>
+                        <button id="wordle-tab" disabled="true"><span>Wordle</span></button>
+                        <button id="arena-tab" disabled="true"><span>Arena</span></button>
+                        <button id="stock-tab" disabled="true"><span>Stocks</span></button>
+                        <button id="guild-tab" disabled="true"><span>Guild</span></button>
+                        <button id="hacker-tab" disabled="true"><span>Hacker</span></button>
+                        <button id="arcade-tab" disabled="true"><span>Arcade</span></button>
+                        <button id="casino-tab" disabled="true"><span>Casino</span></button>
+                        <button id="memory-tab" style="display:none;" disabled="true"><span>Memory</span></button>
                         <button id="settings-tab">Settings</button>
                     </div>
                     <div id="news-container" style="display: none;"></div>
@@ -108,7 +149,7 @@
                                 <h1 id="game-title">Typing Idle Game</h1>
                                 <p id="game-description">Improve your typing speed, unlock achievements, and upgrade buildings to boost your keystroke production!</p>
                                 <div id="keystrokes-container">
-                                    <img src="/images/keystroke-coin-icon.png" class="currencyiconBig" alt="Keystroke Coin">
+                                    <img src="/images/icons/128/keystroke-coin-icon.png" class="currencyiconBig" alt="Keystroke Coin">
                                     <div>
                                         <h2 style="margin-bottom: 0;"><span id="keystrokes-bank">0</span> keystrokes</h2>
                                         <p style="margin-top: 0;">per second: <span id="passive-income">0</span></p>
@@ -139,7 +180,7 @@
                                 </div>
                                 <textarea id="input-box" placeholder="Type the words below here..."></textarea>
                                 <div class="words-to-type-container" id="words-to-type-container">
-                                    <div id="words-to-type"></div>
+                                    <div class="words-to-type" id="words-to-type"></div>
                                 </div>
                             </div>
                             <div id="game-keyboard-container">
@@ -188,7 +229,7 @@
                     </div>
                     <div id="arena-racePage">
                         <div id="arena-stats">
-                            <p><img src="/images/gold-medal.webp" class="goldmedal" alt="Gold Medal"> <span id="gold-medals">0</span></p>
+                            <p><img src="/images/icons/128/gold-medal.webp" class="goldmedal" alt="Gold Medal"> <span id="gold-medals">0</span></p>
                             <div id="arena-result"></div>
                             <div id="start-race">
                                 <h2>Race against AI</h2>
@@ -219,7 +260,7 @@
                             </div>
                             <textarea id="arena-input-box" placeholder="Start typing..."></textarea>
                             <div class="words-to-type-container" id="arena-words-to-type-container">
-                                <div id="arena-words-to-type"></div>
+                                <div class="words-to-type" id="arena-words-to-type"></div>
                             </div>
                         </div>
                     </div>
@@ -240,7 +281,7 @@
                             </div>
                             <textarea id="practice-input-box" placeholder="Start typing..."></textarea>
                             <div class="words-to-type-container" id="practice-words-to-type-container">
-                                <div id="practice-words-to-type"></div>
+                                <div class="words-to-type" id="practice-words-to-type"></div>
                             </div>
                         </div>
                     </div>
@@ -288,7 +329,7 @@
                             <h2 id="hacker-access-granted"></h2>
                             <div id="hacker-reward">
                                 <p>Hacked: $<span id="hacker-reward-dollars">0</span></p>
-                                <p>(<img src="/images/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"> <span id="hacker-reward-keystrokes">0</span>)</p>
+                                <p>(<img src="/images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"> <span id="hacker-reward-keystrokes">0</span>)</p>
                             </div>
                             <p>You can hack again in: <span id="hacker-cooldown-remaining">0</span>s</p>
                         </div>
@@ -354,36 +395,45 @@
                 <div id="memoryPage" class="page" style="display: none;">
                     <h2>Memory</h2>
                     <h3>(Work in progress)</h3>
-                    <div id="memory-game" class="game-box">
-                        <div id="memory-sequence-game-canvas" class="abscenter" style="display: none;">
+                    <div id="memory-game" class="memory-game-container">
+                        <div id="memory-sequence-game-canvas" class="memory-flex-center" style="display: none;">
                             <p>Remember the sequence:</p>
                             <strong id="memory-sequence"></strong>
                             <button onclick="memoryBeginSequence()">I remember it</button>
                         </div>
-                        <div id="memory-start" class="abscenter" style="display: none;">
+                        <div id="memory-start" class="memory-flex-center" style="display: none;">
                             <h2>Memory</h2>
                             <div id="memory-games">
                                 <div class="memory-game" onclick="startMemorySequence()">
                                     <strong>Test your ability to recall numbers</strong>
                                     <p>Memorize the sequence of numbers and then type them in.</p>
-                                    <img src="/images/start-memory-sequence.webp" class="memory-icon" alt="Memory Sequence">
+                                    <img src="/images/icons/128/start-memory-sequence.webp" class="memory-icon" alt="Memory Sequence">
                                 </div>
-                                <div class="memory-game">
+                                <div class="memory-game" onclick="startMemoryStory()">
                                     <strong>Test your ability to recall events</strong>
-                                    <p>Memorize the sequence of events and then recall the story.</p>
-                                    <img src="/images/start-memory-story.webp" class="memory-icon" alt="Memory Story">
+                                    <p>Memorize the details of a story.</p>
+                                    <img src="/images/icons/128/start-memory-story.webp" class="memory-icon" alt="Memory Story">
                                 </div>
                             </div>
-                            
                         </div>
-                        <div id="memory-sequence-input" class="abscenter" style="display: none;">
+                        <div id="memory-sequence-input" class="memory-flex-center" style="display: none;">
                             <p>Level: <span id="memory-sequence-score">0</span></p>
                             <textarea id="memory-input-box" placeholder="Type the numbers here..."></textarea>
                             <button onclick="memorySubmitSequence()">Submit</button>
                         </div>
-                        <div id="memory-game-over" class="abscenter" style="display: none;">
+                        <div id="memory-story" class="memory-flex-center" style="display: none;">
+                            <blockquote>
+                                <h2 id="memory-story-title"></h2>
+                                <p id="memory-story-text"></p>
+                            </blockquote>
+                            <div id="memory-story-questions"></div>
+                            <button onclick="memoryBeginStory()" id="memory-story-remember-btn">I remember the story</button>
+                            <button onclick="memorySubmitStory()" id="memory-story-submit-btn">Submit</button>
+                            <button onclick="resetMemoryGame()" id="memory-story-retry-btn">New game</button>
+                        </div>
+                        <div id="memory-game-over" class="memory-flex-center" style="display: none;">
                             <p>Game Over!</p>
-                            <p>Level: <span id="memory-sequence-score2">0</span></p>
+                            <p>Score: <span id="memory-sequence-score2">0</span></p>
                             <button onclick="resetMemoryGame()">Try again</button>
                         </div>
                     </div>
@@ -437,9 +487,9 @@
                     <div id="stats-reports">
                         <div id="report-stats" class="report">
                             <div class="report-receipt">
-                                <p><strong>Bank:</strong> <span class="modifierValue"><img src="/images/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"><span id="keystrokes-bank2">0</span> Keystrokes</span></p>
-                                <p><strong>Produced by buildings:</strong> <span class="modifierValue"><img src="/images/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"><span id="building-cash-earned">0</span></span></p>
-                                <p><strong>Produced by typing:</strong> <span class="modifierValue"><img src="/images/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"><span id="manual-cash-earned">0</span></span></p>
+                                <p><strong>Bank:</strong> <span class="modifierValue"><img src="/images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"><span id="keystrokes-bank2">0</span> Keystrokes</span></p>
+                                <p><strong>Produced by buildings:</strong> <span class="modifierValue"><img src="/images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"><span id="building-cash-earned">0</span></span></p>
+                                <p><strong>Produced by typing:</strong> <span class="modifierValue"><img src="/images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"><span id="manual-cash-earned">0</span></span></p>
                                 <p><strong>Total:</strong> <span class="modifierValue"><span id="total-keystrokes">0</span> keystrokes</span></p>
                                 <p><span class="modifierValue">(~<span id="total-words">0</span> words)</span></p>
                                 <p><strong>Manual Keystrokes:</strong> <span class="modifierValue"><span id="manual-keystrokes">0</span> keystrokes</span></p>
@@ -454,7 +504,7 @@
                 </div>
                 <div id="researchPage" class="page" style="display: none;">
                     <h2>Research</h2>
-                    <p>Research Points: <img src="/images/research-bulb-icon.png" class="researchicon" alt="Research"><span id="researchPoints">0</span></p>
+                    <p>Research Points: <img src="/images/icons/128/research-bulb-icon.png" class="researchicon" alt="Research"><span id="researchPoints">0</span></p>
                     <h2>Research upgrades</h2>
                     <div id="research-container"></div>
                     <hr>
@@ -465,7 +515,7 @@
             <div class="side-panel" id="upgrades-panel">
                 <div id="upgrades-parent" style="display: none;">
                     <strong>Research upgrades</strong>
-                    <div id="researchPointsDiv"><img src="/images/research-bulb-icon.png" class="researchicon" alt="Research"><span id="total-research">0</span></div>
+                    <div id="researchPointsDiv"><img src="/images/icons/128/research-bulb-icon.png" class="researchicon" alt="Research"><span id="total-research">0</span></div>
                     <div id="upgrades-container"></div>
                     <button id="research-tab" class="navbtn">View all</button>
                 </div>
@@ -474,9 +524,9 @@
             <div class="side-panel" id="stocks-panel" style="display: none;">
                 <p><strong>Stock Market Information:</strong></p>
                 <p>1$ = 1 second of passive keystroke income.</p>
-                <p>1$ = <img src="/images/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"><span id="dollarCost">0</span> Keystrokes</p>
-                <p><strong>Profit:</strong> $<span id="stockProfitDollars">0</span> (<img src="/images/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"><span id="stockProfitKeystrokes">0</span> Keystrokes)</p>
-                <p><strong>Bank:</strong> $<span id="stockCurrentDollars">0</span> (<img src="/images/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"><span id="stockCurrentKeystrokes">0</span> Keystrokes)</p>
+                <p>1$ = <img src="/images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"><span id="dollarCost">0</span> Keystrokes</p>
+                <p><strong>Profit:</strong> $<span id="stockProfitDollars">0</span> (<img src="/images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"><span id="stockProfitKeystrokes">0</span> Keystrokes)</p>
+                <p><strong>Bank:</strong> $<span id="stockCurrentDollars">0</span> (<img src="/images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"><span id="stockCurrentKeystrokes">0</span> Keystrokes)</p>
             </div>
             <div class="side-panel" id="wordle-panel" style="display: none;">
                 <h1>How to Play Wordle</h1>
@@ -576,27 +626,8 @@
         </div>
     </div>
     <div id="notification-container"></div>
-    <script src="/chart.js?v1"></script>
-    <script src="/tooltip.js?v1"></script> 
-    <script src="/audio.js?v1"></script>
-    <script src="/save.js?v1"></script> 
-    <script src="/words.js?v1"></script>
-    <script src="/code.js?v1"></script>
-    <script src="/buildings.js?v1"></script>  
-    <script src="/achievements.js?v1"></script>
-    <script src="/arena.js?v1"></script>
-    <script src="/reports.js?v1"></script>
-    <script src="/wordle.js?v1"></script>
-    <script src="/stockmarket.js?v1"></script>
-    <script src="/hacker.js?v1"></script>
-    <script src="/arcade.js?v1"></script>
-    <script src="/casino.js?v1"></script>
-    <script src="/memory.js?v1"></script>
-    <script src="/script.js?v1"></script>
-    <script src="/upgrades.js?v1"></script>  
-    <script src="/news.js?v1"></script>
-    <script src="/guild.js?v1"></script>
-    <script src="/loadingscreen.js?v1"></script>
+    <script src="/chart.js"></script>
+    <script src="/loadingscreen.js?v3"></script>
     <script>
         document.getElementById('accept-cookies').addEventListener('click', function() {
             document.getElementById('consent-banner').style.display = 'none';

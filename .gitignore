@@ -1,1 +1,10 @@
 *.php
+build/*
+images/buildings/128/*
+images/casino/128/*
+images/icons/128/*
+images/tooltips/achievements/448/*
+images/tooltips/buildings/448/*
+images/tooltips/upgrades/448/*
+!resize.php
+!build.php

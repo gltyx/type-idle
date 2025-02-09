@@ -24,14 +24,14 @@ body.light-coffee {
     --body-color: black;
     --color1: #5C4033;
     --color2: #8B4513;
-
+    
     --color3: #6f3c1e; /* Warm espresso brown */
     --bgcolor2: #ffeac9de;    /* Creamy coffee hue */
     --bgcolor3: #ffeac9;
-
+    
     --side-gradient1: #d3b8ae; /* Light coffee brown */
     --side-gradient2: #f4e3d7; /* Lighter coffee brown */
-
+    
     --bg-overlay3: rgba(0,0,0,0); /* no overlay on light theme */
     --bg-overlay4: rgba(0,0,0,0); /* no overlay on light theme */
     
@@ -108,7 +108,7 @@ body.light-coffee {
     --wordle-absent-bg: #f44336;
     --wordle-absent-color: #000000;
     --wordle-boost-bg: #e8ffe8a6;
-
+    
     
     --hand-finger-bg: #d3d3d3;
     
@@ -133,16 +133,16 @@ body.light-coffee {
     --receipt-item-hover-bg: #ffe7a1;
     
     --keyboard-bg: #fff5e1ea;
-
+    
     --arena-race-bg: #fff5e1;
     
     --scrollbar-track: #D2B48C;
-
+    
     --player-progress-gradient1: #f9a825;
     --player-progress-gradient2: #ffeb3b;
     --opponent-progress-gradient1: #f44336;
     --opponent-progress-gradient2: #ff8a65;
-
+    
     --code-snippet-color: #5C4033;
     --code-snippet-bg: #FFF5E1;
     --code-snippet-comment-color: #8B4513;
@@ -162,39 +162,39 @@ body.dark-coffee {
     --body-color: #eae3d9; /* Warm off-white for text */
     --color1: #5c3d2e; /* Rich coffee brown */
     --color2: #8b5a35; /* Lighter accent brown */
-
+    
     --color3: #ffdab3; /* Light caramel */
     --bgcolor2: #3a2d27de;    /* Rich dark roast shade */
     --bgcolor3: #3a2d27;
-
+    
     --side-gradient1: #2a2421; /* Dark coffee brown */
     --side-gradient2: #1a1a1a; /* Darker coffee brown */
-
+    
     --bg-overlay3: rgba(40, 34, 29, 0.7); /* Dark, slightly translucent coffee brown */
     --bg-overlay4: rgba(40, 34, 29, 0.75); /* Dark, slightly translucent coffee brown */
-   
-
-
+    
+    
+    
     /* Modifier Colors */
     --modifier-name-color: #caa37f;
     --modifier-value-color: #ffc993;
-
+    
     /* Base Background Layers */
     --bg-color1: #1c1a18;
     --bg-alpha1: #2a2421e5;
-
+    
     /* Top Bar */
     --top-bar-bg: #2a2421; 
     --top-bar-color: #eae3d9;
     --top-bar-link-color: #ffb428; /* Carry over if you like the golden coffee accent */
-
+    
     /* Navbar */
     --navbar-bg: #3a2e26;
     --navbar-button-bg: #5c3d2e;
     --navbar-button-active-bg: #402e22;
     --navbar-button-active-border-bottom: #fd6a26; /* Orange accent for active button */
     --navbar-button-hover-gradient-start: #3e8641; /* Green gradient for hover effect */
-
+    
     /* “Ready” Button or Similar Gradient */
     --ready-gradient-start: #266926;
     --ready-gradient-end: #3e8641;
@@ -202,57 +202,57 @@ body.dark-coffee {
     --ready-border-active: #145214;
     --ready-border-bottom-active: #6afd26;
     --ready-text-color-active: #e7ffe7;
-
+    
     /* News Ticker or Banner */
     --news-container-bg: #2a2421;
     --news-container-color: #eae3d9;
     --golden-news-color: #ffd700;
     --golden-news-glow: rgba(255, 215, 0, 0.8);
     --golden-news-clicked-color: #e2cda7;
-
+    
     /* Buff / Status Panel */
     --buff-bg: #2a2421;
     --buff-border: #5c3d2e;
-
+    
     /* Stats & Panels */
     --stats-panel-bg: #2f2924;
     --panel-bg: #2f2924; 
     --panel-border: #5c3d2e;
     --panel-tint: rgba(0, 0, 0, 0.4);
     --wordle-tint: #1c1a18cc;
-
+    
     /* Input Fields */
     --input-bg: #3a2e26;
     --input-border: #5c3d2e;
-
+    
     /* Typing Panel */
     --typing-panel-bg: #3f3229;
     --typing-panel-border: #6f4c3b;
-
+    
     /* Typing Feedback Colors */
     --correct-color: #6caf50;  /* A slightly muted green */
     --mistake-color: #e57373;  /* Subtle red */
     --current-color: #c5a1a4;  /* A muted mauve accent or use #b39ddb if you prefer purple */
-
+    
     /* Buttons */
     --button-bg: #5c3d2ec9; 
     --button-bg-hover: #8b5a35d9;
     --button-disabled-bg: #0000004d;
     --button-text-color: #f8f4f1;
-
+    
     /* Borders & Lines */
     --border: #5c3d2e;
-
+    
     /* Notifications */
     --notification-bg: #6caf50cc; /* or try an orange coffee accent if you prefer */
     --notification-text: #f8f4f1;
-
+    
     /* Tooltips */
     --tooltip-bg: #2a2421d8;
     --tooltip-bg2: #2a242121;
     --tooltip-text: #f8f4f1;
     --tooltip-border: #8b5a35;
-
+    
     /* Wordle-Like Game */
     --wordle-tiles-bg: #4b3a31;
     --wordle-color: #f8f4f1;
@@ -263,50 +263,50 @@ body.dark-coffee {
     --wordle-absent-bg: #f44336;
     --wordle-absent-color: #fff;
     --wordle-boost-bg: #64a364a6;
-
+    
     /* On-Screen Hand / Finger Visualization */
     --hand-finger-bg: #4b3a31;
-
+    
     /* Arena, Gold, and Highlights */
     --arena-gold-color: #ffb428;
     --win-effect-text: #ffeb3b;
-
+    
     /* Misc Colors */
     --production-color: #d4b293;
     --research-color: #c5c2a6;
     --trivia-color: #dbd2c7;
-
+    
     /* Stock Cards */
     --stock-card-bg: #2c2420;
     --stock-card-border: #5c3d2e;
     --stock-card-text: #ffb428;
-
+    
     /* Guild / Task Panels */
     --guild-task-bg: #2f2924;
     --guild-task-border: #5c3d2e;
     --guild-task-selected-bg: #412d08;
-
+    
     /* Receipt Elements */
     --receipt-border: #5c3d2e;
     --receipt-item-bg: #3a2e26;
     --receipt-item-border: #4b3a31;
     --receipt-item-hover-bg: #5c3d2e;
-
+    
     /* Keyboard Background */
     --keyboard-bg: #3a2e26e8;
-
+    
     /* Arena Race BG */
     --arena-race-bg: #3a2e26;
-
+    
     /* Scrollbar Track */
     --scrollbar-track: #805f4e;
-
+    
     /* Player Progress Bar */
     --player-progress-gradient1: #ffb428;
     --player-progress-gradient2: #ffeb3b;
     --opponent-progress-gradient1: #f44336;
     --opponent-progress-gradient2: #ff8a65;
-
+    
     --code-snippet-color: #eae3d9;
     --code-snippet-bg: #2a2421;
     --code-snippet-comment-color: #8b5a35;
@@ -327,15 +327,15 @@ body.dark {
     --body-color: #ccc;
     --color1: #a78779;
     --color2: #b37a51;
-
-
+    
+    
     --color3: #ffffff; /* Crisp white */
     --bgcolor2: #292929de;    /* Charcoal gray */
     --bgcolor3: #292929;
-
+    
     --side-gradient1: #2a2a2a;
     --side-gradient2: #1a1a1a;
-
+    
     --bg-overlay3: rgba(0,0,0,0.7);
     --bg-overlay4: rgba(0,0,0,0.75);
     
@@ -436,16 +436,16 @@ body.dark {
     --receipt-item-hover-bg: #444444;
     
     --keyboard-bg: #333333ea;
-
+    
     --arena-race-bg: #333333;
     
     --scrollbar-track: #555555;
-
+    
     --player-progress-gradient1: #81c784;
     --player-progress-gradient2: #a5d6a7;
     --opponent-progress-gradient1: #f44336;
     --opponent-progress-gradient2: #ff8a65;
-
+    
     --code-snippet-color: #ccc;
     --code-snippet-bg: #2f2f2f;
     --code-snippet-comment-color: #b37a51;
@@ -464,11 +464,11 @@ body.midnight-blue {
     --body-color: #cfd9e8;
     --color1: #3a506b; 
     --color2: #4a6a8a;
-
+    
     --color3: #e8f2ff;  /* Pale moonlight */
     --bgcolor2: #1f2c3dde;     /* Deep sea navy */
     --bgcolor3: #1f2c3d; 
-
+    
     --side-gradient1: #1b2530;
     --side-gradient2: #11181f;
     
@@ -480,64 +480,64 @@ body.midnight-blue {
     
     --bg-color1: #0f141b;
     --bg-alpha1: #212e40e5;
-
+    
     --top-bar-bg: #151d26;
     --top-bar-color: #cfd9e8;
     --top-bar-link-color: #ffb428;
-
+    
     --navbar-bg: #19212b;
     --navbar-button-bg: #263141;
     --navbar-button-active-bg: #32445a;
     --navbar-button-active-border-bottom: #fd6a26;
     --navbar-button-hover-gradient-start: #304b6f;
-
+    
     --ready-gradient-start: #10294e;
     --ready-gradient-end: #1a3b68;
     --ready-border: #0f2342;
     --ready-border-active: #0b1d36;
     --ready-border-bottom-active: #6afd26; /* Keeping the same bright green “active” highlight */
     --ready-text-color-active: #e7ffe7;
-
+    
     --news-container-bg: #141d26;
     --news-container-color: #cfd9e8;
     --golden-news-color: #ffd700;
     --golden-news-glow: rgba(255, 215, 0, 0.8);
     --golden-news-clicked-color: #9ea6b3;
-
+    
     --buff-bg: #141d26;
     --buff-border: #263141;
-
+    
     --stats-panel-bg: #1c2630;
     --panel-bg: #1c2630;
     --panel-border: #263141;
     --panel-tint: rgba(0, 0, 0, 0.4);
     --wordle-tint: #0f141bd0;
-
+    
     --input-bg: #263141;
     --input-border: #344966;
-
+    
     --typing-panel-bg: #2c3b4c;
     --typing-panel-border: #3d5370;
-
+    
     --correct-color: #81c784;
     --mistake-color: #e57373;
     --current-color: #a6b6dd;
-
+    
     --button-bg: #263141d9;
     --button-bg-hover: #344966d9;
     --button-disabled-bg: #0000004d;
     --button-text-color: #cfd9e8;
-
+    
     --border: #344966;
-
+    
     --notification-bg: #3e8641cc;
     --notification-text: #e1eaf7;
-
+    
     --tooltip-bg: #263141d8;
     --tooltip-bg2: #26314121;
     --tooltip-text: #cfd9e8;
     --tooltip-border: #344966;
-
+    
     --wordle-tiles-bg: #2c3642;
     --wordle-color: #cfd9e8;
     --wordle-correct-bg: #388e3c;
@@ -547,40 +547,40 @@ body.midnight-blue {
     --wordle-absent-bg: #e57373;
     --wordle-absent-color: #000;
     --wordle-boost-bg: #64a364a6;
-
+    
     --hand-finger-bg: #2c3642;
-
+    
     --arena-gold-color: #ffb428;
     --win-effect-text: #ffeb3b;
-
+    
     --production-color: #c2c9ea;
     --research-color: #a4b0c8;
     --trivia-color: #b2b9c7;
-
+    
     --stock-card-bg: #192430;
     --stock-card-border: #2c3b4c;
     --stock-card-text: #ffb428;
-
+    
     --guild-task-bg: #1c2630;
     --guild-task-border: #344966;
     --guild-task-selected-bg: #2b3a4a;
-
+    
     --receipt-border: #38475a;
     --receipt-item-bg: #263141;
     --receipt-item-border: #2c3642;
     --receipt-item-hover-bg: #344966;
-
+    
     --keyboard-bg: #263141e8;
-
+    
     --arena-race-bg: #263141;
-
+    
     --scrollbar-track: #394b5a;
-
+    
     --player-progress-gradient1: #81c784;
     --player-progress-gradient2: #a5d6a7;
     --opponent-progress-gradient1: #f44336;
     --opponent-progress-gradient2: #ff8a65;
-
+    
     --code-snippet-color: #cfd9e8;
     --code-snippet-bg: #151d26;
     --code-snippet-comment-color: #4a6a8a;
@@ -599,80 +599,80 @@ body.forest-green {
     --body-color: #d5e3d6;
     --color1: #2f4f2f; 
     --color2: #3c6e47;
-
+    
     --color3: #efffea;  /* Soft mossy white */
     --bgcolor2: #2a3b26de;     /* Dark forest floor green */
     --bgcolor3: #2a3b26;
-
+    
     --side-gradient1: #1a2b17;
     --side-gradient2: #0f1f0d;
-
+    
     --bg-overlay3: rgba(17, 37, 17, 0.7);
     --bg-overlay4: rgba(17, 37, 17, 0.75);
-
+    
     --modifier-name-color: #8fc08f;
     --modifier-value-color: #acf4ac;
-
+    
     --bg-color1: #182415;
     --bg-alpha1: #1f2d1ce5;
-
+    
     --top-bar-bg: #23341e; 
     --top-bar-color: #d5e3d6;
     --top-bar-link-color: #ffb428;
-
+    
     --navbar-bg: #264020;
     --navbar-button-bg: #3a5633;
     --navbar-button-active-bg: #2b3e26;
     --navbar-button-active-border-bottom: #fd6a26;
     --navbar-button-hover-gradient-start: #4ba44f; /* bright green for hover */
-
+    
     --ready-gradient-start: #2c692e;
     --ready-gradient-end: #3e8641;
     --ready-border: #1e4d1e;
     --ready-border-active: #145214;
     --ready-border-bottom-active: #6afd26;
     --ready-text-color-active: #e7ffe7;
-
+    
     --news-container-bg: #1d2a18;
     --news-container-color: #d5e3d6;
     --golden-news-color: #ffd700;
     --golden-news-glow: rgba(255, 215, 0, 0.8);
     --golden-news-clicked-color: #c5d2c9;
-
+    
     --buff-bg: #1d2a18;
     --buff-border: #3a5633;
-
+    
     --stats-panel-bg: #22321b;
     --panel-bg: #22321b;
     --panel-border: #3a5633;
     --panel-tint: rgba(0, 0, 0, 0.4);
     --wordle-tint: #182415cc;
-
+    
     --input-bg: #2b3e26;
     --input-border: #3a5633;
-
+    
     --typing-panel-bg: #324b2e;
     --typing-panel-border: #4e6f46;
-
+    
     --correct-color: #81c784;
     --mistake-color: #e57373;
     --current-color: #b5ccb8;
-
+    
     --button-bg: #3a5633d9;
     --button-bg-hover: #4e6f46e3;
     --button-disabled-bg: #0000004d;
     --button-text-color: #eaf7ea;
-
+    
     --border: #3a5633;
-
+    
     --notification-bg: #6caf50cc;
     --notification-text: #f0fff0;
-
+    
     --tooltip-bg: #2b3e26d8;
     --tooltip-bg2: #2b3e2621;
     --tooltip-text: #d5e3d6;
     --tooltip-border: #3c6e47;
-
+    
     --wordle-tiles-bg: #2d3b2b;
     --wordle-color: #eaf7ea;
     --wordle-correct-bg: #388e3c;
@@ -682,40 +682,40 @@ body.forest-green {
     --wordle-absent-bg: #f44336;
     --wordle-absent-color: #fff;
     --wordle-boost-bg: #64a364a6;
-
+    
     --hand-finger-bg: #2d3b2b;
-
+    
     --arena-gold-color: #ffb428;
     --win-effect-text: #ffeb3b;
-
+    
     --production-color: #dcecd7;
     --research-color: #c5ffd0;
     --trivia-color: #bbcab7;
-
+    
     --stock-card-bg: #24331d;
     --stock-card-border: #3a5633;
     --stock-card-text: #d5e3d6;
-
+    
     --guild-task-bg: #22321b;
     --guild-task-border: #3a5633;
     --guild-task-selected-bg: #494f2d;
-
+    
     --receipt-border: #394d36;
     --receipt-item-bg: #2b3e26;
     --receipt-item-border: #2f4f2f;
     --receipt-item-hover-bg: #3a5633;
-
+    
     --keyboard-bg: #2b3e26e8;
-
+    
     --arena-race-bg: #2b3e26;
-
+    
     --scrollbar-track: #597b52;
-
+    
     --player-progress-gradient1: #81c784;
     --player-progress-gradient2: #a5d6a7;
     --opponent-progress-gradient1: #f44336;
     --opponent-progress-gradient2: #ff8a65;
-
+    
     --code-snippet-color: #d5e3d6;
     --code-snippet-bg: #23341e;
     --code-snippet-comment-color: #3c6e47;
@@ -734,80 +734,80 @@ body.desert-sunset {
     --body-color: #f2e0d4;
     --color1: #b5743b; 
     --color2: #d18a54;
-
+    
     --color3: #ffeedf;  /* Light sandy beige */
     --bgcolor2: #4f2e1ede;     /* Warm evening earth tone */
     --bgcolor3: #4f2e1e; 
-
+    
     --side-gradient1: #3c2317;
     --side-gradient2: #27150d;
-
+    
     --bg-overlay3: rgba(44, 28, 19, 0.7);
     --bg-overlay4: rgba(44, 28, 19, 0.75);
-
+    
     --modifier-name-color: #e7c7a9;
     --modifier-value-color: #ffe6cd;
-
+    
     --bg-color1: #2b1b14;
     --bg-alpha1: #442d1fe5;
-
+    
     --top-bar-bg: #442d1f;
     --top-bar-color: #f2e0d4;
     --top-bar-link-color: #ffb428;
-
+    
     --navbar-bg: #4f2b13;
     --navbar-button-bg: #7a3812;
     --navbar-button-active-bg: #5c2810;
     --navbar-button-active-border-bottom: #fd6a26;
     --navbar-button-hover-gradient-start: #b45d2a;
-
+    
     --ready-gradient-start: #bc622a;
     --ready-gradient-end: #e97431;
     --ready-border: #9b4e20;
     --ready-border-active: #7a3f17;
     --ready-border-bottom-active: #ffc726;
     --ready-text-color-active: #ffeac9;
-
+    
     --news-container-bg: #442d1f;
     --news-container-color: #f2e0d4;
     --golden-news-color: #ffd700;
     --golden-news-glow: rgba(255, 215, 0, 0.8);
     --golden-news-clicked-color: #dabda7;
-
+    
     --buff-bg: #442d1f;
     --buff-border: #7a3812;
-
+    
     --stats-panel-bg: #4f3725;
     --panel-bg: #4f3725;
     --panel-border: #7a3812;
     --panel-tint: rgba(0, 0, 0, 0.4);
     --wordle-tint: #2b1b14cc;
-
+    
     --input-bg: #5c2810;
     --input-border: #7a3812;
-
+    
     --typing-panel-bg: #6e3f27;
     --typing-panel-border: #8c4c2f;
-
+    
     --correct-color: #edb879; 
     --mistake-color: #f89684; 
     --current-color: #e2c2b0; 
-
+    
     --button-bg: #7a3812d9;
     --button-bg-hover: #b45d2ae3;
     --button-disabled-bg: #0000004d;
     --button-text-color: #f2e0d4;
-
+    
     --border: #8c4c2f;
-
+    
     --notification-bg: #ffb428cc;
     --notification-text: #fff6ef;
-
+    
     --tooltip-bg: #2b1b14d8;
     --tooltip-bg2: #2b1b1421;
     --tooltip-text: #f2e0d4;
     --tooltip-border: #d18a54;
-
+    
     --wordle-tiles-bg: #80543a;
     --wordle-color: #fff6ef;
     --wordle-correct-bg: #388e3c;
@@ -817,40 +817,40 @@ body.desert-sunset {
     --wordle-absent-bg: #e57373;
     --wordle-absent-color: #000;
     --wordle-boost-bg: #64a364a6;
-
+    
     --hand-finger-bg: #80543a;
-
+    
     --arena-gold-color: #f9a825;
     --win-effect-text: #ffd700;
-
+    
     --production-color: #fae6d0;
     --research-color: #ffecc2;
     --trivia-color: #f8f3ee;
-
+    
     --stock-card-bg: #3d2419;
     --stock-card-border: #7a3812;
     --stock-card-text: #ffc16b;
-
+    
     --guild-task-bg: #4f3725;
     --guild-task-border: #7a3812;
     --guild-task-selected-bg: #ab7540;
-
+    
     --receipt-border: #6a4836;
     --receipt-item-bg: #5c2810;
     --receipt-item-border: #804c35;
     --receipt-item-hover-bg: #7a3812;
-
+    
     --keyboard-bg: #4f2b13e8;
-
+    
     --arena-race-bg: #4f2b13;
-
+    
     --scrollbar-track: #ad856c;
-
+    
     --player-progress-gradient1: #edb879;
     --player-progress-gradient2: #f9c99a;
     --opponent-progress-gradient1: #f44336;
     --opponent-progress-gradient2: #ff8a65;
-
+    
     --code-snippet-color: #f2e0d4;
     --code-snippet-bg: #442d1f;
     --code-snippet-comment-color: #d18a54;
@@ -873,76 +873,76 @@ body.spring-blossom {
     --color3: #e586b5;  /* Darker pink highlight */
     --bgcolor2: #ffecf3de;     /* Cherry blossom pastel */
     --bgcolor3: #ffecf3;
-
+    
     --side-gradient1: #ffeef5;
     --side-gradient2: #fffcfe;
-
+    
     --bg-overlay3: rgba(248, 215, 227, 0.7);
     --bg-overlay4: rgba(248, 215, 227, 0.75);
-
+    
     --modifier-name-color: #c94678;
     --modifier-value-color: #ff82ab;
-
+    
     --bg-color1: #f6f7fb;
     --bg-alpha1: #ffffffe5;
-
+    
     --top-bar-bg: #edcadd;
     --top-bar-color: #3e3e3e;
     --top-bar-link-color: #c94678;
-
+    
     --navbar-bg: #eaa2c0;
     --navbar-button-bg: #f2bbd6;
     --navbar-button-active-bg: #dc8aae;
     --navbar-button-active-border-bottom: #fd6a26;
     --navbar-button-hover-gradient-start: #f891b6;
-
+    
     --ready-gradient-start: #d85e90;
     --ready-gradient-end: #eb779f;
     --ready-border: #b9406f;
     --ready-border-active: #a53161;
     --ready-border-bottom-active: #ff9ebb;
     --ready-text-color-active: #ffe9ef;
-
+    
     --news-container-bg: #edcadd;
     --news-container-color: #3e3e3e;
     --golden-news-color: #ff69b4;
     --golden-news-glow: rgba(255, 105, 180, 0.8);
     --golden-news-clicked-color: #bbb;
-
+    
     --buff-bg: #edcadd;
     --buff-border: #f2bbd6;
-
+    
     --stats-panel-bg: #f9ebf2;
     --panel-bg: #f9ebf2;
     --panel-border: #eaa2c0;
     --panel-tint: rgba(255, 255, 255, 0.5);
     --wordle-tint: #ffdff2;
-
+    
     --input-bg: #fff5fb;
     --input-border: #f2bbd6;
-
+    
     --typing-panel-bg: #ffe2ee;
     --typing-panel-border: #df9ab8;
-
+    
     --correct-color: #64a364;
     --mistake-color: #f44336;
     --current-color: #c94678;
-
+    
     --button-bg: #f2bbd6c9;
     --button-bg-hover: #f891b6d9;
     --button-disabled-bg: #0000004d;
     --button-text-color: #3e3e3e;
-
+    
     --border: #eaa2c0;
-
+    
     --notification-bg: #d85e90cc;
     --notification-text: #ffe9ef;
-
+    
     --tooltip-bg: #2f1723d8;
     --tooltip-bg2: #f2bbd621;
     --tooltip-text: #ffe4ee;
     --tooltip-border: #f2bbd6;
-
+    
     --wordle-tiles-bg: #fbdbe5;
     --wordle-color: #3e3e3e;
     --wordle-correct-bg: #64a364;
@@ -952,40 +952,40 @@ body.spring-blossom {
     --wordle-absent-bg: #e57373;
     --wordle-absent-color: #fff;
     --wordle-boost-bg: #aec8b2a6;
-
+    
     --hand-finger-bg: #fbdbe5;
-
+    
     --arena-gold-color: #f9a825;
     --win-effect-text: #f06292;
-
+    
     --production-color: #ffd6ed;
     --research-color: #ddacf2;
     --trivia-color: #d5b9dd;
-
+    
     --stock-card-bg: #fce2eb;
     --stock-card-border: #df9ab8;
     --stock-card-text: #c94678;
-
+    
     --guild-task-bg: #f9ebf2;
     --guild-task-border: #f2bbd6;
     --guild-task-selected-bg: #feccdf;
-
+    
     --receipt-border: #f8bfd6;
     --receipt-item-bg: #ffeef5;
     --receipt-item-border: #fed6e6;
     --receipt-item-hover-bg: #ffcce0;
-
+    
     --keyboard-bg: #ffeef5ea;
-
+    
     --arena-race-bg: #ffeef5;
-
+    
     --scrollbar-track: #ffc8e1;
-
+    
     --player-progress-gradient1: #64a364;
     --player-progress-gradient2: #a5d6a7;
     --opponent-progress-gradient1: #f44336;
     --opponent-progress-gradient2: #ff8a65;
-
+    
     --code-snippet-color: #3e3e3e;
     --code-snippet-bg: #21141b;
     --code-snippet-comment-color: #ffc2d3;
@@ -1004,80 +1004,80 @@ body.cyberpunk-neon {
     --body-color: #e3e3e3;
     --color1: #f217a5;  /* Neon Pink */
     --color2: #00fff0;  /* Neon Cyan */
-
+    
     --color3: #fcf6ff;  /* Pale neon highlight */
     --bgcolor2: #2b0040de;     /* Dark futuristic purple */
     --bgcolor3: #2b0040;
-
+    
     --side-gradient1: #110014; 
     --side-gradient2: #07000b; 
-
+    
     --bg-overlay3: rgba(25, 2, 51, 0.7);
     --bg-overlay4: rgba(25, 2, 51, 0.75);
-
+    
     --modifier-name-color: #f217a5;
     --modifier-value-color: #00fff0;
-
+    
     --bg-color1: #050009;
     --bg-alpha1: #180035e5;
-
+    
     --top-bar-bg: #180035;
     --top-bar-color: #e3e3e3;
     --top-bar-link-color: #00fff0;
-
+    
     --navbar-bg: #200046;
     --navbar-button-bg: #34176b;
     --navbar-button-active-bg: #4a259c;
     --navbar-button-active-border-bottom: #fd6a26;
     --navbar-button-hover-gradient-start: #00fff0;
-
+    
     --ready-gradient-start: #f217a5;
     --ready-gradient-end: #7c13f0;
     --ready-border: #660da8;
     --ready-border-active: #43086d;
     --ready-border-bottom-active: #c940ff;
     --ready-text-color-active: #ffe6ff;
-
+    
     --news-container-bg: #180035;
     --news-container-color: #e3e3e3;
     --golden-news-color: #ffd700;
     --golden-news-glow: rgba(255, 215, 0, 0.8);
     --golden-news-clicked-color: #bb9aa7;
-
+    
     --buff-bg: #180035;
     --buff-border: #34176b;
-
+    
     --stats-panel-bg: #220044;
     --panel-bg: #220044;
     --panel-border: #34176b;
     --panel-tint: rgba(0, 0, 0, 0.4);
     --wordle-tint: #120022cc;
-
+    
     --input-bg: #34176b;
     --input-border: #4a259c;
-
+    
     --typing-panel-bg: #47217d;
     --typing-panel-border: #6430b4;
-
+    
     --correct-color: #00ffa0;
     --mistake-color: #ff2c70;
     --current-color: #af3cf5;
-
+    
     --button-bg: #34176bd9;
     --button-bg-hover: #4a259cd9;
     --button-disabled-bg: #0000004d;
     --button-text-color: #fbeefe;
-
+    
     --border: #4a259c;
-
+    
     --notification-bg: #f217a5cc;
     --notification-text: #fff2ff;
-
+    
     --tooltip-bg: #180035d8;
     --tooltip-bg2: #18003521;
     --tooltip-text: #ffbffc;
     --tooltip-border: #f217a5;
-
+    
     --wordle-tiles-bg: #291238;
     --wordle-color: #fafafa;
     --wordle-correct-bg: #388e3c;
@@ -1087,40 +1087,40 @@ body.cyberpunk-neon {
     --wordle-absent-bg: #ff2c70;
     --wordle-absent-color: #fff;
     --wordle-boost-bg: #64a364a6;
-
+    
     --hand-finger-bg: #291238;
-
+    
     --arena-gold-color: #ffd700;
     --win-effect-text: #e6f217;
-
+    
     --production-color: #00fff0;
     --research-color: #f217a5;
     --trivia-color: #aa8dd9;
-
+    
     --stock-card-bg: #19002c;
     --stock-card-border: #34176b;
     --stock-card-text: #7c13f0;
-
+    
     --guild-task-bg: #220044;
     --guild-task-border: #4a259c;
     --guild-task-selected-bg: #2e0074;
-
+    
     --receipt-border: #34176b;
     --receipt-item-bg: #34176b;
     --receipt-item-border: #4a259c;
     --receipt-item-hover-bg: #47217d;
-
+    
     --keyboard-bg: #200046e8;
-
+    
     --arena-race-bg: #200046;
-
+    
     --scrollbar-track: #34176b;
-
+    
     --player-progress-gradient1: #00ffa0;
     --player-progress-gradient2: #7c13f0;
     --opponent-progress-gradient1: #ff2c70;
     --opponent-progress-gradient2: #ff8a65;
-
+    
     --code-snippet-color: #e3e3e3;
     --code-snippet-bg: #180035;
     --code-snippet-comment-color: #00fff0;
@@ -1164,6 +1164,18 @@ body.arcade-tab {
 }
 button {
     font-family: var(--button-font);
+}
+
+@keyframes Loading-FadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+.loading-fade-out {
+    animation: Loading-FadeOut 0.5s forwards;
 }
 
 /* Top Bar */
@@ -1210,6 +1222,16 @@ button {
     background-color: var(--navbar-button-bg);
     border-radius: 0;
 }
+
+#navbar button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.2) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0.2) 75%, transparent 75%, transparent);
+    background-size: 10px 10px;
+}
+#navbar button:disabled span {
+    filter:blur(2.5px);
+}
 #navbar button, #arena-nav button {
     width: auto;
 }
@@ -1217,7 +1239,7 @@ button {
     background-color: var(--navbar-button-active-bg);
     border-bottom: solid 2px var(--navbar-button-active-border-bottom);
 }
-#navbar button.ready {
+#navbar button.ready:not(:disabled) {
     background: linear-gradient(135deg, var(--ready-gradient-start), var(--ready-gradient-end));
     color: #ffffff; /* White text for readability */
     border: 2px solid var(--ready-border); /* Dark green border */
@@ -1232,7 +1254,7 @@ button {
     border-bottom: solid 2px var(--ready-border-bottom-active);
     color: var(--ready-text-color-active);
 }
-#navbar button.ready:before {
+#navbar button.ready:not(:disabled):before {
     content: 'Ready';
     position: absolute;
     top: -0.5rem;
@@ -1259,7 +1281,7 @@ button {
         transform: scale(1);
     }
 }
-#navbar button.ready:hover {
+#navbar button.ready:not(:disabled):hover {
     background: linear-gradient(135deg, var(--navbar-button-hover-gradient-start), var(--ready-gradient-end));
     box-shadow: 0 0 10px rgba(52, 168, 83, 0.8);
 }
@@ -1512,6 +1534,12 @@ button {
     z-index: 2;
     user-select: none;
 }
+.words-to-type {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
 
 .word {
     display: inline-block;
@@ -1742,22 +1770,22 @@ button:disabled {
 }
 /*
 .achievement {
-    background-size: cover;
-    background-position: center; 
-    background-repeat: no-repeat;
-    padding: 0.625rem;
-    margin: 0.313rem 0;
-    border: 1px solid var(--border);
-    border-radius: 5px;
-    height: 5rem;
-    width: 5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: transform 0.3s ease;
+background-size: cover;
+background-position: center; 
+background-repeat: no-repeat;
+padding: 0.625rem;
+margin: 0.313rem 0;
+border: 1px solid var(--border);
+border-radius: 5px;
+height: 5rem;
+width: 5rem;
+display: flex;
+justify-content: center;
+align-items: center;
+transition: transform 0.3s ease;
 }
 .achievement:hover {
-    transform: scale(1.1);
+transform: scale(1.1);
 }
 */
 .achievement-trivia {
@@ -1837,7 +1865,8 @@ button:disabled {
     box-shadow: none;
     z-index: 2;
     opacity: 0.95;
-    width: 50%;
+    width: 100%;
+    height: 100%;
     margin-top: 5rem;
     margin-left: auto;
     margin-right: auto;
@@ -2512,7 +2541,7 @@ button:disabled {
 }
 .stock-chart-container canvas {
     width: 100% !important;
-    height: auto !important;
+    height: 100px !important;
 }
 
 /* Guild Task Selection */
@@ -2628,29 +2657,6 @@ button:disabled {
     margin: 0 10px;
 }
 
-#memory-games {
-    display:flex;
-    gap: 5rem;
-}
-.memory-game {
-    background-color: var(--bg-alpha1);
-    border: 1px solid var(--border);
-    border-radius: 5px;
-    padding: 1rem;
-    min-width: 15rem;
-    transition: filter 0.3s ease, transform 0.3s ease;
-    cursor: pointer;
-}
-
-.memory-icon {
-    width: 7.5rem;
-    height: 7.5rem;
-    border-radius: 50%;
-}
-.memory-game:hover {
-    filter: brightness(1.1) contrast(1.1);
-    transform: scale(1.05);
-}
 
 /* Casino Minigame Styles */
 #casino-game {
@@ -2751,7 +2757,7 @@ button:disabled {
     border: 1px solid var(--border);
 }
 #casino-start-button {
-    background: url("/images/casino-spin-button.webp");
+    background: url("/images/casino/128/casino-spin-button.webp");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -2814,9 +2820,9 @@ button:disabled {
 }
 /*
 #casino-board.casino-bonus .casino-symbol-container {
-    animation: pulse-border 2s infinite;
+animation: pulse-border 2s infinite;
 }
-    */
+*/
 .slot-hidden {
     visibility: hidden;
 }
@@ -2849,7 +2855,7 @@ button:disabled {
     background-color: rgb(10,10,10);
 }
 .casino-slot .symbol-A {
-    background: url("/images/auto-writer-icon.png");
+    background: url("/images/buildings/128/1.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -2858,7 +2864,7 @@ button:disabled {
     background-color: rgb(15,15,15);
 }
 .casino-slot .symbol-B {
-    background: url("/images/printer-icon.png");
+    background: url("/images/buildings/128/2.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -2867,7 +2873,7 @@ button:disabled {
     background-color: rgb(20,20,20);
 }
 .casino-slot .symbol-C {
-    background: url("/images/research-lab-icon.png");
+    background: url("/images/buildings/128/3.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -2876,7 +2882,7 @@ button:disabled {
     background-color: rgb(30,30,30);
 }
 .casino-slot .symbol-D {
-    background: url("/images/cyber-cafe-icon.png");
+    background: url("/images/buildings/128/4.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -2885,7 +2891,7 @@ button:disabled {
     background-color: rgb(40,40,40);
 }
 .casino-slot .symbol-E {
-    background: url("/images/keystroke-coin-icon.png");
+    background: url("/images/icons/128/keystroke-coin-icon.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -2894,7 +2900,7 @@ button:disabled {
     background-color: rgb(10,10,50);
 }
 .casino-slot .symbol-F {
-    background: url("/images/casino-f-symbol.webp");
+    background: url("/images/casino/128/casino-f-symbol.webp");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -2903,7 +2909,7 @@ button:disabled {
     background-color: rgb(10,10,60);
 }
 .casino-slot .symbol-G {
-    background: url("/images/casino-g-symbol.webp");
+    background: url("/images/casino/128/casino-g-symbol.webp");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -2912,7 +2918,7 @@ button:disabled {
     background-color: rgb(50,10,10);
 }
 .casino-slot .symbol-H {
-    background: url("/images/casino-h-symbol.webp");
+    background: url("/images/casino/128/casino-h-symbol.webp");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -2921,7 +2927,7 @@ button:disabled {
     background-color: rgb(5,5,5);
 }
 .casino-slot .symbol-x2 {
-    background: url("/images/casino-x2-multiplier.webp");
+    background: url("/images/casino/128/casino-x2-multiplier.webp");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -2930,7 +2936,7 @@ button:disabled {
     background-color: rgb(10,10,20);
 }
 .casino-slot .symbol-x3 {
-    background: url("/images/casino-x3-multiplier.webp");
+    background: url("/images/casino/128/casino-x3-multiplier.webp");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -2939,7 +2945,7 @@ button:disabled {
     background-color: rgb(10,10,30);
 }
 .casino-slot .symbol-x5 {
-    background: url("/images/casino-x5-multiplier.webp");
+    background: url("/images/casino/128/casino-x5-multiplier.webp");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -2948,7 +2954,7 @@ button:disabled {
     background-color: rgb(30,10,10);
 }
 .casino-slot .symbol-x10 {
-    background: url("/images/casino-x10-multiplier.webp");
+    background: url("/images/casino/128/casino-x10-multiplier.webp");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -2957,7 +2963,7 @@ button:disabled {
     background-color: rgb(10,40,10);
 }
 .casino-slot .symbol-x50 {
-    background: url("/images/casino-x50-multiplier.webp");
+    background: url("/images/casino/128/casino-x50-multiplier.webp");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -2966,7 +2972,7 @@ button:disabled {
     background-color: rgb(10,50,10);
 }
 .casino-slot .symbol-x100 {
-    background: url("/images/casino-x100-multiplier.png");
+    background: url("/images/casino/128/casino-x100-multiplier.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -2975,7 +2981,7 @@ button:disabled {
     background-color: rgb(75,75,10);
 }
 .casino-slot .symbol-BONUS {
-    background: url("/images/casino-bonus-symbol.png");
+    background: url("/images/casino/128/casino-bonus-symbol.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -2984,7 +2990,7 @@ button:disabled {
     background-color: rgb(10,75,10);
 }
 .casino-slot .symbol-WILD {
-    background: url("/images/casino-wild-symbol.png");
+    background: url("/images/casino/128/casino-wild-symbol.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -3036,6 +3042,100 @@ button:disabled {
 }
 .slot-fade-out {
     animation: slot-fadeOut 0.5s forwards;
+}
+
+#memory-games {
+    display:flex;
+    gap: 5rem;
+}
+.memory-game {
+    background-color: var(--bg-alpha1);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    flex: 1;
+    transition: filter 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+}
+
+.memory-icon {
+    width: 7.5rem;
+    height: 7.5rem;
+    border-radius: 50%;
+}
+.memory-game:hover {
+    filter: brightness(1.1) contrast(1.1);
+    transform: scale(1.05);
+}
+
+.blur {
+    filter: blur(4px);
+    user-select: none;
+}
+.grid-2x2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    align-items: center;
+}
+.memory-game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-alpha1);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.memory-flex-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+}
+.memory-option {
+    text-wrap: nowrap;
+    border: 1px solid var(--border);
+}
+.memory-options {
+    text-align:left;
+}
+.memory-option-answer {
+    display: inline-block;
+    background-color: var(--bgcolor2);
+    padding: 5px;
+    font-size: 1.2rem;
+}
+.memory-option-text {
+    display: inline-block;
+    padding: 5px;
+}
+.memory-option:hover {
+    filter: brightness(1.1) contrast(1.1);
+    cursor:pointer;
+}
+.memory-option.selected {
+    background-color: var(--wordle-present-bg);
+    color: var(--wordle-present-color);
+    border: 2px solid var(--wordle-present-bg);
+}
+.memory-option.correct {
+    background-color: var(--correct-color);
+    color: white;
+}
+.memory-option.incorrect {
+    background-color: var(--mistake-color);
+    color: white;
 }
 
 input[type="radio"] {

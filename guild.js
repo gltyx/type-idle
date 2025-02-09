@@ -3,7 +3,7 @@ let guildUIState = "";
 function displayGuild() {
     if(!guildInit) {
         if(TypingGuild.level == 0) return;
-        document.getElementById('guild-tab').style.display = 'block';
+        document.getElementById('guild-tab').disabled = false;
         document.querySelectorAll('input[name="guild-task"]').forEach(input => {
             input.addEventListener('change', handleGuildTaskChange);
         });

@@ -157,11 +157,11 @@ function setToolTipPos3(element) {
 
 function showBuildingTooltip(buildingElement, building) {
     if(building.locked) {
-        tooltip.style.backgroundImage = `url("/images/tooltips/buildings/locked.jpg")`;
+        tooltip.style.backgroundImage = `url("/images/tooltips/buildings/448/locked.jpg")`;
         tooltipHead.innerHTML = `<h1>Locked Building</h1>`;
         tooltipSection.innerHTML = `<p>${building.lockdescription}</p>`;
     } else {
-        tooltip.style.backgroundImage = `url("/images/tooltips/buildings/${building.id}.jpg")`;
+        tooltip.style.backgroundImage = `url("/images/tooltips/buildings/448/${building.id}.jpg")`;
         tooltipHead.innerHTML = `<h1>${building.name}</h1>`;
         let researchHtml = '';
         let currentBoost = getSpecialBoost(building);
@@ -172,8 +172,8 @@ function showBuildingTooltip(buildingElement, building) {
         }
         if(typeof building.getResearchProduceSingle === "function") {
             researchHtml = `
-                <li>Each <strong>${building.name}</strong> produces <strong><img src="/images/research-bulb-icon.png" class="researchicon" alt="Research">${building.getResearchProduceSingle().toFixed(2)} per second.</strong></li>
-                <li><strong>${building.level} ${building.name}s</strong> produces <strong><img src="/images/research-bulb-icon.png" class="researchicon" alt="Research">${formatShortScale(building.getResearchProduce())} per second.</strong></li>
+                <li>Each <strong>${building.name}</strong> produces <strong><img src="/images/icons/128/research-bulb-icon.png" class="researchicon" alt="Research">${building.getResearchProduceSingle().toFixed(2)} per second.</strong></li>
+                <li><strong>${building.level} ${building.name}s</strong> produces <strong><img src="/images/icons/128/research-bulb-icon.png" class="researchicon" alt="Research">${formatShortScale(building.getResearchProduce())} per second.</strong></li>
             `;
         }
         tooltipSection.innerHTML = `
@@ -181,9 +181,9 @@ function showBuildingTooltip(buildingElement, building) {
         <ul class="tooltip-stats">
             <li><strong>${building.special}</strong></li>
             ${currentBoost}
-            <li>Each <strong>${building.name}</strong> produces <strong><img src="/images/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin">${formatShortScale(building.getProduceSingle())} per second.</strong></li>
-            <li><strong>${building.level} ${building.name}s</strong> produces <strong><img src="/images/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin">${formatShortScale(building.getProduce())} per second.</strong></li>
-            <li><strong>Total produced: <img src="/images/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin">${formatShortScale(building.totalProduce)}</strong></li>
+            <li>Each <strong>${building.name}</strong> produces <strong><img src="/images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin">${formatShortScale(building.getProduceSingle())} per second.</strong></li>
+            <li><strong>${building.level} ${building.name}s</strong> produces <strong><img src="/images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin">${formatShortScale(building.getProduce())} per second.</strong></li>
+            <li><strong>Total produced: <img src="/images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin">${formatShortScale(building.totalProduce)}</strong></li>
         ${researchHtml}
         </ul>
         <p class="trivia">"${building.trivia}"</p>`;
@@ -193,7 +193,7 @@ function showBuildingTooltip(buildingElement, building) {
 }
 
 function showOwnedUpgradeToolTip(upgradeElement, upgrade) {
-    tooltip.style.backgroundImage = `url("/images/tooltips/upgrades/${upgrade.id}.jpg")`;
+    tooltip.style.backgroundImage = `url("/images/tooltips/upgrades/448/${upgrade.id}.jpg")`;
     tooltipHead.innerHTML = `<h1>${upgrade.name}</h1>`;
     tooltipSection.innerHTML = `
     <p>${upgrade.description}</p>
@@ -203,7 +203,7 @@ function showOwnedUpgradeToolTip(upgradeElement, upgrade) {
 }
 
 function showUpgradeToolTip(upgradeElement, upgrade) {
-    tooltip.style.backgroundImage = `url("/images/tooltips/upgrades/${upgrade.id}.jpg")`;
+    tooltip.style.backgroundImage = `url("/images/tooltips/upgrades/448/${upgrade.id}.jpg")`;
     tooltipHead.innerHTML = `<h1>${upgrade.name}</h1>`;
     tooltipSection.innerHTML = `
     <p>${upgrade.description}</p>
@@ -214,7 +214,7 @@ function showUpgradeToolTip(upgradeElement, upgrade) {
 }
 
 function showCurrentResearchCountTooltip(element) {
-    tooltip.style.backgroundImage = `url("/images/tooltips/buildings/3.jpg")`; // research building
+    tooltip.style.backgroundImage = `url("/images/tooltips/buildings/448/3.jpg")`; // research building
     tooltipHead.innerHTML = `<h1>Research Points</h1>`;
     tooltipSection.innerHTML = `<p>Research points allow you to unlock valuable upgrades for your buildings.</p>`;
     setToolTipPos(element); 
@@ -227,7 +227,7 @@ function showStockBuyTooltip(element, count, stock) {
     <h1>${stock.name}</h1>
     <h2>Buy Stocks</h2>`;
     tooltipSection.innerHTML = `
-    <p>Buy ${count} stocks at $${formatShortScale(count * stock.price)} (<img src="images/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin">${formatShortScale(dollarsToKeystrokes(count * stock.price))})</p>`;
+    <p>Buy ${count} stocks at $${formatShortScale(count * stock.price)} (<img src="images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin">${formatShortScale(dollarsToKeystrokes(count * stock.price))})</p>`;
     setToolTipPos(element); 
     tooltip.classList.add('visible');
 }
@@ -237,13 +237,13 @@ function showStockSellTooltip(element, count, stock) {
     <h1>${stock.name}</h1>
     <h2>Sell Stocks</h2>`;
     tooltipSection.innerHTML = `
-    <p>Sell ${count} stocks for $${formatShortScale(count * stock.price)} (<img src="images/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin">${formatShortScale(dollarsToKeystrokes(count * stock.price))})</p>`;
+    <p>Sell ${count} stocks for $${formatShortScale(count * stock.price)} (<img src="images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin">${formatShortScale(dollarsToKeystrokes(count * stock.price))})</p>`;
     setToolTipPos(element); 
     tooltip.classList.add('visible');
 }
 function showAchievementTooltip(element, achievement) {
     if(achievement.unlocked) {
-        tooltip.style.backgroundImage = `url("/images/tooltips/achievements/${achievement.id}.webp")`;
+        tooltip.style.backgroundImage = `url("/images/tooltips/achievements/448/${achievement.id}.webp")`;
         tooltipHead.innerHTML = `<h1>${achievement.name}</h1>`;
         tooltipSection.innerHTML = `
     <p>${achievement.description}</p>

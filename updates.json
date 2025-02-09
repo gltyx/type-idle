@@ -1,0 +1,14 @@
+{
+    "updates": [
+      {
+        "version": "0.0.2",
+        "title": "Quality of life changes",
+        "content": "- Words now shift per line typed instead of after each word.\n- Achievements are always visible.\n- Reduced high-resolution texture sizes for faster loading times.\n- 10 Finger assist and falling word effects are now optional."
+      },
+      {
+        "version": "0.0.1",
+        "title": "Initial release",
+        "content": "Initial release of TypeIdle."
+      }
+    ]
+  }

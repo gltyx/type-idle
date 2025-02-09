@@ -139,9 +139,7 @@ function displayArenaTab() {
 }
 function displayArena() {
     if(TypingArena.level > 0) {
-        document.getElementById("arena-tab").style.display = "block";
-    } else {
-        document.getElementById("arena-tab").style.display = "none";
+        document.getElementById("arena-tab").disabled = false;
     }
     displayArenaTab();
     displayPracticeTab();

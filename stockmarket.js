@@ -122,7 +122,7 @@ function initStockCharts() {
 
 function displayStockMarket() {
     if(StockMarket.level > 0) {
-        document.getElementById("stock-tab").style.display = "block";
+        document.getElementById("stock-tab").disabled = false;
     }
     document.getElementById("dollarCost").textContent = formatShortScale(dollarsToKeystrokes(1));
     document.getElementById("stockCurrentKeystrokes").textContent = formatShortScale(keystrokesBank);

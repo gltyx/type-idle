@@ -224,7 +224,7 @@ function getProperFinger(layoutName, key) {
 const legalKeys = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ\''];
 function displayWordle() {
   if(AutoWriter.level > 0) {
-    document.getElementById('wordle-tab').style.display = "block";
+    document.getElementById('wordle-tab').disabled = false;
   }
   let wordleBoost = modifiers.find(modifier => modifier.name === "Wordle Boost");
   if(wordleBoost) {

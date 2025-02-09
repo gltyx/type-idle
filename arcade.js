@@ -9,7 +9,7 @@ let arcadeInvaders = [];
 
 function displayArcade() {
     if(GameArcade.level > 0) {
-        document.getElementById('arcade-tab').style.display = "block";
+        document.getElementById('arcade-tab').disabled = false;
     }
     if (arcadeActive) {
         if (arcadeUIState !== "active") {

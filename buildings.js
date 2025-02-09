@@ -99,8 +99,6 @@ const AutoWriter = {
     },
     level: 0,
     totalProduce: 0,
-    icon: "/images/auto-writer-icon.png",
-    lockedicon: "/images/auto-writer-locked-icon.png",
 };
 
 const Printer = {
@@ -122,8 +120,6 @@ const Printer = {
     },
     level: 0,
     totalProduce: 0,
-    icon: "/images/printer-icon.png",
-    lockedicon: "/images/printer-locked-icon.png",
 };
 
 const ResearchLab = {
@@ -145,8 +141,6 @@ const ResearchLab = {
     getResearchProduce: () => { return ResearchLab.getResearchProduceSingle() * ResearchLab.level; },
     level: 0,
     totalProduce: 0,
-    icon: "/images/research-lab-icon.png",
-    lockedicon: "/images/research-lab-locked-icon.png",
 };
 
 const CyberCafe = {
@@ -166,8 +160,6 @@ const CyberCafe = {
     getProduce: () => { return CyberCafe.getProduceSingle() * CyberCafe.level; },
     level: 0,
     totalProduce: 0,
-    icon: "/images/cyber-cafe-icon.png",
-    lockedicon: "/images/cyber-cafe-locked-icon.png",
 };
 
 const ServerFarm = {
@@ -187,8 +179,6 @@ const ServerFarm = {
     getProduce: () => { return ServerFarm.getProduceSingle() * ServerFarm.level; },
     level: 0,
     totalProduce: 0,
-    icon: "/images/server-farm-icon.png",
-    lockedicon: "/images/server-farm-locked-icon.png",
 };
 
 const TypingArena = {
@@ -208,8 +198,6 @@ const TypingArena = {
     getProduce: () => TypingArena.getProduceSingle() * TypingArena.level,
     level: 0,
     totalProduce: 0,
-    icon: "/images/typing-arena-icon.png",
-    lockedicon: "/images/typing-arena-locked-icon.png",
 };
 
 const ITOffice = {
@@ -229,8 +217,6 @@ const ITOffice = {
     getProduce: () => ITOffice.getProduceSingle() * ITOffice.level,
     level: 0,
     totalProduce: 0,
-    icon: "/images/it-office-icon.png",
-    lockedicon: "/images/it-office-locked-icon.png",
 };
 
 const StockMarket = {
@@ -250,8 +236,6 @@ const StockMarket = {
     getProduce: () => StockMarket.getProduceSingle() * StockMarket.level,
     level: 0,
     totalProduce: 0,
-    icon: "/images/stock-market-icon.png",
-    lockedicon: "/images/stock-market-locked-icon.png",
 };
 const MagazinePublisher = {
     id: 9,
@@ -270,8 +254,6 @@ const MagazinePublisher = {
     getProduce: () => MagazinePublisher.getProduceSingle() * MagazinePublisher.level,
     level: 0,
     totalProduce: 0,
-    icon: "/images/magazine-publisher-icon.png",
-    lockedicon: "/images/magazine-publisher-locked-icon.png",
 }
 const TypingGuild = {
     id: 10,
@@ -290,8 +272,6 @@ const TypingGuild = {
     getProduce: () => TypingGuild.getProduceSingle() * TypingGuild.level,
     level: 0,
     totalProduce: 0,
-    icon: "/images/typing-guild-icon.png",
-    lockedicon: "/images/typing-guild-locked-icon.png",
 }
 const HackerGroup = {
     id: 11,
@@ -310,8 +290,6 @@ const HackerGroup = {
     getProduce: () => HackerGroup.getProduceSingle() * HackerGroup.level,
     level: 0,
     totalProduce: 0,
-    icon: "/images/hacker-group-icon.png",
-    lockedicon: "/images/hacker-group-locked-icon.png",
 }
 
 const GameArcade = {
@@ -331,8 +309,6 @@ const GameArcade = {
     getProduce: () => GameArcade.getProduceSingle() * GameArcade.level,
     level: 0,
     totalProduce: 0,
-    icon: "/images/game-arcade-icon.png",
-    lockedicon: "/images/game-arcade-locked-icon.png",
 }
 
 const KeystrokeCasino = {
@@ -352,8 +328,6 @@ const KeystrokeCasino = {
     getProduce: () => KeystrokeCasino.getProduceSingle() * KeystrokeCasino.level,
     level: 0,
     totalProduce: 0,
-    icon: "/images/keystroke-casino-icon.png",
-    lockedicon: "/images/keystroke-casino-locked-icon.png",
 }
 const AIAgent = {
     id: 14,
@@ -372,8 +346,6 @@ const AIAgent = {
     getProduce: () => AIAgent.getProduceSingle() * AIAgent.level,
     level: 0,
     totalProduce: 0,
-    icon: "/images/ai-agent-icon.png",
-    lockedicon: "/images/ai-agent-locked-icon.png",
 }
 
 
@@ -456,11 +428,11 @@ function displayBuildings() {
 
 function updateBuildingElement(buildingElement, building) {
     if (building.locked) {
-        const newHtml = `<img src="${building.lockedicon}" class="icon">???`;
+        const newHtml = `<img src="/images/buildings/128/${building.id}-locked.png" class="icon">???`;
         if(buildingElement.innerHTML !== newHtml) buildingElement.innerHTML = newHtml;
         buildingElement.disabled = true;
     } else {
-        const newHtml = `<span>Purchase ${building.name}</span><img src="${building.icon}" class="icon"><span><img src="/images/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"> ${formatShortScale(getBuildingCost(building))}</span> <span>${building.level}x owned</span>`;
+        const newHtml = `<span>Purchase ${building.name}</span><img src="/images/buildings/128/${building.id}.png" class="icon"><span><img src="/images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"> ${formatShortScale(getBuildingCost(building))}</span> <span>${building.level}x owned</span>`;
         if(buildingElement.innerHTML !== newHtml) buildingElement.innerHTML = newHtml;
         buildingElement.disabled = getBuildingCost(building) > keystrokesBank;
     }

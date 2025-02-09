@@ -162,8 +162,8 @@ function loadGame(savedData) {
             showNotification(
                 `<h1>Welcome back!</h1>
                 <h2>Offline Earnings</h2>`,
-                `<p><strong>Offline Earnings:</strong> <img src="images/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin">${formatShortScale(offlineProduction)} from Cyber Cafes!</p>`,
-                `url('images/tooltips/buildings/${CyberCafe.id}.jpg')`
+                `<p><strong>Offline Earnings:</strong> <img src="images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin">${formatShortScale(offlineProduction)} from Cyber Cafes!</p>`,
+                `url('images/tooltips/buildings/448/${CyberCafe.id}.jpg')`
             );
         }
     } else {

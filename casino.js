@@ -63,7 +63,7 @@ function getWin(symbol, count) {
 
 function displayCasino() {
     if(KeystrokeCasino.level > 0) {
-        document.getElementById("casino-tab").style.display = "block";
+        document.getElementById("casino-tab").disabled = false;
     }
     if(!casinoInit) {
         initCasino();
