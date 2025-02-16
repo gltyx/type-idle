@@ -350,7 +350,7 @@ const AIAgent = {
 
 
 const buildings = [
-    AutoWriter, Printer, ResearchLab, CyberCafe, ServerFarm, TypingArena, ITOffice, StockMarket, MagazinePublisher, TypingGuild, HackerGroup, GameArcade, KeystrokeCasino
+    AutoWriter, Printer, ResearchLab, CyberCafe, ServerFarm, TypingArena, ITOffice, StockMarket, MagazinePublisher, TypingGuild, HackerGroup, GameArcade, KeystrokeCasino, AIAgent
 ];
 
 

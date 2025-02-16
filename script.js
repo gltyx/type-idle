@@ -105,15 +105,29 @@ function initPromotion() {
     newJobTitle.innerText = businessTiers[currentBusinessTier].jobTitle;
     jobTitleContainer.appendChild(newJobTitle);
     if(currentBusinessTier === businessTiers.length - 1) {
-        document.getElementById("business-rankup-progress-bar").style.width = "100%";
+        //document.getElementById("business-rankup-progress-bar").style.width = "100%";
+        const XPBar = document.getElementById('xp-progress-bar');
+        XPBar.style.setProperty('--progress', "100");
     }
 }
+let scrollingXPProgress = 0;
 function checkPromotion() {
     if(!canPromote) return;
     if (currentBusinessTier >= businessTiers.length - 1) return;
+    
+    
     let lowerThreshold = businessTiers[currentBusinessTier].threshold;
     let nextThreshold = businessTiers[currentBusinessTier + 1].threshold;
-    document.getElementById("business-rankup-progress-bar").style.width = `${((totalKeystrokes - lowerThreshold) / (nextThreshold - lowerThreshold) * 100).toFixed(2)}%`;
+    //document.getElementById("business-rankup-progress-bar").style.width = `${((totalKeystrokes - lowerThreshold) / (nextThreshold - lowerThreshold) * 100).toFixed(2)}%`;
+
+    const XPBar = document.getElementById('xp-progress-bar');
+    let XPProgress = ((totalKeystrokes - lowerThreshold) / (nextThreshold - lowerThreshold) * 100);
+    if(XPProgress > 100) XPProgress = 100;
+    scrollingXPProgress += (XPProgress - scrollingXPProgress) / Tickrate * 4;
+    XPBar.style.setProperty('--progress', scrollingXPProgress);
+    document.getElementById('xp-progress-text').textContent = `${scrollingXPProgress.toFixed(2)}%`;
+    
+    document.getElementById('xp-progress-level').textContent = `Lvl. ${currentBusinessTier + 1}`;
     if(totalKeystrokes >= businessTiers[currentBusinessTier + 1].threshold) {
         canPromote=false; // Limit to 1 promotion a time
         const businessContainer = document.getElementById("business-title");
@@ -271,6 +285,8 @@ function initGame() {
         // TODO: Show a message that the tab is not found
     }
     //==========================================
+    
+    //==========================================
     sendHeartbeat(); // send the first heartbeat
 }
 
@@ -291,7 +307,7 @@ document.getElementById('input-box').addEventListener('input', function() {
             keystrokesBank += keyStrokeModCount;
             cashEarnedManually += keyStrokeModCount;
             lastTypedWord = inputText;
-
+            
             currentWordIndex++;
             //wordsToType.shift(); // Remove the first word
             //wordsToType.push(getRandomWord()); // Add a new random word
@@ -388,7 +404,7 @@ function colorText(inputText, wordsDisplay, words, currentIndex) {
     }
     /*
     for (let i = 1; i < words.length; i++) {
-        coloredText += ' ' + words[i];
+    coloredText += ' ' + words[i];
     }
     */
     wordsDisplay.children[currentIndex].innerHTML = coloredText;
@@ -661,7 +677,7 @@ function switchTab(activeTab, pushState = true) {
         'active_tab': currentPage,
         'event_category': 'navigation'
     });
-
+    
     if (pushState) {
         const url = new URL(window.location);
         url.pathname = `/${currentPage}`;

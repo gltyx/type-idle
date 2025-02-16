@@ -73,7 +73,7 @@ let boosts = [
     },
     {
         id: 6,
-        name: "Hacker cooldown", // Hacker lost cooldown
+        name: "Hacker cooldown", // Hacker lost hijack cooldown
         description: "Hacking minigame is on cooldown.",
         duration: 0.1 * 60 * Tickrate,
         maxduration: 0.1 * 60 * Tickrate,
@@ -101,6 +101,14 @@ let boosts = [
         description: "Hacking minigame is on cooldown.",
         duration: 0.1 * 60 * Tickrate,
         maxduration: 0.1 * 60 * Tickrate,
+    },
+    {
+        id: 11,
+        name: "Hacker cooldown", // Hacker lost crack cooldown
+        description: "Hacking minigame is on cooldown.",
+        duration: 0.1 * 60 * Tickrate,
+        maxduration: 0.1 * 60 * Tickrate,
+        hidden: true
     }
 ]
 

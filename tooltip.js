@@ -208,7 +208,7 @@ function showUpgradeToolTip(upgradeElement, upgrade) {
     tooltipSection.innerHTML = `
     <p>${upgrade.description}</p>
     <p class="trivia">"${upgrade.trivia}"</p>
-    <img src="images/research-bulb-icon.png" class="researchicon" alt="Research"> <span>${formatShortScale(upgrade.cost)}</span>`;
+    <img src="/images/icons/128/research-bulb-icon.png" class="researchicon" alt="Research"> <span>${formatShortScale(upgrade.cost)}</span>`;
     setToolTipPos2(upgradeElement);
     tooltip.classList.add('visible');
 }

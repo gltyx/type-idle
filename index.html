@@ -136,7 +136,7 @@
                         <button id="hacker-tab" disabled="true"><span>Hacker</span></button>
                         <button id="arcade-tab" disabled="true"><span>Arcade</span></button>
                         <button id="casino-tab" disabled="true"><span>Casino</span></button>
-                        <button id="memory-tab" style="display:none;" disabled="true"><span>Memory</span></button>
+                        <button id="memory-tab" disabled="true"><span>Memory</span></button>
                         <button id="settings-tab">Settings</button>
                     </div>
                     <div id="news-container" style="display: none;"></div>
@@ -149,18 +149,27 @@
                                 <h1 id="game-title">Typing Idle Game</h1>
                                 <p id="game-description">Improve your typing speed, unlock achievements, and upgrade buildings to boost your keystroke production!</p>
                                 <div id="keystrokes-container">
-                                    <img src="/images/icons/128/keystroke-coin-icon.png" class="currencyiconBig" alt="Keystroke Coin">
                                     <div>
-                                        <h2 style="margin-bottom: 0;"><span id="keystrokes-bank">0</span> keystrokes</h2>
+                                        <h2 style="margin-bottom: 0;"><img src="/images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"> <span id="keystrokes-bank">0</span> keystrokes</h2>
                                         <p style="margin-top: 0;">per second: <span id="passive-income">0</span></p>
                                     </div>
                                 </div>
-                                <div id="business-container">
-                                    <div id="business-title"></div>
-                                    <div id="job-title"></div>
-                                </div>
-                                <div id="business-rankup-progress">
-                                    <div id="business-rankup-progress-bar" class="progress-bar"></div>
+                            </div>
+                            <div id="level-container">
+                                <div id="level-container2">
+                                    <div id="xp-progress-bar">
+                                        <div id="xp-inner-circle">
+                                            <span id="xp-progress-level">Lvl. 0</span>
+                                            <span id="xp-progress-text">0%</span>
+                                        </div>
+                                    </div>
+                                    <div id="xp-stats">
+                                        <div id="business-container">
+                                            <div id="business-title"></div>
+                                            <div id="job-title"></div>
+                                        </div>
+                                        
+                                    </div>
                                 </div>
                             </div>
                             <div id="typing-panel">
@@ -315,10 +324,23 @@
                     <pre class="code-snippet" id="hacker-code-snippet"></pre>
                     <div id="hacker-game" class="game-box">
                         <canvas id="hacker-canvas" width="800" height="600"></canvas>
+                        <div id="hacker-computer" style="display: none;">
+                            <div id="hacker-computer-main">
+                                
+                            </div>
+                            <div id="hacker-computer-side" style="display: none;">
+                                <p>Username: Admin</p>
+                                <p>Login attempts: <span id="hacker-login-attempts-left">5</span></p>
+                                <div id="hacker-login-attempts">
+                                    
+                                </div>
+                                <p>> <span id="hacker-selected-password"></span></p>
+                            </div>
+                        </div>
                         <div id="hacker-start" class="abscenter" style="display: none;">
-                            <h2>Hacker (work in progress)</h2>
-                            <strong>Practice your mouse coordination</strong>
+                            <h2>Hacker</h2>
                             <p>Hijack the connection by untangling all the nodes.</p>
+                            <p>Once you have hijacked the connection crack the password.</p>
                             <p>Reward: 10-60 minutes of instant production.</p>
                             <button id="hacker-start-button" onclick="startHackMinigame()">Start Hack</button>
                         </div>
@@ -331,7 +353,7 @@
                                 <p>Hacked: $<span id="hacker-reward-dollars">0</span></p>
                                 <p>(<img src="/images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"> <span id="hacker-reward-keystrokes">0</span>)</p>
                             </div>
-                            <p>You can hack again in: <span id="hacker-cooldown-remaining">0</span>s</p>
+                            <p id="hacker-cooldown2" style="display: none;">You can hack again in: <span id="hacker-cooldown-remaining">0</span>s</p>
                         </div>
                     </div>
                 </div>
