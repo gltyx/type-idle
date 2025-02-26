@@ -265,7 +265,8 @@ function showBuffTooltip(element, buff) {
     tooltip.classList.add('visible');
 }
 
-
+/*
 let researchPointsDiv = document.getElementById("researchPointsDiv");
 researchPointsDiv.addEventListener('mouseover', () => showCurrentResearchCountTooltip(researchPointsDiv));
 researchPointsDiv.addEventListener('mouseout', () => hideTooltip());
+*/

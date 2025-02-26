@@ -13,8 +13,7 @@ let currentPage = "main-tab";
 const tabs = {
     main: {
         tab: document.getElementById("main-tab"),
-        page: document.getElementById("gamePage"),
-        sidePanel: document.getElementById("upgrades-panel")
+        page: document.getElementById("gamePage")
     },
     reports: {
         tab: document.getElementById("reports-tab"),
@@ -22,8 +21,7 @@ const tabs = {
     },
     wordle: {
         tab: document.getElementById("wordle-tab"),
-        page: document.getElementById("wordlePage"),
-        sidePanel: document.getElementById("wordle-panel")
+        page: document.getElementById("wordlePage")
     },
     arena: {
         tab: document.getElementById("arena-tab"),
@@ -31,8 +29,7 @@ const tabs = {
     },
     stock: {
         tab: document.getElementById("stock-tab"),
-        page: document.getElementById("stockPage"),
-        sidePanel: document.getElementById("stocks-panel")
+        page: document.getElementById("stockPage")
     },
     settings: {
         tab: document.getElementById("settings-tab"),
@@ -56,8 +53,7 @@ const tabs = {
     },
     casino: {
         tab: document.getElementById("casino-tab"),
-        page: document.getElementById("casinoPage"),
-        sidePanel: document.getElementById("casino-panel")
+        page: document.getElementById("casinoPage")
     },
     memory: {
         tab: document.getElementById("memory-tab"),
@@ -65,8 +61,8 @@ const tabs = {
     }
 };
 
-let currentBusinessTier = 0;
-let businessTiers = [
+let currentLevelTier = 0;
+let typingCareerLevels = [
     { tier: 0,  name: "Hobby Typing",                   jobTitle: "Newcomer",         threshold: 0 },
     { tier: 1,  name: "Neighborhood Typing Booth",      jobTitle: "Apprentice",       threshold: 100 },
     { tier: 2,  name: "Local Typing Agency",            jobTitle: "Assistant",        threshold: 1_000 },
@@ -93,18 +89,18 @@ let businessTiers = [
 
 let canPromote = true;
 function initPromotion() {
-    currentBusinessTier = businessTiers.reduce((acc, biz, i) => {
+    currentLevelTier = typingCareerLevels.reduce((acc, biz, i) => {
         return (totalKeystrokes >= biz.threshold) ? i : acc;
     }, 0);
     const businessContainer = document.getElementById("business-title");
     const jobTitleContainer = document.getElementById("job-title");
     let newBizTitle = document.createElement('div');
-    newBizTitle.innerText = businessTiers[currentBusinessTier].name;
+    newBizTitle.innerText = typingCareerLevels[currentLevelTier].name;
     businessContainer.appendChild(newBizTitle);
     let newJobTitle = document.createElement('div');
-    newJobTitle.innerText = businessTiers[currentBusinessTier].jobTitle;
+    newJobTitle.innerText = typingCareerLevels[currentLevelTier].jobTitle;
     jobTitleContainer.appendChild(newJobTitle);
-    if(currentBusinessTier === businessTiers.length - 1) {
+    if(currentLevelTier === typingCareerLevels.length - 1) {
         //document.getElementById("business-rankup-progress-bar").style.width = "100%";
         const XPBar = document.getElementById('xp-progress-bar');
         XPBar.style.setProperty('--progress', "100");
@@ -113,13 +109,13 @@ function initPromotion() {
 let scrollingXPProgress = 0;
 function checkPromotion() {
     if(!canPromote) return;
-    if (currentBusinessTier >= businessTiers.length - 1) return;
+    if (currentLevelTier >= typingCareerLevels.length - 1) return;
     
     
-    let lowerThreshold = businessTiers[currentBusinessTier].threshold;
-    let nextThreshold = businessTiers[currentBusinessTier + 1].threshold;
+    let lowerThreshold = typingCareerLevels[currentLevelTier].threshold;
+    let nextThreshold = typingCareerLevels[currentLevelTier + 1].threshold;
     //document.getElementById("business-rankup-progress-bar").style.width = `${((totalKeystrokes - lowerThreshold) / (nextThreshold - lowerThreshold) * 100).toFixed(2)}%`;
-
+    
     const XPBar = document.getElementById('xp-progress-bar');
     let XPProgress = ((totalKeystrokes - lowerThreshold) / (nextThreshold - lowerThreshold) * 100);
     if(XPProgress > 100) XPProgress = 100;
@@ -127,8 +123,8 @@ function checkPromotion() {
     XPBar.style.setProperty('--progress', scrollingXPProgress);
     document.getElementById('xp-progress-text').textContent = `${scrollingXPProgress.toFixed(2)}%`;
     
-    document.getElementById('xp-progress-level').textContent = `Lvl. ${currentBusinessTier + 1}`;
-    if(totalKeystrokes >= businessTiers[currentBusinessTier + 1].threshold) {
+    document.getElementById('xp-progress-level').textContent = `Lvl. ${currentLevelTier + 1}`;
+    if(totalKeystrokes >= typingCareerLevels[currentLevelTier + 1].threshold) {
         canPromote=false; // Limit to 1 promotion a time
         const businessContainer = document.getElementById("business-title");
         const jobTitleContainer = document.getElementById("job-title");
@@ -139,20 +135,20 @@ function checkPromotion() {
         if (oldJobTitle) oldJobTitle.style.animationName = 'scrollDown';
         
         setTimeout(() => {
-            currentBusinessTier++;
+            currentLevelTier++;
             if (oldBizTitle) businessContainer.removeChild(oldBizTitle);
             if (oldJobTitle) jobTitleContainer.removeChild(oldJobTitle);
             
             let newBizTitle = document.createElement('div');
-            newBizTitle.innerText = businessTiers[currentBusinessTier].name;
+            newBizTitle.innerText = typingCareerLevels[currentLevelTier].name;
             newBizTitle.style.animationName = 'scrollUp';
             businessContainer.appendChild(newBizTitle);
             
             let newJobTitle = document.createElement('div');
-            newJobTitle.innerText = businessTiers[currentBusinessTier].jobTitle;
+            newJobTitle.innerText = typingCareerLevels[currentLevelTier].jobTitle;
             newJobTitle.style.animationName = 'scrollUp';
             jobTitleContainer.appendChild(newJobTitle);
-            createFloatingWord(`Promoted to ${businessTiers[currentBusinessTier].jobTitle}`);
+            createFloatingWord(`Promoted to ${typingCareerLevels[currentLevelTier].jobTitle}`);
             canPromote = true;
         }, 1000);
     }
@@ -285,6 +281,18 @@ function initGame() {
         // TODO: Show a message that the tab is not found
     }
     //==========================================
+    // Set the height of #sticky-top-offset to the height of #sticky-top
+    const stickyTop = document.getElementById('sticky-top');
+    const stickyTopOffset = document.getElementById('sticky-top-offset');
+    stickyTopOffset.style.height = `${stickyTop.clientHeight}px`;
+
+    // Set the width fo #sticky-left-offset to the width of #navbar-container
+    const navbarContainer = document.getElementById('navbar-container');
+    const stickyLeftOffset = document.getElementById('sticky-left-offset');
+    stickyLeftOffset.style.width = `${navbarContainer.clientWidth}px`;
+    
+    document.getElementById('navbar-container').style.top = `${stickyTop.clientHeight}px`;
+    
     
     //==========================================
     sendHeartbeat(); // send the first heartbeat
@@ -428,15 +436,12 @@ function updateStats() {
     
     document.getElementById('keystrokes-bank').textContent = formatShortScale(scrollingKeystrokesBank);
     document.getElementById('keystrokes-bank2').textContent = formatShortScale(scrollingKeystrokesBank);
-    //document.getElementById('keystrokes-bank').textContent = formatShortScale(keystrokesBank);
-    //document.getElementById('keystrokes-bank2').textContent = formatShortScale(keystrokesBank);
-    document.getElementById('total-research').textContent = formatShortScale(totalResearchPoints);
+    
     document.getElementById('researchPoints').textContent = formatShortScale(totalResearchPoints);
     
     document.getElementById('currentAchievementCount').textContent = achievements.filter(a => a.unlocked).length;
     document.getElementById('maxAchievementCount').textContent = achievements.length;
     
-    document.getElementById('currentUpgradesCount').textContent = upgrades.filter(u => u.unlocked).length;
     // Update WPM
     // Remove old keystrokes timestamps older than 5 seconds
     const now = Date.now();
@@ -656,15 +661,9 @@ function switchTab(activeTab, pushState = true) {
     for (const key in tabs) {
         if (tabs[key].tab === activeTab) {
             tabs[key].page.style.display = "block";
-            if(tabs[key].sidePanel) {
-                tabs[key].sidePanel.style.display = "block";
-            }
             tabs[key].tab.classList.add("active");
         } else {
             tabs[key].page.style.display = "none";
-            if(tabs[key].sidePanel) {
-                tabs[key].sidePanel.style.display = "none";
-            }
             tabs[key].tab.classList.remove("active");
         }
     }
@@ -672,6 +671,7 @@ function switchTab(activeTab, pushState = true) {
     if(currentPage === 'main-tab') {
         document.getElementById('input-box').focus();
     }
+    window.scrollTo(0, 0);
     playMenuSound();
     gtag('event', 'switch_tab', {
         'active_tab': currentPage,

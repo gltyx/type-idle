@@ -103,547 +103,533 @@
         </div>
     </div>
     <div id="page">
-        <div id="top-bar">
-            <p>
-                
-                TypeIdle.com - Typing Idle Game - 
-                <a href="https://www.youtube.com/@santtuz112" target="_blank">YouTube</a> - 
-                <a href="https://github.com/santtuz112/TypeIdle" target="_blank">GitHub</a> -
-                (Work in progress) - Last updated 9 Feb 2025 - v0.0.3
-            </p>
-        </div>
-        <div style="flex: 0 1 1rem;">-</div>
-        <div id="main-container">
-            <div id="stats-panel">
-                <div id="stats-parent">
-                    
+        <div id="sticky-top">
+            <div id="top-bar">
+                <p>
+                    TypeIdle.com - Typing Idle Game - 
+                    <a href="https://www.youtube.com/@santtuz112" target="_blank">YouTube</a> - 
+                    <a href="https://github.com/santtuz112/TypeIdle" target="_blank">GitHub</a> -
+                    (Work in progress) - Last updated 27 Feb 2025 - v0.0.4
+                </p>
+            </div>
+            <div id="level-container">
+                <div id="level-container2">
+                    <div id="xp-progress-bar">
+                        <div id="xp-inner-circle">
+                            <span id="xp-progress-level">Lvl. 0</span>
+                            <span id="xp-progress-text">0%</span>
+                        </div>
+                    </div>
+                    <div id="xp-stats">
+                        <div id="business-container">
+                            <div id="business-title"></div>
+                            <div id="job-title"></div>
+                        </div>
+                    </div>
                 </div>
-                
-                <div id="ownedupgrades-parent">
-                    <strong>Researched tech: <span id="currentUpgradesCount">0</span></strong>
-                    <div id="ownedupgrades-container"></div>
+                <div id="news-container" style="display: none;"></div>
+                <div id="keystrokes-container">
+                    <div>
+                        <h2 style="margin-bottom: 0;"><img src="/images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"> <span id="keystrokes-bank">0</span> keystrokes</h2>
+                        <p style="margin-top: 0;">per second: <span id="passive-income">0</span></p>
+                    </div>
                 </div>
             </div>
-            <div id="main">
-                <div id="sticky-top">
-                    <div id="navbar">
-                        <button id="main-tab" class="active">Main</button>
-                        <button id="reports-tab" disabled="true"><span>Reports</span></button>
-                        <button id="wordle-tab" disabled="true"><span>Wordle</span></button>
-                        <button id="arena-tab" disabled="true"><span>Arena</span></button>
-                        <button id="stock-tab" disabled="true"><span>Stocks</span></button>
-                        <button id="guild-tab" disabled="true"><span>Guild</span></button>
-                        <button id="hacker-tab" disabled="true"><span>Hacker</span></button>
-                        <button id="arcade-tab" disabled="true"><span>Arcade</span></button>
-                        <button id="casino-tab" disabled="true"><span>Casino</span></button>
-                        <button id="memory-tab" disabled="true"><span>Memory</span></button>
-                        <button id="settings-tab">Settings</button>
-                    </div>
-                    <div id="news-container" style="display: none;"></div>
+        </div>
+        <div id="sticky-top-offset">
+        </div>
+        <div id="main-container">
+            <div id="navbar-container">
+                <div id="navbar">
+                    <button id="settings-tab"><img src="/images/icons/128/settings.webp" class="smallNavIcon" alt="">Settings</button>
+                    <button id="main-tab" class="active"><span><img src="/images/icons/128/home-icon.webp" class="smallNavIcon" alt="">Home</span></button>
+                    <button id="reports-tab" disabled="true"><span><img src="/images/icons/128/reports-icon.webp" class="smallNavIcon" alt="">Stats</span></button>
+                    <button id="research-tab" disabled="true"><span><img src="/images/icons/128/research-icon.webp" class="smallNavIcon" alt="">Upgrades</span></button>
+                    <button id="wordle-tab" disabled="true"><span><img src="/images/icons/128/wordle-icon.webp" class="smallNavIcon" alt="">Wordle</span></button>
+                    <button id="arena-tab" disabled="true"><span><img src="/favicon.png" class="smallNavIcon" alt="">Arena</span></button>
+                    <button id="stock-tab" disabled="true"><span><img src="/images/buildings/128/8.png" class="smallNavIcon" alt="">Stocks</span></button>
+                    <button id="guild-tab" disabled="true"><span><img src="/images/buildings/128/10.png" class="smallNavIcon" alt="">Guild</span></button>
+                    <button id="hacker-tab" disabled="true"><span><img src="/images/buildings/128/11.png" class="smallNavIcon" alt="">Hacker</span></button>
+                    <button id="arcade-tab" disabled="true"><span><img src="/images/buildings/128/12.png" class="smallNavIcon" alt="">Arcade</span></button>
+                    <button id="casino-tab" disabled="true"><span><img src="/images/buildings/128/13.png" class="smallNavIcon" alt="">Casino</span></button>
+                    <button id="memory-tab" disabled="true"><span><img src="/images/buildings/128/14.png" class="smallNavIcon" alt="">Memory</span></button>
                 </div>
-                <div id="gamePage" class="page">
-                    <div id="game">
-                        <div id="game-container">
-                            <div id="buffs-container"></div>
-                            <div id="title-container">
-                                <h1 id="game-title">Typing Idle Game</h1>
-                                <p id="game-description">Improve your typing speed, unlock achievements, and upgrade buildings to boost your keystroke production!</p>
-                                <div id="keystrokes-container">
-                                    <div>
-                                        <h2 style="margin-bottom: 0;"><img src="/images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"> <span id="keystrokes-bank">0</span> keystrokes</h2>
-                                        <p style="margin-top: 0;">per second: <span id="passive-income">0</span></p>
-                                    </div>
+            </div>
+            <div id="sticky-left-offset">
+            </div>
+            <div id="mainBg">
+                <div id="main">
+                    <div id="gamePage" class="page">
+                        <div id="game">
+                            <div id="game-container">
+                                <div id="title-container">
+                                    <h1 id="game-title">Typing Idle Game</h1>
+                                    <p id="game-description">Improve your typing speed, unlock achievements, and upgrade buildings to boost your keystroke production!</p>
                                 </div>
-                            </div>
-                            <div id="level-container">
-                                <div id="level-container2">
-                                    <div id="xp-progress-bar">
-                                        <div id="xp-inner-circle">
-                                            <span id="xp-progress-level">Lvl. 0</span>
-                                            <span id="xp-progress-text">0%</span>
+                                <div id="buffs-container"></div>
+                                <div id="typing-panel">
+                                    <div id="trackers">
+                                        <div>
+                                            <p>Words Per Minute: <span id="wpm">0</span></p>
+                                            <p id="wpm-multiplier-display">Multiplier: <span id="wpm-multiplier">1</span>x</p>
+                                        </div>
+                                        <div>
+                                            <label for="toggle-keyboard-highlight" style="display: block;">
+                                                <input type="checkbox" id="toggle-keyboard-highlight"> Enable 10 finger assist
+                                            </label>
+                                            <label for="toggle-word-fall" style="display: block;">
+                                                <input type="checkbox" id="toggle-word-fall"> Enable falling words
+                                            </label>
                                         </div>
                                     </div>
-                                    <div id="xp-stats">
-                                        <div id="business-container">
-                                            <div id="business-title"></div>
-                                            <div id="job-title"></div>
+                                    <textarea id="input-box" placeholder="Type the words below here..."></textarea>
+                                    <div class="words-to-type-container" id="words-to-type-container">
+                                        <div class="words-to-type" id="words-to-type"></div>
+                                    </div>
+                                </div>
+                                <div id="game-keyboard-container">
+                                    <div id="game-keyboard">
+                                    </div>
+                                    <div id="hand-graphic">
+                                        <div id="hand" class="hand">
+                                            <div class="finger" id="left-pinky">L. Pinky</div>
+                                            <div class="finger" id="left-ring">L. Ring</div>
+                                            <div class="finger" id="left-middle">L. Middle</div>
+                                            <div class="finger" id="left-index">L. Index</div>
+                                            <div class="hand-divider"></div>
+                                            <div class="finger" id="right-index">R. Index</div>
+                                            <div class="finger" id="right-middle">R. Middle</div>
+                                            <div class="finger" id="right-ring">R. Ring</div>
+                                            <div class="finger" id="right-pinky">R. Pinky</div>
                                         </div>
-                                        
+                                    </div>
+                                    <p id="finger-guide"></p>
+                                </div>
+                            </div>
+                            <div id="buildings-container"></div>
+                            <div id="achievements-parent">
+                                <strong>Achievements: (<span id="currentAchievementCount">0</span>/<span id="maxAchievementCount">0</span>) (placeholders)</strong>
+                                <div id="achievements-container"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="wordlePage" class="page" style="display: none;">
+                        <div id="wordle-game">
+                            <div id="wordle">
+                                <h3>Wordle Challenge</h3>
+                                <div id="wordle-grid"></div>
+                                <p id="wordle-hint"></p>
+                                <p id="additional-wordle-hint" style="display: none;"></p>
+                                <p id="wordle-feedback"></p>
+                                <p id="wordle-boost-remaining"></p>
+                            </div>
+                        </div>
+                        <div id="wordle-keyboard">
+                        </div>
+                        <div id="wordle-tutorial">
+                            <h1>How to Play Wordle</h1>
+                            <h2>Guess the Word in 5 Tries</h2>
+                            <h3>Examples</h3>
+                            <div class="wordle-example">
+                                <div class="wordle-grid">
+                                    <div class="wordle-guess-row">
+                                        <div class="wordle-tile correct">W</div>
+                                        <div class="wordle-tile">O</div>
+                                        <div class="wordle-tile">R</div>
+                                        <div class="wordle-tile">D</div>
                                     </div>
                                 </div>
+                                <p><strong>W</strong> is in the word and in the correct position.</p>
                             </div>
-                            <div id="typing-panel">
-                                <div id="trackers">
-                                    <div>
-                                        <p>Words Per Minute: <span id="wpm">0</span></p>
-                                        <p id="wpm-multiplier-display">Multiplier: <span id="wpm-multiplier">1</span>x</p>
-                                    </div>
-                                    <div>
-                                        <label for="toggle-keyboard-highlight" style="display: block;">
-                                            <input type="checkbox" id="toggle-keyboard-highlight"> Enable 10 finger assist
-                                        </label>
-                                        <label for="toggle-word-fall" style="display: block;">
-                                            <input type="checkbox" id="toggle-word-fall"> Enable falling words
-                                        </label>
+                            <div class="wordle-example">
+                                <div class="wordle-grid">
+                                    <div class="wordle-guess-row">
+                                        <div class="wordle-tile present">W</div>
+                                        <div class="wordle-tile">O</div>
+                                        <div class="wordle-tile">R</div>
+                                        <div class="wordle-tile">D</div>
                                     </div>
                                 </div>
-                                <textarea id="input-box" placeholder="Type the words below here..."></textarea>
-                                <div class="words-to-type-container" id="words-to-type-container">
-                                    <div class="words-to-type" id="words-to-type"></div>
-                                </div>
+                                <p><strong>W</strong> is in the word but in the wrong position.</p>
                             </div>
-                            <div id="game-keyboard-container">
-                                <div id="game-keyboard">
-                                </div>
-                                <div id="hand-graphic">
-                                    <div id="hand" class="hand">
-                                        <div class="finger" id="left-pinky">L. Pinky</div>
-                                        <div class="finger" id="left-ring">L. Ring</div>
-                                        <div class="finger" id="left-middle">L. Middle</div>
-                                        <div class="finger" id="left-index">L. Index</div>
-                                        <div class="hand-divider"></div>
-                                        <div class="finger" id="right-index">R. Index</div>
-                                        <div class="finger" id="right-middle">R. Middle</div>
-                                        <div class="finger" id="right-ring">R. Ring</div>
-                                        <div class="finger" id="right-pinky">R. Pinky</div>
+                            <div class="wordle-example">
+                                <div class="wordle-grid">
+                                    <div class="wordle-guess-row">
+                                        <div class="wordle-tile absent">W</div>
+                                        <div class="wordle-tile">O</div>
+                                        <div class="wordle-tile">R</div>
+                                        <div class="wordle-tile">D</div>
                                     </div>
                                 </div>
-                                <p id="finger-guide"></p>
+                                <p><strong>W</strong> is not in the word.</p>
                             </div>
                         </div>
-                        <div id="achievements-parent">
-                            <strong>Achievements: (<span id="currentAchievementCount">0</span>/<span id="maxAchievementCount">0</span>) (placeholders)</strong>
-                            <div id="achievements-container"></div>
+                    </div>
+                    <div id="arenaPage" class="page" style="display: none;">
+                        <div id="arena-nav">
+                            <button class="navbtn active" id="arena-stats-tab" class="active">Arena</button>
+                            <button class="navbtn" id="practice-stats-tab">Typing test</button>
                         </div>
-                    </div>
-                </div>
-                <div id="wordlePage" class="page" style="display: none;">
-                    <div id="wordle-game">
-                        <div id="wordle">
-                            <h3>Wordle Challenge</h3>
-                            <div id="wordle-grid"></div>
-                            <p id="wordle-hint"></p>
-                            <p id="additional-wordle-hint" style="display: none;"></p>
-                            <p id="wordle-feedback"></p>
-                            <p id="wordle-boost-remaining"></p>
-                        </div>
-                    </div>
-                    <div id="wordle-keyboard">
-                    </div>
-                </div>
-                <div id="arenaPage" class="page" style="display: none;">
-                    <div id="arena-nav">
-                        <button class="navbtn active" id="arena-stats-tab" class="active">Arena</button>
-                        <button class="navbtn" id="practice-stats-tab">Typing test</button>
-                    </div>
-                    <div id="arena-racePage">
-                        <div id="arena-stats">
-                            <p><img src="/images/icons/128/gold-medal.webp" class="goldmedal" alt="Gold Medal"> <span id="gold-medals">0</span></p>
-                            <div id="arena-result"></div>
-                            <div id="start-race">
-                                <h2>Race against AI</h2>
-                                <p>Select race difficulty 
-                                    <select id="difficulty-select">
-                                        <option value="Normal">Normal</option>
-                                        <option value="Hard">Hard</option>
-                                        <option value="VeryHard">Very Hard</option>
-                                    </select>
-                                </p>
-                                <p>Normal (~30 WPM)</p>
-                                <p>Hard (~50 WPM)</p>
-                                <p>Very Hard (~90 WPM)</p>
-                                <p>Winning gives a buff and medals.</p>
-                                <button id="startRaceButton" onclick="startArenaRace()">Start Race</button>
-                            </div>
-                        </div>
-                        <div id="arena-race" style="display: none">
-                            <div id="race-progress">
-                                <p>Your Progress: <span id="player-progress">0</span>/200 keystrokes</p>
-                                <div class="progress-container">
-                                    <div id="player-progress-bar" class="progress-bar"></div>
-                                </div>
-                                <p>Opponent's Progress: <span id="opponent-progress">0</span>/200 keystrokes</p>
-                                <div class="progress-container">
-                                    <div id="opponent-progress-bar" class="progress-bar"></div>
+                        <div id="arena-racePage">
+                            <div id="arena-stats">
+                                <p><img src="/images/icons/128/gold-medal.webp" class="goldmedal" alt="Gold Medal"> <span id="gold-medals">0</span></p>
+                                <div id="arena-result"></div>
+                                <div id="start-race">
+                                    <h2>Race against AI</h2>
+                                    <p>Select race difficulty 
+                                        <select id="difficulty-select">
+                                            <option value="Normal">Normal</option>
+                                            <option value="Hard">Hard</option>
+                                            <option value="VeryHard">Very Hard</option>
+                                        </select>
+                                    </p>
+                                    <p>Normal (~30 WPM)</p>
+                                    <p>Hard (~50 WPM)</p>
+                                    <p>Very Hard (~90 WPM)</p>
+                                    <p>Winning gives a buff and medals.</p>
+                                    <button id="startRaceButton" onclick="startArenaRace()">Start Race</button>
                                 </div>
                             </div>
-                            <textarea id="arena-input-box" placeholder="Start typing..."></textarea>
-                            <div class="words-to-type-container" id="arena-words-to-type-container">
-                                <div class="words-to-type" id="arena-words-to-type"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="arena-practicePage" style="display: none;">
-                        <div id="practice-stats">
-                            <div id="start-practice">
-                                <h2>1 Minute typing test</h2>
-                                <button id="startTestButton" onclick="startPracticeRace()">Start Typing test</button>
-                                <div id="practice-result"></div>
-                            </div>
-                        </div>
-                        <div id="practice-race" style="display: none">
-                            <div id="practice-progress">
-                                <h2>Time left: <span id="practice-time-left">60</span>s</h2>
-                                <div class="progress-container">
-                                    <div id="practice-progress-bar" class="progress-bar"></div>
+                            <div id="arena-race" style="display: none">
+                                <div id="race-progress">
+                                    <p>Your Progress: <span id="player-progress">0</span>/200 keystrokes</p>
+                                    <div class="progress-container">
+                                        <div id="player-progress-bar" class="progress-bar"></div>
+                                    </div>
+                                    <p>Opponent's Progress: <span id="opponent-progress">0</span>/200 keystrokes</p>
+                                    <div class="progress-container">
+                                        <div id="opponent-progress-bar" class="progress-bar"></div>
+                                    </div>
+                                </div>
+                                <textarea id="arena-input-box" placeholder="Start typing..."></textarea>
+                                <div class="words-to-type-container" id="arena-words-to-type-container">
+                                    <div class="words-to-type" id="arena-words-to-type"></div>
                                 </div>
                             </div>
-                            <textarea id="practice-input-box" placeholder="Start typing..."></textarea>
-                            <div class="words-to-type-container" id="practice-words-to-type-container">
-                                <div class="words-to-type" id="practice-words-to-type"></div>
+                        </div>
+                        <div id="arena-practicePage" style="display: none;">
+                            <div id="practice-stats">
+                                <div id="start-practice">
+                                    <h2>1 Minute typing test</h2>
+                                    <button id="startTestButton" onclick="startPracticeRace()">Start Typing test</button>
+                                    <div id="practice-result"></div>
+                                </div>
+                            </div>
+                            <div id="practice-race" style="display: none">
+                                <div id="practice-progress">
+                                    <h2>Time left: <span id="practice-time-left">60</span>s</h2>
+                                    <div class="progress-container">
+                                        <div id="practice-progress-bar" class="progress-bar"></div>
+                                    </div>
+                                </div>
+                                <textarea id="practice-input-box" placeholder="Start typing..."></textarea>
+                                <div class="words-to-type-container" id="practice-words-to-type-container">
+                                    <div class="words-to-type" id="practice-words-to-type"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div id="stockPage" class="page" style="display: none;">
-                    <h2>Stock Market</h2>
-                    <div id="stock-market">
-                        <div id="stock-market-container"></div>
-                    </div>
-                </div>
-                <div id="guildPage" class="page" style="display: none;">
-                    <h2>Guild</h2>
-                    <div id="guild-tasks">
-                        <h3>Select a Guild Task</h3>
-                        <p id="guild-task-change-remaining"></p>
-                        <div>
-                            <input type="radio" id="wordle-guild" name="guild-task" value="wordle">
-                            <label for="wordle-guild">Wordle guild (Additional wordle hint)</label>
+                    <div id="stockPage" class="page" style="display: none;">
+                        <h2>Stock Market</h2>
+                        <div id="stock-market-info">
+                            <p><strong>Stock Market Information:</strong></p>
+                            <p>1$ = 1 second of passive keystroke income.</p>
+                            <p>1$ = <img src="/images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"><span id="dollarCost">0</span> Keystrokes</p>
+                            <p><strong>Profit:</strong> $<span id="stockProfitDollars">0</span> (<img src="/images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"><span id="stockProfitKeystrokes">0</span> Keystrokes)</p>
+                            <p><strong>Bank:</strong> $<span id="stockCurrentDollars">0</span> (<img src="/images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"><span id="stockCurrentKeystrokes">0</span> Keystrokes)</p>
                         </div>
-                        <div>
-                            <input type="radio" id="arena-guild" name="guild-task" value="arena">
-                            <label for="arena-guild">Arena guild (+10 Passive WPM increase in the arena)</label>
-                        </div>
-                        <div>
-                            <input type="radio" id="publishing-guild" name="guild-task" value="publishing">
-                            <label for="publishing-guild">Publishing guild (2x the chance of golden news)</label>
+                        <div id="stock-market">
+                            <div id="stock-market-container"></div>
                         </div>
                     </div>
-                </div>
-                <div id="hackerPage" class="page" style="display: none;">
-                    <pre class="code-snippet" id="hacker-code-snippet"></pre>
-                    <div id="hacker-game" class="game-box">
-                        <canvas id="hacker-canvas" width="800" height="600"></canvas>
-                        <div id="hacker-computer" style="display: none;">
-                            <div id="hacker-computer-main">
-                                
+                    <div id="guildPage" class="page" style="display: none;">
+                        <h2>Guild</h2>
+                        <div id="guild-tasks">
+                            <h3>Select a Guild Task</h3>
+                            <p id="guild-task-change-remaining"></p>
+                            <div>
+                                <input type="radio" id="wordle-guild" name="guild-task" value="wordle">
+                                <label for="wordle-guild">Wordle guild (Additional wordle hint)</label>
                             </div>
-                            <div id="hacker-computer-side" style="display: none;">
-                                <p>Username: Admin</p>
-                                <p>Login attempts: <span id="hacker-login-attempts-left">5</span></p>
-                                <div id="hacker-login-attempts">
+                            <div>
+                                <input type="radio" id="arena-guild" name="guild-task" value="arena">
+                                <label for="arena-guild">Arena guild (+10 Passive WPM increase in the arena)</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="publishing-guild" name="guild-task" value="publishing">
+                                <label for="publishing-guild">Publishing guild (2x the chance of golden news)</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="hackerPage" class="page" style="display: none;">
+                        <pre class="code-snippet" id="hacker-code-snippet"></pre>
+                        <div id="hacker-game" class="game-box">
+                            <canvas id="hacker-canvas" width="800" height="600"></canvas>
+                            <div id="hacker-computer" style="display: none;">
+                                <div id="hacker-computer-main">
                                     
                                 </div>
-                                <p>> <span id="hacker-selected-password"></span></p>
+                                <div id="hacker-computer-side" style="display: none;">
+                                    <p>Username: Admin</p>
+                                    <p>Login attempts: <span id="hacker-login-attempts-left">5</span></p>
+                                    <div id="hacker-login-attempts">
+                                        
+                                    </div>
+                                    <p>> <span id="hacker-selected-password"></span></p>
+                                </div>
                             </div>
-                        </div>
-                        <div id="hacker-start" class="abscenter" style="display: none;">
-                            <h2>Hacker</h2>
-                            <p>Hijack the connection by untangling all the nodes.</p>
-                            <p>Once you have hijacked the connection crack the password.</p>
-                            <p>Reward: 10-60 minutes of instant production.</p>
-                            <button id="hacker-start-button" onclick="startHackMinigame()">Start Hack</button>
-                        </div>
-                        <div id="hacker-timeleft" class="abscenter" style="display: none;">
-                            <p>Time left: <span id="hacker-timeleft-remaining">0</span>s</p>
-                        </div>
-                        <div id="hacker-cooldown" class="abscenter" style="display: none;">
-                            <h2 id="hacker-access-granted"></h2>
-                            <div id="hacker-reward">
-                                <p>Hacked: $<span id="hacker-reward-dollars">0</span></p>
-                                <p>(<img src="/images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"> <span id="hacker-reward-keystrokes">0</span>)</p>
+                            <div id="hacker-start" class="abscenter" style="display: none;">
+                                <h2>Hacker</h2>
+                                <p>Hijack the connection by untangling all the nodes.</p>
+                                <p>Once you have hijacked the connection crack the password.</p>
+                                <p>Reward: 10-60 minutes of instant production.</p>
+                                <button id="hacker-start-button" onclick="startHackMinigame()">Start Hack</button>
                             </div>
-                            <p id="hacker-cooldown2" style="display: none;">You can hack again in: <span id="hacker-cooldown-remaining">0</span>s</p>
+                            <div id="hacker-timeleft" class="abscenter" style="display: none;">
+                                <p>Time left: <span id="hacker-timeleft-remaining">0</span>s</p>
+                            </div>
+                            <div id="hacker-cooldown" class="abscenter" style="display: none;">
+                                <h2 id="hacker-access-granted"></h2>
+                                <div id="hacker-reward">
+                                    <p>Hacked: $<span id="hacker-reward-dollars">0</span></p>
+                                    <p>(<img src="/images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"> <span id="hacker-reward-keystrokes">0</span>)</p>
+                                </div>
+                                <p id="hacker-cooldown2" style="display: none;">You can hack again in: <span id="hacker-cooldown-remaining">0</span>s</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div id="arcadePage" class="page" style="display: none;">
-                    <h2>Arcade - Alien Invasion</h2>
-                    <h3>(Work in progress)</h3>
-                    <div id="arcade-game" class="game-box">
-                        <div id="arcade-game-canvas"></div>
-                        <div id="arcade-start" class="abscenter" style="display: none;">
-                            <h2>Alien Invasion</h2>
-                            <p>Defend the planet from the alien invasion!</p>
-                            <p>Use the keyboard to type the words on the alien ships to destroy them.</p>
-                            <select id="arcade-difficulty-select">
-                                <option value="1">Easy</option>
-                                <option value="2">Normal</option>
-                                <option value="3">Hard</option>
+                    <div id="arcadePage" class="page" style="display: none;">
+                        <h2>Arcade - Alien Invasion</h2>
+                        <h3>(Work in progress)</h3>
+                        <div id="arcade-game" class="game-box">
+                            <div id="arcade-game-canvas"></div>
+                            <div id="arcade-start" class="abscenter" style="display: none;">
+                                <h2>Alien Invasion</h2>
+                                <p>Defend the planet from the alien invasion!</p>
+                                <p>Use the keyboard to type the words on the alien ships to destroy them.</p>
+                                <select id="arcade-difficulty-select">
+                                    <option value="1">Easy</option>
+                                    <option value="2">Normal</option>
+                                    <option value="3">Hard</option>
+                                </select>
+                                <button id="arcade-start-button" onclick="startArcadeMinigame()">Start Game</button>
+                            </div>
+                            <div id="arcade-timeleft" style="display: none;">
+                                <textarea id="arcade-input-box" placeholder="Start typing..."></textarea>
+                                <p>Score: <span id="arcade-score">0</span></p>
+                            </div>
+                            <div id="arcade-cooldown" class="abscenter" style="display: none;">
+                                <p>Game Over!</p>
+                                <p>Score: <span id="arcade-score2">0</span></p>
+                                <p>You can play again in: <span id="arcade-cooldown-remaining">0</span>s</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="casinoPage" class="page" style="display: none;">
+                        <h2>Casino</h2>
+                        <div id="casino-game">
+                            <div id="casino-board">
+                                <div id="casino-win-feedback">
+                                    <strong id="casino-bonus-display" style="display:none;">Bonus game 0/15</strong>
+                                    <p id="casino-win-feedback1">Spin to Win!</p>
+                                    <p id="casino-win-feedback2"></p>
+                                </div>
+                                <div id="casino-win-feed"></div>
+                            </div>
+                            <div id="casino-controls">
+                                <div id="casino-current-multiplier-container"><span id="casino-current-multiplier-span"><span id="casino-current-multiplier">1</span>x</span></div>
+                                <div>
+                                    <p>Balance: $<span id="casino-balance">0</span></p>
+                                </div>
+                                <button id="casino-start-button" onclick="startCasinoGame()"></button>
+                                <div id="casino-bet">
+                                    <button id="casino-wage-up" onclick="changeCasinoWage(1)">+</button>
+                                    <p>Bet: $<span id="casino-wager">1</span></p>
+                                    <button id="casino-wage-down" onclick="changeCasinoWage(-1)">-</button>
+                                </div>
+                                <div id="casino-feature-menu">
+                                    <button onclick="startCasinoGame(1)">Buy Feature (x3) <span id="casino-feature1-cost">$180</span></button>
+                                    <button onclick="startCasinoGame(2)">Buy Feature (x4) <span id="casino-feature2-cost">$300</span></button>
+                                    <button onclick="startCasinoGame(3)">Buy Feature (x5) <span id="casino-feature3-cost">$450</span></button>
+                                </div>
+                            </div>
+                        </div>
+                        <h1>Casino</h1>
+                        <h2>Slot Machine</h2>
+                        <p>Spin the slot machine and try to match the symbols!</p>
+                        <p>Match 13 or more of the same symbol to win big!</p>
+                        <p>3 or more bonus symbols grant free spins.</p>
+                        <p>Max multiplier = 10000x</p>
+                        <h2>Slot Details</h2>
+                        <strong>Payout table</strong>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Symbol</th>
+                                    <th>Value</th>
+                                    <th>Value (13x)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="casino-slot tiny-slot"><div class="symbol-A"></div></div>
+                                        <div class="casino-slot tiny-slot"><div class="symbol-B"></div></div>
+                                        <div class="casino-slot tiny-slot"><div class="symbol-C"></div></div>
+                                        <div class="casino-slot tiny-slot"><div class="symbol-D"></div></div>
+                                        <div class="casino-slot tiny-slot"><div class="symbol-E"></div></div>
+                                    </td>
+                                    <td id="casino-payout-single-low">$0.01</td>
+                                    <td id="casino-payout-13-low">$0.13</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="casino-slot tiny-slot"><div class="symbol-F"></div></div>
+                                        <div class="casino-slot tiny-slot"><div class="symbol-G"></div></div>
+                                    </td>
+                                    <td id="casino-payout-single-medium">$0.06</td>
+                                    <td id="casino-payout-13-medium">$0.71</td>
+                                </tr>
+                                <tr>
+                                    <td><div class="casino-slot tiny-slot"><div class="symbol-H"></div></div></td>
+                                    <td id="casino-payout-single-high">$0.10</td>
+                                    <td id="casino-payout-13-high">$1.36</td>
+                                </tr>
+                                <tr>
+                                    <td><div class="casino-slot tiny-slot"><div class="symbol-BONUS"></div></div></td>
+                                    <td>+3 = BONUS</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><div class="casino-slot tiny-slot"><div class="symbol-WILD"></div></div></td>
+                                    <td>WILD</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p>Chance of Entering Bonus: ~0.08%</p>
+                        <p>RTP: ~94.46%</p>
+                    </div>
+                    <div id="memoryPage" class="page" style="display: none;">
+                        <h2>Memory</h2>
+                        <h3>(Work in progress)</h3>
+                        <div id="memory-game" class="memory-game-container">
+                            <div id="memory-sequence-game-canvas" class="memory-flex-center" style="display: none;">
+                                <p>Remember the sequence:</p>
+                                <strong id="memory-sequence"></strong>
+                                <button onclick="memoryBeginSequence()">I remember it</button>
+                            </div>
+                            <div id="memory-start" class="memory-flex-center" style="display: none;">
+                                <h2>Memory</h2>
+                                <div id="memory-games">
+                                    <div class="memory-game" onclick="startMemorySequence()">
+                                        <strong>Test your ability to recall numbers</strong>
+                                        <p>Memorize the sequence of numbers and then type them in.</p>
+                                        <img src="/images/icons/128/start-memory-sequence.webp" class="memory-icon" alt="Memory Sequence">
+                                    </div>
+                                    <div class="memory-game" onclick="startMemoryStory()">
+                                        <strong>Test your ability to recall events</strong>
+                                        <p>Memorize the details of a story.</p>
+                                        <img src="/images/icons/128/start-memory-story.webp" class="memory-icon" alt="Memory Story">
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="memory-sequence-input" class="memory-flex-center" style="display: none;">
+                                <p>Level: <span id="memory-sequence-score">0</span></p>
+                                <textarea id="memory-input-box" placeholder="Type the numbers here..."></textarea>
+                                <button onclick="memorySubmitSequence()">Submit</button>
+                            </div>
+                            <div id="memory-story" class="memory-flex-center" style="display: none;">
+                                <blockquote>
+                                    <h2 id="memory-story-title"></h2>
+                                    <p id="memory-story-text"></p>
+                                </blockquote>
+                                <div id="memory-story-questions"></div>
+                                <button onclick="memoryBeginStory()" id="memory-story-remember-btn">I remember the story</button>
+                                <button onclick="memorySubmitStory()" id="memory-story-submit-btn">Submit</button>
+                                <button onclick="resetMemoryGame()" id="memory-story-retry-btn">New game</button>
+                            </div>
+                            <div id="memory-game-over" class="memory-flex-center" style="display: none;">
+                                <p>Game Over!</p>
+                                <p>Score: <span id="memory-sequence-score2">0</span></p>
+                                <button onclick="resetMemoryGame()">Try again</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="settingsPage" class="page" style="display: none;">
+                        <h2>Settings</h2>
+                        <div id="volume-control">
+                            <label for="volume-slider">Volume Control</label>
+                            <input type="range" id="volume-slider" min="0" max="100" value="100">
+                            <span id="volume-label">100%</span>
+                        </div>
+                        <hr>
+                        <label for="toggle-skip-mistake">
+                            <input type="checkbox" id="toggle-skip-mistake"> Skip words on mistake
+                        </label>
+                        <hr>
+                        <label for="keyboard-layout">
+                            Keyboard layout
+                            <select id="keyboard-layout">
+                                <option value="qwerty-nordic">Qwerty Nordic</option>
+                                <option value="qwerty-us">Qwerty US</option>
+                                <option value="qwerty-uk">Qwerty UK</option>
+                                <option value="dvorak">Dvorak</option>
+                                <option value="azerty">Azerty</option>
                             </select>
-                            <button id="arcade-start-button" onclick="startArcadeMinigame()">Start Game</button>
-                        </div>
-                        <div id="arcade-timeleft" style="display: none;">
-                            <textarea id="arcade-input-box" placeholder="Start typing..."></textarea>
-                            <p>Score: <span id="arcade-score">0</span></p>
-                        </div>
-                        <div id="arcade-cooldown" class="abscenter" style="display: none;">
-                            <p>Game Over!</p>
-                            <p>Score: <span id="arcade-score2">0</span></p>
-                            <p>You can play again in: <span id="arcade-cooldown-remaining">0</span>s</p>
-                        </div>
+                        </label>
+                        <hr>
+                        <label for="theme-select">
+                            Theme
+                            <select id="theme-select">
+                                <option value="light-coffee">Light Coffee</option>
+                                <option value="dark-coffee">Dark Coffee</option>
+                                <option value="dark">Dark</option>
+                                <option value="midnight-blue">Midnight Blue</option>
+                                <option value="forest-green">Forest Green</option>
+                                <option value="desert-sunset">Desert Sunset</option>
+                                <option value="spring-blossom">Spring Blossom</option>
+                                <option value="cyberpunk-neon">Cyberpunk Neon</option>
+                            </select>
+                        </label>
+                        <hr>
+                        <h2>Save/Load</h2>
+                        <button id="export-button">Export Save</button>
+                        <button id="import-button">Import Save</button>
+                        <input type="file" id="import-file" style="display: none;">
+                        <hr>
+                        <button id="reset-button">Reset Game</button>
                     </div>
-                </div>
-                <div id="casinoPage" class="page" style="display: none;">
-                    <h2>Casino</h2>
-                    <div id="casino-game">
-                        <div id="casino-board">
-                            <div id="casino-win-feedback">
-                                <strong id="casino-bonus-display" style="display:none;">Bonus game 0/15</strong>
-                                <p id="casino-win-feedback1">Spin to Win!</p>
-                                <p id="casino-win-feedback2"></p>
-                            </div>
-                            <div id="casino-win-feed"></div>
-                        </div>
-                        <div id="casino-controls">
-                            <div id="casino-current-multiplier-container"><span id="casino-current-multiplier-span"><span id="casino-current-multiplier">1</span>x</span></div>
-                            <div>
-                                <p>Balance: $<span id="casino-balance">0</span></p>
-                            </div>
-                            <button id="casino-start-button" onclick="startCasinoGame()"></button>
-                            <div id="casino-bet">
-                                <button id="casino-wage-up" onclick="changeCasinoWage(1)">+</button>
-                                <p>Bet: $<span id="casino-wager">1</span></p>
-                                <button id="casino-wage-down" onclick="changeCasinoWage(-1)">-</button>
-                            </div>
-                            <div id="casino-feature-menu">
-                                <button onclick="startCasinoGame(1)">Buy Feature (x3) <span id="casino-feature1-cost">$180</span></button>
-                                <button onclick="startCasinoGame(2)">Buy Feature (x4) <span id="casino-feature2-cost">$300</span></button>
-                                <button onclick="startCasinoGame(3)">Buy Feature (x5) <span id="casino-feature3-cost">$450</span></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="memoryPage" class="page" style="display: none;">
-                    <h2>Memory</h2>
-                    <h3>(Work in progress)</h3>
-                    <div id="memory-game" class="memory-game-container">
-                        <div id="memory-sequence-game-canvas" class="memory-flex-center" style="display: none;">
-                            <p>Remember the sequence:</p>
-                            <strong id="memory-sequence"></strong>
-                            <button onclick="memoryBeginSequence()">I remember it</button>
-                        </div>
-                        <div id="memory-start" class="memory-flex-center" style="display: none;">
-                            <h2>Memory</h2>
-                            <div id="memory-games">
-                                <div class="memory-game" onclick="startMemorySequence()">
-                                    <strong>Test your ability to recall numbers</strong>
-                                    <p>Memorize the sequence of numbers and then type them in.</p>
-                                    <img src="/images/icons/128/start-memory-sequence.webp" class="memory-icon" alt="Memory Sequence">
-                                </div>
-                                <div class="memory-game" onclick="startMemoryStory()">
-                                    <strong>Test your ability to recall events</strong>
-                                    <p>Memorize the details of a story.</p>
-                                    <img src="/images/icons/128/start-memory-story.webp" class="memory-icon" alt="Memory Story">
+                    <div id="reportsPage" class="page" style="display: none;">
+                        <h2>Stats</h2>
+                        <div id="stats-reports">
+                            <div id="report-stats" class="report">
+                                <div class="report-receipt">
+                                    <p><strong>Bank:</strong> <span class="modifierValue"><img src="/images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"><span id="keystrokes-bank2">0</span> Keystrokes</span></p>
+                                    <p><strong>Produced by buildings:</strong> <span class="modifierValue"><img src="/images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"><span id="building-cash-earned">0</span></span></p>
+                                    <p><strong>Produced by typing:</strong> <span class="modifierValue"><img src="/images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"><span id="manual-cash-earned">0</span></span></p>
+                                    <p><strong>Total:</strong> <span class="modifierValue"><span id="total-keystrokes">0</span> keystrokes</span></p>
+                                    <p><span class="modifierValue">(~<span id="total-words">0</span> words)</span></p>
+                                    <p><strong>Manual Keystrokes:</strong> <span class="modifierValue"><span id="manual-keystrokes">0</span> keystrokes</span></p>
+                                    <p><span class="modifierValue">(~<span id="manual-words">0</span> words)</span></p>
                                 </div>
                             </div>
                         </div>
-                        <div id="memory-sequence-input" class="memory-flex-center" style="display: none;">
-                            <p>Level: <span id="memory-sequence-score">0</span></p>
-                            <textarea id="memory-input-box" placeholder="Type the numbers here..."></textarea>
-                            <button onclick="memorySubmitSequence()">Submit</button>
-                        </div>
-                        <div id="memory-story" class="memory-flex-center" style="display: none;">
-                            <blockquote>
-                                <h2 id="memory-story-title"></h2>
-                                <p id="memory-story-text"></p>
-                            </blockquote>
-                            <div id="memory-story-questions"></div>
-                            <button onclick="memoryBeginStory()" id="memory-story-remember-btn">I remember the story</button>
-                            <button onclick="memorySubmitStory()" id="memory-story-submit-btn">Submit</button>
-                            <button onclick="resetMemoryGame()" id="memory-story-retry-btn">New game</button>
-                        </div>
-                        <div id="memory-game-over" class="memory-flex-center" style="display: none;">
-                            <p>Game Over!</p>
-                            <p>Score: <span id="memory-sequence-score2">0</span></p>
-                            <button onclick="resetMemoryGame()">Try again</button>
+                        <h2>Production Reports</h2>
+                        <div id="production-reports">
+                            <div id="report-manual" class="report"></div>
                         </div>
                     </div>
-                </div>
-                <div id="settingsPage" class="page" style="display: none;">
-                    <h2>Settings</h2>
-                    <div id="volume-control">
-                        <label for="volume-slider">Volume Control</label>
-                        <input type="range" id="volume-slider" min="0" max="100" value="100">
-                        <span id="volume-label">100%</span>
-                    </div>
-                    <hr>
-                    <label for="toggle-skip-mistake">
-                        <input type="checkbox" id="toggle-skip-mistake"> Skip words on mistake
-                    </label>
-                    <hr>
-                    <label for="keyboard-layout">
-                        Keyboard layout
-                        <select id="keyboard-layout">
-                            <option value="qwerty-nordic">Qwerty Nordic</option>
-                            <option value="qwerty-us">Qwerty US</option>
-                            <option value="qwerty-uk">Qwerty UK</option>
-                            <option value="dvorak">Dvorak</option>
-                            <option value="azerty">Azerty</option>
-                        </select>
-                    </label>
-                    <hr>
-                    <label for="theme-select">
-                        Theme
-                        <select id="theme-select">
-                            <option value="light-coffee">Light Coffee</option>
-                            <option value="dark-coffee">Dark Coffee</option>
-                            <option value="dark">Dark</option>
-                            <option value="midnight-blue">Midnight Blue</option>
-                            <option value="forest-green">Forest Green</option>
-                            <option value="desert-sunset">Desert Sunset</option>
-                            <option value="spring-blossom">Spring Blossom</option>
-                            <option value="cyberpunk-neon">Cyberpunk Neon</option>
-                        </select>
-                    </label>
-                    <hr>
-                    <h2>Save/Load</h2>
-                    <button id="export-button">Export Save</button>
-                    <button id="import-button">Import Save</button>
-                    <input type="file" id="import-file" style="display: none;">
-                    <hr>
-                    <button id="reset-button">Reset Game</button>
-                </div>
-                <div id="reportsPage" class="page" style="display: none;">
-                    <h2>Stats</h2>
-                    <div id="stats-reports">
-                        <div id="report-stats" class="report">
-                            <div class="report-receipt">
-                                <p><strong>Bank:</strong> <span class="modifierValue"><img src="/images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"><span id="keystrokes-bank2">0</span> Keystrokes</span></p>
-                                <p><strong>Produced by buildings:</strong> <span class="modifierValue"><img src="/images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"><span id="building-cash-earned">0</span></span></p>
-                                <p><strong>Produced by typing:</strong> <span class="modifierValue"><img src="/images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"><span id="manual-cash-earned">0</span></span></p>
-                                <p><strong>Total:</strong> <span class="modifierValue"><span id="total-keystrokes">0</span> keystrokes</span></p>
-                                <p><span class="modifierValue">(~<span id="total-words">0</span> words)</span></p>
-                                <p><strong>Manual Keystrokes:</strong> <span class="modifierValue"><span id="manual-keystrokes">0</span> keystrokes</span></p>
-                                <p><span class="modifierValue">(~<span id="manual-words">0</span> words)</span></p>
-                            </div>
-                        </div>
-                    </div>
-                    <h2>Production Reports</h2>
-                    <div id="production-reports">
-                        <div id="report-manual" class="report"></div>
+                    <div id="researchPage" class="page" style="display: none;">
+                        <h2>Research</h2>
+                        <p>Research Points: <img src="/images/icons/128/research-bulb-icon.png" class="researchicon" alt="Research"><span id="researchPoints">0</span></p>
+                        <h2>Research upgrades</h2>
+                        <div id="research-container"></div>
+                        <hr>
+                        <h2>Owned upgrades</h2>
+                        <div id="owned-research-container"></div>
                     </div>
                 </div>
-                <div id="researchPage" class="page" style="display: none;">
-                    <h2>Research</h2>
-                    <p>Research Points: <img src="/images/icons/128/research-bulb-icon.png" class="researchicon" alt="Research"><span id="researchPoints">0</span></p>
-                    <h2>Research upgrades</h2>
-                    <div id="research-container"></div>
-                    <hr>
-                    <h2>Owned upgrades</h2>
-                    <div id="owned-research-container"></div>
-                </div>
-            </div>
-            <div class="side-panel" id="upgrades-panel">
-                <div id="upgrades-parent" style="display: none;">
-                    <strong>Research upgrades</strong>
-                    <div id="researchPointsDiv"><img src="/images/icons/128/research-bulb-icon.png" class="researchicon" alt="Research"><span id="total-research">0</span></div>
-                    <div id="upgrades-container"></div>
-                    <button id="research-tab" class="navbtn">View all</button>
-                </div>
-                <div id="buildings-container"></div>
-            </div>
-            <div class="side-panel" id="stocks-panel" style="display: none;">
-                <p><strong>Stock Market Information:</strong></p>
-                <p>1$ = 1 second of passive keystroke income.</p>
-                <p>1$ = <img src="/images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"><span id="dollarCost">0</span> Keystrokes</p>
-                <p><strong>Profit:</strong> $<span id="stockProfitDollars">0</span> (<img src="/images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"><span id="stockProfitKeystrokes">0</span> Keystrokes)</p>
-                <p><strong>Bank:</strong> $<span id="stockCurrentDollars">0</span> (<img src="/images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"><span id="stockCurrentKeystrokes">0</span> Keystrokes)</p>
-            </div>
-            <div class="side-panel" id="wordle-panel" style="display: none;">
-                <h1>How to Play Wordle</h1>
-                <h2>Guess the Word in 5 Tries</h2>
-                <h3>Examples</h3>
-                <div class="wordle-example">
-                    <div class="wordle-grid">
-                        <div class="wordle-guess-row">
-                            <div class="wordle-tile correct">W</div>
-                            <div class="wordle-tile">O</div>
-                            <div class="wordle-tile">R</div>
-                            <div class="wordle-tile">D</div>
-                        </div>
-                    </div>
-                    <p><strong>W</strong> is in the word and in the correct position.</p>
-                </div>
-                <div class="wordle-example">
-                    <div class="wordle-grid">
-                        <div class="wordle-guess-row">
-                            <div class="wordle-tile present">W</div>
-                            <div class="wordle-tile">O</div>
-                            <div class="wordle-tile">R</div>
-                            <div class="wordle-tile">D</div>
-                        </div>
-                    </div>
-                    <p><strong>W</strong> is in the word but in the wrong position.</p>
-                </div>
-                <div class="wordle-example">
-                    <div class="wordle-grid">
-                        <div class="wordle-guess-row">
-                            <div class="wordle-tile absent">W</div>
-                            <div class="wordle-tile">O</div>
-                            <div class="wordle-tile">R</div>
-                            <div class="wordle-tile">D</div>
-                        </div>
-                    </div>
-                    <p><strong>W</strong> is not in the word.</p>
-                </div>
-            </div>
-            <div class="side-panel" id="casino-panel" style="display: none;">
-                <h1>Casino</h1>
-                <h2>Slot Machine</h2>
-                <p>Spin the slot machine and try to match the symbols!</p>
-                <p>Match 13 or more of the same symbol to win big!</p>
-                <p>3 or more bonus symbols grant free spins.</p>
-                <p>Max multiplier = 10000x</p>
-                <h2>Slot Details</h2>
-                <strong>Payout table</strong>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Symbol</th>
-                            <th>Value</th>
-                            <th>Value (13x)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div class="casino-slot tiny-slot"><div class="symbol-A"></div></div>
-                                <div class="casino-slot tiny-slot"><div class="symbol-B"></div></div>
-                                <div class="casino-slot tiny-slot"><div class="symbol-C"></div></div>
-                                <div class="casino-slot tiny-slot"><div class="symbol-D"></div></div>
-                                <div class="casino-slot tiny-slot"><div class="symbol-E"></div></div>
-                            </td>
-                            <td id="casino-payout-single-low">$0.01</td>
-                            <td id="casino-payout-13-low">$0.13</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="casino-slot tiny-slot"><div class="symbol-F"></div></div>
-                                <div class="casino-slot tiny-slot"><div class="symbol-G"></div></div>
-                            </td>
-                            <td id="casino-payout-single-medium">$0.06</td>
-                            <td id="casino-payout-13-medium">$0.71</td>
-                        </tr>
-                        <tr>
-                            <td><div class="casino-slot tiny-slot"><div class="symbol-H"></div></div></td>
-                            <td id="casino-payout-single-high">$0.10</td>
-                            <td id="casino-payout-13-high">$1.36</td>
-                        </tr>
-                        <tr>
-                            <td><div class="casino-slot tiny-slot"><div class="symbol-BONUS"></div></div></td>
-                            <td>+3 = BONUS</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td><div class="casino-slot tiny-slot"><div class="symbol-WILD"></div></div></td>
-                            <td>WILD</td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <p>Chance of Entering Bonus: ~0.08%</p>
-                <p>RTP: ~94.46%</p>
             </div>
         </div>
     </div>

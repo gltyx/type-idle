@@ -407,13 +407,10 @@ function handleMouseLeaveBuildingRotate(event) {
 
 function displayBuildings() {
     const buildingsContainer = document.getElementById('buildings-container');
-    const researchContainer = document.getElementById('upgrades-parent');
     
     
-    if(ResearchLab.level == 0) {
-        researchContainer.style.display = 'none';
-    } else {
-        researchContainer.style.display = 'block';
+    if(ResearchLab.level > 0) {
+        document.getElementById('research-tab').disabled = false;
     }
     buildingsContainer.querySelectorAll('.building').forEach((buildingElement, index) => {
         const building = buildings[index];

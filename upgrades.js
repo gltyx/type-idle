@@ -539,54 +539,14 @@ function isUpgradeUnlocked(upgradeId) {
 }
 
 function initUpgrades() {
-    const upgradesContainer = document.getElementById('upgrades-container');
-    const ownedUpgradesContainer = document.getElementById('ownedupgrades-container');
     const researchContainer = document.getElementById('research-container');
     const ownedResearchContainer = document.getElementById('owned-research-container');
-    upgradesContainer.innerHTML = '';
-    ownedUpgradesContainer.innerHTML = '';
     researchContainer.innerHTML = '';
     
     // Sort upgrades by cost in ascending order
     const sortedUpgrades = [...upgrades].sort((a, b) => a.cost - b.cost);
     
     sortedUpgrades.forEach((upgrade, index) => {
-        // Small buttons
-        const upgradeElement = document.createElement('button');
-        upgradeElement.style.backgroundImage = `url("/images/tooltips/upgrades/448/${upgrade.id}.jpg")`;
-        const ownedUpgradeElement = document.createElement('div');
-        ownedUpgradeElement.className = 'owned-upgrade';
-        ownedUpgradeElement.style.backgroundImage = `url("/images/tooltips/upgrades/448/${upgrade.id}.jpg")`;
-        ownedUpgradeElement.innerHTML = `<div><strong>${upgrade.name}</strong></div>`;
-        ownedUpgradeElement.style.display = 'none'; // Initially hide owned upgrade element
-        ownedUpgradesContainer.appendChild(ownedUpgradeElement);
-        
-        upgradeElement.className = 'upgrade';
-        upgradeElement.setAttribute('data-index', upgrade.id - 1);
-        ownedUpgradeElement.setAttribute('data-index', upgrade.id - 1);
-        upgradeElement.innerHTML = `<div><span>${upgrade.name}</span></div>`;
-        //upgradeElement.innerHTML = `<div><span>${upgrade.name}</span><span><img src="images/research-bulb-icon.png" class="researchicon" alt="Research">${upgrade.cost}</span></div>`;
-        upgradeElement.disabled = upgrade.cost > totalResearchPoints || upgrade.unlocked;
-        
-        upgradeElement.addEventListener('click', () => {
-            if (totalResearchPoints >= upgrade.cost && !upgrade.unlocked) {
-                totalResearchPoints -= upgrade.cost;
-                upgrade.unlocked = true;
-                upgrade.effect();
-                playBuySound();
-            }
-        });
-        
-        // Add tooltip element
-        upgradeElement.addEventListener('mouseover', () => showUpgradeToolTip(upgradeElement, upgrade));
-        upgradeElement.addEventListener('mouseout', () => hideTooltip());
-        
-        ownedUpgradeElement.addEventListener('mouseover', () => showOwnedUpgradeToolTip(ownedUpgradeElement, upgrade));
-        ownedUpgradeElement.addEventListener('mouseout', () => hideTooltip());
-        
-        upgradesContainer.appendChild(upgradeElement);
-        
-        
         // Big buttons
         const researchElement = document.createElement('button');
         researchElement.style.backgroundImage = `url("/images/tooltips/upgrades/448/${upgrade.id}.jpg")`;
@@ -623,15 +583,11 @@ function initUpgrades() {
 
 
 function displayUpgrades() {
-    const upgradesContainer = document.getElementById('upgrades-container');
-    const ownedUpgradesContainer = document.getElementById('ownedupgrades-container');
     const researchContainer = document.getElementById('research-container');
     const ownedResearchContainer = document.getElementById('owned-research-container');
     
-    upgradesContainer.querySelectorAll('.upgrade').forEach((upgradeElement, index) => { // small upgrade
-        const upgradeIndex = upgradeElement.getAttribute("data-index");
-        const upgrade = upgrades[upgradeIndex];
-        const ownedUpgradeElement = ownedUpgradesContainer.querySelector(`.owned-upgrade[data-index="${upgradeIndex}"]`); // small owned upgrade
+
+    upgrades.forEach((upgrade, upgradeIndex) => {
         const researchElement = researchContainer.querySelector(`.bigUpgrade[data-index="${upgradeIndex}"]`); // big upgrade
         const ownedResearchElement = ownedResearchContainer.querySelector(`.owned-bigUpgrade[data-index="${upgradeIndex}"]`); // big owned upgrade
         if(!upgrade.visible) {
@@ -639,20 +595,15 @@ function displayUpgrades() {
         }
         
         if (upgrade.unlocked) {
-            upgradeElement.style.display = 'none'; // Hide original button
             researchElement.style.display = 'none'; // Hide original button
             ownedResearchElement.style.display = 'block'; // Show owned upgrade element
-            ownedUpgradeElement.style.display = 'block'; // Show owned upgrade element
         } else {
             if(upgrade.visible) {
-                upgradeElement.style.display = 'block';
                 researchElement.style.display = 'block';
             } else {
-                upgradeElement.style.display = 'none';
                 researchElement.style.display = 'none';
             }
             researchElement.disabled = upgrade.cost > totalResearchPoints || upgrade.unlocked;
-            upgradeElement.disabled = upgrade.cost > totalResearchPoints || upgrade.unlocked;
         }
     });
 }

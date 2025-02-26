@@ -1136,29 +1136,39 @@ body.cyberpunk-neon {
 body {
     font-family: var(--main-font);
     background-color: var(--body-background);
-    background-size: cover;
-    background-position: center; 
-    background-repeat: no-repeat; 
     color: var(--body-color);
     margin: 0;
 }
-body.main-tab {
+#mainBg {
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat; 
+    flex: 4;
+    overflow-y: auto;
+}
+#main {
+    background-color: var(--main-container-bg);
+}
+body.main-tab #mainBg {
     background-image: var(--body-bg-image);
 }
-body.wordle-tab {
+body.wordle-tab #mainBg {
     background-image: var(--wordle-bg-image);
 }
-body.settings-tab {
+body.settings-tab #mainBg {
     background-image: var(--settings-bg-image);
 }
-body.arena-tab {
+body.arena-tab #mainBg {
     background-image: var(--arena-bg-image);
 }
-body.arcade-tab {
+body.arcade-tab #mainBg {
     background-image: var(--arcade-bg-image);
 }
 #page {
-    height: 100vh;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
     display:flex;
     flex-direction: column;
 }
@@ -1180,12 +1190,11 @@ button {
 
 /* Top Bar */
 #top-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
     width: 100%;
-    padding: 2px;
+    padding: 0.5rem 0;
     height: 1rem;
+    border-radius: 0;
+    margin: 0;
     background-color: var(--top-bar-bg);
     color: var(--top-bar-color);
 }
@@ -1204,24 +1213,63 @@ button {
 /* Main Container */
 #main-container {
     display: flex;
-    overflow:hidden;
+    padding: 5px;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.2);
     background-color: var(--main-container-bg);
 }
+
 #sticky-top {
-    position: sticky;
+    position: fixed;
     top: 0;
     z-index: 10;
+    width: 100%;
 }
 /* Navbar */
+#navbar-container {
+    position: fixed;
+    width: auto;
+    top: 0;
+    background-color: var(--navbar-bg);
+    display: flex;
+    flex-direction: column;
+    z-index: 9;
+}
 #navbar, #arena-nav {
     background-color: var(--navbar-bg);
     display: flex;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     flex-wrap: wrap;
 }
+#navbar {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    width: 100%;
+    padding: 2px;
+    height: calc(100vh - 172px);
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
 #navbar button, .navbtn {
     background-color: var(--navbar-button-bg);
     border-radius: 0;
+}
+#navbar button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: var(--navbar-button-bg);
+    color: var(--button-text-color);
+    cursor: pointer;
+    margin: 0.1rem;
+    padding: 0.1rem;
+    text-align: left;
+    border-left: 4px solid var(--color2);
+}
+.navbtn {
+    border-bottom: 4px solid var(--color2);
 }
 
 #navbar button:disabled {
@@ -1236,23 +1284,23 @@ button {
 #navbar button, #arena-nav button {
     width: auto;
 }
-#navbar button.active, .navbtn.active {
+#navbar button.active {
     background-color: var(--navbar-button-active-bg);
-    border-bottom: solid 2px var(--navbar-button-active-border-bottom);
+    border-left: 4px solid var(--navbar-button-active-border-bottom);
+}
+.navbtn.active {
+    background-color: var(--navbar-button-active-bg);
+    border-bottom: 4px solid var(--navbar-button-active-border-bottom);
 }
 #navbar button.ready:not(:disabled) {
     background: linear-gradient(135deg, var(--ready-gradient-start), var(--ready-gradient-end));
     color: #ffffff; /* White text for readability */
-    border: 2px solid var(--ready-border); /* Dark green border */
     font-weight: bold; /* Emphasize text */
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
     position: relative;
-    transition: all 0.3s ease-in-out;
 }
 #navbar button.ready.active {
     background: linear-gradient(135deg, var(--ready-border-active), var(--ready-gradient-start));
-    border-color: var(--ready-border-active);
-    border-bottom: solid 2px var(--ready-border-bottom-active);
     color: var(--ready-text-color-active);
 }
 #navbar button.ready:not(:disabled):before {
@@ -1267,6 +1315,7 @@ button {
     font-weight: bold;
     animation: pulse 1.5s infinite;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    z-index: 10;
 }
 @keyframes pulse {
     0% {
@@ -1287,15 +1336,87 @@ button {
     box-shadow: 0 0 10px rgba(52, 168, 83, 0.8);
 }
 
+#level-container {
+    text-align: center;
+    display: flex;
+}
+#level-container2 {
+    border: 1px solid var(--border);
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    padding: 0.5rem;
+    background-color: var(--bg-alpha1);
+    flex: 1.2;
+}
+#xp-progress-bar {
+    /* Custom properties to control colors and progress percentage */
+    --progress: 0;
+    --progress-color: var(--correct-color);
+    --background-color: var(--bg-color1);
+    
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    
+    /* Use conic-gradient to fill the circle based on --progress */
+    background: conic-gradient(
+    var(--progress-color) calc(var(--progress) * 1%), 
+    var(--background-color) 0
+    );
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border: 1px solid var(--border);
+}
+#xp-inner-circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: var(--bgcolor3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border: 1px solid var(--border);
+}
+
+#xp-stats {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#xp-progress-level {
+    font-size: 24px;
+    font-weight: bold;
+}
+#xp-progress-text {
+    font-size: 20px;
+}
+
+#keystrokes-container {
+    border: 1px solid var(--border);
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    padding: 0.5rem;
+    background-color: var(--bg-alpha1);
+    flex: 1;
+}
+
 /* News Container */
 #news-container {
     background-color: var(--news-container-bg);
     color: var(--news-container-color);
-    padding: 0.625rem 0;
+    padding: 0.625rem;
     border-bottom: 1px solid var(--border);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    width: 100%;
-    height: 2rem;
+    flex: 1.5;
     overflow: hidden;
     align-items: center;
     justify-content: center;
@@ -1313,7 +1434,7 @@ button {
 }
 .golden-news-clicked {
     color: var(--golden-news-clicked-color);
-    font-weight: normal;
+    font-weight: bold;
     cursor: default;
     text-shadow: none;
 }
@@ -1394,6 +1515,7 @@ button {
 }
 #gamePage {
     padding:0;
+    padding-bottom: 1.25rem;
 }
 
 #volume-control {
@@ -1436,23 +1558,13 @@ button {
     color: var(--color1);
 }
 
-#stats-panel {
-    overflow-y: auto;
-    flex: 1;
-    background-color: var(--stats-panel-bg);
-    border-right: 1px solid var(--panel-border);
-    display: none;
-}
 #achievements-parent {
     margin: 5rem;
 }
-#stats-parent, #achievements-parent, #ownedupgrades-parent, #upgrades-parent {
+#achievements-parent {
     background-color: var(--panel-tint);
 }
-#main {
-    flex: 4;
-    overflow-y: auto;
-}
+
 #game-container {
     display: flex;
     flex-direction: column;
@@ -1595,6 +1707,12 @@ button:disabled {
     vertical-align: middle;
     filter:drop-shadow(0 0 5px rgba(0, 0, 0, 0.5));
 }
+.smallNavIcon {
+    width: 2rem;
+    height: 2rem;
+    vertical-align: middle;
+    filter:drop-shadow(0 0 5px rgba(0, 0, 0, 0.5));
+}
 .currencyiconBig {
     width: 5rem;
     height: 5rem;
@@ -1602,75 +1720,7 @@ button:disabled {
     filter:drop-shadow(0 0 5px rgba(0, 0, 0, 0.5));
 }
 
-#level-container {
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    padding-top: 0.5rem;
-}
-#level-container2 {
-    border: 1px solid var(--border);
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-    padding: 0.5rem;
-    border-radius: 5px;
-    background-color: var(--bg-alpha1);
-}
-#xp-progress-bar {
-    /* Custom properties to control colors and progress percentage */
-    --progress: 0;
-    --progress-color: var(--correct-color);
-    --background-color: var(--bg-color1);
-    
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    
-    /* Use conic-gradient to fill the circle based on --progress */
-    background: conic-gradient(
-    var(--progress-color) calc(var(--progress) * 1%), 
-    var(--background-color) 0
-    );
-    
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-}
-#xp-inner-circle {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background-color: var(--bgcolor3);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-}
 
-#xp-stats {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-#xp-progress-level {
-    font-size: 24px;
-    font-weight: bold;
-}
-#xp-progress-text {
-    font-size: 20px;
-}
-
-#keystrokes-container {
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    padding-top: 0.5rem;
-}
 #title-container {
     width:100%;
     background-color: var(--bg-alpha1);
@@ -1681,7 +1731,6 @@ button:disabled {
 #business-container {
     display: flex;
     flex-direction: column;
-    padding-bottom: 0.5rem;
     justify-content: flex-start;
     align-items: flex-start;
 }
@@ -1709,9 +1758,6 @@ button:disabled {
 .icon {
     width: 5.2rem;
     height: 5.2rem;
-}
-#stats-panel p {
-    margin: 5px 0;
 }
 
 /* Word Animations */
@@ -1753,8 +1799,11 @@ button:disabled {
 /* Buildings & Achievements */
 #buildings-container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.625rem;
+    margin-top: 0.625rem;
 }
 button.upgrade {
     padding: 0;
@@ -1774,6 +1823,9 @@ button:disabled {
     justify-content: space-between;
     transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease; 
     perspective: 9rem;
+    width: 250px;
+    border-radius: 5px;
+    border: 1px solid var(--border);
 }
 .icon {
     transition: transform 0.3s ease;
@@ -2159,6 +2211,13 @@ transform: scale(1.1);
     transition: all 0.3s ease; 
 }
 
+#wordle-tutorial {
+    background-color: var(--bg-alpha1);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 0.625rem;
+}
+
 #wordle {
     background-color: var(--wordle-tint);
     padding: 0 0.938rem;
@@ -2218,6 +2277,7 @@ transform: scale(1.1);
 .wordle-example p {
     font-size: 0.9rem;
     margin-top: 5px;
+    text-align: center;
 }
 .wordle-grid {
     display: flex;
@@ -2581,6 +2641,9 @@ transform: scale(1.1);
 
 
 /* STOCK MARKET */
+#stock-market-info * {
+    margin: 0;
+}
 #stock-market-container {
     font-size: 16px;
     display: flex;
@@ -3282,38 +3345,4 @@ select {
     background-color: #45a049;
 }
 
-/* MEDIA QUERIES */
-@media (max-width: 1024px) {
-    #game-title {
-        font-size: 1.75rem;
-    }
-    .side-panel {
-        font-size: 0.9rem;
-    }
-}
-@media (max-width: 768px) {
-    #main-container {
-        flex-direction: column;
-        align-items: stretch;
-    }
-    #stats-panel {
-        border-right: none;
-        border-bottom: 1px solid var(--panel-border);
-    }
-    .side-panel {
-        border-left: none;
-        border-top: 1px solid var(--panel-border);
-    }
-    #typing-panel {
-        padding: 0.625rem;
-    }
-    #volume-slider {
-        width: 100%;
-    }
-    .wordle-tile {
-        width: 2rem;
-        height: 2rem;
-        line-height: 2rem;
-        font-size: 1rem;
-    }
-}
+

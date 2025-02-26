@@ -1,5 +1,5 @@
 <?php
-$MINIFY_SCRIPTS = true;
+$MINIFY_SCRIPTS = false;
 $destination = 'build/';
 
 if (!is_dir($destination)) {
