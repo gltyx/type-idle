@@ -3,6 +3,8 @@ let manualKeystrokes = 0;
 let cashEarnedManually = 0;
 let cashEarnedBuildings = 0;
 
+let practiceHistory = []; // Array to store typing test results
+
 /**
  * This will 'scroll' to keystrokesBank.
  */
@@ -55,6 +57,7 @@ function saveGame() {
         currentTheme,
         tenFingerAssitance,
         fallingWordsEnabled,
+        practiceHistory, // Save practice history
         buildings: buildings.map(building => ({ id: building.id, level: building.level, totalProduce: building.totalProduce })),
         upgrades: upgrades.map(upgrade => ({ id: upgrade.id, unlocked: upgrade.unlocked })),
         achievements: achievements.map(achievement => ({ id: achievement.id, unlocked: achievement.unlocked })),
@@ -64,6 +67,7 @@ function saveGame() {
             owned: stock.owned,
             history: stock.history
         })),
+        transactionHistory: transactionHistory, // Save transaction history
         buffs: modifiers.filter(mod => mod.duration).map(mod => ({
             boostID: mod.boostID,
             duration: mod.duration
@@ -104,6 +108,7 @@ function loadGame(savedData) {
         currentTheme = savedData.currentTheme || 'dark';
         tenFingerAssitance = savedData.tenFingerAssitance || false;
         fallingWordsEnabled = savedData.fallingWordsEnabled || false;
+        practiceHistory = savedData.practiceHistory || []; // Load practice history
         savedData.buildings.forEach(savedBuilding => {
             const building = buildings.find(b => b.id === savedBuilding.id);
             if (building) {
@@ -144,6 +149,11 @@ function loadGame(savedData) {
         if (savedData.wordle) {
             currentWordleWord = savedData.wordle.currentWord || "";
             wordleUIState = "load";
+        }
+        
+        // Load transaction history
+        if (savedData.transactionHistory) {
+            loadTransactionHistory(savedData.transactionHistory);
         }
         
         if (savedData.buffs) {

@@ -1,0 +1,258 @@
+/* Enhanced Typing Panel */
+#typing-panel {
+    width: 70%;
+    max-width: 900px;
+    margin: 0 auto;
+    z-index: 2;
+    position: relative;
+    background-color: var(--bg-alpha1);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+#trackers {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.625rem 0;
+    align-items: center;
+}
+
+.tracker-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem;
+    background-color: var(--bg-alpha1);
+    border-radius: 10px;
+    min-width: 100px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.tracker-label {
+    font-size: 0.8rem;
+    color: var(--color2);
+    margin: 0;
+}
+
+.tracker-value {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin: 0;
+    color: var(--color1);
+}
+
+#input-box, #arena-input-box, #practice-input-box, #arcade-input-box {
+    width: 90%;
+    height: 1.5rem; 
+    font-size: 1rem;
+    padding: 0.625rem;
+    resize: none;
+    margin: 0 auto;
+    display: block;
+    background-color: var(--input-bg);
+    border: 2px solid var(--input-border);
+    color: var(--body-color);
+    border-radius: 5px;
+    z-index: 2;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.05);
+    animation: pulse-border 2s infinite;
+}
+
+#input-box:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px var(--correct-color);
+    animation: input-pulse 2s infinite;
+}
+
+.words-to-type-container {
+    font-family: var(--typing-font);
+    position: relative;
+    background-color: var(--typing-panel-bg);
+    padding: 1rem;
+    border-radius: 10px;
+    border: 1px solid var(--typing-panel-border);
+    overflow: hidden;
+    margin-top: 0.625rem;
+    font-size: 1.5rem;
+    height: auto;
+    min-height: 4rem;
+    z-index: 2;
+    user-select: none;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.word {
+    display: inline-block;
+    position: relative;
+    padding: 0.25rem;
+    border-radius: 5px;
+    transition: all 0.2s ease;
+}
+
+.word.current {
+    background-color: rgba(var(--current-color-rgb), 0.15);
+    transform: scale(1.05);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.word.completed {
+    color: var(--body-color);
+    opacity: 0.5;
+}
+
+/* Character-by-character highlighting */
+.character {
+    display: inline-block;
+    position: relative;
+    transition: all 0.1s ease;
+}
+
+.character.correct {
+    color: var(--correct-color);
+    text-shadow: 0 0 5px rgba(var(--correct-color-rgb), 0.7);
+}
+
+.character.mistake {
+    color: var(--mistake-color);
+    text-shadow: 0 0 5px rgba(var(--mistake-color-rgb), 0.7);
+    animation: mistake-shake 0.3s ease;
+}
+
+.character.current {
+    color: var(--current-color);
+    animation: blink-caret2 1s infinite;
+    position: relative;
+}
+
+.character.current::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--current-color);
+    animation: blink-caret 1s infinite;
+}
+
+/* Word progress bar */
+.word-progress-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: var(--bgcolor1);
+}
+
+.word-progress-bar {
+    height: 100%;
+    width: 0;
+    background-color: var(--correct-color);
+    transition: width 0.1s ease;
+}
+
+/* Streak counter */
+#streak-container {
+    position: absolute;
+    top: -15px;
+    right: 20px;
+    background-color: var(--correct-color);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.9rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+}
+
+#streak-container.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Enhanced floating words */
+.floating-word {
+    position: fixed;
+    animation: enhanced-float linear forwards;
+    font-size: 1.2rem;
+    pointer-events: none; 
+    z-index: 3;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+
+/* Perfect word effect */
+.perfect-word {
+    color: gold;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+    font-weight: bold;
+}
+
+/* Typing Panel */
+#typing-panel {
+    width: 50%;
+    z-index: 2;
+}
+#trackers {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.625rem 0;
+}
+#trackers p {
+    margin: 0;
+    font-size: 1rem;
+}
+
+
+.words-to-type-container{
+    font-family: var(--typing-font);
+    position: relative;
+    background-color: var(--typing-panel-bg);
+    padding: 0.313rem;
+    border-radius: 10px;
+    border: 1px solid var(--typing-panel-border);
+    overflow: hidden;
+    margin-top: 0.625rem;
+    font-size: 1.25rem;
+    height:3rem;
+    z-index: 2;
+    user-select: none;
+}
+.words-to-type {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+
+.word {
+    display: inline-block;
+    margin-right: 0.5rem;
+}
+
+
+/* Typing Colors */
+.correct {
+    color: var(--correct-color);
+    text-shadow: 0 0 10px var(--correct-color);
+}
+.mistake {
+    color: var(--mistake-color);
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+}
+.current {
+    color: var(--current-color);
+    text-shadow: 0 0 10px rgba(75, 46, 57, 0.8);
+}

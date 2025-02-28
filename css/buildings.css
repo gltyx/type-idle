@@ -1,0 +1,127 @@
+#buildings-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.625rem;
+    margin-top: 0.625rem;
+}
+
+.building {
+    margin-top: 0.1rem;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease; 
+    perspective: 9rem;
+    width: 250px;
+    border: 1px solid var(--border);
+    background-color: var(--panel-bg);
+    overflow: hidden;
+}
+.building:not(:disabled):hover {
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+.building:disabled {
+    opacity: 0.8;
+    filter: grayscale(75%);
+}
+.building-header {
+    background-color: var(--bgcolor3);
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+}
+.building-name {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-left: 8px;
+    color: var(--color1);
+    flex-grow: 1;
+    text-align: left;
+}
+.building-content {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    justify-content: space-between;
+    height: 100px;
+}
+.building-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+    flex-grow: 1;
+}
+.building-level {
+    font-size: 0.9rem;
+    padding: 2px 8px;
+    background-color: var(--bg-alpha1);
+    border-radius: 10px;
+    font-weight: bold;
+    display: inline-block;
+}
+.building-production {
+    font-size: 0.9rem;
+    color: var(--production-color);
+}
+.building-cost {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background-color: var(--button-bg);
+    padding: 5px 10px;
+    border-radius: 15px;
+    margin-top: 5px;
+    font-weight: bold;
+}
+.building-cost img {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+.building:not(:disabled) .building-cost {
+    animation: pulse-gentle 2s infinite;
+}
+
+.building-locked {
+    text-align: center;
+    padding: 10px;
+    font-style: italic;
+    color: var(--color2);
+}
+.building-bg1 {
+    height: 100%;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.building-bg2 {
+    height: 100%;
+    background-color: var(--bg-alpha1);
+}
+
+.building-efficiency {
+    font-size: 0.85rem;
+    color: var(--research-color);
+    margin-top: 3px;
+}
+
+.building-special {
+    font-size: 0.85rem;
+    color: var(--color1);
+    margin-top: 5px;
+    font-style: italic;
+    border-top: 1px dashed var(--border);
+    padding-top: 5px;
+}
+
+button.upgrade {
+    padding: 0;
+}
+button.upgrade:disabled div {
+    background-color: #333333d8; /* Dimmer overlay */
+}

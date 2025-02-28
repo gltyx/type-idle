@@ -1,0 +1,208 @@
+/* Base Styles */
+html {
+    font-size: 16px; /* scale app for higher res */
+    --main-font: 'Roboto', sans-serif;
+    --button-font: 'Roboto', sans-serif;
+    --typing-font: 'Courier Prime', monospace;
+    --keyboard-font: 'Courier Prime', monospace;
+    --tooltip-font: 'Exo 2', sans-serif;
+    --title-font: 'Courier New', Courier, monospace;
+    --body-bg-image: url('/bg.jpg');
+    --wordle-bg-image: url('/images/wordle_bg.jpeg');
+    --settings-bg-image: url('/images/pages/settings.webp');
+    --arena-bg-image: url('/images/pages/arena.webp');
+    --arcade-bg-image: url('/images/pages/arcade.jpg');
+    --slot-machine-bg-image: url('/images/slot-machine-bg.jpg');
+}
+
+/* Body */
+body {
+    font-family: var(--main-font);
+    background-color: var(--body-background);
+    color: var(--body-color);
+    margin: 0;
+}
+#mainBg {
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat; 
+    flex: 4;
+    overflow-y: auto;
+}
+#main {
+    background-color: var(--main-container-bg);
+}
+body.main-tab #mainBg {
+    background-image: var(--body-bg-image);
+}
+body.wordle-tab #mainBg {
+    background-image: var(--wordle-bg-image);
+}
+body.settings-tab #mainBg {
+    background-image: var(--settings-bg-image);
+}
+body.arena-tab #mainBg {
+    background-image: var(--arena-bg-image);
+}
+body.arcade-tab #mainBg {
+    background-image: var(--arcade-bg-image);
+}
+
+#page {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    display:flex;
+    flex-direction: column;
+}
+
+.loading-fade-out {
+    animation: Loading-FadeOut 0.5s forwards;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+    border-radius: 5px;
+}
+::-webkit-scrollbar-thumb {
+    background-color: var(--border);
+    border-radius: 5px;
+    border: 2px solid var(--navbar-bg);
+}
+
+/* Buttons */
+button {
+    font-family: var(--button-font);
+    font-size: 1rem;
+    background-size: cover;
+    background-position: center;
+    padding: 0.625rem;
+    margin-top: 0.625rem;
+    width: 100%;
+    background-color: var(--button-bg);
+    color: var(--button-text-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+button > * {
+    pointer-events: none;
+}
+button:hover:not(:disabled) {
+    background-color: var(--button-bg-hover);
+}
+button:disabled {
+    background-color: var(--button-disabled-bg);
+    cursor: not-allowed;
+}
+
+button:disabled {
+    filter: grayscale(100%);
+}
+/*
+.progress-container {
+background-color: var(--bg-alpha1);
+height: 8px;
+border-radius: 4px;
+overflow: hidden;
+margin: 10px 0;
+position: relative;
+}
+
+.progress-bar {
+height: 100%;
+border-radius: 4px;
+transition: width 0.5s ease;
+}
+
+.progress-text {
+display: flex;
+justify-content: space-between;
+font-size: 0.9rem;
+color: var(--color3);
+margin-top: 5px;
+}
+*/
+.progress-container {
+    width: 100%;
+    background-color: var(--bg-alpha1);
+    border-radius: 5px;
+    overflow: hidden;
+    height: 20px;
+    position: relative;
+    margin: 0.5rem 0;
+}
+.progress-text {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    margin:0;
+    color: var(--color3);
+    width: 100%;
+}
+.progress-bar {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.3s ease-in-out;
+    width: 0;
+}
+/*
+.progress-container {
+width: 100%;
+background-color: #e0e0e0;
+border-radius: 5px;
+overflow: hidden;
+height: 20px;
+position: relative;
+margin: 0.5rem 0;
+}
+.progress-text {
+margin:0;
+color:black;
+width: 100%;
+}
+.progress-bar {
+height: 100%;
+transition: width 0.3s ease-in-out;
+width: 0;
+}
+*/
+
+input[type="radio"] {
+    accent-color: var(--border);
+}
+select {
+    color: var(--body-color);
+    background-color: var(--input-bg);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 0.5rem;
+    margin-left: 0.5rem;
+}
+
+.consent-banner {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    text-align: center;
+    padding: 10px;
+    z-index: 1000;
+}
+.consent-banner button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+.consent-banner button:hover {
+    background-color: #45a049;
+}

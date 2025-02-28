@@ -4,6 +4,10 @@ let currentWordIndex = 0;
 let wordsToType = [];
 let correctKeystrokesTimestamps = [];
 let lastTypedWord = "";
+let currentCharIndex = 0; // Track the current character position
+let currentWordStreak = 0; // Track consecutive correct words
+let perfectWordStreak = 0; // Track consecutive perfect words (no mistakes)
+let currentWordMistakes = 0; // Track mistakes in the current word
 
 let Tickrate = 30;
 let Tickinterval = 1000 / Tickrate;
@@ -298,47 +302,95 @@ function initGame() {
     sendHeartbeat(); // send the first heartbeat
 }
 
-document.getElementById('input-box').addEventListener('input', function() {
+document.getElementById('input-box').addEventListener('input', function(e) {
     const inputBox = document.getElementById('input-box');
-    const inputText = inputBox.value.trim();
+    const inputText = inputBox.value;
     
-    colorText(inputText, document.getElementById('words-to-type'), wordsToType, currentWordIndex);
+    // Handle backspace
+    if (e.inputType === 'deleteContentBackward') {
+        if (currentCharIndex > 0) {
+            currentCharIndex--;
+        }
+    } else if (e.inputType === 'insertText') {
+        currentCharIndex = inputText.length;
+    }
+    
+    updateWordProgress(inputText.length, wordsToType[currentWordIndex].length);
+    colorTextByCharacter(inputText, wordsToType[currentWordIndex], currentWordIndex);
     highlightNextKey();
+    
     if (inputBox.value.endsWith(' ')) {
-        if (inputText === wordsToType[currentWordIndex]) {
-            manualKeystrokes += inputText.length;
-            //let keyStrokeModCount = inputText.length + (inputText.length * (arenaGoldMedals * 0.01 * getPassiveIncome()));
-            let keyStrokeModCount = applyKPStoManual(inputText.length);
+        const trimmedInput = inputText.trim();
+        const currentWord = wordsToType[currentWordIndex];
+        
+        if (trimmedInput === currentWord) {
+            // Handle correct word
+            let isPerfectWord = currentWordMistakes === 0;
+            
+            manualKeystrokes += trimmedInput.length;
+            let keyStrokeModCount = applyKPStoManual(trimmedInput.length);
+            
+            // Add streak bonus
+            currentWordStreak++;
+            if (currentWordStreak >= 3) {
+                const streakBonus = Math.min(1 + (currentWordStreak * 0.05), 2); // Max 2x bonus
+                keyStrokeModCount *= streakBonus;
+                showStreakCounter(currentWordStreak);
+            }
+            
+            // Add perfect word bonus
+            if (isPerfectWord) {
+                perfectWordStreak++;
+                if (perfectWordStreak >= 2) {
+                    const perfectBonus = Math.min(1 + (perfectWordStreak * 0.1), 3); // Max 3x bonus
+                    keyStrokeModCount *= perfectBonus;
+                    
+                    if (perfectWordStreak >= 3) {
+                        createPerfectWordEffect(trimmedInput);
+                    }
+                }
+            } else {
+                perfectWordStreak = 0;
+            }
+            
             keyStrokeModCount = applyModifiers(0, keyStrokeModCount);
-            //keyStrokeModCount *= AutoWriter.level * 0.05 + 1; // 1% boost per Auto Writer
             totalKeystrokes += keyStrokeModCount;
             keystrokesBank += keyStrokeModCount;
             cashEarnedManually += keyStrokeModCount;
-            lastTypedWord = inputText;
+            lastTypedWord = trimmedInput;
             
+            markWordCompleted(currentWordIndex);
             currentWordIndex++;
-            //wordsToType.shift(); // Remove the first word
-            //wordsToType.push(getRandomWord()); // Add a new random word
+            currentWordMistakes = 0;
             
-            // Track each keystroke of the correct word using original inputText.length for WPM calculation
-            for (let i = 0; i < inputText.length; i++) {
+            // Track each keystroke of the correct word
+            for (let i = 0; i < trimmedInput.length; i++) {
                 correctKeystrokesTimestamps.push(Date.now());
             }
             
-            createFallingWord(inputText); // Create falling word effect
+            createFallingWord(trimmedInput); // Create falling word effect
             createFloatingWord(`<img src="images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"> +${formatShortScale(keyStrokeModCount)}`);
             updateWordsToType();
             playTypeSound();
             inputBox.value = '';
+            currentCharIndex = 0;
+            
             gtag('event', 'word_input', {
                 'wpm': wpm,
                 'event_category': 'typing'
             });
         } else {
+            // Handle incorrect word
+            currentWordStreak = 0;
+            perfectWordStreak = 0;
+            hideStreakCounter();
+            
             if (skipOnMistake) {
                 currentWordIndex++;
                 updateWordsToType();
                 inputBox.value = '';
+                currentCharIndex = 0;
+                currentWordMistakes = 0;
                 playTypoSound();
             }
         }
@@ -346,6 +398,202 @@ document.getElementById('input-box').addEventListener('input', function() {
     }
 });
 
+// Add a tracking function for mistakes
+document.getElementById('input-box').addEventListener('keydown', function(e) {
+    if (e.key === 'Backspace') return;
+    if (e.key.length > 1) return; // Ignore modifier keys
+    
+    const inputBox = document.getElementById('input-box');
+    const inputText = inputBox.value;
+    const currentWord = wordsToType[currentWordIndex];
+    
+    // Check if the current keystroke is incorrect
+    if (inputText.length < currentWord.length && 
+        e.key !== currentWord[inputText.length]) {
+        currentWordMistakes++;
+    }
+});
+
+function updateWordProgress(current, total) {
+    const progressBar = document.querySelector('.word-progress-bar');
+    if (progressBar) {
+        const percentage = Math.min((current / total) * 100, 100);
+        progressBar.style.width = `${percentage}%`;
+        
+        // Change color based on progress
+        if (percentage < 33) {
+            progressBar.style.backgroundColor = 'var(--mistake-color)';
+        } else if (percentage < 66) {
+            progressBar.style.backgroundColor = 'var(--wordle-present-bg)';
+        } else {
+            progressBar.style.backgroundColor = 'var(--correct-color)';
+        }
+    }
+}
+
+function markWordCompleted(index) {
+    const wordsDisplay = document.getElementById('words-to-type');
+    if (wordsDisplay.children[index]) {
+        wordsDisplay.children[index].classList.add('completed');
+    }
+}
+
+function showStreakCounter(streak) {
+    const streakContainer = document.getElementById('streak-container');
+    if (!streakContainer) {
+        const typingPanel = document.getElementById('typing-panel');
+        const newStreakContainer = document.createElement('div');
+        newStreakContainer.id = 'streak-container';
+        typingPanel.appendChild(newStreakContainer);
+    }
+    
+    const container = document.getElementById('streak-container');
+    container.textContent = `${streak}x Streak!`;
+    container.classList.add('active');
+    
+    // Add appropriate class based on streak
+    container.className = ''; // Reset classes
+    container.classList.add('active');
+    if (streak >= 10) {
+        container.classList.add('epic-streak');
+    } else if (streak >= 5) {
+        container.classList.add('great-streak');
+    } else {
+        container.classList.add('good-streak');
+    }
+    
+    // Create streak particles if available
+    if (window.typeParticleSystem && streak >= 3) {
+        window.typeParticleSystem.createStreakEffect(streak);
+    }
+}
+
+function hideStreakCounter() {
+    const streakContainer = document.getElementById('streak-container');
+    if (streakContainer) {
+        streakContainer.classList.remove('active');
+    }
+}
+
+function createPerfectWordEffect(word) {
+    const gameContainer = document.getElementById('game-container');
+    const perfectWord = document.createElement('div');
+    perfectWord.textContent = `Perfect: ${word}`;
+    perfectWord.className = 'floating-word perfect-word';
+    
+    const rect = document.getElementById('input-box').getBoundingClientRect();
+    perfectWord.style.left = `${rect.left + rect.width / 2}px`;
+    perfectWord.style.top = `${rect.top}px`;
+    
+    const randomDuration = (Math.random() * 1 + 1.5).toFixed(2);
+    perfectWord.style.animationDuration = randomDuration + 's';
+    
+    gameContainer.appendChild(perfectWord);
+    
+    setTimeout(() => {
+        gameContainer.removeChild(perfectWord);
+    }, randomDuration * 1000);
+    
+    // Use the particle system if available
+    if (window.typeParticleSystem) {
+        window.typeParticleSystem.createPerfectWordEffect(word);
+    }
+}
+
+function colorTextByCharacter(inputText, word, currentIndex) {
+    const wordsDisplay = document.getElementById('words-to-type');
+    let coloredText = '';
+    let mistakeFound = false;
+    
+    // Make current word stand out
+    if (wordsDisplay.children[currentIndex]) {
+        for (let i = 0; i < wordsDisplay.children.length; i++) {
+            wordsDisplay.children[i].classList.remove('current');
+        }
+        wordsDisplay.children[currentIndex].classList.add('current');
+    }
+    
+    // Process each character
+    for (let i = 0; i < word.length; i++) {
+        let characterClass = '';
+        
+        if (i < inputText.length) {
+            // User has typed this character
+            if (word[i] === inputText[i] && !mistakeFound) {
+                characterClass = 'character correct';
+            } else {
+                characterClass = 'character mistake';
+                mistakeFound = true;
+            }
+        } else {
+            // Character not yet typed
+            characterClass = i === inputText.length ? 'character current' : 'character';
+        }
+        
+        coloredText += `<span class="${characterClass}">${word[i]}</span>`;
+    }
+    
+    if (wordsDisplay.children[currentIndex]) {
+        wordsDisplay.children[currentIndex].innerHTML = coloredText;
+    }
+}
+
+function updateWordsToType() {
+    const wordsDisplay = document.getElementById('words-to-type');
+    
+    // Check if we need to add a progress bar
+    if (!document.querySelector('.word-progress-container')) {
+        const progressContainer = document.createElement('div');
+        progressContainer.className = 'word-progress-container';
+        const progressBar = document.createElement('div');
+        progressBar.className = 'word-progress-bar';
+        progressContainer.appendChild(progressBar);
+        document.querySelector('.words-to-type-container').appendChild(progressContainer);
+    }
+    
+    // Reset word progress
+    document.querySelector('.word-progress-bar').style.width = '0%';
+    
+    if(currentWordIndex > 0) {
+        let firstElement = wordsDisplay.children[0];
+        const currentElement = wordsDisplay.children[currentWordIndex];
+        let toRemove = [];
+        
+        while (currentElement && currentElement.getBoundingClientRect().top - 10 > firstElement.getBoundingClientRect().top) {
+            toRemove.push(wordsDisplay.children[toRemove.length]);
+            firstElement = wordsDisplay.children[toRemove.length];
+        }
+        
+        if(toRemove.length > 0) {
+            for(let i = 0; i < toRemove.length; i++) {
+                if (toRemove[i]) {
+                    wordsDisplay.removeChild(toRemove[i]);
+                    wordsToType.shift();
+                    wordsToType.push(getRandomWord());
+                }
+            }
+            currentWordIndex = 0;
+        }
+    }
+    
+    // Add new words if needed
+    if(wordsDisplay.children.length < wordsToType.length) {
+        for(let i = wordsDisplay.children.length; i < wordsToType.length; i++) {
+            const wordElement = document.createElement('div');
+            wordElement.className = 'word';
+            wordElement.textContent = wordsToType[i];
+            wordsDisplay.appendChild(wordElement);
+        }
+    }
+    
+    // Update highlighting for the current word
+    if (wordsToType[currentWordIndex]) {
+        colorTextByCharacter('', wordsToType[currentWordIndex], currentWordIndex);
+        document.getElementById('input-box').placeholder = `Type '${wordsToType[currentWordIndex]}' here...`;
+    }
+    
+    highlightNextKey();
+}
 
 const AllWords = Object.keys(wordsList);
 function getRandomWord(length) {
@@ -360,63 +608,6 @@ function getRandomWord(length) {
     }
 }
 
-
-function updateWordsToType() {
-    const wordsDisplay = document.getElementById('words-to-type');
-    if(currentWordIndex > 0) {
-        let firstElement = wordsDisplay.children[0];
-        const currentElement = wordsDisplay.children[currentWordIndex];
-        let toRemove = [];
-        while (currentElement.getBoundingClientRect().top > firstElement.getBoundingClientRect().top) {
-            toRemove.push(wordsDisplay.children[toRemove.length]);
-            firstElement = wordsDisplay.children[toRemove.length];
-        }
-        if(toRemove.length > 0) {
-            for(let i = 0; i < toRemove.length; i++) {
-                wordsDisplay.removeChild(toRemove[i]);
-                wordsToType.shift();
-                wordsToType.push(getRandomWord());
-            }
-            currentWordIndex = 0;
-        }
-    }
-    if(wordsDisplay.children.length < wordsToType.length) {
-        for(let i = wordsDisplay.children.length; i < wordsToType.length; i++) {
-            const wordElement = document.createElement('div');
-            wordElement.className = 'word';
-            wordElement.textContent = wordsToType[i];
-            wordsDisplay.appendChild(wordElement);
-        }
-    }
-    colorText('', wordsDisplay, wordsToType, currentWordIndex);
-    document.getElementById('input-box').placeholder = `Type '${wordsToType[currentWordIndex]}' here...`;
-    highlightNextKey();
-}
-
-function colorText(inputText, wordsDisplay, words, currentIndex) {
-    const firstWord = words[currentIndex];
-    let coloredText = '';
-    let mistakeFound = false;
-    
-    for (let i = 0; i < firstWord.length; i++) {
-        if (i < inputText.length && firstWord[i] === inputText[i] && !mistakeFound) {
-            coloredText += `<span class="correct">${firstWord[i]}</span>`;
-        } else {
-            if (i < inputText.length || mistakeFound) {
-                coloredText += `<span class="mistake">${firstWord[i]}</span>`;
-                mistakeFound = true;
-            } else {
-                coloredText += `<span class="current">${firstWord[i]}</span>`;
-            }
-        }
-    }
-    /*
-    for (let i = 1; i < words.length; i++) {
-    coloredText += ' ' + words[i];
-    }
-    */
-    wordsDisplay.children[currentIndex].innerHTML = coloredText;
-}
 
 function updateStats() {
     scrollingKeystrokesBank += (keystrokesBank - scrollingKeystrokesBank) / Tickrate * 4;
@@ -439,8 +630,6 @@ function updateStats() {
     
     document.getElementById('researchPoints').textContent = formatShortScale(totalResearchPoints);
     
-    document.getElementById('currentAchievementCount').textContent = achievements.filter(a => a.unlocked).length;
-    document.getElementById('maxAchievementCount').textContent = achievements.length;
     
     // Update WPM
     // Remove old keystrokes timestamps older than 5 seconds
@@ -474,13 +663,22 @@ function createFallingWord(word) {
     // Set the left property randomly between 0% and 10%
     fallingWord.style.left = `${rect.left + Math.random() * rect.width}px`;
     fallingWord.style.top = `${rect.bottom}px`;
-    //fallingWord.style.left = `${Math.random() * 100}%`;
     
     // Set a random animation duration between 1s and 3s
     const randomDuration = (Math.random() * 2 + 1).toFixed(2);
     fallingWord.style.animationDuration = randomDuration + 's';
     
     gameContainer.appendChild(fallingWord);
+    
+    // Add particles at the start position if available
+    if (window.typeParticleSystem) {
+        window.typeParticleSystem.createParticleEffect(
+            parseFloat(fallingWord.style.left), 
+            parseFloat(fallingWord.style.top), 
+            'correct', 
+            5
+        );
+    }
     
     // Remove the falling word after the animation completes
     setTimeout(() => {
@@ -567,93 +765,6 @@ function formatShortScale(number) {
     return `${scaled.toFixed(2)} ${suffix}`;
 }
 
-function renderGameKeyboard() {
-    const keyboardContainer = document.getElementById('game-keyboard');
-    keyboardContainer.innerHTML = '';
-    const layout = keyboardLayouts[keyboardLayout].row;
-    const margins = keyboardLayouts[keyboardLayout].margins;
-    const bumps = keyboardLayouts[keyboardLayout].bumps;
-    layout.forEach((row, index) => {
-        const rowElement = document.createElement('div');
-        rowElement.className = 'game-keyboard-row';
-        rowElement.style.marginLeft = margins[index];
-        row.split('').forEach(key => {
-            const keyElement = document.createElement('div');
-            keyElement.className = 'game-key';
-            if(bumps.includes(key)) keyElement.classList.add('bump');
-            if(!legalKeys.includes(key)) keyElement.classList.add('disabled');
-            keyElement.textContent = key;
-            keyElement.setAttribute('data-key', key);
-            rowElement.appendChild(keyElement);
-        });
-        keyboardContainer.appendChild(rowElement);
-    });
-    document.getElementById('hand').style.marginLeft = keyboardLayouts[keyboardLayout].handMargin;
-}
-
-
-
-function highlightNextKey() {
-    let mistakeFound = false;
-    const inputText = document.getElementById('input-box').value.trim();
-    for(let i = 0; i < inputText.length; i++) {
-        if(inputText[i] !== wordsToType[currentWordIndex][i]) {
-            mistakeFound = true;
-            break;
-        }
-    }
-    if(inputText.length > wordsToType[currentWordIndex].length) mistakeFound = true;
-    if(inputText.length === 0) mistakeFound = false;
-    if(mistakeFound) {
-        document.querySelectorAll('.game-key').forEach(keyElement => {
-            keyElement.classList.remove('highlight');
-            keyElement.classList.add('invalid');
-        }); 
-        document.querySelectorAll('.finger').forEach(finger => {
-            finger.classList.remove('highlight-finger');
-        });
-    } else {
-        if(inputText.length === wordsToType[currentWordIndex].length) {
-            document.querySelectorAll('.game-key').forEach(keyElement => {
-                keyElement.classList.remove('invalid');
-                keyElement.classList.add('highlight');
-            }); 
-        } else {
-            const nextKey = wordsToType[currentWordIndex][inputText.length].toUpperCase();
-            document.querySelectorAll('.game-key').forEach(keyElement => {
-                keyElement.classList.remove('invalid');
-                if (keyElement.getAttribute('data-key') === nextKey) {
-                    keyElement.classList.add('highlight');
-                } else {
-                    keyElement.classList.remove('highlight');
-                }
-            });
-            
-            const fingerName = getProperFingerName(keyboardLayout, nextKey.toUpperCase());
-            document.querySelectorAll('.finger').forEach(finger => {
-                finger.classList.remove('highlight-finger');
-                finger.classList.remove('toprow');
-                finger.classList.remove('midrow');
-                finger.classList.remove('botrow');
-            });
-            const fingerElement = document.getElementById(fingerName.toLowerCase().replace(' ', '-'));
-            if(fingerElement) {
-                document.getElementById('finger-guide').innerHTML = `Use your <strong>${fingerName}</strong> finger to type the next key.`;
-                fingerElement.classList.add('highlight-finger');
-                const rowIndex = keyboardLayouts[keyboardLayout].row.findIndex(row => row.includes(nextKey));
-                if (rowIndex === 0) {
-                    fingerElement.classList.add('toprow');
-                } else if (rowIndex === 1) {
-                    fingerElement.classList.add('midrow');
-                } else if (rowIndex === 2) {
-                    fingerElement.classList.add('botrow');
-                }
-            } else {
-                document.getElementById('finger-guide').textContent = '';
-            }
-        }
-    }
-}
 
 function switchTab(activeTab, pushState = true) {
     if(casinoBusy) return; // Prevent switching tabs while casino is busy as it will break the casino

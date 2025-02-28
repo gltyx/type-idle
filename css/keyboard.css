@@ -1,0 +1,85 @@
+/* Hand Graphic */
+#hand-graphic {
+    display: flex;
+    margin-top: 5rem;
+    position: absolute;
+    top: 0;
+}
+.hand {
+    display: flex;
+    width: auto;
+}
+.hand-divider {
+    width: 9.25rem;
+}
+.finger {
+    width: 4rem;
+    height: 4rem;
+    margin: 0.25rem;
+    margin-top: 2rem;
+    background-color: var(--hand-finger-bg);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    text-align: center;
+    transition: background-color 0.3s, margin-top 0.3s;
+    opacity: 0.5;
+}
+#finger-guide {
+    background-color: #4caf4f98;
+    text-align: center;
+    padding: 0.625rem;
+    border-radius: 2rem;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.8);
+}
+.finger.toprow {
+    margin-top: -4rem;
+    background: red;
+}
+.finger.midrow {
+    margin-top: 1rem;
+}
+.finger.botrow {
+    margin-top: 6rem;
+}
+.finger.highlight-finger {
+    background-color: #2196F3;
+    color: #ffffff;
+}
+
+/* Game Keyboard */
+#game-keyboard-container {
+    z-index: 5;
+    position: relative;
+}
+#game-keyboard {
+    font-family: var(--keyboard-font);
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: var(--keyboard-bg);
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    overflow:hidden;
+}
+.game-keyboard-row {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+}
+.game-key.highlight {
+    background-color: #2196F3;
+    color: #ffffff;
+}
+.game-key.invalid {
+    background-color: #f44336;
+    color: #ffffff;
+}
+.game-key.disabled {
+    background-color: #0000004d;
+}

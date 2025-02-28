@@ -1,0 +1,168 @@
+/* ARENA */
+#arena-stats, #practice-stats {
+    background-color: var(--bgcolor2);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+#arena-stats p {
+    font-size: 1.1rem;
+    margin: 0.5rem 0;
+    font-weight: bold;
+}
+#gold-medals {
+    font-size: 1.5rem;
+    color: var(--arena-gold-color);
+}
+#arena-result {
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--color1);
+    margin-top: 1rem;
+}
+#start-race, #start-practice {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background: var(--bg-alpha1);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+#start-race p {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+}
+#start-race button {
+    background-color: var(--correct-color);
+    color: #ffffff;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+#start-race button:hover {
+    background-color: #388e3c;
+    box-shadow: 0 4px 10px rgba(56, 142, 60, 0.3);
+}
+#arena-race, #practice-race {
+    background: var(--arena-race-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem;
+    margin-top: 1rem;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+#race-progress {
+    margin-bottom: 1rem;
+}
+#race-progress p {
+    font-size: 1.1rem;
+    margin: 0.5rem 0;
+}
+
+#player-progress-bar {
+    background: linear-gradient(135deg, var(--player-progress-gradient1), var(--player-progress-gradient2));
+}
+#practice-progress-bar {
+    transition: width 0.05s ease-in-out;
+    background: linear-gradient(135deg, var(--player-progress-gradient1), var(--player-progress-gradient2));
+}
+#opponent-progress-bar {
+    background: linear-gradient(135deg, var(--opponent-progress-gradient1), var(--opponent-progress-gradient2));
+}
+#business-rankup-progress {
+    width: 100%;
+    overflow: hidden;
+    height: 10px;
+    position: relative;
+}
+#business-rankup-progress-bar {
+    background: linear-gradient(135deg, var(--player-progress-gradient1), var(--player-progress-gradient2));
+}
+.win-effect {
+    font-size: 2rem;
+    color: var(--arena-gold-color);
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+    animation: arena-win-pop-up 0.5s ease-out, arena-win-fade-out 2.5s ease-out forwards;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(121, 109, 0, 0.35);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(255, 255, 0, 0.8);
+}
+
+/* Practice History Section */
+#practice-history-section {
+    background-color: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: 10px;
+    padding: 1rem;
+    margin-top: 2rem;
+}
+
+.practice-stats-summary {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 1rem 0;
+}
+
+.practice-stat-box {
+    background-color: var(--bg-alpha1);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.8rem;
+    width: calc(25% - 1rem);
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.practice-stat-label {
+    display: block;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    color: var(--color2);
+}
+
+.practice-stat-value {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--color1);
+}
+
+.practice-chart-container {
+    position: relative;
+    height: 300px;
+    margin-top: 1rem;
+    background-color: var(--bg-alpha1);
+    border-radius: 8px;
+    padding: 1rem;
+    border: 1px solid var(--border);
+}
+
+.trend-up {
+    color: var(--correct-color);
+}
+
+.trend-down {
+    color: var(--mistake-color);
+}
+
+@media (max-width: 768px) {
+    .practice-stat-box {
+        width: calc(50% - 0.5rem);
+        margin-bottom: 1rem;
+    }
+}

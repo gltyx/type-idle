@@ -81,6 +81,9 @@ function displayPracticeTab() {
             document.getElementById("practice-progress-bar").style.width = "100%";
             document.getElementById("practice-stats").style.display = "block";
             document.getElementById("practice-race").style.display = "none";
+            
+            // Show practice history if available
+            updatePracticeHistoryDisplay();
         }
     }
 }
@@ -220,7 +223,7 @@ function updateArenaWordList(practice) {
         let firstElement = wordsDisplay.children[0];
         const currentElement = wordsDisplay.children[arenaCurrentWordIndex];
         let toRemove = [];
-        while (currentElement.getBoundingClientRect().top > firstElement.getBoundingClientRect().top) {
+        while (currentElement.getBoundingClientRect().top - 10 > firstElement.getBoundingClientRect().top) {
             toRemove.push(wordsDisplay.children[toRemove.length]);
             firstElement = wordsDisplay.children[toRemove.length];
         }
@@ -242,7 +245,45 @@ function updateArenaWordList(practice) {
         }
     }
     inputBox.placeholder = `Type '${arenaWords[arenaCurrentWordIndex]}' here...`;
-    colorText('', wordsDisplay, arenaWords, arenaCurrentWordIndex);
+    arenaColorTextByCharacter('', wordsDisplay, arenaWords[arenaCurrentWordIndex], arenaCurrentWordIndex);
+}
+
+// New function to handle Arena-specific character highlighting
+function arenaColorTextByCharacter(inputText, wordsDisplay, word, currentIndex) {
+    let coloredText = '';
+    let mistakeFound = false;
+    
+    // Make current word stand out
+    for (let i = 0; i < wordsDisplay.children.length; i++) {
+        wordsDisplay.children[i].classList.remove('current');
+    }
+    if (wordsDisplay.children[currentIndex]) {
+        wordsDisplay.children[currentIndex].classList.add('current');
+    }
+    
+    // Process each character
+    for (let i = 0; i < word.length; i++) {
+        let characterClass = '';
+        
+        if (i < inputText.length) {
+            // User has typed this character
+            if (word[i] === inputText[i] && !mistakeFound) {
+                characterClass = 'character correct';
+            } else {
+                characterClass = 'character mistake';
+                mistakeFound = true;
+            }
+        } else {
+            // Character not yet typed
+            characterClass = i === inputText.length ? 'character current' : 'character';
+        }
+        
+        coloredText += `<span class="${characterClass}">${word[i]}</span>`;
+    }
+    
+    if (wordsDisplay.children[currentIndex]) {
+        wordsDisplay.children[currentIndex].innerHTML = coloredText;
+    }
 }
 
 document.getElementById("practice-input-box").addEventListener("input", function () {
@@ -252,7 +293,7 @@ document.getElementById("practice-input-box").addEventListener("input", function
     }
     const inputBox = document.getElementById("practice-input-box");
     const inputText = inputBox.value.trim();
-    colorText(inputText, document.getElementById('practice-words-to-type'), arenaWords, arenaCurrentWordIndex);
+    arenaColorTextByCharacter(inputText, document.getElementById('practice-words-to-type'), arenaWords[arenaCurrentWordIndex], arenaCurrentWordIndex);
     if (inputBox.value.endsWith(" ")) {
         if (inputText === arenaWords[arenaCurrentWordIndex]) {
             playerKeystrokes += inputText.length;
@@ -279,7 +320,7 @@ document.getElementById("arena-input-box").addEventListener("input", function ()
     }
     const inputBox = document.getElementById("arena-input-box");
     const inputText = inputBox.value.trim();
-    colorText(inputText, document.getElementById('arena-words-to-type'), arenaWords, arenaCurrentWordIndex);
+    arenaColorTextByCharacter(inputText, document.getElementById('arena-words-to-type'), arenaWords[arenaCurrentWordIndex], arenaCurrentWordIndex);
     if (inputBox.value.endsWith(" ")) {
         if (inputText === arenaWords[arenaCurrentWordIndex]) {
             playerKeystrokes += inputText.length;
@@ -359,6 +400,24 @@ function finishPracticeRace() {
     const safeDuration = practiceDurationSeconds > 0 ? practiceDurationSeconds : 0.1;
     practiceWPM = Math.round((playerKeystrokes / 5) / (safeDuration / 60));
     document.getElementById("practice-result").innerHTML = `Your WPM: ${practiceWPM}`;
+    
+    // Save practice result to history
+    const practiceResult = {
+        date: Date.now(),
+        wpm: practiceWPM,
+        keystrokes: playerKeystrokes
+    };
+    
+    practiceHistory.push(practiceResult);
+    
+    // Limit history to the most recent 100 entries
+    if (practiceHistory.length > 100) {
+        practiceHistory.shift();
+    }
+    
+    // Update history graph
+    updatePracticeHistoryDisplay();
+    
     gtag('event', 'arena_speedtest', {
         'event_category': 'arena',
         'wpm': practiceWPM
@@ -397,8 +456,6 @@ function finishArenaRace(playerWon) {
     });
 }
 
-
-
 function triggerWinEffect() {
     const arenaPage = document.getElementById("arenaPage");
     const winEffect = document.createElement("div");
@@ -418,4 +475,131 @@ function applyRaceFinishBuff() {
 
 function applyArenaChampionBuff() {
     spawnBoost(2);
+}
+
+// Function to update the practice history display
+function updatePracticeHistoryDisplay() {
+    const historySection = document.getElementById('practice-history-section');
+    
+    if (practiceHistory.length === 0) {
+        return;
+    }
+    
+    historySection.style.display = 'block';
+    
+    // Calculate statistics
+    const wpmValues = practiceHistory.map(entry => entry.wpm);
+    const averageWPM = wpmValues.reduce((sum, wpm) => sum + wpm, 0) / wpmValues.length;
+    const bestWPM = Math.max(...wpmValues);
+    const recentTrend = calculateRecentTrend();
+    
+    // Update statistics display
+    document.getElementById('practice-average-wpm').textContent = averageWPM.toFixed(1);
+    document.getElementById('practice-best-wpm').textContent = bestWPM;
+    document.getElementById('practice-count').textContent = practiceHistory.length;
+    
+    const trendElement = document.getElementById('practice-trend');
+    if (recentTrend > 0) {
+        trendElement.textContent = `+${recentTrend.toFixed(1)}`;
+        trendElement.className = 'trend-up';
+    } else if (recentTrend < 0) {
+        trendElement.textContent = `${recentTrend.toFixed(1)}`;
+        trendElement.className = 'trend-down';
+    } else {
+        trendElement.textContent = '0';
+        trendElement.className = '';
+    }
+    
+    // Update chart
+    updatePracticeHistoryChart();
+}
+
+// Function to calculate the recent trend (comparing last 5 tests to previous 5)
+function calculateRecentTrend() {
+    if (practiceHistory.length < 10) return 0;
+    
+    const recentTests = practiceHistory.slice(-5);
+    const previousTests = practiceHistory.slice(-10, -5);
+    
+    const recentAvg = recentTests.reduce((sum, entry) => sum + entry.wpm, 0) / recentTests.length;
+    const previousAvg = previousTests.reduce((sum, entry) => sum + entry.wpm, 0) / previousTests.length;
+    
+    return recentAvg - previousAvg;
+}
+
+// Function to create and update the practice history chart
+function updatePracticeHistoryChart() {
+    const ctx = document.getElementById('practice-history-chart').getContext('2d');
+    
+    // Prepare data for the chart
+    const displayData = practiceHistory.slice(-30); // Show up to 30 most recent tests
+    
+    const labels = displayData.map(entry => {
+        const date = new Date(entry.date);
+        return `${date.getMonth()+1}/${date.getDate()}`;
+    });
+    
+    const data = displayData.map(entry => entry.wpm);
+    
+    // Destroy existing chart if it exists
+    if (window.practiceHistoryChart) {
+        window.practiceHistoryChart.destroy();
+    }
+    
+    // Create new chart
+    window.practiceHistoryChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'WPM',
+                data: data,
+                borderColor: getComputedStyle(document.body).getPropertyValue('--correct-color'),
+                backgroundColor: getComputedStyle(document.body).getPropertyValue('--correct-color') + '33',
+                tension: 0.3,
+                fill: true
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: getComputedStyle(document.body).getPropertyValue('--body-color')
+                    },
+                    grid: {
+                        color: getComputedStyle(document.body).getPropertyValue('--border') + '33'
+                    }
+                },
+                x: {
+                    ticks: {
+                        color: getComputedStyle(document.body).getPropertyValue('--body-color')
+                    },
+                    grid: {
+                        color: getComputedStyle(document.body).getPropertyValue('--border') + '33'
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        color: getComputedStyle(document.body).getPropertyValue('--body-color')
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const entry = displayData[context.dataIndex];
+                            const date = new Date(entry.date);
+                            return [`WPM: ${entry.wpm}`, 
+                                    `Date: ${date.toLocaleDateString()}`, 
+                                    `Time: ${date.toLocaleTimeString()}`];
+                        }
+                    }
+                }
+            },
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
 }

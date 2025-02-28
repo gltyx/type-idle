@@ -279,98 +279,231 @@ function showAchievement(achievement) {
         `<p>${achievement.description}</p>
         <p class="trivia">"${achievement.trivia}"</p>`,
         `url("/images/tooltips/achievements/448/${achievement.id}.webp")`);
-    }
-    function updateAchievement(achievement) {
-        const achievementElement = document.getElementById(`achievement-${achievement.id}`);
-        if (achievementElement) {
-            let progressNumber = achievement.progress().toFixed(0);
-            progressNumber = Math.min(progressNumber, achievement.maxprogress);
-            let progressPercent = (achievement.progress() / achievement.maxprogress) * 100;
-            progressPercent = Math.min(progressPercent, 100);
-            if(achievement.unlocked) {
-                progressPercent = 100;
-                progressNumber = achievement.maxprogress;
-                achievementElement.classList.remove('locked');
-                achievementElement.classList.add('unlocked');
-            }
-            const achievementProgress = document.getElementById(`achievement-${achievement.id}-progress-bar`);
-            achievementProgress.style.width = `${progressPercent}%`;
-            const achievementProgressText = document.getElementById(`achievement-${achievement.id}-progress`);
-            achievementProgressText.textContent = `${progressNumber} / ${achievement.maxprogress}`;
-        }
-    }
-    function displayAchievements() {
-        const achievementsContainer = document.getElementById('achievements-container');
-        achievementsContainer.innerHTML = '';
-        
-        achievements.sort((a, b) => a.showindex - b.showindex);
-        achievements.forEach(achievement => {
-            const achievementElement = document.createElement('div');
-            achievementElement.className = 'achievement';
-            achievementElement.id = `achievement-${achievement.id}`;
-            achievementElement.classList.add(achievement.unlocked ? 'unlocked' : 'locked');
-            
-            const achievementIcon = document.createElement('img');
-            achievementIcon.src = `/images/tooltips/achievements/448/${achievement.id}.webp`;
-            achievementIcon.alt = achievement.name;
-            achievementIcon.classList.add('achievement-icon');
-            achievementElement.appendChild(achievementIcon);
-            
-            const achievementDetails = document.createElement('div');
-            achievementDetails.className = 'achievement-details';
-            achievementElement.appendChild(achievementDetails);
-            
-            const achievementName = document.createElement('h3');
-            achievementName.className = 'achievement-name';
-            achievementName.textContent = achievement.name;
-            achievementDetails.appendChild(achievementName);
-            
-            const achievementDescription = document.createElement('p');
-            achievementDescription.textContent = achievement.description;
-            achievementDetails.appendChild(achievementDescription);
-            
-            const achievementProgressContainer = document.createElement('div');
-            achievementProgressContainer.className = 'progress-container';
-            achievementDetails.appendChild(achievementProgressContainer);
-            
-            const achievementProgress = document.createElement('div');
-            achievementProgress.className = 'progress-bar';
-            achievementProgress.id = `achievement-${achievement.id}-progress-bar`;
-            let progressPercent = (achievement.progress() / achievement.maxprogress) * 100;
-            progressPercent = Math.min(progressPercent, 100);
-            let progressNumber = achievement.progress().toFixed(0);
-            progressNumber = Math.min(progressNumber, achievement.maxprogress);
-            if(achievement.unlocked) {
-                progressPercent = 100;
-                progressNumber = achievement.maxprogress;
-            }
-            achievementProgress.style.width = `${progressPercent}%`;
-            achievementProgressContainer.appendChild(achievementProgress);
-            
-            const achievementProgressText = document.createElement('p');
-            achievementProgressText.id = `achievement-${achievement.id}-progress`;
-            achievementProgressText.className = 'abscenter progress-text';
-            achievementProgressText.textContent = `${progressNumber} / ${achievement.maxprogress}`;
-            achievementProgressContainer.appendChild(achievementProgressText);
-            
-            const achievementTrivia = document.createElement('p');
-            achievementTrivia.textContent = achievement.trivia;
-            achievementTrivia.className = 'trivia';
-            achievementDetails.appendChild(achievementTrivia);
-            /*
-            achievementElement.onmouseenter = () => showAchievementTooltip(achievementElement, achievement);
-            achievementElement.onmouseleave = () => hideTooltip();
-            if (achievement.unlocked) {
+}
+
+function updateAchievement(achievement) {
+    const achievementElement = document.getElementById(`achievement-${achievement.id}`);
+    if (achievementElement) {
+        let progressNumber = achievement.progress().toFixed(0);
+        progressNumber = Math.min(progressNumber, achievement.maxprogress);
+        let progressPercent = (achievement.progress() / achievement.maxprogress) * 100;
+        progressPercent = Math.min(progressPercent, 100);
+        if(achievement.unlocked) {
+            progressPercent = 100;
+            progressNumber = achievement.maxprogress;
+            achievementElement.classList.remove('locked');
             achievementElement.classList.add('unlocked');
-            achievementElement.style.backgroundImage = `url("/images/tooltips/achievements/${achievement.id}.webp")`;
-            achievementElement.innerHTML = ``;
-            } else {
-            achievementElement.classList.add('locked');
-            achievementElement.style.backgroundImage = `url("/images/tooltips/achievements/0.webp")`
-            achievementElement.innerHTML = ``;
-            }
-            */
-            achievementsContainer.appendChild(achievementElement);
-        });
+        }
+        const achievementProgress = document.getElementById(`achievement-${achievement.id}-progress-bar`);
+        achievementProgress.style.width = `${progressPercent}%`;
+        const achievementProgressText = document.getElementById(`achievement-${achievement.id}-progress`);
+        achievementProgressText.textContent = `${progressNumber} / ${achievement.maxprogress}`;
     }
+}
+
+function displayAchievements() {
+    const achievementsContainer = document.getElementById('achievements-container');
+    achievementsContainer.innerHTML = '';
     
+    // Create stats section
+    const statsSection = createAchievementStats();
+    
+    // Create filters section
+    const filtersSection = createAchievementFilters();
+    
+    // Add stats and filters to page before the container
+    const parent = achievementsContainer.parentElement;
+    
+    // Remove any existing stats or filters
+    const existingStats = document.getElementById('achievements-stats');
+    const existingFilters = document.getElementById('achievements-filters');
+    if (existingStats) existingStats.remove();
+    if (existingFilters) existingFilters.remove();
+    
+    // Add new elements
+    parent.insertBefore(statsSection, achievementsContainer);
+    parent.insertBefore(filtersSection, achievementsContainer);
+    
+    // Sort achievements: unlocked first, then by progress percentage
+    achievements.sort((a, b) => {
+        if (a.unlocked && !b.unlocked) return -1;
+        if (!a.unlocked && b.unlocked) return 1;
+        
+        // Secondary sort by progress percentage
+        const aProgress = a.progress() / a.maxprogress;
+        const bProgress = b.progress() / b.maxprogress;
+        return bProgress - aProgress; // Higher progress first
+    });
+    
+    // Display each achievement
+    achievements.forEach(achievement => {
+        const achievementElement = document.createElement('div');
+        achievementElement.className = 'achievement';
+        achievementElement.id = `achievement-${achievement.id}`;
+        achievementElement.classList.add(achievement.unlocked ? 'unlocked' : 'locked');
+        
+        // Calculate progress
+        let progressPercent = (achievement.progress() / achievement.maxprogress) * 100;
+        progressPercent = Math.min(progressPercent, 100);
+        let progressNumber = Math.min(achievement.progress().toFixed(0), achievement.maxprogress);
+        
+        if(achievement.unlocked) {
+            progressPercent = 100;
+            progressNumber = achievement.maxprogress;
+        }
+        
+        achievementElement.innerHTML = `
+            <div class="achievement-header">
+                <img src="/images/tooltips/achievements/448/${achievement.id}.webp" alt="${achievement.name}">
+                <span class="achievement-badge">${achievement.unlocked ? '✓' : '!'}</span>
+                ${!achievement.unlocked ? '<div class="achievement-icon-overlay">🔒</div>' : ''}
+                <span class="achievement-status">${achievement.unlocked ? 'Completed' : 'Incomplete'}</span>
+                <h3 class="achievement-name">${achievement.name}</h3>
+            </div>
+            <div class="achievement-details">
+                <p>${achievement.description}</p>
+                <div class="progress-container">
+                    <div class="progress-bar" id="achievement-${achievement.id}-progress-bar" style="width: ${progressPercent}%"></div>
+                </div>
+                <div class="progress-text">
+                    <span>Progress</span>
+                    <span id="achievement-${achievement.id}-progress">${progressNumber} / ${achievement.maxprogress}</span>
+                </div>
+                <p class="trivia">"${achievement.trivia}"</p>
+            </div>
+        `;
+        
+        achievementsContainer.appendChild(achievementElement);
+    });
+    
+    // Update total progress display
+    updateAchievementStats();
+}
+
+function createAchievementStats() {
+    const statsSection = document.createElement('div');
+    statsSection.id = 'achievements-stats';
+    
+    statsSection.innerHTML = `
+        <div id="achievements-count">Achievements: 0/0</div>
+        <div id="achievements-total-progress">
+            <span>Overall Progress:</span>
+            <div id="achievements-progress-bar">
+                <div id="achievements-progress-fill"></div>
+            </div>
+            <span id="achievements-progress-percentage">0%</span>
+        </div>
+    `;
+    
+    return statsSection;
+}
+
+function createAchievementFilters() {
+    const filtersSection = document.createElement('div');
+    filtersSection.id = 'achievements-filters';
+    
+    filtersSection.innerHTML = `
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="unlocked">Unlocked</button>
+        <button class="filter-btn" data-filter="locked">Locked</button>
+        <button class="filter-btn" data-filter="in-progress">In Progress</button>
+    `;
+    
+    // Add event listeners to filter buttons
+    filtersSection.querySelectorAll('.filter-btn').forEach(button => {
+        button.addEventListener('click', () => {
+            // Remove active class from all buttons
+            filtersSection.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Add active class to clicked button
+            button.classList.add('active');
+            
+            // Filter achievements
+            filterAchievements(button.getAttribute('data-filter'));
+        });
+    });
+    
+    return filtersSection;
+}
+
+function filterAchievements(filter) {
+    const achievementElements = document.querySelectorAll('.achievement');
+    
+    achievementElements.forEach(element => {
+        const isUnlocked = element.classList.contains('unlocked');
+        const achievement = achievements.find(a => `achievement-${a.id}` === element.id);
+        const inProgress = !isUnlocked && achievement && achievement.progress() > 0;
+        
+        switch (filter) {
+            case 'all':
+                element.style.display = '';
+                break;
+            case 'unlocked':
+                element.style.display = isUnlocked ? '' : 'none';
+                break;
+            case 'locked':
+                element.style.display = !isUnlocked ? '' : 'none';
+                break;
+            case 'in-progress':
+                element.style.display = inProgress ? '' : 'none';
+                break;
+        }
+    });
+}
+
+function updateAchievementStats() {
+    const unlockedCount = achievements.filter(a => a.unlocked).length;
+    const totalCount = achievements.length;
+    const progressPercent = (unlockedCount / totalCount) * 100;
+    
+    const countElement = document.getElementById('achievements-count');
+    const fillElement = document.getElementById('achievements-progress-fill');
+    const percentageElement = document.getElementById('achievements-progress-percentage');
+    
+    if (countElement) countElement.textContent = `Achievements: ${unlockedCount}/${totalCount}`;
+    if (fillElement) fillElement.style.width = `${progressPercent}%`;
+    if (percentageElement) percentageElement.textContent = `${progressPercent.toFixed(1)}%`;
+}
+
+function updateAchievement(achievement) {
+    const achievementElement = document.getElementById(`achievement-${achievement.id}`);
+    if (achievementElement) {
+        // If achievement was just unlocked
+        if (achievement.unlocked && achievementElement.classList.contains('locked')) {
+            achievementElement.classList.remove('locked');
+            achievementElement.classList.add('unlocked', 'recently-unlocked');
+            
+            // Update status and badge
+            const statusElement = achievementElement.querySelector('.achievement-status');
+            if (statusElement) statusElement.textContent = 'Completed';
+            
+            const badgeElement = achievementElement.querySelector('.achievement-badge');
+            if (badgeElement) badgeElement.textContent = '✓';
+            
+            // Remove lock overlay
+            const lockOverlay = achievementElement.querySelector('.achievement-icon-overlay');
+            if (lockOverlay) lockOverlay.remove();
+            
+            // After 5 seconds, remove the glow effect
+            setTimeout(() => {
+                achievementElement.classList.remove('recently-unlocked');
+            }, 5000);
+        }
+        
+        // Update progress bar and text
+        let progressNumber = achievement.progress().toFixed(0);
+        progressNumber = Math.min(progressNumber, achievement.maxprogress);
+        let progressPercent = (achievement.progress() / achievement.maxprogress) * 100;
+        progressPercent = Math.min(progressPercent, 100);
+        if(achievement.unlocked) {
+            progressPercent = 100;
+            progressNumber = achievement.maxprogress;
+        }
+        const achievementProgress = document.getElementById(`achievement-${achievement.id}-progress-bar`);
+        achievementProgress.style.width = `${progressPercent}%`;
+        const achievementProgressText = document.getElementById(`achievement-${achievement.id}-progress`);
+        achievementProgressText.textContent = `${progressNumber} / ${achievement.maxprogress}`;
+    }
+}

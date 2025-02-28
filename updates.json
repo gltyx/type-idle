@@ -1,6 +1,11 @@
 {
     "updates": [
       {
+        "version": "0.0.4",
+        "title": "New features",
+        "content": "- QoL changes, new feautures, and new UI."
+      },
+      {
         "version": "0.0.3",
         "title": "Bug fixes",
         "content": "- Fixed stock market jiggling on some screens.\n- Minified game files.\n- Added a loading screen."

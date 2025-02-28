@@ -1,0 +1,358 @@
+/* Casino Minigame Styles */
+#casino-game {
+    background: linear-gradient(var(--bg-overlay3), var(--bg-overlay4)), var(--slot-machine-bg-image);
+    background-blend-mode: multiply;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+#casino-board {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.25rem;
+    margin-bottom: 1rem;
+}
+
+#casino-win-feedback {
+    position: absolute;
+    top:0;
+    width: 50%;
+    left: 50%;
+    right: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--bg-alpha1);
+    padding: 1rem;
+    border-radius: 5px;
+    border: 1px solid var(--border);
+    opacity: 0.85;
+    z-index: 4;
+}
+#casino-current-multiplier-container {
+    top: 0;
+    left: 16rem;
+    width: 5rem;
+    height:5rem;
+    padding: 0.5rem;
+    background-color: var(--bg-alpha1);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease;
+    font-size: 1.5rem;
+}
+#casino-current-multiplier-container.updated {
+    background-color: var(--correct-color);
+}
+#casino-current-multiplier-span {
+    transition: transform 0.3s ease;
+}
+#casino-current-multiplier-container.updated #casino-current-multiplier-span {
+    transform: scale(2.5);
+}
+#casino-win-feed {
+    position:absolute;
+    left:0;
+    top:0;
+    width: 15rem;
+    height: 30rem;
+    background-color: var(--bg-alpha1);
+    overflow-y: scroll;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column-reverse;
+    z-index: 4;
+}
+#casino-controls {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background-color: var(--bg-alpha1);
+    border: 1px solid var(--border);
+    
+}
+
+#casino-feature-menu {
+    width: 10rem;
+}
+#casino-feature-menu button,
+#casino-bet button {
+    margin: 0;
+    border-radius: 0;
+}
+#casino-bet {
+    width: 10rem;
+    background-color: var(--bg-alpha1);
+    border: 1px solid var(--border);
+}
+#casino-start-button {
+    background: url("/images/casino/128/casino-spin-button.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 7.5rem;
+    height: 7.5rem;
+    transition: filter 0.3s ease;
+    box-shadow: 0 0 10px 2px rgba(0, 255, 0, 0.8);
+    animation: pulse-border 2s infinite;
+    transition: transform 0.3s ease;
+    border-radius: 50%;
+}
+
+
+#casino-start-button:hover {
+    transform: rotate(5deg);
+    filter: brightness(1.1) contrast(1.1) scale(1.05);
+}
+
+#casino-start-button:hover:active {
+    transform: rotate(-5deg) scale(0.95);
+    filter: brightness(0.9) contrast(0.9);
+}
+
+.casino-reel {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    z-index: 3;
+}
+.casino-reel.casino-reel-spinning {
+    filter: blur(2px);
+}
+.casino-symbol-container {
+    position:relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 6rem;
+    height: 6rem;
+    border-radius: 5px;
+    background-color: var(--bg-alpha1);
+    border: 1px solid var(--input-border);
+}
+.casino-slot {
+    position:absolute;
+    background-color: var(--input-bg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 6rem;
+    height: 6rem;
+    border: 1px solid var(--input-border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--body-color);
+    transition: transform 0.3s ease;
+}
+/*
+#casino-board.casino-bonus .casino-symbol-container {
+animation: pulse-border 2s infinite;
+}
+*/
+.slot-hidden {
+    visibility: hidden;
+}
+.slot-ghost {
+    position: absolute;
+    filter: blur(0.2px);
+    transition: transform 0.25s ease-in; /* Or your preferred easing/duration */
+    pointer-events: none; /* so user cannot interact with it */
+    z-index: 999;         /* ensure it appears on top */
+}
+.casino-slot-back {
+    background-color: var(--bg-alpha1);
+    border-radius: 0;
+}
+.tiny-slot {
+    position:relative;
+    width: 2rem;
+    height: 2rem;
+    display: inline-block;
+    vertical-align: middle;
+}
+.casino-slot * {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.casino-slot:has(.symbol-A) {
+    background-color: rgb(10,10,10);
+}
+.casino-slot .symbol-A {
+    background: url("/images/buildings/128/1.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.casino-slot:has(.symbol-B) {
+    background-color: rgb(15,15,15);
+}
+.casino-slot .symbol-B {
+    background: url("/images/buildings/128/2.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.casino-slot:has(.symbol-C) {
+    background-color: rgb(20,20,20);
+}
+.casino-slot .symbol-C {
+    background: url("/images/buildings/128/3.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.casino-slot:has(.symbol-D) {
+    background-color: rgb(30,30,30);
+}
+.casino-slot .symbol-D {
+    background: url("/images/buildings/128/4.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.casino-slot:has(.symbol-E) {
+    background-color: rgb(40,40,40);
+}
+.casino-slot .symbol-E {
+    background: url("/images/icons/128/keystroke-coin-icon.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.casino-slot:has(.symbol-F) {
+    background-color: rgb(10,10,50);
+}
+.casino-slot .symbol-F {
+    background: url("/images/casino/128/casino-f-symbol.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.casino-slot:has(.symbol-G) {
+    background-color: rgb(10,10,60);
+}
+.casino-slot .symbol-G {
+    background: url("/images/casino/128/casino-g-symbol.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.casino-slot:has(.symbol-H) {
+    background-color: rgb(50,10,10);
+}
+.casino-slot .symbol-H {
+    background: url("/images/casino/128/casino-h-symbol.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.casino-slot:has(.symbol-x2) {
+    background-color: rgb(5,5,5);
+}
+.casino-slot .symbol-x2 {
+    background: url("/images/casino/128/casino-x2-multiplier.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.casino-slot:has(.symbol-x3) {
+    background-color: rgb(10,10,20);
+}
+.casino-slot .symbol-x3 {
+    background: url("/images/casino/128/casino-x3-multiplier.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.casino-slot:has(.symbol-x5) {
+    background-color: rgb(10,10,30);
+}
+.casino-slot .symbol-x5 {
+    background: url("/images/casino/128/casino-x5-multiplier.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.casino-slot:has(.symbol-x10) {
+    background-color: rgb(30,10,10);
+}
+.casino-slot .symbol-x10 {
+    background: url("/images/casino/128/casino-x10-multiplier.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.casino-slot:has(.symbol-x50) {
+    background-color: rgb(10,40,10);
+}
+.casino-slot .symbol-x50 {
+    background: url("/images/casino/128/casino-x50-multiplier.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.casino-slot:has(.symbol-x100) {
+    background-color: rgb(10,50,10);
+}
+.casino-slot .symbol-x100 {
+    background: url("/images/casino/128/casino-x100-multiplier.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.casino-slot:has(.symbol-BONUS) {
+    background-color: rgb(75,75,10);
+}
+.casino-slot .symbol-BONUS {
+    background: url("/images/casino/128/casino-bonus-symbol.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.casino-slot:has(.symbol-WILD) {
+    background-color: rgb(10,75,10);
+}
+.casino-slot .symbol-WILD {
+    background: url("/images/casino/128/casino-wild-symbol.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.slot-pop-out {
+    animation: slot-popOut 1s forwards;
+    box-shadow: 0 0 10px green;
+    border: 2px solid green;
+}
+
+.slot-pop-in {
+    animation: slot-popIn 0.5s forwards;
+}
+.slot-pop-win {
+    animation: slot-popWin 0.5s forwards;
+    box-shadow: 0 0 10px green;
+    border: 2px solid green;
+}
+.slot-fall-down {
+    animation: slot-falldown 0.5s;
+}
+.slot-fade-out {
+    animation: slot-fadeOut 0.5s forwards;
+}

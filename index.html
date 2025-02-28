@@ -66,6 +66,8 @@
     </script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1521366078670362"
     crossorigin="anonymous"></script>
+    <!-- Add our new typing effects script -->
+    <script defer src="/typing-effects.js"></script>
 </head>
 <body>
     <audio id="typeSound1" src="/sounds/cash1.mp3"></audio>
@@ -109,7 +111,7 @@
                     TypeIdle.com - Typing Idle Game - 
                     <a href="https://www.youtube.com/@santtuz112" target="_blank">YouTube</a> - 
                     <a href="https://github.com/santtuz112/TypeIdle" target="_blank">GitHub</a> -
-                    (Work in progress) - Last updated 27 Feb 2025 - v0.0.4
+                    Last updated 28 Feb 2025 - v0.0.4
                 </p>
             </div>
             <div id="level-container">
@@ -130,8 +132,8 @@
                 <div id="news-container" style="display: none;"></div>
                 <div id="keystrokes-container">
                     <div>
-                        <h2 style="margin-bottom: 0;"><img src="/images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"> <span id="keystrokes-bank">0</span> keystrokes</h2>
-                        <p style="margin-top: 0;">per second: <span id="passive-income">0</span></p>
+                        <h2><img src="/images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"> <span id="keystrokes-bank">0</span> keystrokes</h2>
+                        <p>per second: <span id="passive-income">0</span></p>
                     </div>
                 </div>
             </div>
@@ -168,10 +170,17 @@
                                 </div>
                                 <div id="buffs-container"></div>
                                 <div id="typing-panel">
+                                    <!-- Streak counter will be inserted here by JS -->
                                     <div id="trackers">
-                                        <div>
-                                            <p>Words Per Minute: <span id="wpm">0</span></p>
-                                            <p id="wpm-multiplier-display">Multiplier: <span id="wpm-multiplier">1</span>x</p>
+                                        <div class="tracker-stats">
+                                            <div class="tracker-stat">
+                                                <p class="tracker-label">WPM</p>
+                                                <p class="tracker-value" id="wpm">0</p>
+                                            </div>
+                                            <div class="tracker-stat">
+                                                <p class="tracker-label">Multiplier</p>
+                                                <p class="tracker-value" id="wpm-multiplier">1x</p>
+                                            </div>
                                         </div>
                                         <div>
                                             <label for="toggle-keyboard-highlight" style="display: block;">
@@ -208,7 +217,6 @@
                             </div>
                             <div id="buildings-container"></div>
                             <div id="achievements-parent">
-                                <strong>Achievements: (<span id="currentAchievementCount">0</span>/<span id="maxAchievementCount">0</span>) (placeholders)</strong>
                                 <div id="achievements-container"></div>
                             </div>
                         </div>
@@ -325,6 +333,32 @@
                                 <textarea id="practice-input-box" placeholder="Start typing..."></textarea>
                                 <div class="words-to-type-container" id="practice-words-to-type-container">
                                     <div class="words-to-type" id="practice-words-to-type"></div>
+                                </div>
+                            </div>
+                            
+                            <!-- New practice history section -->
+                            <div id="practice-history-section">
+                                <h2>Practice History</h2>
+                                <div class="practice-stats-summary">
+                                    <div class="practice-stat-box">
+                                        <span class="practice-stat-label">Average WPM</span>
+                                        <span class="practice-stat-value" id="practice-average-wpm">0</span>
+                                    </div>
+                                    <div class="practice-stat-box">
+                                        <span class="practice-stat-label">Best WPM</span>
+                                        <span class="practice-stat-value" id="practice-best-wpm">0</span>
+                                    </div>
+                                    <div class="practice-stat-box">
+                                        <span class="practice-stat-label">Recent Trend</span>
+                                        <span class="practice-stat-value" id="practice-trend">0</span>
+                                    </div>
+                                    <div class="practice-stat-box">
+                                        <span class="practice-stat-label">Tests Taken</span>
+                                        <span class="practice-stat-value" id="practice-count">0</span>
+                                    </div>
+                                </div>
+                                <div class="practice-chart-container">
+                                    <canvas id="practice-history-chart"></canvas>
                                 </div>
                             </div>
                         </div>

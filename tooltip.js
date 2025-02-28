@@ -192,6 +192,7 @@ function showBuildingTooltip(buildingElement, building) {
     tooltip.classList.add('visible');
 }
 
+
 function showOwnedUpgradeToolTip(upgradeElement, upgrade) {
     tooltip.style.backgroundImage = `url("/images/tooltips/upgrades/448/${upgrade.id}.jpg")`;
     tooltipHead.innerHTML = `<h1>${upgrade.name}</h1>`;

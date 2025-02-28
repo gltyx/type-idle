@@ -91,12 +91,6 @@ const AutoWriter = {
     locked: true,
     baseCost: 100,
     baseProduce: 1,
-    getProduceSingle: () => {
-        return applyModifiers(AutoWriter.id, AutoWriter.baseProduce);
-    },
-    getProduce: () => {
-        return AutoWriter.getProduceSingle() * AutoWriter.level;
-    },
     level: 0,
     totalProduce: 0,
 };
@@ -112,12 +106,6 @@ const Printer = {
     locked: true,
     baseCost: 500,
     baseProduce: 5,
-    getProduceSingle: () => {
-        return applyModifiers(Printer.id, Printer.baseProduce);
-    },
-    getProduce: () => {
-        return Printer.getProduceSingle() * Printer.level;
-    },
     level: 0,
     totalProduce: 0,
 };
@@ -133,10 +121,6 @@ const ResearchLab = {
     locked: true,
     baseCost: 2000,
     baseProduce: 20,
-    getProduceSingle: () => {
-        return applyModifiers(ResearchLab.id, ResearchLab.baseProduce);
-    },
-    getProduce: () => { return ResearchLab.getProduceSingle() * ResearchLab.level; },
     getResearchProduceSingle: () => { return applyResearchModifiers(ResearchLab.id, 0.5); },
     getResearchProduce: () => { return ResearchLab.getResearchProduceSingle() * ResearchLab.level; },
     level: 0,
@@ -154,10 +138,6 @@ const CyberCafe = {
     locked: true,
     baseCost: 10000,
     baseProduce: 50,
-    getProduceSingle: () => {
-        return applyModifiers(CyberCafe.id, CyberCafe.baseProduce);
-    },
-    getProduce: () => { return CyberCafe.getProduceSingle() * CyberCafe.level; },
     level: 0,
     totalProduce: 0,
 };
@@ -173,10 +153,6 @@ const ServerFarm = {
     locked: true,
     baseCost: 50000,
     baseProduce: 200,
-    getProduceSingle: () => {
-        return applyModifiers(ServerFarm.id, ServerFarm.baseProduce);
-    },
-    getProduce: () => { return ServerFarm.getProduceSingle() * ServerFarm.level; },
     level: 0,
     totalProduce: 0,
 };
@@ -192,10 +168,6 @@ const TypingArena = {
     locked: true,
     baseCost: 100000,
     baseProduce: 500,
-    getProduceSingle: () => {
-        return applyModifiers(TypingArena.id, TypingArena.baseProduce);
-    },
-    getProduce: () => TypingArena.getProduceSingle() * TypingArena.level,
     level: 0,
     totalProduce: 0,
 };
@@ -211,10 +183,6 @@ const ITOffice = {
     locked: true,
     baseCost: 200000,
     baseProduce: 1000,
-    getProduceSingle: () => {
-        return applyModifiers(ITOffice.id, ITOffice.baseProduce);
-    },
-    getProduce: () => ITOffice.getProduceSingle() * ITOffice.level,
     level: 0,
     totalProduce: 0,
 };
@@ -230,10 +198,6 @@ const StockMarket = {
     locked: true,
     baseCost: 500000,
     baseProduce: 2000,
-    getProduceSingle: () => {
-        return applyModifiers(StockMarket.id, StockMarket.baseProduce);
-    },
-    getProduce: () => StockMarket.getProduceSingle() * StockMarket.level,
     level: 0,
     totalProduce: 0,
 };
@@ -248,10 +212,6 @@ const MagazinePublisher = {
     locked: true,
     baseCost: 1000000,
     baseProduce: 5000,
-    getProduceSingle: () => {
-        return applyModifiers(MagazinePublisher.id, MagazinePublisher.baseProduce);
-    },
-    getProduce: () => MagazinePublisher.getProduceSingle() * MagazinePublisher.level,
     level: 0,
     totalProduce: 0,
 }
@@ -266,10 +226,6 @@ const TypingGuild = {
     locked: true,
     baseCost: 2000000,
     baseProduce: 10_000,
-    getProduceSingle: () => {
-        return applyModifiers(TypingGuild.id, TypingGuild.baseProduce);
-    },
-    getProduce: () => TypingGuild.getProduceSingle() * TypingGuild.level,
     level: 0,
     totalProduce: 0,
 }
@@ -284,10 +240,6 @@ const HackerGroup = {
     locked: true,
     baseCost: 100_000_000,
     baseProduce: 500_000,
-    getProduceSingle: () => {
-        return applyModifiers(HackerGroup.id, HackerGroup.baseProduce);
-    },
-    getProduce: () => HackerGroup.getProduceSingle() * HackerGroup.level,
     level: 0,
     totalProduce: 0,
 }
@@ -303,10 +255,6 @@ const GameArcade = {
     locked: true,
     baseCost: 1_000_000_000,
     baseProduce: 4_000_000,
-    getProduceSingle: () => {
-        return applyModifiers(GameArcade.id, GameArcade.baseProduce);
-    },
-    getProduce: () => GameArcade.getProduceSingle() * GameArcade.level,
     level: 0,
     totalProduce: 0,
 }
@@ -322,10 +270,6 @@ const KeystrokeCasino = {
     locked: true,
     baseCost: 100_000_000_000,
     baseProduce: 400_000_000,
-    getProduceSingle: () => {
-        return applyModifiers(KeystrokeCasino.id, KeystrokeCasino.baseProduce);
-    },
-    getProduce: () => KeystrokeCasino.getProduceSingle() * KeystrokeCasino.level,
     level: 0,
     totalProduce: 0,
 }
@@ -340,10 +284,6 @@ const AIAgent = {
     locked: true,
     baseCost: 1_000_000_000_000,
     baseProduce: 5_000_000_000,
-    getProduceSingle: () => {
-        return applyModifiers(AIAgent.id, AIAgent.baseProduce);
-    },
-    getProduce: () => AIAgent.getProduceSingle() * AIAgent.level,
     level: 0,
     totalProduce: 0,
 }
@@ -353,6 +293,11 @@ const buildings = [
     AutoWriter, Printer, ResearchLab, CyberCafe, ServerFarm, TypingArena, ITOffice, StockMarket, MagazinePublisher, TypingGuild, HackerGroup, GameArcade, KeystrokeCasino, AIAgent
 ];
 
+buildings.forEach(building => {
+    building.getCost = () => getBuildingCost(building);
+    building.getProduceSingle = () => applyModifiers(building.id, building.baseProduce);
+    building.getProduce = () => building.getProduceSingle() * building.level;
+});
 
 let totalResearchPoints = 0;
 
@@ -385,6 +330,7 @@ function initBuildings() {
         });
     });
 }
+
 function handleMouseMoveBuildingRotate(event) {
     const building = event.currentTarget;
     const rect = building.getBoundingClientRect();
@@ -425,15 +371,82 @@ function displayBuildings() {
 
 function updateBuildingElement(buildingElement, building) {
     if (building.locked) {
-        const newHtml = `<img src="/images/buildings/128/${building.id}-locked.png" class="icon">???`;
+        const newHtml = `
+            <div class="building-header">
+                <div class="building-name">Unknown Building</div>
+            </div>
+            <div class="building-locked">
+                <img src="/images/buildings/128/${building.id}-locked.png" class="icon">
+                <p>${building.lockdescription}</p>
+            </div>`;
         if(buildingElement.innerHTML !== newHtml) buildingElement.innerHTML = newHtml;
         buildingElement.disabled = true;
     } else {
-        const newHtml = `<span>Purchase ${building.name}</span><img src="/images/buildings/128/${building.id}.png" class="icon"><span><img src="/images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"> ${formatShortScale(getBuildingCost(building))}</span> <span>${building.level}x owned</span>`;
+        const cost = getBuildingCost(building);
+        const isAffordable = cost <= keystrokesBank;
+        const production = formatShortScale(building.getProduceSingle());
+        const totalProduction = formatShortScale(building.getProduce());
+        
+        // Calculate payback time (how long until the building pays for itself)
+        const paybackTime = production > 0 ? cost / production : Infinity;
+        const paybackTimeFormatted = paybackTime !== Infinity ? 
+            formatTime(paybackTime) : 'Never';
+        
+        // Calculate return on investment (ROI)
+        const roi = production > 0 ? (production / cost) * 100 : 0;
+        // Calculate cost efficiency (cost per unit of production)
+        const costEfficiency = building.getProduceSingle() > 0 ? 
+            formatShortScale(cost / building.getProduceSingle()) : 
+            'N/A';
+        
+        // Get building's special ability
+        const specialEffect = getSpecialBoost(building);
+        
+        const newHtml = `
+        <div class="building-bg1" style="background-image: url('/images/tooltips/buildings/448/${building.id}.jpg');">
+        <div class="building-bg2">
+            <div class="building-header">
+                <img src="/images/buildings/128/${building.id}.png" class="icon" style="width: 32px; height: 32px;">
+                <div class="building-name">${building.name}</div>
+                <div class="building-level">${building.level}x</div>
+            </div>
+            <div class="building-content">
+                <div class="building-info">
+                    <div class="building-production">
+                        ${building.level > 0 ? `Produces: ${production}/sec each` : 'Purchase to start production'}
+                    </div>
+                    ${building.level > 0 ? `<div class="building-production">Total: ${totalProduction}/sec</div>` : ''}
+                    ${building.level > 0 ? `<div class="building-efficiency">Cost efficiency: ${costEfficiency}/keystroke</div>` : ''}
+                </div>
+            </div>
+            <div class="building-cost">
+                <img src="/images/icons/128/keystroke-coin-icon.png" alt="Keystroke Coin">
+                <span>${formatShortScale(cost)}</span>
+            </div>
+            <div class="building-footer">
+                <div class="building-special">${specialEffect}</div>
+            </div>
+        </div>
+        </div>`;
+            
         if(buildingElement.innerHTML !== newHtml) buildingElement.innerHTML = newHtml;
-        buildingElement.disabled = getBuildingCost(building) > keystrokesBank;
+        buildingElement.disabled = !isAffordable;
     }
 }
+
+// Add this helper function to format time values
+function formatTime(seconds) {
+    if (seconds < 60) {
+        return `${seconds.toFixed(1)} seconds`;
+    } else if (seconds < 3600) {
+        return `${(seconds / 60).toFixed(1)} minutes`;
+    } else if (seconds < 86400) {
+        return `${(seconds / 3600).toFixed(1)} hours`;
+    } else {
+        return `${(seconds / 86400).toFixed(1)} days`;
+    }
+}
+
 
 function buyBuilding(index) {
     const building = buildings[index];
