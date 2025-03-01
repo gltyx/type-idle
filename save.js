@@ -165,7 +165,7 @@ function loadGame(savedData) {
         const now = Date.now();
         const offlineTime = (now - (savedData.lastSave || now)) / 1000;
         if(CyberCafe.level > 0) {
-            const offlineProduction = offlineTime * CyberCafe.getProduce();
+            const offlineProduction = offlineTime * getPassiveIncomeWithoutTempBoosts() * (1 - Math.pow(0.9995, CyberCafe.level));
             keystrokesBank += offlineProduction;
             totalKeystrokes += offlineProduction;
             cashEarnedBuildings += offlineProduction;

@@ -72,6 +72,10 @@ function getSpecialBoost(building) {
         return `${(AutoWriter.level * 5).toFixed(2)}% boost to manual keystrokes`;
     } else if (building.id === Printer.id) {
         return `${(Printer.level * 0.75).toFixed(2)}% boost to all buildings`;
+    } else if (building.id === ResearchLab.id) {
+        return `${formatShortScale(ResearchLab.getResearchProduce())} research points per second`;
+    } else if (building.id === CyberCafe.id) {
+        return `${((1 - Math.pow(0.9995, CyberCafe.level)) * 100).toFixed(2)}% offline keystroke production`;
     } else if (building.id === ServerFarm.id) {
         return `${(ServerFarm.level * 0.1).toFixed(2)}% of passive income to manual keystrokes`;
     } else if (building.id === ITOffice.id) {
@@ -133,7 +137,7 @@ const CyberCafe = {
     description: "Provides a social space for typing enthusiasts.",
     trivia: "Free Wi-Fi included.",
     lockdescription: "Unlocks at 10,000 total keystrokes.",
-    special: "Produces keystrokes even when offline.",
+    special: "Increases offline keystroke production.",
     unlockCondition: () => { return totalKeystrokes >= 10_000; },
     locked: true,
     baseCost: 10000,

@@ -285,21 +285,33 @@ function initGame() {
         // TODO: Show a message that the tab is not found
     }
     //==========================================
-    // Set the height of #sticky-top-offset to the height of #sticky-top
-    const stickyTop = document.getElementById('sticky-top');
-    const stickyTopOffset = document.getElementById('sticky-top-offset');
-    stickyTopOffset.style.height = `${stickyTop.clientHeight}px`;
-
-    // Set the width fo #sticky-left-offset to the width of #navbar-container
-    const navbarContainer = document.getElementById('navbar-container');
-    const stickyLeftOffset = document.getElementById('sticky-left-offset');
-    stickyLeftOffset.style.width = `${navbarContainer.clientWidth}px`;
+    updateStickyOffsets();
     
-    document.getElementById('navbar-container').style.top = `${stickyTop.clientHeight}px`;
-    
-    
+    setTimeout(() => {
+        updateStickyOffsets();
+    }, 2000); // Update sticky offsets after 500ms (Iframe fix)
     //==========================================
     sendHeartbeat(); // send the first heartbeat
+}
+
+function updateStickyOffsets() {
+    console.log("Updating sticky offsets...");
+    const stickyTop = document.getElementById('sticky-top');
+    const stickyTopOffset = document.getElementById('sticky-top-offset');
+    const navbarContainer = document.getElementById('navbar-container');
+    const stickyLeftOffset = document.getElementById('sticky-left-offset');
+    
+    if (stickyTop && stickyTopOffset) {
+        stickyTopOffset.style.height = `${stickyTop.offsetHeight}px`;
+    }
+    
+    if (navbarContainer && stickyLeftOffset) {
+        stickyLeftOffset.style.width = `${navbarContainer.offsetWidth}px`;
+    }
+    
+    if (navbarContainer && stickyTop) {
+        navbarContainer.style.top = `${stickyTop.offsetHeight}px`;
+    }
 }
 
 document.getElementById('input-box').addEventListener('input', function(e) {

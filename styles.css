@@ -33,21 +33,20 @@
 
 /* Buffs Container */
 #buffs-container {
-    margin-top: 5px;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 6rem;
+    min-height: 2.5rem;
 }
 .buff {
     margin: 5px;
     background-size: cover;
     background-position: center; 
     background-repeat: no-repeat;
-    width: 6rem;
-    height: 6rem;
-    border-radius: 3rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
     background-color: var(--buff-bg);
     border: 1px solid var(--buff-border);
     overflow: hidden;
