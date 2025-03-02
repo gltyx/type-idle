@@ -84,22 +84,6 @@ let news = [
     icon: "joke"
 },
 {
-    text: "I told my wife she should embrace her mistakes. She gave me a hug.",
-    icon: "joke"
-},
-{
-    text: "Why are computers like women? No one but the Creator understands their internal logic.",
-    icon: "joke"
-},
-{
-    text: "Why are computers like women? When something goes wrong, the error messages are just as descriptive.",
-    icon: "joke"
-},
-{
-    text: "Women are like internet domain names. The ones I like are already taken.",
-    icon: "joke"
-},
-{
     text: "Why don't programmers like nature? It has too many bugs.",
     icon: "joke"
 },
@@ -115,10 +99,6 @@ let news = [
     text: "Why was the JavaScript developer sad? Because he didn't know how to 'null' his feelings.",
     icon: "joke"
 },
-{
-    text: "Why is a computer better than a girlfriend? You can turn it off when you're done with it.",
-    icon: "joke"
-}
 ]
 
 const newsIcons = {
