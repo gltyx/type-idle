@@ -27,7 +27,6 @@ let goldNewsClicks = 0;
 let currentGuildTask = '';
 let keyboardLayout = 'qwerty-nordic';
 let tenFingerAssitance = false;
-let fallingWordsEnabled = false;
 let currentTheme = 'dark';
 let wpm = 0;
 let scrollingWpmMultiplier = 1;
@@ -56,7 +55,6 @@ function saveGame() {
         keyboardLayout,
         currentTheme,
         tenFingerAssitance,
-        fallingWordsEnabled,
         practiceHistory, // Save practice history
         buildings: buildings.map(building => ({ id: building.id, level: building.level, totalProduce: building.totalProduce })),
         upgrades: upgrades.map(upgrade => ({ id: upgrade.id, unlocked: upgrade.unlocked })),
@@ -107,7 +105,6 @@ function loadGame(savedData) {
         keyboardLayout = savedData.keyboardLayout || 'qwerty-nordic';
         currentTheme = savedData.currentTheme || 'dark';
         tenFingerAssitance = savedData.tenFingerAssitance || false;
-        fallingWordsEnabled = savedData.fallingWordsEnabled || false;
         practiceHistory = savedData.practiceHistory || []; // Load practice history
         savedData.buildings.forEach(savedBuilding => {
             const building = buildings.find(b => b.id === savedBuilding.id);

@@ -257,10 +257,6 @@ function initGame() {
         document.getElementById('game-keyboard-container').style.display = 'none';
     }
     //==========================================
-    document.getElementById('toggle-word-fall').addEventListener('change', function () {
-        fallingWordsEnabled = this.checked;
-    });
-    //==========================================
     document.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', () => {
             gtag('event', 'link_clicked', {
@@ -284,6 +280,8 @@ function initGame() {
     } else {
         // TODO: Show a message that the tab is not found
     }
+    //==========================================
+    window.typeParticleSystem = new TypeParticleSystem();
     //==========================================
     updateStickyOffsets();
     
@@ -379,7 +377,6 @@ document.getElementById('input-box').addEventListener('input', function(e) {
                 correctKeystrokesTimestamps.push(Date.now());
             }
             
-            createFallingWord(trimmedInput); // Create falling word effect
             createFloatingWord(`<img src="images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"> +${formatShortScale(keyStrokeModCount)}`);
             updateWordsToType();
             playTypeSound();
@@ -421,447 +418,410 @@ document.getElementById('input-box').addEventListener('keydown', function(e) {
     // Check if the current keystroke is incorrect
     if (inputText.length < currentWord.length && 
         e.key !== currentWord[inputText.length]) {
-        currentWordMistakes++;
-    }
-});
-
-function updateWordProgress(current, total) {
-    const progressBar = document.querySelector('.word-progress-bar');
-    if (progressBar) {
-        const percentage = Math.min((current / total) * 100, 100);
-        progressBar.style.width = `${percentage}%`;
-        
-        // Change color based on progress
-        if (percentage < 33) {
-            progressBar.style.backgroundColor = 'var(--mistake-color)';
-        } else if (percentage < 66) {
-            progressBar.style.backgroundColor = 'var(--wordle-present-bg)';
-        } else {
-            progressBar.style.backgroundColor = 'var(--correct-color)';
+            currentWordMistakes++;
         }
-    }
-}
-
-function markWordCompleted(index) {
-    const wordsDisplay = document.getElementById('words-to-type');
-    if (wordsDisplay.children[index]) {
-        wordsDisplay.children[index].classList.add('completed');
-    }
-}
-
-function showStreakCounter(streak) {
-    const streakContainer = document.getElementById('streak-container');
-    if (!streakContainer) {
-        const typingPanel = document.getElementById('typing-panel');
-        const newStreakContainer = document.createElement('div');
-        newStreakContainer.id = 'streak-container';
-        typingPanel.appendChild(newStreakContainer);
-    }
+    });
     
-    const container = document.getElementById('streak-container');
-    container.textContent = `${streak}x Streak!`;
-    container.classList.add('active');
-    
-    // Add appropriate class based on streak
-    container.className = ''; // Reset classes
-    container.classList.add('active');
-    if (streak >= 10) {
-        container.classList.add('epic-streak');
-    } else if (streak >= 5) {
-        container.classList.add('great-streak');
-    } else {
-        container.classList.add('good-streak');
-    }
-    
-    // Create streak particles if available
-    if (window.typeParticleSystem && streak >= 3) {
-        window.typeParticleSystem.createStreakEffect(streak);
-    }
-}
-
-function hideStreakCounter() {
-    const streakContainer = document.getElementById('streak-container');
-    if (streakContainer) {
-        streakContainer.classList.remove('active');
-    }
-}
-
-function createPerfectWordEffect(word) {
-    const gameContainer = document.getElementById('game-container');
-    const perfectWord = document.createElement('div');
-    perfectWord.textContent = `Perfect: ${word}`;
-    perfectWord.className = 'floating-word perfect-word';
-    
-    const rect = document.getElementById('input-box').getBoundingClientRect();
-    perfectWord.style.left = `${rect.left + rect.width / 2}px`;
-    perfectWord.style.top = `${rect.top}px`;
-    
-    const randomDuration = (Math.random() * 1 + 1.5).toFixed(2);
-    perfectWord.style.animationDuration = randomDuration + 's';
-    
-    gameContainer.appendChild(perfectWord);
-    
-    setTimeout(() => {
-        gameContainer.removeChild(perfectWord);
-    }, randomDuration * 1000);
-    
-    // Use the particle system if available
-    if (window.typeParticleSystem) {
-        window.typeParticleSystem.createPerfectWordEffect(word);
-    }
-}
-
-function colorTextByCharacter(inputText, word, currentIndex) {
-    const wordsDisplay = document.getElementById('words-to-type');
-    let coloredText = '';
-    let mistakeFound = false;
-    
-    // Make current word stand out
-    if (wordsDisplay.children[currentIndex]) {
-        for (let i = 0; i < wordsDisplay.children.length; i++) {
-            wordsDisplay.children[i].classList.remove('current');
-        }
-        wordsDisplay.children[currentIndex].classList.add('current');
-    }
-    
-    // Process each character
-    for (let i = 0; i < word.length; i++) {
-        let characterClass = '';
-        
-        if (i < inputText.length) {
-            // User has typed this character
-            if (word[i] === inputText[i] && !mistakeFound) {
-                characterClass = 'character correct';
+    function updateWordProgress(current, total) {
+        const progressBar = document.querySelector('.word-progress-bar');
+        if (progressBar) {
+            const percentage = Math.min((current / total) * 100, 100);
+            progressBar.style.width = `${percentage}%`;
+            
+            // Change color based on progress
+            if (percentage < 33) {
+                progressBar.style.backgroundColor = 'var(--mistake-color)';
+            } else if (percentage < 66) {
+                progressBar.style.backgroundColor = 'var(--wordle-present-bg)';
             } else {
-                characterClass = 'character mistake';
-                mistakeFound = true;
+                progressBar.style.backgroundColor = 'var(--correct-color)';
             }
+        }
+    }
+    
+    function markWordCompleted(index) {
+        const wordsDisplay = document.getElementById('words-to-type');
+        if (wordsDisplay.children[index]) {
+            wordsDisplay.children[index].classList.add('completed');
+        }
+    }
+    
+    function showStreakCounter(streak) {
+        const streakContainer = document.getElementById('streak-container');
+        if (!streakContainer) {
+            const typingPanel = document.getElementById('typing-panel');
+            const newStreakContainer = document.createElement('div');
+            newStreakContainer.id = 'streak-container';
+            typingPanel.appendChild(newStreakContainer);
+        }
+        
+        const container = document.getElementById('streak-container');
+        container.textContent = `${streak}x Streak!`;
+        container.classList.add('active');
+        
+        // Add appropriate class based on streak
+        container.className = ''; // Reset classes
+        container.classList.add('active');
+        if (streak >= 10) {
+            container.classList.add('epic-streak');
+        } else if (streak >= 5) {
+            container.classList.add('great-streak');
         } else {
-            // Character not yet typed
-            characterClass = i === inputText.length ? 'character current' : 'character';
+            container.classList.add('good-streak');
         }
         
-        coloredText += `<span class="${characterClass}">${word[i]}</span>`;
-    }
-    
-    if (wordsDisplay.children[currentIndex]) {
-        wordsDisplay.children[currentIndex].innerHTML = coloredText;
-    }
-}
-
-function updateWordsToType() {
-    const wordsDisplay = document.getElementById('words-to-type');
-    
-    // Check if we need to add a progress bar
-    if (!document.querySelector('.word-progress-container')) {
-        const progressContainer = document.createElement('div');
-        progressContainer.className = 'word-progress-container';
-        const progressBar = document.createElement('div');
-        progressBar.className = 'word-progress-bar';
-        progressContainer.appendChild(progressBar);
-        document.querySelector('.words-to-type-container').appendChild(progressContainer);
-    }
-    
-    // Reset word progress
-    document.querySelector('.word-progress-bar').style.width = '0%';
-    
-    if(currentWordIndex > 0) {
-        let firstElement = wordsDisplay.children[0];
-        const currentElement = wordsDisplay.children[currentWordIndex];
-        let toRemove = [];
-        
-        while (currentElement && currentElement.getBoundingClientRect().top - 10 > firstElement.getBoundingClientRect().top) {
-            toRemove.push(wordsDisplay.children[toRemove.length]);
-            firstElement = wordsDisplay.children[toRemove.length];
+        // Create streak particles if available
+        if (window.typeParticleSystem && streak >= 3) {
+            window.typeParticleSystem.createStreakEffect(streak);
         }
+    }
+    
+    function hideStreakCounter() {
+        const streakContainer = document.getElementById('streak-container');
+        if (streakContainer) {
+            streakContainer.classList.remove('active');
+        }
+    }
+    
+    function createPerfectWordEffect(word) {
+        const gameContainer = document.getElementById('game-container');
+        const perfectWord = document.createElement('div');
+        perfectWord.textContent = `Perfect: ${word}`;
+        perfectWord.className = 'floating-word perfect-word';
         
-        if(toRemove.length > 0) {
-            for(let i = 0; i < toRemove.length; i++) {
-                if (toRemove[i]) {
-                    wordsDisplay.removeChild(toRemove[i]);
-                    wordsToType.shift();
-                    wordsToType.push(getRandomWord());
-                }
+        const rect = document.getElementById('input-box').getBoundingClientRect();
+        perfectWord.style.left = `${rect.left + rect.width / 2}px`;
+        perfectWord.style.top = `${rect.top}px`;
+        
+        const randomDuration = (Math.random() * 1 + 1.5).toFixed(2);
+        perfectWord.style.animationDuration = randomDuration + 's';
+        
+        gameContainer.appendChild(perfectWord);
+        
+        setTimeout(() => {
+            gameContainer.removeChild(perfectWord);
+        }, randomDuration * 1000);
+        
+        // Use the particle system if available
+        if (window.typeParticleSystem) {
+            window.typeParticleSystem.createPerfectWordEffect(word);
+        }
+    }
+    
+    function colorTextByCharacter(inputText, word, currentIndex) {
+        const wordsDisplay = document.getElementById('words-to-type');
+        let coloredText = '';
+        let mistakeFound = false;
+        
+        // Make current word stand out
+        if (wordsDisplay.children[currentIndex]) {
+            for (let i = 0; i < wordsDisplay.children.length; i++) {
+                wordsDisplay.children[i].classList.remove('current');
             }
-            currentWordIndex = 0;
+            wordsDisplay.children[currentIndex].classList.add('current');
+        }
+        
+        // Process each character
+        for (let i = 0; i < word.length; i++) {
+            let characterClass = '';
+            
+            if (i < inputText.length) {
+                // User has typed this character
+                if (word[i] === inputText[i] && !mistakeFound) {
+                    characterClass = 'character correct';
+                } else {
+                    characterClass = 'character mistake';
+                    mistakeFound = true;
+                }
+            } else {
+                // Character not yet typed
+                characterClass = i === inputText.length ? 'character current' : 'character';
+            }
+            
+            coloredText += `<span class="${characterClass}">${word[i]}</span>`;
+        }
+        
+        if (wordsDisplay.children[currentIndex]) {
+            wordsDisplay.children[currentIndex].innerHTML = coloredText;
         }
     }
     
-    // Add new words if needed
-    if(wordsDisplay.children.length < wordsToType.length) {
-        for(let i = wordsDisplay.children.length; i < wordsToType.length; i++) {
-            const wordElement = document.createElement('div');
-            wordElement.className = 'word';
-            wordElement.textContent = wordsToType[i];
-            wordsDisplay.appendChild(wordElement);
+    function updateWordsToType() {
+        const wordsDisplay = document.getElementById('words-to-type');
+        
+        // Check if we need to add a progress bar
+        if (!document.querySelector('.word-progress-container')) {
+            const progressContainer = document.createElement('div');
+            progressContainer.className = 'word-progress-container';
+            const progressBar = document.createElement('div');
+            progressBar.className = 'word-progress-bar';
+            progressContainer.appendChild(progressBar);
+            document.querySelector('.words-to-type-container').appendChild(progressContainer);
+        }
+        
+        // Reset word progress
+        document.querySelector('.word-progress-bar').style.width = '0%';
+        
+        if(currentWordIndex > 0) {
+            let firstElement = wordsDisplay.children[0];
+            const currentElement = wordsDisplay.children[currentWordIndex];
+            let toRemove = [];
+            
+            while (currentElement && currentElement.getBoundingClientRect().top - 10 > firstElement.getBoundingClientRect().top) {
+                toRemove.push(wordsDisplay.children[toRemove.length]);
+                firstElement = wordsDisplay.children[toRemove.length];
+            }
+            
+            if(toRemove.length > 0) {
+                for(let i = 0; i < toRemove.length; i++) {
+                    if (toRemove[i]) {
+                        wordsDisplay.removeChild(toRemove[i]);
+                        wordsToType.shift();
+                        wordsToType.push(getRandomWord());
+                    }
+                }
+                currentWordIndex = 0;
+            }
+        }
+        
+        // Add new words if needed
+        if(wordsDisplay.children.length < wordsToType.length) {
+            for(let i = wordsDisplay.children.length; i < wordsToType.length; i++) {
+                const wordElement = document.createElement('div');
+                wordElement.className = 'word';
+                wordElement.textContent = wordsToType[i];
+                wordsDisplay.appendChild(wordElement);
+            }
+        }
+        
+        // Update highlighting for the current word
+        if (wordsToType[currentWordIndex]) {
+            colorTextByCharacter('', wordsToType[currentWordIndex], currentWordIndex);
+            document.getElementById('input-box').placeholder = `Type '${wordsToType[currentWordIndex]}' here...`;
+        }
+        
+        highlightNextKey();
+    }
+    
+    const AllWords = Object.keys(wordsList);
+    function getRandomWord(length) {
+        if (length) {
+            let randomWord = AllWords[Math.floor(Math.random() * AllWords.length)];
+            while(randomWord.length !== length) {
+                randomWord = AllWords[Math.floor(Math.random() * AllWords.length)];
+            }
+            return randomWord;
+        } else {
+            return AllWords[Math.floor(Math.random() * AllWords.length)]; // Select a random key
         }
     }
     
-    // Update highlighting for the current word
-    if (wordsToType[currentWordIndex]) {
-        colorTextByCharacter('', wordsToType[currentWordIndex], currentWordIndex);
-        document.getElementById('input-box').placeholder = `Type '${wordsToType[currentWordIndex]}' here...`;
+    
+    function updateStats() {
+        scrollingKeystrokesBank += (keystrokesBank - scrollingKeystrokesBank) / Tickrate * 4;
+        scrollingWpm += (wpm - scrollingWpm) / Tickrate * 10;
+        
+        scrollingWpmMultiplier += ((1 + wpm / 30) - scrollingWpmMultiplier) / Tickrate * 10;
+        
+        scrollingPassiveIncome += (getPassiveIncome() - scrollingPassiveIncome) / Tickrate * 4;
+        document.getElementById('building-cash-earned').textContent = formatShortScale(cashEarnedBuildings);
+        document.getElementById('manual-cash-earned').textContent = formatShortScale(cashEarnedManually);
+        
+        document.getElementById('total-keystrokes').textContent = formatShortScale(totalKeystrokes);
+        document.getElementById('total-words').textContent = formatShortScale(totalKeystrokes / 5);
+        
+        document.getElementById('manual-keystrokes').textContent = formatShortScale(manualKeystrokes);
+        document.getElementById('manual-words').textContent = formatShortScale(manualKeystrokes / 5);
+        
+        document.getElementById('keystrokes-bank').textContent = formatShortScale(scrollingKeystrokesBank);
+        document.getElementById('keystrokes-bank2').textContent = formatShortScale(scrollingKeystrokesBank);
+        
+        document.getElementById('researchPoints').textContent = formatShortScale(totalResearchPoints);
+        
+        
+        // Update WPM
+        // Remove old keystrokes timestamps older than 5 seconds
+        const now = Date.now();
+        correctKeystrokesTimestamps = correctKeystrokesTimestamps.filter(timestamp => now - timestamp <= 5000);
+        
+        const correctKeystrokesPerSecond = correctKeystrokesTimestamps.length / 5; // Number of correct keystrokes in the last 5 seconds
+        const wordsTyped = correctKeystrokesPerSecond / 5; // Calculate words based on 5 keystrokes per word
+        wpm = wordsTyped * 60; // Calculate WPM
+        document.getElementById('wpm').textContent = scrollingWpm.toFixed(2); // Update WPM display
+        document.getElementById('wpm-multiplier').textContent = scrollingWpmMultiplier.toFixed(2);
+        
+        // Update passive income display
+        document.getElementById('passive-income').textContent = formatShortScale(scrollingPassiveIncome);
+        
+        checkAchievements();
+        displayModules();
+        checkPromotion();
     }
     
-    highlightNextKey();
-}
-
-const AllWords = Object.keys(wordsList);
-function getRandomWord(length) {
-    if (length) {
-        let randomWord = AllWords[Math.floor(Math.random() * AllWords.length)];
-        while(randomWord.length !== length) {
-            randomWord = AllWords[Math.floor(Math.random() * AllWords.length)];
+    function createFloatingWord(word) {
+        const gameContainer = document.getElementById('game-container');
+        const floatingWord = document.createElement('div');
+        floatingWord.innerHTML = word;
+        floatingWord.className = 'floating-word';
+        const rect = document.getElementById('input-box').getBoundingClientRect();
+        // Set the left property randomly between 0% and 10%
+        floatingWord.style.left = `${rect.left + Math.random() * 20}px`;
+        floatingWord.style.top = `${rect.top}px`;
+        // Set a random animation duration between 1s and 3s
+        const randomDuration = (Math.random() * 2 + 1).toFixed(2);
+        floatingWord.style.animationDuration = randomDuration + 's';
+        
+        gameContainer.appendChild(floatingWord);
+        
+        // Remove the floating word after the animation completes
+        setTimeout(() => {
+            gameContainer.removeChild(floatingWord);
+        }, randomDuration * 1000); // Convert the duration to milliseconds
+    }
+    
+    let wordsToGenerate = 0;
+    
+    function generateFallingWords() {
+        // While there are words to generate, create falling words
+        while (wordsToGenerate >= 1) {
+            wordsToGenerate--;
         }
-        return randomWord;
-    } else {
-        return AllWords[Math.floor(Math.random() * AllWords.length)]; // Select a random key
-    }
-}
-
-
-function updateStats() {
-    scrollingKeystrokesBank += (keystrokesBank - scrollingKeystrokesBank) / Tickrate * 4;
-    scrollingWpm += (wpm - scrollingWpm) / Tickrate * 10;
-    
-    scrollingWpmMultiplier += ((1 + wpm / 30) - scrollingWpmMultiplier) / Tickrate * 10;
-    
-    scrollingPassiveIncome += (getPassiveIncome() - scrollingPassiveIncome) / Tickrate * 4;
-    document.getElementById('building-cash-earned').textContent = formatShortScale(cashEarnedBuildings);
-    document.getElementById('manual-cash-earned').textContent = formatShortScale(cashEarnedManually);
-    
-    document.getElementById('total-keystrokes').textContent = formatShortScale(totalKeystrokes);
-    document.getElementById('total-words').textContent = formatShortScale(totalKeystrokes / 5);
-    
-    document.getElementById('manual-keystrokes').textContent = formatShortScale(manualKeystrokes);
-    document.getElementById('manual-words').textContent = formatShortScale(manualKeystrokes / 5);
-    
-    document.getElementById('keystrokes-bank').textContent = formatShortScale(scrollingKeystrokesBank);
-    document.getElementById('keystrokes-bank2').textContent = formatShortScale(scrollingKeystrokesBank);
-    
-    document.getElementById('researchPoints').textContent = formatShortScale(totalResearchPoints);
-    
-    
-    // Update WPM
-    // Remove old keystrokes timestamps older than 5 seconds
-    const now = Date.now();
-    correctKeystrokesTimestamps = correctKeystrokesTimestamps.filter(timestamp => now - timestamp <= 5000);
-    
-    const correctKeystrokesPerSecond = correctKeystrokesTimestamps.length / 5; // Number of correct keystrokes in the last 5 seconds
-    const wordsTyped = correctKeystrokesPerSecond / 5; // Calculate words based on 5 keystrokes per word
-    wpm = wordsTyped * 60; // Calculate WPM
-    document.getElementById('wpm').textContent = scrollingWpm.toFixed(2); // Update WPM display
-    document.getElementById('wpm-multiplier').textContent = scrollingWpmMultiplier.toFixed(2);
-    
-    // Update passive income display
-    document.getElementById('passive-income').textContent = formatShortScale(scrollingPassiveIncome);
-    
-    checkAchievements();
-    displayModules();
-    checkPromotion();
-}
-
-function createFallingWord(word) {
-    if(currentPage !== 'main-tab') return;
-    if(!fallingWordsEnabled) return;
-    const gameContainer = document.getElementById('game-container');
-    const fallingWord = document.createElement('div');
-    fallingWord.textContent = word;
-    fallingWord.className = 'falling-word';
-    
-    // Set the left property randomly between 0% and 100%
-    const rect = document.getElementById('input-box').getBoundingClientRect();
-    // Set the left property randomly between 0% and 10%
-    fallingWord.style.left = `${rect.left + Math.random() * rect.width}px`;
-    fallingWord.style.top = `${rect.bottom}px`;
-    
-    // Set a random animation duration between 1s and 3s
-    const randomDuration = (Math.random() * 2 + 1).toFixed(2);
-    fallingWord.style.animationDuration = randomDuration + 's';
-    
-    gameContainer.appendChild(fallingWord);
-    
-    // Add particles at the start position if available
-    if (window.typeParticleSystem) {
-        window.typeParticleSystem.createParticleEffect(
-            parseFloat(fallingWord.style.left), 
-            parseFloat(fallingWord.style.top), 
-            'correct', 
-            5
-        );
     }
     
-    // Remove the falling word after the animation completes
-    setTimeout(() => {
-        gameContainer.removeChild(fallingWord);
-    }, randomDuration * 1000); // Convert the duration to milliseconds
-}
-
-function createFloatingWord(word) {
-    const gameContainer = document.getElementById('game-container');
-    const floatingWord = document.createElement('div');
-    floatingWord.innerHTML = word;
-    floatingWord.className = 'floating-word';
-    const rect = document.getElementById('input-box').getBoundingClientRect();
-    // Set the left property randomly between 0% and 10%
-    floatingWord.style.left = `${rect.left + Math.random() * 20}px`;
-    floatingWord.style.top = `${rect.top}px`;
-    // Set a random animation duration between 1s and 3s
-    const randomDuration = (Math.random() * 2 + 1).toFixed(2);
-    floatingWord.style.animationDuration = randomDuration + 's';
-    
-    gameContainer.appendChild(floatingWord);
-    
-    // Remove the floating word after the animation completes
-    setTimeout(() => {
-        gameContainer.removeChild(floatingWord);
-    }, randomDuration * 1000); // Convert the duration to milliseconds
-}
-
-let wordsToGenerate = 0;
-
-function generateFallingWords() {
-    // While there are words to generate, create falling words
-    while (wordsToGenerate >= 1) {
-        createFallingWord(getRandomWord());
-        wordsToGenerate--;
-    }
-}
-
-function showNotification(head, message, background) {
-    const container = document.getElementById('notification-container');
-    const notification = document.createElement('div');
-    notification.className = 'notification';
-    notification.style.backgroundImage = background;
-    notification.innerHTML = `
+    function showNotification(head, message, background) {
+        const container = document.getElementById('notification-container');
+        const notification = document.createElement('div');
+        notification.className = 'notification';
+        notification.style.backgroundImage = background;
+        notification.innerHTML = `
     <div class="notification-body">
         <div class="notification-header">${head}</div>
         <div class="notification-section">${message}</div>
     </div>
     `;
+        
+        container.appendChild(notification);
+        
+        // Remove the notification after it fades out
+        setTimeout(() => {
+            container.removeChild(notification);
+        }, 7000);
+    }
     
-    container.appendChild(notification);
+    function formatShortScale(number) {
+        if (!Number.isFinite(number)) return '∞'; // Handle infinite numbers
+        if (number === 0) return '0';             // Handle zero
+        
+        const sign = number < 0 ? -1 : 1;         // Preserve the sign
+        const absVal = Math.abs(number);
+        
+        const suffixes = [
+            '', 'k', 'million', 'billion', 'trillion', 'quadrillion', 'quintillion',
+            'sextillion', 'septillion', 'octillion', 'nonillion', 'decillion',
+            'undecillion', 'duodecillion', 'tredecillion', 'quattuordecillion',
+            'quindecillion', 'sexdecillion', 'septendecillion', 'octodecillion',
+            'novemdecillion', 'vigintillion'
+        ];
+        
+        // Determine the tier (1000^tier) based on absolute value.
+        const tier = Math.floor(Math.log10(absVal) / 3);
+        
+        // For numbers below 1000 in absolute value, just return them as is.
+        if (tier === 0 || absVal < 1000) return (sign * absVal).toFixed(2);
+        
+        // Scale the absolute value down to its tier, then reapply the sign.
+        const scaled = sign * (absVal / Math.pow(10, tier * 3));
+        const suffix = suffixes[tier] || `e${tier * 3}`;
+        
+        return `${scaled.toFixed(2)} ${suffix}`;
+    }
     
-    // Remove the notification after it fades out
-    setTimeout(() => {
-        container.removeChild(notification);
-    }, 7000);
-}
-
-function formatShortScale(number) {
-    if (!Number.isFinite(number)) return '∞'; // Handle infinite numbers
-    if (number === 0) return '0';             // Handle zero
     
-    const sign = number < 0 ? -1 : 1;         // Preserve the sign
-    const absVal = Math.abs(number);
-    
-    const suffixes = [
-        '', 'k', 'million', 'billion', 'trillion', 'quadrillion', 'quintillion',
-        'sextillion', 'septillion', 'octillion', 'nonillion', 'decillion',
-        'undecillion', 'duodecillion', 'tredecillion', 'quattuordecillion',
-        'quindecillion', 'sexdecillion', 'septendecillion', 'octodecillion',
-        'novemdecillion', 'vigintillion'
-    ];
-    
-    // Determine the tier (1000^tier) based on absolute value.
-    const tier = Math.floor(Math.log10(absVal) / 3);
-    
-    // For numbers below 1000 in absolute value, just return them as is.
-    if (tier === 0 || absVal < 1000) return (sign * absVal).toFixed(2);
-    
-    // Scale the absolute value down to its tier, then reapply the sign.
-    const scaled = sign * (absVal / Math.pow(10, tier * 3));
-    const suffix = suffixes[tier] || `e${tier * 3}`;
-    
-    return `${scaled.toFixed(2)} ${suffix}`;
-}
-
-
-function switchTab(activeTab, pushState = true) {
-    if(casinoBusy) return; // Prevent switching tabs while casino is busy as it will break the casino
-    currentPage = activeTab.id;
-    for (const key in tabs) {
-        if (tabs[key].tab === activeTab) {
-            tabs[key].page.style.display = "block";
-            tabs[key].tab.classList.add("active");
-        } else {
-            tabs[key].page.style.display = "none";
-            tabs[key].tab.classList.remove("active");
+    function switchTab(activeTab, pushState = true) {
+        if(casinoBusy) return; // Prevent switching tabs while casino is busy as it will break the casino
+        currentPage = activeTab.id;
+        for (const key in tabs) {
+            if (tabs[key].tab === activeTab) {
+                tabs[key].page.style.display = "block";
+                tabs[key].tab.classList.add("active");
+            } else {
+                tabs[key].page.style.display = "none";
+                tabs[key].tab.classList.remove("active");
+            }
+        }
+        document.body.className = `${currentTheme} ${currentPage}`;
+        if(currentPage === 'main-tab') {
+            document.getElementById('input-box').focus();
+        }
+        window.scrollTo(0, 0);
+        playMenuSound();
+        gtag('event', 'switch_tab', {
+            'active_tab': currentPage,
+            'event_category': 'navigation'
+        });
+        
+        if (pushState) {
+            const url = new URL(window.location);
+            url.pathname = `/${currentPage}`;
+            history.pushState({ tab: currentPage }, '', url);
         }
     }
-    document.body.className = `${currentTheme} ${currentPage}`;
-    if(currentPage === 'main-tab') {
-        document.getElementById('input-box').focus();
-    }
-    window.scrollTo(0, 0);
-    playMenuSound();
-    gtag('event', 'switch_tab', {
-        'active_tab': currentPage,
-        'event_category': 'navigation'
+    
+    window.addEventListener('popstate', (event) => {
+        if (event.state && event.state.tab) {
+            const tabToActivate = document.getElementById(event.state.tab);
+            if (tabToActivate) {
+                switchTab(tabToActivate, false);
+            }
+        }
     });
     
-    if (pushState) {
-        const url = new URL(window.location);
-        url.pathname = `/${currentPage}`;
-        history.pushState({ tab: currentPage }, '', url);
+    function applyTheme() {
+        document.body.className = `${currentTheme} ${currentPage}`;
+        gtag('event', 'apply_theme', {
+            'active_theme': currentTheme,
+            'event_category': 'settings'
+        });
     }
-}
-
-window.addEventListener('popstate', (event) => {
-    if (event.state && event.state.tab) {
-        const tabToActivate = document.getElementById(event.state.tab);
-        if (tabToActivate) {
-            switchTab(tabToActivate, false);
-        }
+    function sendHeartbeat() {
+        if(window.location.host !== 'www.typeidle.com' && window.location.host !== 'typeidle.com') return; // Don't send heartbeats in development
+        fetch('heartbeat.php', {
+            method: 'POST',
+            credentials: 'same-origin'
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text();
+        })
+        .then(data => {
+            console.log('Heartbeat sent successfully:', data);
+        })
+        .catch(error => {
+            console.error('There was a problem with the heartbeat request:', error);
+        });
     }
-});
-
-function applyTheme() {
-    document.body.className = `${currentTheme} ${currentPage}`;
-    gtag('event', 'apply_theme', {
-        'active_theme': currentTheme,
-        'event_category': 'settings'
-    });
-}
-function sendHeartbeat() {
-    if(window.location.host !== 'www.typeidle.com' && window.location.host !== 'typeidle.com') return; // Don't send heartbeats in development
-    fetch('heartbeat.php', {
-        method: 'POST',
-        credentials: 'same-origin'
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.text();
-    })
-    .then(data => {
-        console.log('Heartbeat sent successfully:', data);
-    })
-    .catch(error => {
-        console.error('There was a problem with the heartbeat request:', error);
-    });
-}
-
-function cheat_code() {
-    let gain = buildings[buildings.length - 1].baseCost;
-    keystrokesBank += gain;
-    totalKeystrokes += gain;
-    createFloatingWord(`Cheat Code: +${formatShortScale(gain)}`);
-}
-
-function displayModules() {
-    displayWordle();
-    displayBuildings();
-    displayUpgrades();
-    displayReports();
-    displayArena();
-    displayStockMarket();
-    displayNews();
-    displayBuffs();
-    displayGuild();
-    displayHacker();
-    displayArcade();
-    displayCasino();
-    displayMemory();
-}
+    
+    function cheat_code() {
+        let gain = buildings[buildings.length - 1].baseCost;
+        keystrokesBank += gain;
+        totalKeystrokes += gain;
+        createFloatingWord(`Cheat Code: +${formatShortScale(gain)}`);
+    }
+    
+    function displayModules() {
+        displayWordle();
+        displayBuildings();
+        displayUpgrades();
+        displayReports();
+        displayArena();
+        displayStockMarket();
+        displayNews();
+        displayBuffs();
+        displayGuild();
+        displayHacker();
+        displayArcade();
+        displayCasino();
+        displayMemory();
+    }

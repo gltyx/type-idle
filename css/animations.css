@@ -209,28 +209,6 @@
     100% { transform: scale(1.03); }
 }
 
-/* Word Animations */
-@keyframes fall {
-    0% {
-        opacity: 0.6;
-        transform: translateY(0px);
-    }
-    100% {
-        opacity: 0;
-        transform: translateY(400px);
-    }
-}
-@keyframes float {
-    0% {
-        opacity: 0.6;
-        transform: translateY(0px);
-    }
-    100% {
-        opacity: 0;
-        transform: translateY(-200px);
-    }
-}
-
 @keyframes transaction-fade-in {
     0% {
         opacity: 0;

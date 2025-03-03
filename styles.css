@@ -220,23 +220,6 @@
     height: 5.2rem;
 }
 
-
-.falling-word {
-    position: fixed;
-    animation: fall linear forwards;
-    font-size: 1rem;
-    pointer-events: none; 
-    z-index: 1; 
-}
-.floating-word {
-    position: fixed;
-    animation: float linear forwards;
-    font-size: 1rem;
-    pointer-events: none; 
-    z-index: 2; 
-}
-
-
 #achievements-parent, #upgrades-parent, #ownedupgrades-parent, #stats-parent {
     padding: 0.625rem;
     border: 1px solid var(--border);
