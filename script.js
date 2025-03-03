@@ -289,13 +289,12 @@ function initGame() {
     
     setTimeout(() => {
         updateStickyOffsets();
-    }, 2000); // Update sticky offsets after 500ms (Iframe fix)
+    }, 2000); // Update sticky offsets after 2s (Iframe fix)
     //==========================================
     sendHeartbeat(); // send the first heartbeat
 }
 
 function updateStickyOffsets() {
-    console.log("Updating sticky offsets...");
     const stickyTop = document.getElementById('sticky-top');
     const stickyTopOffset = document.getElementById('sticky-top-offset');
     const navbarContainer = document.getElementById('navbar-container');

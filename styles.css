@@ -14,6 +14,7 @@
  @import url('css/navbar.css');
  @import url('css/notification.css');
  @import url('css/reports.css');
+ @import url('css/settings.css');
  @import url('css/stockmarket.css');
  @import url('css/tooltip.css');
  @import url('css/typing.css');
@@ -82,15 +83,6 @@
     padding-bottom: 1.25rem;
 }
 
-#volume-control {
-    margin-top: 1.25rem;
-    display: flex;
-    align-items: center;
-    gap: 0.625rem;
-}
-#volume-slider {
-    width: 12.5rem;
-}
 
 
 /* Panels */

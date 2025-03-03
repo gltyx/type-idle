@@ -201,6 +201,26 @@ document.getElementById('export-button').addEventListener('click', () => {
       });
 });
 
+document.getElementById('import-button-string').addEventListener('click', () => {
+    const saveData = document.getElementById('import-textarea').value;
+    if (saveData) {
+        gtag('event', 'save_import_string', {
+            'event_category': 'Save'
+          });
+        autosave = false;
+        localStorage.setItem('typingGameSaveV3', saveData);
+        location.reload();
+    }
+});
+
+document.getElementById('export-button-string').addEventListener('click', () => {
+    const saveData = JSON.stringify(saveGame());
+    document.getElementById('export-textarea').value = saveData;
+    gtag('event', 'save_export_string', {
+        'event_category': 'Save'
+      });
+});
+
 document.getElementById('import-button').addEventListener('click', () => {
     document.getElementById('import-file').click();
 });

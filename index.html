@@ -111,7 +111,7 @@
                     TypeIdle.com - Typing Idle Game - 
                     <a href="https://www.youtube.com/@santtuz112" target="_blank">YouTube</a> - 
                     <a href="https://github.com/santtuz112/TypeIdle" target="_blank">GitHub</a> -
-                    Last updated 1 March 2025 - v0.0.4b
+                    Last updated 3 March 2025 - v0.0.4c
                 </p>
             </div>
             <div id="level-container">
@@ -592,47 +592,105 @@
                     </div>
                     <div id="settingsPage" class="page" style="display: none;">
                         <h2>Settings</h2>
-                        <div id="volume-control">
-                            <label for="volume-slider">Volume Control</label>
-                            <input type="range" id="volume-slider" min="0" max="100" value="100">
-                            <span id="volume-label">100%</span>
+                        
+                        <div class="settings-section">
+                            <h3>Game Settings</h3>
+                            <div class="setting-item">
+                                <div class="setting-label">
+                                    <label for="toggle-skip-mistake">Skip words on mistake</label>
+                                    <p class="setting-description">When enabled, pressing space jumps to the next word even when there is a mistake.</p>
+                                </div>
+                                <div class="setting-control">
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" id="toggle-skip-mistake">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
                         </div>
-                        <hr>
-                        <label for="toggle-skip-mistake">
-                            <input type="checkbox" id="toggle-skip-mistake"> Skip words on mistake
-                        </label>
-                        <hr>
-                        <label for="keyboard-layout">
-                            Keyboard layout
-                            <select id="keyboard-layout">
-                                <option value="qwerty-nordic">Qwerty Nordic</option>
-                                <option value="qwerty-us">Qwerty US</option>
-                                <option value="qwerty-uk">Qwerty UK</option>
-                                <option value="dvorak">Dvorak</option>
-                                <option value="azerty">Azerty</option>
-                            </select>
-                        </label>
-                        <hr>
-                        <label for="theme-select">
-                            Theme
-                            <select id="theme-select">
-                                <option value="light-coffee">Light Coffee</option>
-                                <option value="dark-coffee">Dark Coffee</option>
-                                <option value="dark">Dark</option>
-                                <option value="midnight-blue">Midnight Blue</option>
-                                <option value="forest-green">Forest Green</option>
-                                <option value="desert-sunset">Desert Sunset</option>
-                                <option value="spring-blossom">Spring Blossom</option>
-                                <option value="cyberpunk-neon">Cyberpunk Neon</option>
-                            </select>
-                        </label>
-                        <hr>
-                        <h2>Save/Load</h2>
-                        <button id="export-button">Export Save</button>
-                        <button id="import-button">Import Save</button>
-                        <input type="file" id="import-file" style="display: none;">
-                        <hr>
-                        <button id="reset-button">Reset Game</button>
+                        
+                        <div class="settings-section">
+                            <h3>Appearance</h3>
+                            <div class="setting-item">
+                                <div class="setting-label">
+                                    <label for="keyboard-layout">Keyboard layout</label>
+                                    <p class="setting-description">Choose your preferred keyboard layout</p>
+                                </div>
+                                <div class="setting-control">
+                                    <select id="keyboard-layout">
+                                        <option value="qwerty-nordic">Qwerty Nordic</option>
+                                        <option value="qwerty-us">Qwerty US</option>
+                                        <option value="qwerty-uk">Qwerty UK</option>
+                                        <option value="dvorak">Dvorak</option>
+                                        <option value="azerty">Azerty</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <div class="setting-label">
+                                    <label for="theme-select">Theme</label>
+                                    <p class="setting-description">Change the visual theme of the game</p>
+                                    <p class="setting-description">Note: All themes except dark are obsolete (Not yet updated to new UI)</p>
+                                </div>
+                                <div class="setting-control">
+                                    <select id="theme-select">
+                                        <option value="light-coffee">Light Coffee</option>
+                                        <option value="dark-coffee">Dark Coffee</option>
+                                        <option value="dark">Dark</option>
+                                        <option value="midnight-blue">Midnight Blue</option>
+                                        <option value="forest-green">Forest Green</option>
+                                        <option value="desert-sunset">Desert Sunset</option>
+                                        <option value="spring-blossom">Spring Blossom</option>
+                                        <option value="cyberpunk-neon">Cyberpunk Neon</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-section">
+                            <h3>Audio</h3>
+                            <div class="setting-item">
+                                <div class="setting-label">
+                                    <label for="volume-slider">Volume</label>
+                                    <p class="setting-description">Adjust the game sound effects volume</p>
+                                </div>
+                                <div class="setting-control volume-control">
+                                    <input type="range" id="volume-slider" min="0" max="100" value="100">
+                                    <span id="volume-label">100%</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-section">
+                            <h3>Save Management</h3>
+                            <div class="save-controls">
+                                <div class="save-buttons">
+                                    <button id="export-button" class="settings-button">Export Save File</button>
+                                    <button id="import-button" class="settings-button">Import Save File</button>
+                                    <input type="file" id="import-file" style="display: none;">
+                                </div>
+                                
+                                <div class="save-text-area">
+                                    <div class="setting-label">
+                                        <label for="export-textarea">Export/Import Save Text</label>
+                                        <p class="setting-description">Copy this text to backup your save or paste a save string to import</p>
+                                    </div>
+                                    <textarea id="export-textarea" readonly placeholder="Your save data will appear here..."></textarea>
+                                    <div class="save-text-buttons">
+                                        <button id="export-button-string" class="settings-button">Generate Save Text</button>
+                                        <button id="import-button-string" class="settings-button">Import Save Text</button>
+                                    </div>
+                                    <textarea id="import-textarea" placeholder="Paste your save text here..."></textarea>
+                                </div>
+                            </div>
+                            
+                            <div class="danger-zone">
+                                <h4>Danger Zone</h4>
+                                <p>Warning: This action cannot be undone.</p>
+                                <button id="reset-button" class="danger-button">Reset Game Progress</button>
+                            </div>
+                        </div>
                     </div>
                     <div id="reportsPage" class="page" style="display: none;">
                         <h2>Stats</h2>
