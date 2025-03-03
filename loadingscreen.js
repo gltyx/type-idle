@@ -1,15 +1,24 @@
 // Load styles.css
+const VERSION_LOAD = "0.0.4c"
 function loadCSS() {
-    return new Promise((resolve, reject) => {
-        var head = document.getElementsByTagName('head')[0];
-        var link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.type = 'text/css';
-        link.href = 'styles.css';
-        link.onload = resolve;
-        link.onerror = reject;
-        head.appendChild(link);
-    });
+    let CSSFiles = ['styles.css', 'css/achievements.css', 'css/animations.css', 'css/arcade.css',
+        'css/arena.css', 'css/base.css', 'css/buildings.css', 'css/casino.css', 'css/guild.css',
+        'css/hacker.css', 'css/keyboard.css', 'css/memory.css', 'css/navbar.css', 'css/notification.css',
+        'css/reports.css', 'css/settings.css', 'css/stockmarket.css', 'css/themes.css', 'css/tooltip.css',
+        'css/typing.css', 'css/upgrades.css', 'css/wordle.css'
+    ];
+    return Promise.all(CSSFiles.map(src => {
+        return new Promise((resolve, reject) => {
+            var head = document.getElementsByTagName('head')[0];
+            var link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = src + '?force_reload=' + VERSION_LOAD;
+            link.onload = resolve;
+            link.onerror = reject;
+            head.appendChild(link);
+        });
+    }));
 }
 
 // Load TypeIdle.js
@@ -17,7 +26,7 @@ function loadJS() {
     return new Promise((resolve, reject) => {
         var head = document.getElementsByTagName('head')[0];
         var script = document.createElement('script');
-        script.src = 'TypeIdle.js';
+        script.src = 'TypeIdle.js?force_reload=' + VERSION_LOAD;
         script.onload = resolve;
         script.onerror = reject;
         head.appendChild(script);

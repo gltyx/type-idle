@@ -1,25 +1,3 @@
- @import url('css/animations.css');
- @import url('css/themes.css');
- @import url('css/base.css');
- 
- @import url('css/achievements.css');
- @import url('css/arcade.css');
- @import url('css/arena.css');
- @import url('css/buildings.css');
- @import url('css/casino.css');
- @import url('css/guild.css');
- @import url('css/hacker.css');
- @import url('css/keyboard.css');
- @import url('css/memory.css');
- @import url('css/navbar.css');
- @import url('css/notification.css');
- @import url('css/reports.css');
- @import url('css/settings.css');
- @import url('css/stockmarket.css');
- @import url('css/tooltip.css');
- @import url('css/typing.css');
- @import url('css/upgrades.css');
- @import url('css/wordle.css');
  
  /* Main Container */
  #main-container {
