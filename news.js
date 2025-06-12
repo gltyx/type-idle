@@ -186,14 +186,14 @@ function applyGoldenNewsBoost() {
     const boostType = boostTypes[Math.floor(Math.random() * boostTypes.length)];
     if (boostType === 'passive_boost') {
         spawnBoost(3);
-        showNotification(`Golden News Boost`, '7x passive income for 1 minute!', 'url("/images/boost/news.webp")');
+        showNotification(`Golden News Boost`, '7x passive income for 1 minute!', 'url("./images/boost/news.webp")');
     } else if (boostType === 'active_boost') {
         spawnBoost(4);
-        showNotification(`Golden News Boost`, '7x production from manual keystrokes', 'url("/images/boost/news.webp")');
+        showNotification(`Golden News Boost`, '7x production from manual keystrokes', 'url("./images/boost/news.webp")');
     } else if (boostType === 'keystrokes') {
         // Grant instant keystrokes based on passive income
         const instantKeystrokes = getPassiveIncome() * 60 * 7; // 7 minute worth of passive income
         keystrokesBank += instantKeystrokes;
-        showNotification(`Golden News Boost`, `+${formatShortScale(instantKeystrokes)} keystrokes!`, 'url("/images/boost/news.webp")');
+        showNotification(`Golden News Boost`, `+${formatShortScale(instantKeystrokes)} keystrokes!`, 'url("./images/boost/news.webp")');
     }
 }

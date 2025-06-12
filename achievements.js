@@ -278,7 +278,7 @@ function showAchievement(achievement) {
         <h2>Achievement Unlocked</h2>`,
         `<p>${achievement.description}</p>
         <p class="trivia">"${achievement.trivia}"</p>`,
-        `url("/images/tooltips/achievements/448/${achievement.id}.webp")`);
+        `url("./images/tooltips/achievements/448/${achievement.id}.webp")`);
 }
 
 function updateAchievement(achievement) {
@@ -354,7 +354,7 @@ function displayAchievements() {
         
         achievementElement.innerHTML = `
             <div class="achievement-header">
-                <img src="/images/tooltips/achievements/448/${achievement.id}.webp" alt="${achievement.name}">
+                <img src="./images/tooltips/achievements/448/${achievement.id}.webp" alt="${achievement.name}">
                 <span class="achievement-badge">${achievement.unlocked ? '✓' : '!'}</span>
                 ${!achievement.unlocked ? '<div class="achievement-icon-overlay">🔒</div>' : ''}
                 <span class="achievement-status">${achievement.unlocked ? 'Completed' : 'Incomplete'}</span>

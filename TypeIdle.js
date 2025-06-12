@@ -157,11 +157,11 @@ function setToolTipPos3(element) {
 
 function showBuildingTooltip(buildingElement, building) {
     if(building.locked) {
-        tooltip.style.backgroundImage = `url("/images/tooltips/buildings/448/locked.jpg")`;
+        tooltip.style.backgroundImage = `url("./images/tooltips/buildings/448/locked.jpg")`;
         tooltipHead.innerHTML = `<h1>Locked Building</h1>`;
         tooltipSection.innerHTML = `<p>${building.lockdescription}</p>`;
     } else {
-        tooltip.style.backgroundImage = `url("/images/tooltips/buildings/448/${building.id}.jpg")`;
+        tooltip.style.backgroundImage = `url("./images/tooltips/buildings/448/${building.id}.jpg")`;
         tooltipHead.innerHTML = `<h1>${building.name}</h1>`;
         let researchHtml = '';
         let currentBoost = getSpecialBoost(building);
@@ -172,8 +172,8 @@ function showBuildingTooltip(buildingElement, building) {
         }
         if(typeof building.getResearchProduceSingle === "function") {
             researchHtml = `
-                <li>Each <strong>${building.name}</strong> produces <strong><img src="/images/icons/128/research-bulb-icon.png" class="researchicon" alt="Research">${building.getResearchProduceSingle().toFixed(2)} per second.</strong></li>
-                <li><strong>${building.level} ${building.name}s</strong> produces <strong><img src="/images/icons/128/research-bulb-icon.png" class="researchicon" alt="Research">${formatShortScale(building.getResearchProduce())} per second.</strong></li>
+                <li>Each <strong>${building.name}</strong> produces <strong><img src="./images/icons/128/research-bulb-icon.png" class="researchicon" alt="Research">${building.getResearchProduceSingle().toFixed(2)} per second.</strong></li>
+                <li><strong>${building.level} ${building.name}s</strong> produces <strong><img src="./images/icons/128/research-bulb-icon.png" class="researchicon" alt="Research">${formatShortScale(building.getResearchProduce())} per second.</strong></li>
             `;
         }
         tooltipSection.innerHTML = `
@@ -181,9 +181,9 @@ function showBuildingTooltip(buildingElement, building) {
         <ul class="tooltip-stats">
             <li><strong>${building.special}</strong></li>
             ${currentBoost}
-            <li>Each <strong>${building.name}</strong> produces <strong><img src="/images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin">${formatShortScale(building.getProduceSingle())} per second.</strong></li>
-            <li><strong>${building.level} ${building.name}s</strong> produces <strong><img src="/images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin">${formatShortScale(building.getProduce())} per second.</strong></li>
-            <li><strong>Total produced: <img src="/images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin">${formatShortScale(building.totalProduce)}</strong></li>
+            <li>Each <strong>${building.name}</strong> produces <strong><img src="./images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin">${formatShortScale(building.getProduceSingle())} per second.</strong></li>
+            <li><strong>${building.level} ${building.name}s</strong> produces <strong><img src="./images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin">${formatShortScale(building.getProduce())} per second.</strong></li>
+            <li><strong>Total produced: <img src="./images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin">${formatShortScale(building.totalProduce)}</strong></li>
         ${researchHtml}
         </ul>
         <p class="trivia">"${building.trivia}"</p>`;
@@ -194,7 +194,7 @@ function showBuildingTooltip(buildingElement, building) {
 
 
 function showOwnedUpgradeToolTip(upgradeElement, upgrade) {
-    tooltip.style.backgroundImage = `url("/images/tooltips/upgrades/448/${upgrade.id}.jpg")`;
+    tooltip.style.backgroundImage = `url("./images/tooltips/upgrades/448/${upgrade.id}.jpg")`;
     tooltipHead.innerHTML = `<h1>${upgrade.name}</h1>`;
     tooltipSection.innerHTML = `
     <p>${upgrade.description}</p>
@@ -204,18 +204,18 @@ function showOwnedUpgradeToolTip(upgradeElement, upgrade) {
 }
 
 function showUpgradeToolTip(upgradeElement, upgrade) {
-    tooltip.style.backgroundImage = `url("/images/tooltips/upgrades/448/${upgrade.id}.jpg")`;
+    tooltip.style.backgroundImage = `url("./images/tooltips/upgrades/448/${upgrade.id}.jpg")`;
     tooltipHead.innerHTML = `<h1>${upgrade.name}</h1>`;
     tooltipSection.innerHTML = `
     <p>${upgrade.description}</p>
     <p class="trivia">"${upgrade.trivia}"</p>
-    <img src="/images/icons/128/research-bulb-icon.png" class="researchicon" alt="Research"> <span>${formatShortScale(upgrade.cost)}</span>`;
+    <img src="./images/icons/128/research-bulb-icon.png" class="researchicon" alt="Research"> <span>${formatShortScale(upgrade.cost)}</span>`;
     setToolTipPos2(upgradeElement);
     tooltip.classList.add('visible');
 }
 
 function showCurrentResearchCountTooltip(element) {
-    tooltip.style.backgroundImage = `url("/images/tooltips/buildings/448/3.jpg")`; // research building
+    tooltip.style.backgroundImage = `url("./images/tooltips/buildings/448/3.jpg")`; // research building
     tooltipHead.innerHTML = `<h1>Research Points</h1>`;
     tooltipSection.innerHTML = `<p>Research points allow you to unlock valuable upgrades for your buildings.</p>`;
     setToolTipPos(element); 
@@ -5441,7 +5441,7 @@ function initBuildings() {
         // Create the HTML structure for horizontal building item
         buildingItem.innerHTML = `
             <div class="building-icon">
-                <img src="/images/buildings/128/${building.id}${building.locked ? '-locked' : ''}.png" alt="${building.name}">
+                <img src="./images/buildings/128/${building.id}${building.locked ? '-locked' : ''}.png" alt="${building.name}">
                 <div class="building-level">Lvl ${building.level}</div>
             </div>
             <div class="building-info">
@@ -6825,7 +6825,7 @@ function initReports() {
             const reportDiv = document.createElement('div');
             reportDiv.id = `report-${building.id}`;
             reportDiv.className = "report";
-            reportDiv.style.backgroundImage = `url("/images/tooltips/buildings/${building.id}.jpg")`;
+            reportDiv.style.backgroundImage = `url("./images/tooltips/buildings/${building.id}.jpg")`;
             reportsContainer.appendChild(reportDiv);
         });
         reportsInitialized = true;
@@ -6906,7 +6906,7 @@ function displayReports() {
                 reportDiv.innerHTML = `
                     <div class="report-receipt">
                         <div class="report-header">
-                            <img src="/images/buildings/128/${building.id}.png" class="currencyicon" alt="${building.name}">
+                            <img src="./images/buildings/128/${building.id}.png" class="currencyicon" alt="${building.name}">
                             <h3>${building.name}</h3>
                         </div>
                         <div class="report-description">${building.special}</div>
@@ -7013,7 +7013,7 @@ function updateManualReport() {
       let newHTML = `
         <div class="report-receipt">
             <div class="report-header">
-                <img src="/images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin">
+                <img src="./images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin">
                 <h3>Manual Keystrokes</h3>
             </div>
             <div class="report-description">Value per keystroke when typing manually</div>
@@ -7289,16 +7289,16 @@ function resetWordleKeyboard() {
 
 
 const stocks = [
-    { id: 0, name: "Logifetch", nameref: "Logitech", icon: "/images/stocks/logifetch.webp", price: 60, owned: 0, history: [] },
-    { id: 1, name: "Coarseair", nameref: "Corsair", icon: "/images/stocks/coarseair.webp", price: 60, owned: 0, history: [] },
-    { id: 2, name: "Laser", nameref: "Razer", icon: "/images/stocks/laser.webp", price: 60, owned: 0, history: [] },
-    { id: 3, name: "PlasticSeries", nameref: "SteelSeries", icon: "/images/stocks/plasticseries.webp", price: 60, owned: 0, history: [] },
-    { id: 4, name: "Megasoft", nameref: "Microsoft", icon: "/images/stocks/megasoft.webp", price: 60, owned: 0, history: [] },
-    { id: 5, name: "Pineapple", nameref: "Apple", icon: "/images/stocks/pineapple.webp", price: 60, owned: 0, history: [] },
-    { id: 6, name: "HP Sauce", nameref: "HP", icon: "/images/stocks/hp-sauce.webp", price: 60, owned: 0, history: [] },
-    { id: 7, name: "Smell", nameref: "Dell", icon: "/images/stocks/smell.webp", price: 60, owned: 0, history: [] },
-    { id: 8, name: "AS IF", nameref: "Asus", icon: "/images/stocks/as-if.webp", price: 60, owned: 0, history: [] },
-    { id: 9, name: "Cooler Blaster", nameref: "Cooler Master", icon: "/images/stocks/cooler-blaster.webp", price: 60, owned: 0, history: [] }
+    { id: 0, name: "Logifetch", nameref: "Logitech", icon: "./images/stocks/logifetch.webp", price: 60, owned: 0, history: [] },
+    { id: 1, name: "Coarseair", nameref: "Corsair", icon: "./images/stocks/coarseair.webp", price: 60, owned: 0, history: [] },
+    { id: 2, name: "Laser", nameref: "Razer", icon: "./images/stocks/laser.webp", price: 60, owned: 0, history: [] },
+    { id: 3, name: "PlasticSeries", nameref: "SteelSeries", icon: "./images/stocks/plasticseries.webp", price: 60, owned: 0, history: [] },
+    { id: 4, name: "Megasoft", nameref: "Microsoft", icon: "./images/stocks/megasoft.webp", price: 60, owned: 0, history: [] },
+    { id: 5, name: "Pineapple", nameref: "Apple", icon: "./images/stocks/pineapple.webp", price: 60, owned: 0, history: [] },
+    { id: 6, name: "HP Sauce", nameref: "HP", icon: "./images/stocks/hp-sauce.webp", price: 60, owned: 0, history: [] },
+    { id: 7, name: "Smell", nameref: "Dell", icon: "./images/stocks/smell.webp", price: 60, owned: 0, history: [] },
+    { id: 8, name: "AS IF", nameref: "Asus", icon: "./images/stocks/as-if.webp", price: 60, owned: 0, history: [] },
+    { id: 9, name: "Cooler Blaster", nameref: "Cooler Master", icon: "./images/stocks/cooler-blaster.webp", price: 60, owned: 0, history: [] }
 ];
 
 // New transaction history array
@@ -11855,7 +11855,7 @@ let boosts = [
         multiplier: 2,
         duration: Tickrate * 3 * 60,
         maxduration: Tickrate * 3 * 60,
-        icon: "/images/boost/wordle.webp"
+        icon: "./images/boost/wordle.webp"
     },
     {
         id: 1,
@@ -11876,7 +11876,7 @@ let boosts = [
         KPStoManual: 0.01,
         duration: Tickrate * 5 * 60,
         maxduration: Tickrate * 5 * 60,
-        icon: "/images/boost/arena.webp"
+        icon: "./images/boost/arena.webp"
     },
     {
         id: 3,
@@ -11886,7 +11886,7 @@ let boosts = [
         maxduration: 60 * Tickrate,
         multiplier: 7,
         affectedBuildings: buildings.flatMap(b => b.id),
-        icon: "/images/boost/news.webp"
+        icon: "./images/boost/news.webp"
     },
     {
         id: 4,
@@ -11896,7 +11896,7 @@ let boosts = [
         maxduration: 60 * Tickrate,
         multiplier: 7,
         affectedBuildings: [0], // 0 for manually typed keystrokes,
-        icon: "/images/boost/news.webp"
+        icon: "./images/boost/news.webp"
     },
     {
         id: 5,
@@ -12401,7 +12401,7 @@ function initUpgrades() {
     const sortedUpgrades = [...upgrades].sort((a, b) => a.cost - b.cost);    sortedUpgrades.forEach((upgrade, index) => {
         // Big buttons
         const researchElement = document.createElement('button');
-        researchElement.style.backgroundImage = `url("/images/tooltips/upgrades/448/${upgrade.id}.jpg")`;
+        researchElement.style.backgroundImage = `url("./images/tooltips/upgrades/448/${upgrade.id}.jpg")`;
         researchElement.className = 'bigUpgrade';
         researchElement.setAttribute('data-index', upgrade.id - 1);
         researchElement.innerHTML = `
@@ -12411,7 +12411,7 @@ function initUpgrades() {
                     <div class="upgrade-name">${upgrade.name}</div>
                     <div class="upgrade-description">${upgrade.description}</div>
                     <div class="upgrade-cost">
-                        <img src="/images/icons/128/research-bulb-icon.png" class="research-icon" alt="Research"> 
+                        <img src="./images/icons/128/research-bulb-icon.png" class="research-icon" alt="Research"> 
                         ${formatShortScale(upgrade.cost)}
                     </div>
                 </div>
@@ -12431,7 +12431,7 @@ function initUpgrades() {
         const researchOwnedElement = document.createElement('div');
         researchOwnedElement.className = 'owned-bigUpgrade';
         researchOwnedElement.setAttribute('data-index', upgrade.id - 1);
-        researchOwnedElement.style.backgroundImage = `url("/images/tooltips/upgrades/448/${upgrade.id}.jpg")`;
+        researchOwnedElement.style.backgroundImage = `url("./images/tooltips/upgrades/448/${upgrade.id}.jpg")`;
         researchOwnedElement.innerHTML = `
             <div class="upgrade-content">
                 <div class="upgrade-emoji">${upgrade.emoji}</div>
@@ -12695,15 +12695,15 @@ function applyGoldenNewsBoost() {
     const boostType = boostTypes[Math.floor(Math.random() * boostTypes.length)];
     if (boostType === 'passive_boost') {
         spawnBoost(3);
-        showNotification(`Golden News Boost`, '7x passive income for 1 minute!', 'url("/images/boost/news.webp")');
+        showNotification(`Golden News Boost`, '7x passive income for 1 minute!', 'url("./images/boost/news.webp")');
     } else if (boostType === 'active_boost') {
         spawnBoost(4);
-        showNotification(`Golden News Boost`, '7x production from manual keystrokes', 'url("/images/boost/news.webp")');
+        showNotification(`Golden News Boost`, '7x production from manual keystrokes', 'url("./images/boost/news.webp")');
     } else if (boostType === 'keystrokes') {
         // Grant instant keystrokes based on passive income
         const instantKeystrokes = getPassiveIncome() * 60 * 7; // 7 minute worth of passive income
         keystrokesBank += instantKeystrokes;
-        showNotification(`Golden News Boost`, `+${formatShortScale(instantKeystrokes)} keystrokes!`, 'url("/images/boost/news.webp")');
+        showNotification(`Golden News Boost`, `+${formatShortScale(instantKeystrokes)} keystrokes!`, 'url("./images/boost/news.webp")');
     }
 }
 

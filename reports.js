@@ -14,7 +14,7 @@ function initReports() {
             const reportDiv = document.createElement('div');
             reportDiv.id = `report-${building.id}`;
             reportDiv.className = "report";
-            reportDiv.style.backgroundImage = `url("/images/tooltips/buildings/${building.id}.jpg")`;
+            reportDiv.style.backgroundImage = `url("./images/tooltips/buildings/${building.id}.jpg")`;
             reportsContainer.appendChild(reportDiv);
         });
         reportsInitialized = true;
@@ -95,7 +95,7 @@ function displayReports() {
                 // Update the inner HTML (or just the UL portion).
                 reportDiv.innerHTML = `
                     <div class="report-receipt">
-                    <h3><img src="/images/buildings/128/${building.id}.png" class="currencyicon" alt="${building.name}"> ${building.name}</h3>
+                    <h3><img src="./images/buildings/128/${building.id}.png" class="currencyicon" alt="${building.name}"> ${building.name}</h3>
                     <hr>
                     <p><strong>Owned:</strong> ${building.level}</p>
                     <p><strong>Base Production:</strong> ${baseProduction.toFixed(2)} keystrokes/second</p>
@@ -181,7 +181,7 @@ function updateManualReport() {
     
     let newHTML = `
         <div class="report-receipt">
-        <h3><img src="/images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"> Manual Keystrokes Value</h3>
+        <h3><img src="./images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"> Manual Keystrokes Value</h3>
         <hr>
         <p><strong>Base Value:</strong> 1 keystroke</p>
         <p><strong>Flat Modifiers:</strong></p>

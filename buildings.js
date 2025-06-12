@@ -380,7 +380,7 @@ function updateBuildingElement(buildingElement, building) {
                 <div class="building-name">Unknown Building</div>
             </div>
             <div class="building-locked">
-                <img src="/images/buildings/128/${building.id}-locked.png" class="icon">
+                <img src="./images/buildings/128/${building.id}-locked.png" class="icon">
                 <p>${building.lockdescription}</p>
             </div>`;
         if(buildingElement.innerHTML !== newHtml) buildingElement.innerHTML = newHtml;
@@ -410,7 +410,7 @@ function updateBuildingElement(buildingElement, building) {
         <div class="building-bg1" style="background-image: url('/images/tooltips/buildings/448/${building.id}.jpg');">
         <div class="building-bg2">
             <div class="building-header">
-                <img src="/images/buildings/128/${building.id}.png" class="icon" style="width: 32px; height: 32px;">
+                <img src="./images/buildings/128/${building.id}.png" class="icon" style="width: 32px; height: 32px;">
                 <div class="building-name">${building.name}</div>
                 <div class="building-level">${building.level}x</div>
             </div>
@@ -424,7 +424,7 @@ function updateBuildingElement(buildingElement, building) {
                 </div>
             </div>
             <div class="building-cost">
-                <img src="/images/icons/128/keystroke-coin-icon.png" alt="Keystroke Coin">
+                <img src="./images/icons/128/keystroke-coin-icon.png" alt="Keystroke Coin">
                 <span>${formatShortScale(cost)}</span>
             </div>
             <div class="building-footer">

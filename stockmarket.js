@@ -1,14 +1,14 @@
 const stocks = [
-    { id: 0, name: "Logifetch", nameref: "Logitech", icon: "/images/stocks/logifetch.webp", price: 60, owned: 0, history: [] },
-    { id: 1, name: "Coarseair", nameref: "Corsair", icon: "/images/stocks/coarseair.webp", price: 60, owned: 0, history: [] },
-    { id: 2, name: "Laser", nameref: "Razer", icon: "/images/stocks/laser.webp", price: 60, owned: 0, history: [] },
-    { id: 3, name: "PlasticSeries", nameref: "SteelSeries", icon: "/images/stocks/plasticseries.webp", price: 60, owned: 0, history: [] },
-    { id: 4, name: "Megasoft", nameref: "Microsoft", icon: "/images/stocks/megasoft.webp", price: 60, owned: 0, history: [] },
-    { id: 5, name: "Pineapple", nameref: "Apple", icon: "/images/stocks/pineapple.webp", price: 60, owned: 0, history: [] },
-    { id: 6, name: "HP Sauce", nameref: "HP", icon: "/images/stocks/hp-sauce.webp", price: 60, owned: 0, history: [] },
-    { id: 7, name: "Smell", nameref: "Dell", icon: "/images/stocks/smell.webp", price: 60, owned: 0, history: [] },
-    { id: 8, name: "AS IF", nameref: "Asus", icon: "/images/stocks/as-if.webp", price: 60, owned: 0, history: [] },
-    { id: 9, name: "Cooler Blaster", nameref: "Cooler Master", icon: "/images/stocks/cooler-blaster.webp", price: 60, owned: 0, history: [] }
+    { id: 0, name: "Logifetch", nameref: "Logitech", icon: "./images/stocks/logifetch.webp", price: 60, owned: 0, history: [] },
+    { id: 1, name: "Coarseair", nameref: "Corsair", icon: "./images/stocks/coarseair.webp", price: 60, owned: 0, history: [] },
+    { id: 2, name: "Laser", nameref: "Razer", icon: "./images/stocks/laser.webp", price: 60, owned: 0, history: [] },
+    { id: 3, name: "PlasticSeries", nameref: "SteelSeries", icon: "./images/stocks/plasticseries.webp", price: 60, owned: 0, history: [] },
+    { id: 4, name: "Megasoft", nameref: "Microsoft", icon: "./images/stocks/megasoft.webp", price: 60, owned: 0, history: [] },
+    { id: 5, name: "Pineapple", nameref: "Apple", icon: "./images/stocks/pineapple.webp", price: 60, owned: 0, history: [] },
+    { id: 6, name: "HP Sauce", nameref: "HP", icon: "./images/stocks/hp-sauce.webp", price: 60, owned: 0, history: [] },
+    { id: 7, name: "Smell", nameref: "Dell", icon: "./images/stocks/smell.webp", price: 60, owned: 0, history: [] },
+    { id: 8, name: "AS IF", nameref: "Asus", icon: "./images/stocks/as-if.webp", price: 60, owned: 0, history: [] },
+    { id: 9, name: "Cooler Blaster", nameref: "Cooler Master", icon: "./images/stocks/cooler-blaster.webp", price: 60, owned: 0, history: [] }
 ];
 
 // New transaction history array
