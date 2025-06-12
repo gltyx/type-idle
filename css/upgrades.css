@@ -3,9 +3,8 @@
     max-height: 10rem;
     overflow: hidden;
     border: 1px solid var(--border);
-    border-radius: 10px;
-    background: linear-gradient(135deg, #424242 0%, #525252 100%);
-    transition: max-height 0.3s ease;
+    border-radius: 5px;
+    background-color: #424242;
 }
 #upgrades-container:hover {
     max-height: max-content;
@@ -15,171 +14,26 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 1rem;
+    gap: 0.625rem;
     flex-direction: row;
-    padding: 1rem;
 }
-
 .bigUpgrade, .owned-bigUpgrade {
-    position: relative;
-    margin: 5px;
-    padding: 0;
-    border-radius: 15px;
-    color: var(--tooltip-text);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-    width: 280px;
-    height: 180px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    overflow: hidden;
-    display: flex;
-    cursor: pointer;
-}
-
-.bigUpgrade::before, .owned-bigUpgrade::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: inherit;
     background-size: cover;
-    background-position: center;
+    background-position: center; 
     background-repeat: no-repeat;
-    filter: blur(4px) brightness(0.6);
-    z-index: 1;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 5px;
+    color: var(--tooltip-text);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.7);
+    width: 10rem;
+    height: 10rem;
+    transition: transform 0.3s ease;
 }
-
-.bigUpgrade::after, .owned-bigUpgrade::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, 
-        rgba(0, 0, 0, 0.4) 0%, 
-        rgba(0, 0, 0, 0.2) 50%, 
-        rgba(255, 255, 255, 0.1) 100%);
-    z-index: 2;
-}
-
-.upgrade-content {
-    position: relative;
-    z-index: 3;
-    display: flex;
-    width: 100%;
-    padding: 15px;
-    gap: 15px;
-}
-
-.upgrade-emoji {
-    font-size: 3rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));
-    flex-shrink: 0;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    width: 60px;
-    transition: transform 0.3s ease, filter 0.3s ease;
-    animation: emojiPulse 4s ease-in-out infinite;
-}
-
-.upgrade-info {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    text-align: left;
-}
-
-.upgrade-name {
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: #ffffff;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-    line-height: 1.2;
-}
-
-.upgrade-description {
-    font-size: 0.9rem;
-    color: #e0e0e0;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-    line-height: 1.3;
-    flex: 1;
-}
-
-.upgrade-cost {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 0.9rem;
-    font-weight: bold;
-    color: #ffd700;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-    background: rgba(0, 0, 0, 0.3);
-    padding: 4px 8px;
-    border-radius: 8px;
-    border: 1px solid rgba(255, 215, 0, 0.3);
-}
-
-.upgrade-trivia {
-    font-size: 0.8rem;
-    color: #c0c0c0;
-    font-style: italic;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-    line-height: 1.2;
-    background: rgba(0, 0, 0, 0.2);
-    padding: 4px 8px;
-    border-radius: 6px;
-    border-left: 3px solid rgba(255, 255, 255, 0.3);
-}
-
-.research-icon {
-    width: 16px;
-    height: 16px;
-    opacity: 0.9;
-}
-
 .bigUpgrade:hover, .owned-bigUpgrade:hover {
-    transform: scale(1.05);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
-    border-color: rgba(255, 255, 255, 0.4);
+    transform:scale(1.1);
 }
-
-.bigUpgrade:hover .upgrade-emoji, .owned-bigUpgrade:hover .upgrade-emoji {
-    transform: scale(1.1);
-    filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.8));
-}
-
-.bigUpgrade:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-}
-
-.bigUpgrade:disabled:hover {
-    transform: none;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-}
-
-.owned-bigUpgrade {
-    border-color: rgba(255, 215, 0, 0.5);
-    box-shadow: 0 8px 16px rgba(255, 215, 0, 0.2);
-}
-
-.owned-bigUpgrade::after {
-    background: linear-gradient(135deg, 
-        rgba(255, 215, 0, 0.2) 0%, 
-        rgba(255, 215, 0, 0.1) 50%, 
-        rgba(255, 255, 255, 0.1) 100%);
-}
-
-.owned-bigUpgrade .upgrade-emoji {
-    filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.7));
-}
-
 .owned-upgrade, .upgrade {
     background-size: cover;
     background-position: center; 
@@ -199,27 +53,4 @@
     background-color: var(--bgcolor3);
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
-}
-
-/* Add subtle animations */
-@keyframes upgradeGlow {
-    0%, 100% { 
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-    }
-    50% { 
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 255, 255, 0.1);
-    }
-}
-
-@keyframes emojiPulse {
-    0%, 100% { 
-        transform: scale(1);
-    }
-    50% { 
-        transform: scale(1.05);
-    }
-}
-
-.bigUpgrade:not(:disabled) {
-    animation: upgradeGlow 3s ease-in-out infinite;
 }

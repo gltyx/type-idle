@@ -1,555 +1,127 @@
-/* Buildings Container - Horizontal Layout */
-#buildings {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    padding: 1rem;
-    background: rgba(10, 10, 10, 0.6);
-    border-radius: 15px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(8px);
-    background: radial-gradient(circle at center, rgba(0,0,0,0.6) 50%, rgba(0, 0, 0, 0.9) 100%), url("/images/blackboard.jpg");
-    background-size: cover;
-}
-
 #buildings-container {
     display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-    width: 100%;
-    padding: 0;
-}
-
-/* Horizontal Building Items - Compact Version */
-.building-item {
-    display: flex;
-    background-color: var(--panel-bg);
-    border: 2px solid var(--border);
-    border-radius: 8px;
-    padding: 0.5rem;
-    transition: all 0.3s ease;
-    position: relative;
-    backdrop-filter: blur(8px);
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5));
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    overflow: hidden;
-    min-height: 60px;
-}
-
-.building-item::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-size: cover;
-    background-position: center;
-    opacity: 0.1;
-    z-index: 0;
-}
-
-.building-item:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
-    border-color: var(--color1);
-}
-
-.building-item.affordable {
-    border-color: var(--production-color);
-    background: linear-gradient(135deg, rgba(0, 100, 0, 0.15), rgba(0, 0, 0, 0.7));
-}
-
-.building-item.affordable:hover {
-    border-color: var(--color1);
-    background: linear-gradient(135deg, rgba(0, 150, 0, 0.2), rgba(0, 0, 0, 0.6));
-}
-
-.building-item:not(.affordable) {
-    opacity: 0.7;
-    filter: grayscale(50%);
-}
-
-.building-item.locked {
-    opacity: 0.5;
-    filter: grayscale(100%);
-    cursor: not-allowed;
-}
-
-/* Building Icon - Compact */
-.building-icon {
-    position: relative;
-    margin-right: 0.75rem;
-    z-index: 1;
-    flex-shrink: 0;
-}
-
-.building-icon img {
-    width: 48px;
-    height: 48px;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
-}
-
-.building-level {
-    position: absolute;
-    top: -6px;
-    left: -6px;
-    background-color: var(--color1);
-    color: white;
-    font-size: 0.6rem;
-    padding: 1px 4px;
-    border-radius: 8px;
-    font-weight: bold;
-    border: 1px solid var(--border);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-    z-index: 2;
-    line-height: 1;
-}
-
-/* Building Info Section - Compact */
-.building-info {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-    z-index: 1;
-    min-width: 0;
-}
-
-.building-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.building-name {
-    font-size: 0.9rem;
-    font-weight: bold;
-    color: var(--color1);
-    margin: 0;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-}
-
-.building-price {
-    font-size: 0.8rem;
-    font-weight: bold;
-    color: var(--production-color);
-    background-color: rgba(0, 0, 0, 0.3);
-    padding: 2px 6px;
-    border-radius: 4px;
-    border: 1px solid var(--border);
-    white-space: nowrap;
-}
-
-.building-description {
-    font-size: 0.7rem;
-    color: var(--color2);
-    margin: 0;
-    opacity: 0.8;
-    line-height: 1.2;
-}
-
-/* Building Stats Section - Compact */
-.building-stats {
-    display: flex;
-    gap: 0.5rem;
-    margin: 0.25rem 0;
+    flex-direction: row;
     flex-wrap: wrap;
-    z-index: 1;
-}
-
-.stat {
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-    font-size: 0.65rem;
-    background-color: rgba(0, 0, 0, 0.3);
-    padding: 2px 4px;
-    border-radius: 3px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.stat-label {
-    color: var(--color2);
-    opacity: 0.8;
-}
-
-.stat-value {
-    color: var(--production-color);
-    font-weight: bold;
-}
-
-/* Building Actions - Compact */
-.building-actions {
-    display: none;
-    gap: 0.25rem;
-    align-items: center;
-    z-index: 1;
-    flex-shrink: 0;
-    flex-wrap: wrap;
-}
-
-.building-item:hover .building-actions {
-    display: flex;
-}
-
-.buy-btn {
-    background: linear-gradient(135deg, var(--color1), var(--color2));
-    color: white;
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 4px 6px;
-    font-size: 0.6rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    white-space: nowrap;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-}
-
-.buy-btn:hover:not(:disabled) {
-    background: linear-gradient(135deg, var(--color2), var(--color1));
-    transform: translateY(-1px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-.buy-btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    filter: grayscale(100%);
-}
-
-/* Building Buy Buttons */
-.building-buy-buttons {
-    display: flex;
-    gap: 0.25rem;
-}
-
-.building-buy-btn {
-    font-size: 0.7rem;
-    padding: 4px 8px;
-    background-color: rgba(0, 0, 0, 0.5);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    color: var(--button-text-color);
-    font-weight: bold;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    min-width: 40px;
-}
-
-.building-buy-btn:hover:not(:disabled) {
-    background-color: var(--color1);
-    transform: translateY(-1px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-.building-buy-btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
-
-/* Mobile Responsive */
-@media (max-width: 768px) {
-    .building-item {
-        flex-direction: column;
-        text-align: center;
-        padding: 0.75rem;
-    }
-    
-    .building-icon-section {
-        margin-right: 0;
-        margin-bottom: 0.5rem;
-    }
-    
-    .building-stats-section {
-        margin: 0.5rem 0;
-        min-width: auto;
-        width: 100%;
-    }
-    
-    .building-purchase-section {
-        align-items: center;
-        min-width: auto;
-        width: 100%;
-    }
-    
-    .building-buy-buttons {
-        justify-content: center;
-    }
-}
-
-/* Responsive Design for Mobile - Extra Compact */
-@media (max-width: 768px) {
-    .building-item {
-        padding: 0.375rem;
-        min-height: 50px;
-    }
-    
-    .building-icon {
-        margin-right: 0.5rem;
-    }
-    
-    .building-icon img {
-        width: 40px;
-        height: 40px;
-    }
-    
-    .building-level {
-        font-size: 0.55rem;
-        padding: 1px 3px;
-    }
-    
-    .building-name {
-        font-size: 0.8rem;
-    }
-    
-    .building-price {
-        font-size: 0.7rem;
-        padding: 1px 4px;
-    }
-    
-    .building-description {
-        font-size: 0.65rem;
-    }
-    
-    .stat {
-        font-size: 0.6rem;
-        padding: 1px 3px;
-    }
-    
-    .buy-btn {
-        padding: 3px 4px;
-        font-size: 0.55rem;
-    }
-    
-    .building-actions {
-        gap: 0.125rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .building-item {
-        padding: 0.25rem;
-        min-height: 45px;
-    }
-    
-    .building-icon img {
-        width: 36px;
-        height: 36px;
-    }
-    
-    .building-name {
-        font-size: 0.75rem;
-    }
-    
-    .building-description {
-        display: none; /* Hide description on very small screens */
-    }
-    
-    .buy-btn {
-        padding: 2px 3px;
-        font-size: 0.5rem;
-    }
-}
-
-#building-card {
-    width: 100%;
-    padding: 2rem;
-    background-color: rgba(15, 15, 15, 0.75);
-    backdrop-filter: blur(8px);
-    border-radius: 15px;
-    text-align: center;
-    position: relative;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-#building-card-bg {
-    margin: 0.5rem auto;
-    border-radius: 15px;
-    width: 500px;
-    height: 700px;
-    display: flex;
     justify-content: center;
-    position: relative;
-    background-size: cover;
-    background-position: center;
+    gap: 0.625rem;
+    margin-top: 0.625rem;
+}
+
+.building {
+    margin-top: 0.1rem;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease; 
+    perspective: 9rem;
+    width: 250px;
     border: 1px solid var(--border);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    background-color: var(--panel-bg);
     overflow: hidden;
 }
-
-#building-card-bg::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.9));
-    z-index: 1;
+.building:not(:disabled):hover {
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
 }
-
-#building-card img {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    margin-bottom: 1rem;
-    border: 3px solid var(--border);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-    background-color: rgba(30, 30, 30, 0.8);
-    padding: 10px;
-    transition: transform 0.3s ease;
+.building:disabled {
+    opacity: 0.8;
+    filter: grayscale(75%);
 }
-
-#building-card img:hover {
-    transform: scale(1.05);
-}
-
-#building-card .building-name {
-    font-size: 1.25rem;
-    font-weight: bold;
-    color: var(--color1);
-    margin-bottom: 0.5rem;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-#building-card .building-description {
-    font-size: 1rem;
-    color: var(--color2);
-    margin-bottom: 0.5rem;
-}
-
-#building-card .building-special {
-    font-size: 1rem;
-    color: var(--research-color);
-    margin-bottom: 1rem;
-    background-color: rgba(0, 0, 0, 0.3);
-    padding: 8px 16px;
-    border-radius: 8px;
-    max-width: 80%;
-    border-left: 3px solid var(--research-color);
-    border-top: 1px dashed var(--border);
-    border-bottom: 1px dashed var(--border);
-    font-style: italic;
-}
-
-#building-card .building-cost {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: var(--production-color);
-    margin: 1rem 0;
-    background-color: rgba(0, 0, 0, 0.4);
-    padding: 10px 20px;
-    border-radius: 50px;
-    display: inline-flex;
+.building-header {
+    background-color: var(--bgcolor3);
+    padding: 8px;
+    display: flex;
     align-items: center;
-    gap: 10px;
-    transition: transform 0.3s ease;
+    border-bottom: 1px solid var(--border);
 }
-
-#building-card .building-cost:before {
-    content: '';
-    background-image: url("/images/icons/128/keystroke-coin-icon.png");
-    background-size: contain;
-    width: 24px;
-    height: 24px;
-    display: inline-block;
+.building-name {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-left: 8px;
+    color: var(--color1);
+    flex-grow: 1;
+    text-align: left;
 }
-
-#building-card .building-level {
-    font-size: 1.2rem;
-    color: white;
-    background-color: rgba(0, 0, 0, 0.5);
-    padding: 8px 16px;
-    border-radius: 8px;
-    display: inline-block;
-    margin-top: 1rem;
-    border: 1px solid var(--border);
+.building-content {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    justify-content: space-between;
+    height: 100px;
 }
-
-#building-card .building-emptyspace {
+.building-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
     flex-grow: 1;
 }
-
-.building-stats-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    width: 100%;
-    max-width: 400px;
-    margin: 1rem 0;
+.building-level {
+    font-size: 0.9rem;
+    padding: 2px 8px;
+    background-color: var(--bg-alpha1);
+    border-radius: 10px;
+    font-weight: bold;
+    display: inline-block;
 }
-
-.building-stat-item {
-    background-color: rgba(0, 0, 0, 0.4);
-    padding: 8px;
-    border-radius: 8px;
-    text-align: center;
-}
-
-.building-stat-label {
-    font-size: 0.8rem;
-    color: var(--color2);
-    margin: 0;
-}
-
-.building-stat-value {
-    font-size: 1rem;
+.building-production {
+    font-size: 0.9rem;
     color: var(--production-color);
-    margin: 4px 0 0 0;
 }
-
-.buildings-heading {
-    text-align: center;
-    margin: 1rem 0;
-    color: var(--color1);
-    font-size: 1.5rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-
-.building-bulk-actions {
+.building-cost {
     display: flex;
-    justify-content: center;
-
-    width: 100%;
-}
-
-.bulk-buy-btn {
-    font-size: 0.7rem;
-    padding: 4px;
-    margin: 2px 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    color: var(--button-text-color);
+    align-items: center;
+    gap: 5px;
+    background-color: var(--button-bg);
+    padding: 5px 10px;
+    border-radius: 15px;
+    margin-top: 5px;
     font-weight: bold;
-    transition: all 0.3s ease;
-    flex: 1;
-    width: 100px;
-    height: 50px;
+}
+.building-cost img {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+.building:not(:disabled) .building-cost {
+    animation: pulse-gentle 2s infinite;
 }
 
-.bulk-buy-btn:hover:not(:disabled) {
-    background-color: var(--color1);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+.building-locked {
+    text-align: center;
+    padding: 10px;
+    font-style: italic;
+    color: var(--color2);
+}
+.building-bg1 {
+    height: 100%;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.building-bg2 {
+    height: 100%;
+    background-color: var(--bg-alpha1);
 }
 
-.bulk-buy-btn.active {
-    background-color: var(--color1);
-    border-color: var(--color1);
+.building-efficiency {
+    font-size: 0.85rem;
+    color: var(--research-color);
+    margin-top: 3px;
 }
 
-.bulk-buy-btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
+.building-special {
+    font-size: 0.85rem;
+    color: var(--color1);
+    margin-top: 5px;
+    font-style: italic;
+    border-top: 1px dashed var(--border);
+    padding-top: 5px;
+}
+
+button.upgrade {
+    padding: 0;
+}
+button.upgrade:disabled div {
+    background-color: #333333d8; /* Dimmer overlay */
 }

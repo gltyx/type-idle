@@ -1,5 +1,5 @@
 // Load styles.css
-const VERSION_LOAD = "0.0.5";
+const VERSION_LOAD = "0.0.4d";
 function loadCSS() {
     let CSSFiles = ['styles.css', 'css/achievements.css', 'css/animations.css', 'css/arcade.css',
         'css/arena.css', 'css/base.css', 'css/buildings.css', 'css/casino.css', 'css/guild.css',

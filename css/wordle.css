@@ -133,8 +133,8 @@
     cursor: not-allowed;
 }
 .wordle-key.correct {
-    background-color: var(--wordle-correct-bg);
-    color: var(--wordle-correct-color);
+    background-color: var(--wordle-present-bg);
+    color: var(--wordle-present-color)
 }
 .wordle-key.present {
     background-color: var(--wordle-present-bg);
@@ -142,6 +142,6 @@
 }
 .wordle-key.absent {
     cursor: not-allowed;
-    background-color: var(--wordle-absent-bg);
-    color: var(--wordle-absent-color);
+    background-color: #0000004d;
+    
 }

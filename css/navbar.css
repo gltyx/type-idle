@@ -30,7 +30,7 @@
     position: fixed;
     top: 0;
     z-index: 10;
-    width: calc(100% - 350px);
+    width: 100%;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     background-color: var(--bg-alpha1);
 }
@@ -112,7 +112,7 @@
     color: var(--ready-text-color-active);
 }
 #navbar button.ready:not(:disabled):before {
-    content: '就绪';
+    content: 'Ready';
     position: absolute;
     top: -0.5rem;
     background: rgba(0, 0, 0, 0.7);

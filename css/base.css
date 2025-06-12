@@ -75,13 +75,6 @@ body.arcade-tab #mainBg {
     border: 2px solid var(--navbar-bg);
 }
 
-.horizontal-border {
-    background-image: url("/images/wood-50.jpg");
-    background-repeat: repeat-x;
-    width: 100%;
-    height: 10px;
-}
-
 /* Buttons */
 button {
     font-family: var(--button-font);

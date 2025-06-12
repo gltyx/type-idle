@@ -1,0 +1,24 @@
+{
+    "updates": [
+      {
+        "version": "0.0.4",
+        "title": "New features",
+        "content": "- QoL changes, new features, and new UI."
+      },
+      {
+        "version": "0.0.3",
+        "title": "Bug fixes",
+        "content": "- Fixed stock market jiggling on some screens.\n- Minified game files.\n- Added a loading screen."
+      },
+      {
+        "version": "0.0.2",
+        "title": "Quality of life changes",
+        "content": "- Words now shift per line typed instead of after each word.\n- Achievements are always visible.\n- Reduced high-resolution texture sizes for faster loading times.\n- 10 Finger assist and falling word effects are now optional."
+      },
+      {
+        "version": "0.0.1",
+        "title": "Initial release",
+        "content": "Initial release of TypeIdle."
+      }
+    ]
+  }

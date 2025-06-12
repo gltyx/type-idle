@@ -19,7 +19,6 @@
     <meta name="twitter:title" content="Typing Idle Game">
     <meta name="twitter:description" content="Challenge your typing skills in this interactive idle game.">
     <meta name="twitter:image" content="./images/favicon-og.jpg">
-    <!-- <meta http-equiv="refresh" content="1;url=./index.html"> -->
     <link rel="icon" type="image/x-icon" href="/favicon.png">
     <title>Typing Idle Game - Improve Your Typing Speed</title>
     <style>
@@ -56,7 +55,7 @@
         }
     </style>
     <!-- Google tag (gtag.js) -->
-    <script async src="https://w22ww.2323goo23232aafbbagletagma2323nager.com/gtag/js?id=G-WGVTCXZH42"></script>
+    <script async src="https://ww3w.g23324o4ogle32tagm22323ssanager.com/gtag/js?id=G-WGVTCXZH42"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
@@ -65,13 +64,13 @@
             gtag('config', 'G-WGVTCXZH42');
         }
     </script>
-    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1521366078670362"
-    crossorigin="anonymous"></script> -->
+    <script async src="https://page232323ad2.gqqqqeqdaggooglesynd23232323ication.com/pagead/js/adsbygoogle.js?client=ca-pub-1521366078670362"
+    crossorigin="anonymous"></script>
     <!-- Add our new typing effects script -->
     <script defer src="./typing-effects.js"></script>
 </head>
 <body>
-    <script src="chs.js"></script>
+<script src="chs.js"></script>
 <script src="core.js"></script>
     <audio id="typeSound1" src="./sounds/cash1.mp3"></audio>
     <audio id="typeSound2" src="./sounds/cash1.mp3"></audio>
@@ -114,7 +113,7 @@
                     TypeIdle.com - Typing Idle Game - 
                     <a href="https://www.youtube.com/@santtuz112" target="_blank">YouTube</a> - 
                     <a href="https://github.com/santtuz112/TypeIdle" target="_blank">GitHub</a> -
-                    Last updated 10 June 2025 - v0.0.5
+                    Last updated 3 March 2025 - v0.0.4d
                 </p>
             </div>
             <div id="level-container">
@@ -143,7 +142,8 @@
             </div>
         </div>
         <div id="sticky-top-offset">
-        </div>        <div id="main-container">
+        </div>
+        <div id="main-container">
             <div id="navbar-container">
                 <div id="navbar">
                     <button id="settings-tab"><img src="./images/icons/128/settings.webp" class="smallNavIcon" alt="">Settings</button>
@@ -162,502 +162,349 @@
             </div>
             <div id="sticky-left-offset">
             </div>
-            <div id="main-content">
-                <div id="mainBg">
-                    <div id="main">
-                        <div id="gamePage" class="page">
-                            <div id="game">
-                                <div id="game-container">
-                                    <div class="chalkboard">
-                                        <div class="horizontal-border"></div>
-                                        <h1 class="chalkboard-title">TypeIdle</h1>
-                                        <p class="chalkboard-description">Improve your typing speed, unlock achievements, and upgrade buildings to boost your keystroke production!</p>
-                                        <div class="horizontal-border"></div>
-                                    </div>
-                                    <div id="typing-panel">
-                                        <!-- Streak counter will be inserted here by JS -->
-                                        <div id="trackers">
-                                            <div class="tracker-stats">
-                                                <div class="tracker-stat">
-                                                    <p class="tracker-label">WPM</p>
-                                                    <p class="tracker-value" id="wpm">0</p>
-                                                </div>
-                                                <div class="tracker-stat">
-                                                    <p class="tracker-label">Multiplier</p>
-                                                    <p class="tracker-value" id="wpm-multiplier">1x</p>
-                                                </div>
+            <div id="mainBg">
+                <div id="main">
+                    <div id="gamePage" class="page">
+                        <div id="game">
+                            <div id="game-container">
+                                <div id="title-container">
+                                    <h1 id="game-title">Typing Idle Game</h1>
+                                    <p id="game-description">Improve your typing speed, unlock achievements, and upgrade buildings to boost your keystroke production!</p>
+                                </div>
+                                <div id="typing-panel">
+                                    <!-- Streak counter will be inserted here by JS -->
+                                    <div id="trackers">
+                                        <div class="tracker-stats">
+                                            <div class="tracker-stat">
+                                                <p class="tracker-label">WPM</p>
+                                                <p class="tracker-value" id="wpm">0</p>
                                             </div>
-                                            <div>
-                                                <label for="toggle-keyboard-highlight" style="display: block;">
-                                                    <input type="checkbox" id="toggle-keyboard-highlight"> Enable 10 finger assist
-                                                </label>
+                                            <div class="tracker-stat">
+                                                <p class="tracker-label">Multiplier</p>
+                                                <p class="tracker-value" id="wpm-multiplier">1x</p>
                                             </div>
                                         </div>
-                                        <textarea id="input-box" placeholder="Type the words below here..."></textarea>
-                                        <div class="words-to-type-container" id="words-to-type-container">
-                                            <div class="words-to-type" id="words-to-type"></div>
+                                        <div>
+                                            <label for="toggle-keyboard-highlight" style="display: block;">
+                                                <input type="checkbox" id="toggle-keyboard-highlight"> Enable 10 finger assist
+                                            </label>
                                         </div>
                                     </div>
-                                    <div id="game-keyboard-container">
-                                        <div id="game-keyboard">
-                                        </div>
-                                        <div id="hand-graphic">
-                                            <div id="hand" class="hand">
-                                                <div class="finger" id="left-pinky">L. Pinky</div>
-                                                <div class="finger" id="left-ring">L. Ring</div>
-                                                <div class="finger" id="left-middle">L. Middle</div>
-                                                <div class="finger" id="left-index">L. Index</div>
-                                                <div class="hand-divider"></div>
-                                                <div class="finger" id="right-index">R. Index</div>
-                                                <div class="finger" id="right-middle">R. Middle</div>
-                                                <div class="finger" id="right-ring">R. Ring</div>
-                                                <div class="finger" id="right-pinky">R. Pinky</div>
-                                            </div>
-                                        </div>
-                                        <p id="finger-guide"></p>
-                                    </div>                            </div>
-                                    <div id="achievements-parent">
-                                        <div id="achievements-container"></div>
+                                    <textarea id="input-box" placeholder="Type the words below here..."></textarea>
+                                    <div class="words-to-type-container" id="words-to-type-container">
+                                        <div class="words-to-type" id="words-to-type"></div>
                                     </div>
+                                </div>
+                                <div id="game-keyboard-container">
+                                    <div id="game-keyboard">
+                                    </div>
+                                    <div id="hand-graphic">
+                                        <div id="hand" class="hand">
+                                            <div class="finger" id="left-pinky">L. Pinky</div>
+                                            <div class="finger" id="left-ring">L. Ring</div>
+                                            <div class="finger" id="left-middle">L. Middle</div>
+                                            <div class="finger" id="left-index">L. Index</div>
+                                            <div class="hand-divider"></div>
+                                            <div class="finger" id="right-index">R. Index</div>
+                                            <div class="finger" id="right-middle">R. Middle</div>
+                                            <div class="finger" id="right-ring">R. Ring</div>
+                                            <div class="finger" id="right-pinky">R. Pinky</div>
+                                        </div>
+                                    </div>
+                                    <p id="finger-guide"></p>
                                 </div>
                             </div>
-                            <div id="wordlePage" class="page" style="display: none;">
-                                <div id="wordle-game">
-                                    <div id="wordle">
-                                        <h3>Wordle Challenge</h3>
-                                        <div id="wordle-grid"></div>
-                                        <p id="wordle-hint"></p>
-                                        <p id="additional-wordle-hint" style="display: none;"></p>
-                                        <p id="wordle-feedback"></p>
-                                        <p id="wordle-boost-remaining"></p>
-                                    </div>
-                                </div>
-                                <div id="wordle-keyboard">
-                                </div>
-                                <div id="wordle-tutorial">
-                                    <h1>How to Play Wordle</h1>
-                                    <h2>Guess the Word in 5 Tries</h2>
-                                    <h3>Examples</h3>
-                                    <div class="wordle-example">
-                                        <div class="wordle-grid">
-                                            <div class="wordle-guess-row">
-                                                <div class="wordle-tile correct">W</div>
-                                                <div class="wordle-tile">O</div>
-                                                <div class="wordle-tile">R</div>
-                                                <div class="wordle-tile">D</div>
-                                            </div>
-                                        </div>
-                                        <p><strong>W</strong> is in the word and in the correct position.</p>
-                                    </div>
-                                    <div class="wordle-example">
-                                        <div class="wordle-grid">
-                                            <div class="wordle-guess-row">
-                                                <div class="wordle-tile present">W</div>
-                                                <div class="wordle-tile">O</div>
-                                                <div class="wordle-tile">R</div>
-                                                <div class="wordle-tile">D</div>
-                                            </div>
-                                        </div>
-                                        <p><strong>W</strong> is in the word but in the wrong position.</p>
-                                    </div>
-                                    <div class="wordle-example">
-                                        <div class="wordle-grid">
-                                            <div class="wordle-guess-row">
-                                                <div class="wordle-tile absent">W</div>
-                                                <div class="wordle-tile">O</div>
-                                                <div class="wordle-tile">R</div>
-                                                <div class="wordle-tile">D</div>
-                                            </div>
-                                        </div>
-                                        <p><strong>W</strong> is not in the word.</p>
-                                    </div>
-                                </div>
+                            <div id="buildings-container"></div>
+                            <div id="achievements-parent">
+                                <div id="achievements-container"></div>
                             </div>
-                            <div id="arenaPage" class="page" style="display: none;">
-                                <div id="arena-nav">
-                                    <button class="navbtn active" id="arena-stats-tab" class="active">Arena</button>
-                                    <button class="navbtn" id="practice-stats-tab">Typing test</button>
-                                </div>
-                                <div id="arena-racePage">
-                                    <div id="arena-stats">
-                                        <p><img src="./images/icons/128/gold-medal.webp" class="goldmedal" alt="Gold Medal"> <span id="gold-medals">0</span></p>
-                                        <div id="arena-result"></div>
-                                        <div id="start-race">
-                                            <h2>Race against AI</h2>
-                                            <p>Select race difficulty 
-                                                <select id="difficulty-select">
-                                                    <option value="Normal">Normal</option>
-                                                    <option value="Hard">Hard</option>
-                                                    <option value="VeryHard">Very Hard</option>
-                                                </select>
-                                            </p>
-                                            <p>Normal (~30 WPM)</p>
-                                            <p>Hard (~50 WPM)</p>
-                                            <p>Very Hard (~90 WPM)</p>
-                                            <p>Winning gives a buff and medals.</p>
-                                            <button id="startRaceButton" onclick="startArenaRace()">Start Race</button>
-                                        </div>
-                                    </div>
-                                    <div id="arena-race" style="display: none">
-                                        <div id="race-progress">
-                                            <p>Your Progress: <span id="player-progress">0</span>/200 keystrokes</p>
-                                            <div class="progress-container">
-                                                <div id="player-progress-bar" class="progress-bar"></div>
-                                            </div>
-                                            <p>Opponent's Progress: <span id="opponent-progress">0</span>/200 keystrokes</p>
-                                            <div class="progress-container">
-                                                <div id="opponent-progress-bar" class="progress-bar"></div>
-                                            </div>
-                                        </div>
-                                        <textarea id="arena-input-box" placeholder="Start typing..."></textarea>
-                                        <div class="words-to-type-container" id="arena-words-to-type-container">
-                                            <div class="words-to-type" id="arena-words-to-type"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="arena-practicePage" style="display: none;">
-                                    <div id="practice-stats">
-                                        <div id="start-practice">
-                                            <h2>1 Minute typing test</h2>
-                                            <button id="startTestButton" onclick="startPracticeRace()">Start Typing test</button>
-                                            <div id="practice-result"></div>
-                                        </div>
-                                    </div>
-                                    <div id="practice-race" style="display: none">
-                                        <div id="practice-progress">
-                                            <h2>Time left: <span id="practice-time-left">60</span>s</h2>
-                                            <div class="progress-container">
-                                                <div id="practice-progress-bar" class="progress-bar"></div>
-                                            </div>
-                                        </div>
-                                        <textarea id="practice-input-box" placeholder="Start typing..."></textarea>
-                                        <div class="words-to-type-container" id="practice-words-to-type-container">
-                                            <div class="words-to-type" id="practice-words-to-type"></div>
-                                        </div>
-                                    </div>
-                                    
-                                    <!-- New practice history section -->
-                                    <div id="practice-history-section">
-                                        <h2>Practice History</h2>
-                                        <div class="practice-stats-summary">
-                                            <div class="practice-stat-box">
-                                                <span class="practice-stat-label">Average WPM</span>
-                                                <span class="practice-stat-value" id="practice-average-wpm">0</span>
-                                            </div>
-                                            <div class="practice-stat-box">
-                                                <span class="practice-stat-label">Best WPM</span>
-                                                <span class="practice-stat-value" id="practice-best-wpm">0</span>
-                                            </div>
-                                            <div class="practice-stat-box">
-                                                <span class="practice-stat-label">Recent Trend</span>
-                                                <span class="practice-stat-value" id="practice-trend">0</span>
-                                            </div>
-                                            <div class="practice-stat-box">
-                                                <span class="practice-stat-label">Tests Taken</span>
-                                                <span class="practice-stat-value" id="practice-count">0</span>
-                                            </div>
-                                        </div>
-                                        <div class="practice-chart-container">
-                                            <canvas id="practice-history-chart"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>                    <div id="stockPage" class="page" style="display: none;">
-                                <h2>Stock Market</h2>
-                                <div id="stock-market-info">
-                                    <div class="info-section">
-                                        <h3>💱 Exchange Rate</h3>
-                                        <div class="info-item">
-                                            <span>1$ equals:</span>
-                                            <span class="info-value"><img src="./images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"><span id="dollarCost">0</span> Keystrokes</span>
-                                        </div>
-                                        <div class="info-item">
-                                            <span>1$ buys:</span>
-                                            <span class="info-value">1 second of passive income</span>
-                                        </div>
-                                    </div>
-                                    <div class="info-section">
-                                        <h3>💰 Your Portfolio</h3>
-                                        <div class="info-item">
-                                            <span>Total Profit:</span>
-                                            <span class="info-value">$<span id="stockProfitDollars">0</span></span>
-                                        </div>
-                                        <div class="info-item">
-                                            <span>Available Balance:</span>
-                                            <span class="info-value">$<span id="stockCurrentDollars">0</span></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="stock-market">
-                                    <div id="stock-market-container"></div>
-                                </div>
-                            </div>
-                            <div id="guildPage" class="page" style="display: none;">
-                                <div class="guild-header">
-                                    <div class="guild-banner">
-                                        <img src="./images/buildings/128/10.png" class="guild-logo" alt="Guild">
-                                        <h2>Your Guild</h2>
-                                    </div>                                    <div class="guild-name-container">
-                                        <h2 id="guild-name">(guild name)</h2>
-                                        <button id="guild-randomize" onclick="randomizeGuildName()">Randomize Name</button>
-                                    </div>
-                                </div>
-                                
-                                <div class="guild-content">                                    <div class="guild-info-panel">
-                                        <h3>Guild Information</h3>
-                                        <p>Your guild provides special benefits based on your chosen specialization. Choose wisely as changing specializations has a cooldown period.</p>
-                                        <div id="guild-task-change-remaining" class="guild-cooldown-notice"></div>
-                                    </div>
-                                    
-                                    <div id="guild-tasks" class="guild-tasks-panel">
-                                        <h3>Select Guild Specialization</h3>
-                                        
-                                        <div class="guild-task-options">
-                                            <div class="guild-task-option">
-                                                <input type="radio" id="wordle-guild" name="guild-task" value="wordle">
-                                                <label for="wordle-guild" class="guild-task-label">
-                                                    <div class="guild-task-icon wordle-icon"></div>
-                                                    <div class="guild-task-details">
-                                                        <span class="guild-task-name">Wordle Guild</span>
-                                                        <span class="guild-task-description">Receive additional hints during Wordle challenges</span>
-                                                    </div>
-                                                </label>
-                                            </div>
-                                            
-                                            <div class="guild-task-option">
-                                                <input type="radio" id="arena-guild" name="guild-task" value="arena">
-                                                <label for="arena-guild" class="guild-task-label">
-                                                    <div class="guild-task-icon arena-icon"></div>
-                                                    <div class="guild-task-details">
-                                                        <span class="guild-task-name">Arena Guild</span>
-                                                        <span class="guild-task-description">+10 Passive WPM increase in the arena</span>
-                                                    </div>
-                                                </label>
-                                            </div>
-                                            
-                                            <div class="guild-task-option">
-                                                <input type="radio" id="publishing-guild" name="guild-task" value="publishing">
-                                                <label for="publishing-guild" class="guild-task-label">
-                                                    <div class="guild-task-icon publishing-icon"></div>
-                                                    <div class="guild-task-details">
-                                                        <span class="guild-task-name">Publishing Guild</span>
-                                                        <span class="guild-task-description">2x chance of golden news appearing</span>
-                                                    </div>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="guild-benefits-panel">
-                                        <h3>Active Benefits</h3>
-                                        <div id="active-guild-benefits">
-                                            <p id="no-benefits-message">Select a guild specialization to see benefits</p>
-                                            <div id="wordle-benefits" class="guild-benefit" style="display: none;">
-                                                <div class="benefit-icon wordle-icon"></div>
-                                                <div class="benefit-details">
-                                                    <h4>Wordle Mastery</h4>
-                                                    <p>You receive additional hints during Wordle challenges</p>
-                                                </div>
-                                            </div>
-                                            <div id="arena-benefits" class="guild-benefit" style="display: none;">
-                                                <div class="benefit-icon arena-icon"></div>
-                                                <div class="benefit-details">
-                                                    <h4>Arena Champion</h4>
-                                                    <p>Your typing speed is boosted by +10 WPM in the arena</p>
-                                                </div>
-                                            </div>
-                                            <div id="publishing-benefits" class="guild-benefit" style="display: none;">
-                                                <div class="benefit-icon publishing-icon"></div>
-                                                <div class="benefit-details">
-                                                    <h4>Golden Publishing</h4>
-                                                    <p>You have double the chance of finding golden news</p>
-                                                </div>                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="hackerPage" class="page" style="display: none;">
-                                <pre class="code-snippet" id="hacker-code-snippet"></pre>
-                                <div id="hacker-game" class="game-box">
-                                    <canvas id="hacker-canvas" width="800" height="600"></canvas>
-                                    <div id="hacker-computer" style="display: none;">
-                                        <div id="hacker-computer-main">
-                                            
-                                        </div>
-                                        <div id="hacker-computer-side" style="display: none;">
-                                            <p>Username: Admin</p>
-                                            <p>Login attempts: <span id="hacker-login-attempts-left">5</span></p>
-                                            <div id="hacker-login-attempts">
-                                                
-                                            </div>
-                                            <p>> <span id="hacker-selected-password"></span></p>
-                                        </div>
-                                    </div>
-                                    <div id="hacker-start" class="abscenter" style="display: none;">
-                                        <h2>Hacker</h2>
-                                        <p>Hijack the connection by untangling all the nodes.</p>
-                                        <p>Once you have hijacked the connection crack the password.</p>
-                                        <p>Reward: 10-60 minutes of instant production.</p>
-                                        <button id="hacker-start-button" onclick="startHackMinigame()">Start Hack</button>
-                                    </div>
-                                    <div id="hacker-timeleft" class="abscenter" style="display: none;">
-                                        <p>Time left: <span id="hacker-timeleft-remaining">0</span>s</p>
-                                    </div>
-                                    <div id="hacker-cooldown" class="abscenter" style="display: none;">
-                                        <h2 id="hacker-access-granted"></h2>
-                                        <div id="hacker-reward">
-                                            <p>Hacked: $<span id="hacker-reward-dollars">0</span></p>
-                                            <p>(<img src="./images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"> <span id="hacker-reward-keystrokes">0</span>)</p>
-                                        </div>
-                                        <p id="hacker-cooldown2" style="display: none;">You can hack again in: <span id="hacker-cooldown-remaining">0</span>s</p>
-                                    </div>
-                                </div>
-                            </div>                    <div id="arcadePage" class="page" style="display: none;">
-                                <h2>Arcade - Tower Defense</h2>
-                                <div id="arcade-game" class="game-box">
-                                    
-                                    <div id="arcade-game-canvas">
-                                        <!-- Tower and grid will be created dynamically -->
-                                    </div>
-                                    <div id="arcade-start" class="abscenter" style="display: none;">
-                                        <h2>Defend the Tower</h2>
-                                        <p>Your tower is under attack from all sides!</p>
-                                        <p>Type the words on enemies to help your tower defeat them.</p>
-                                        <p>Your buildings upgrade the tower's capabilities.</p>
-                                        
-                                        
-                                        <button id="arcade-start-button" onclick="startArcadeMinigame()">Start Defense</button>
-                                    </div>
-                                    <div id="arcade-timeleft" style="display: none;">                                <div id="tower-stats" style="position: absolute; top: 10px; left: 10px; color: white; font-size: 14px; z-index: 10;">
-                                        <p>Tower Health: <span id="tower-health">100/100</span></p>
-                                        <div id="tower-detailed-stats"></div>
-                                    </div>
-                                    <textarea id="arcade-input-box" placeholder="Type enemy words to help attack..." style="position: absolute; top: 340px; left: 250px; width: 300px; z-index: 10;"></textarea>
-                                </div>                            <div id="arcade-cooldown" class="abscenter" style="display: none;">
-                                    <p>Tower Destroyed!</p>
-                                    <p>Wave Reached: <span id="arcade-wave-reached">1</span></p>
-                                    <p>You can play again in: <span id="arcade-cooldown-remaining">0</span>s</p>
-                                </div>
-                            </div>                            <div id="building-upgrades-table" class="building-upgrades-table">
-                                    <h3>Building Upgrades</h3>                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <th>Building</th>
-                                                <th>Tower Upgrade</th>
-                                                <th>Per Level</th>
-                                            </tr>
-                                        </thead>                                        <tbody>                                            <tr>
-                                                <td><img src="./images/buildings/128/1.png" class="building-icon" alt="Auto Writer">Auto Writer</td>
-                                                <td class="upgrade-damage">⚔️ Damage</td>
-                                                <td>+1</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="./images/buildings/128/2.png" class="building-icon" alt="Printer">Printer</td>
-                                                <td class="upgrade-health">❤️ Max Health</td>
-                                                <td>+1</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="./images/buildings/128/3.png" class="building-icon" alt="Research Lab">Research Lab</td>
-                                                <td class="upgrade-attack-rate">⚡ Attack Rate</td>
-                                                <td>+0.01/s</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="./images/buildings/128/4.png" class="building-icon" alt="Cyber Cafe">Cyber Cafe</td>
-                                                <td class="upgrade-range">📡 Range</td>
-                                                <td>+0.01m</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="./images/buildings/128/5.png" class="building-icon" alt="Server Farm">Server Farm</td>
-                                                <td class="upgrade-slow">❄️ Slow Aura</td>
-                                                <td>+0.1% (max 80%)</td>
-                                            </tr>                                            <tr>
-                                                <td><img src="./images/buildings/128/6.png" class="building-icon" alt="Typing Arena">Typing Arena</td>
-                                                <td class="upgrade-aura">🌀 Aura Range</td>
-                                                <td>+0.01m</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="./images/buildings/128/7.png" class="building-icon" alt="IT Office">IT Office</td>
-                                                <td class="upgrade-knockback">💨 Knockback</td>
-                                                <td>+0.1m</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="./images/buildings/128/8.png" class="building-icon" alt="Stock Market">Stock Market</td>
-                                                <td class="upgrade-crit">💥 Crit Chance</td>
-                                                <td>+0.1% (max 100%)</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="./images/buildings/128/9.png" class="building-icon" alt="Magazine Publisher">Magazine Publisher</td>
-                                                <td class="upgrade-crit">💥 Crit Damage</td>
-                                                <td>+1%</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="./images/buildings/128/10.png" class="building-icon" alt="Typing Guild">Typing Guild</td>
-                                                <td class="upgrade-multishot">🎯 Multishot Chance</td>
-                                                <td>+0.1% (max 100%)</td>
-                                            </tr>                                            <tr>
-                                                <td><img src="./images/buildings/128/11.png" class="building-icon" alt="Hacker Group">Hacker Group</td>
-                                                <td class="upgrade-multishot">🎯 Multishot Count</td>
-                                                <td>+0.01 (max +10)</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="./images/buildings/128/13.png" class="building-icon" alt="Keystroke Casino">Keystroke Casino</td>
-                                                <td class="upgrade-bounce">⚡ Bounce Chance</td>
-                                                <td>+0.1% (max 100%)</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="./images/buildings/128/14.png" class="building-icon" alt="AI Agent">AI Agent</td>
-                                                <td class="upgrade-defense">🛡️ Health + Resist + Regen</td>
-                                                <td>+100 HP, +0.1% resist, +1/s regen</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
                         </div>
-                        <div id="casinoPage" class="page" style="display: none;">
-                            <h2>Casino</h2>
-                            <div id="casino-game">
+                    </div>
+                    <div id="wordlePage" class="page" style="display: none;">
+                        <div id="wordle-game">
+                            <div id="wordle">
+                                <h3>Wordle Challenge</h3>
+                                <div id="wordle-grid"></div>
+                                <p id="wordle-hint"></p>
+                                <p id="additional-wordle-hint" style="display: none;"></p>
+                                <p id="wordle-feedback"></p>
+                                <p id="wordle-boost-remaining"></p>
+                            </div>
+                        </div>
+                        <div id="wordle-keyboard">
+                        </div>
+                        <div id="wordle-tutorial">
+                            <h1>How to Play Wordle</h1>
+                            <h2>Guess the Word in 5 Tries</h2>
+                            <h3>Examples</h3>
+                            <div class="wordle-example">
+                                <div class="wordle-grid">
+                                    <div class="wordle-guess-row">
+                                        <div class="wordle-tile correct">W</div>
+                                        <div class="wordle-tile">O</div>
+                                        <div class="wordle-tile">R</div>
+                                        <div class="wordle-tile">D</div>
+                                    </div>
+                                </div>
+                                <p><strong>W</strong> is in the word and in the correct position.</p>
+                            </div>
+                            <div class="wordle-example">
+                                <div class="wordle-grid">
+                                    <div class="wordle-guess-row">
+                                        <div class="wordle-tile present">W</div>
+                                        <div class="wordle-tile">O</div>
+                                        <div class="wordle-tile">R</div>
+                                        <div class="wordle-tile">D</div>
+                                    </div>
+                                </div>
+                                <p><strong>W</strong> is in the word but in the wrong position.</p>
+                            </div>
+                            <div class="wordle-example">
+                                <div class="wordle-grid">
+                                    <div class="wordle-guess-row">
+                                        <div class="wordle-tile absent">W</div>
+                                        <div class="wordle-tile">O</div>
+                                        <div class="wordle-tile">R</div>
+                                        <div class="wordle-tile">D</div>
+                                    </div>
+                                </div>
+                                <p><strong>W</strong> is not in the word.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="arenaPage" class="page" style="display: none;">
+                        <div id="arena-nav">
+                            <button class="navbtn active" id="arena-stats-tab" class="active">Arena</button>
+                            <button class="navbtn" id="practice-stats-tab">Typing test</button>
+                        </div>
+                        <div id="arena-racePage">
+                            <div id="arena-stats">
+                                <p><img src="./images/icons/128/gold-medal.webp" class="goldmedal" alt="Gold Medal"> <span id="gold-medals">0</span></p>
+                                <div id="arena-result"></div>
+                                <div id="start-race">
+                                    <h2>Race against AI</h2>
+                                    <p>Select race difficulty 
+                                        <select id="difficulty-select">
+                                            <option value="Normal">Normal</option>
+                                            <option value="Hard">Hard</option>
+                                            <option value="VeryHard">Very Hard</option>
+                                        </select>
+                                    </p>
+                                    <p>Normal (~30 WPM)</p>
+                                    <p>Hard (~50 WPM)</p>
+                                    <p>Very Hard (~90 WPM)</p>
+                                    <p>Winning gives a buff and medals.</p>
+                                    <button id="startRaceButton" onclick="startArenaRace()">Start Race</button>
+                                </div>
+                            </div>
+                            <div id="arena-race" style="display: none">
+                                <div id="race-progress">
+                                    <p>Your Progress: <span id="player-progress">0</span>/200 keystrokes</p>
+                                    <div class="progress-container">
+                                        <div id="player-progress-bar" class="progress-bar"></div>
+                                    </div>
+                                    <p>Opponent's Progress: <span id="opponent-progress">0</span>/200 keystrokes</p>
+                                    <div class="progress-container">
+                                        <div id="opponent-progress-bar" class="progress-bar"></div>
+                                    </div>
+                                </div>
+                                <textarea id="arena-input-box" placeholder="Start typing..."></textarea>
+                                <div class="words-to-type-container" id="arena-words-to-type-container">
+                                    <div class="words-to-type" id="arena-words-to-type"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="arena-practicePage" style="display: none;">
+                            <div id="practice-stats">
+                                <div id="start-practice">
+                                    <h2>1 Minute typing test</h2>
+                                    <button id="startTestButton" onclick="startPracticeRace()">Start Typing test</button>
+                                    <div id="practice-result"></div>
+                                </div>
+                            </div>
+                            <div id="practice-race" style="display: none">
+                                <div id="practice-progress">
+                                    <h2>Time left: <span id="practice-time-left">60</span>s</h2>
+                                    <div class="progress-container">
+                                        <div id="practice-progress-bar" class="progress-bar"></div>
+                                    </div>
+                                </div>
+                                <textarea id="practice-input-box" placeholder="Start typing..."></textarea>
+                                <div class="words-to-type-container" id="practice-words-to-type-container">
+                                    <div class="words-to-type" id="practice-words-to-type"></div>
+                                </div>
+                            </div>
+                            
+                            <!-- New practice history section -->
+                            <div id="practice-history-section">
+                                <h2>Practice History</h2>
+                                <div class="practice-stats-summary">
+                                    <div class="practice-stat-box">
+                                        <span class="practice-stat-label">Average WPM</span>
+                                        <span class="practice-stat-value" id="practice-average-wpm">0</span>
+                                    </div>
+                                    <div class="practice-stat-box">
+                                        <span class="practice-stat-label">Best WPM</span>
+                                        <span class="practice-stat-value" id="practice-best-wpm">0</span>
+                                    </div>
+                                    <div class="practice-stat-box">
+                                        <span class="practice-stat-label">Recent Trend</span>
+                                        <span class="practice-stat-value" id="practice-trend">0</span>
+                                    </div>
+                                    <div class="practice-stat-box">
+                                        <span class="practice-stat-label">Tests Taken</span>
+                                        <span class="practice-stat-value" id="practice-count">0</span>
+                                    </div>
+                                </div>
+                                <div class="practice-chart-container">
+                                    <canvas id="practice-history-chart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="stockPage" class="page" style="display: none;">
+                        <h2>Stock Market</h2>
+                        <div id="stock-market-info">
+                            <p><strong>Stock Market Information:</strong></p>
+                            <p>1$ = 1 second of passive keystroke income.</p>
+                            <p>1$ = <img src="./images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"><span id="dollarCost">0</span> Keystrokes</p>
+                            <p><strong>Profit:</strong> $<span id="stockProfitDollars">0</span> (<img src="./images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"><span id="stockProfitKeystrokes">0</span> Keystrokes)</p>
+                            <p><strong>Bank:</strong> $<span id="stockCurrentDollars">0</span> (<img src="./images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"><span id="stockCurrentKeystrokes">0</span> Keystrokes)</p>
+                        </div>
+                        <div id="stock-market">
+                            <div id="stock-market-container"></div>
+                        </div>
+                    </div>
+                    <div id="guildPage" class="page" style="display: none;">
+                        <h2>Guild</h2>
+                        <div id="guild-tasks">
+                            <h3>Select a Guild Task</h3>
+                            <p id="guild-task-change-remaining"></p>
+                            <div>
+                                <input type="radio" id="wordle-guild" name="guild-task" value="wordle">
+                                <label for="wordle-guild">Wordle guild (Additional wordle hint)</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="arena-guild" name="guild-task" value="arena">
+                                <label for="arena-guild">Arena guild (+10 Passive WPM increase in the arena)</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="publishing-guild" name="guild-task" value="publishing">
+                                <label for="publishing-guild">Publishing guild (2x the chance of golden news)</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="hackerPage" class="page" style="display: none;">
+                        <pre class="code-snippet" id="hacker-code-snippet"></pre>
+                        <div id="hacker-game" class="game-box">
+                            <canvas id="hacker-canvas" width="800" height="600"></canvas>
+                            <div id="hacker-computer" style="display: none;">
+                                <div id="hacker-computer-main">
+                                    
+                                </div>
+                                <div id="hacker-computer-side" style="display: none;">
+                                    <p>Username: Admin</p>
+                                    <p>Login attempts: <span id="hacker-login-attempts-left">5</span></p>
+                                    <div id="hacker-login-attempts">
+                                        
+                                    </div>
+                                    <p>> <span id="hacker-selected-password"></span></p>
+                                </div>
+                            </div>
+                            <div id="hacker-start" class="abscenter" style="display: none;">
+                                <h2>Hacker</h2>
+                                <p>Hijack the connection by untangling all the nodes.</p>
+                                <p>Once you have hijacked the connection crack the password.</p>
+                                <p>Reward: 10-60 minutes of instant production.</p>
+                                <button id="hacker-start-button" onclick="startHackMinigame()">Start Hack</button>
+                            </div>
+                            <div id="hacker-timeleft" class="abscenter" style="display: none;">
+                                <p>Time left: <span id="hacker-timeleft-remaining">0</span>s</p>
+                            </div>
+                            <div id="hacker-cooldown" class="abscenter" style="display: none;">
+                                <h2 id="hacker-access-granted"></h2>
+                                <div id="hacker-reward">
+                                    <p>Hacked: $<span id="hacker-reward-dollars">0</span></p>
+                                    <p>(<img src="./images/icons/128/keystroke-coin-icon.png" class="currencyicon" alt="Keystroke Coin"> <span id="hacker-reward-keystrokes">0</span>)</p>
+                                </div>
+                                <p id="hacker-cooldown2" style="display: none;">You can hack again in: <span id="hacker-cooldown-remaining">0</span>s</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="arcadePage" class="page" style="display: none;">
+                        <h2>Arcade - Alien Invasion</h2>
+                        <h3>(Work in progress)</h3>
+                        <div id="arcade-game" class="game-box">
+                            <div id="arcade-game-canvas"></div>
+                            <div id="arcade-start" class="abscenter" style="display: none;">
+                                <h2>Alien Invasion</h2>
+                                <p>Defend the planet from the alien invasion!</p>
+                                <p>Use the keyboard to type the words on the alien ships to destroy them.</p>
+                                <select id="arcade-difficulty-select">
+                                    <option value="1">Easy</option>
+                                    <option value="2">Normal</option>
+                                    <option value="3">Hard</option>
+                                </select>
+                                <button id="arcade-start-button" onclick="startArcadeMinigame()">Start Game</button>
+                            </div>
+                            <div id="arcade-timeleft" style="display: none;">
+                                <textarea id="arcade-input-box" placeholder="Start typing..."></textarea>
+                                <p>Score: <span id="arcade-score">0</span></p>
+                            </div>
+                            <div id="arcade-cooldown" class="abscenter" style="display: none;">
+                                <p>Game Over!</p>
+                                <p>Score: <span id="arcade-score2">0</span></p>
+                                <p>You can play again in: <span id="arcade-cooldown-remaining">0</span>s</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="casinoPage" class="page" style="display: none;">
+                        <h2>Casino</h2>
+                        <div id="casino-game">
+                            <div id="casino-board">
                                 <div id="casino-win-feedback">
                                     <strong id="casino-bonus-display" style="display:none;">Bonus game 0/15</strong>
                                     <p id="casino-win-feedback1">Spin to Win!</p>
                                     <p id="casino-win-feedback2"></p>
                                 </div>
-                                <div id="casino-board">
-                                    <div id="casino-win-feed"></div>
-                                </div>                            <div id="casino-controls">
-                                    <div id="casino-current-multiplier-container"><span id="casino-current-multiplier-span"><span id="casino-current-multiplier">1</span>x</span></div>
-                                    <div class="casino-balance-display">
-                                        <p>Balance: $<span id="casino-balance">0</span></p>
-                                    </div>
-                                    <button id="casino-start-button" onclick="startCasinoGame()"></button>
-                                    <div id="casino-bet">
-                                        <button id="casino-wage-up" onclick="changeCasinoWage(1)">+</button>
-                                        <p>Bet: $<span id="casino-wager">1</span></p>
-                                        <button id="casino-wage-down" onclick="changeCasinoWage(-1)">-</button>
-                                    </div>
-                                    <div id="casino-feature-menu">
-                                        <button onclick="startCasinoGame(1)">Buy Feature (x3) <span id="casino-feature1-cost">$180</span></button>
-                                        <button onclick="startCasinoGame(2)">Buy Feature (x4) <span id="casino-feature2-cost">$300</span></button>
-                                        <button onclick="startCasinoGame(3)">Buy Feature (x5) <span id="casino-feature3-cost">$450</span></button>
-                                    </div>
+                                <div id="casino-win-feed"></div>
+                            </div>
+                            <div id="casino-controls">
+                                <div id="casino-current-multiplier-container"><span id="casino-current-multiplier-span"><span id="casino-current-multiplier">1</span>x</span></div>
+                                <div>
+                                    <p>Balance: $<span id="casino-balance">0</span></p>
+                                </div>
+                                <button id="casino-start-button" onclick="startCasinoGame()"></button>
+                                <div id="casino-bet">
+                                    <button id="casino-wage-up" onclick="changeCasinoWage(1)">+</button>
+                                    <p>Bet: $<span id="casino-wager">1</span></p>
+                                    <button id="casino-wage-down" onclick="changeCasinoWage(-1)">-</button>
+                                </div>
+                                <div id="casino-feature-menu">
+                                    <button onclick="startCasinoGame(1)">Buy Feature (x3) <span id="casino-feature1-cost">$180</span></button>
+                                    <button onclick="startCasinoGame(2)">Buy Feature (x4) <span id="casino-feature2-cost">$300</span></button>
+                                    <button onclick="startCasinoGame(3)">Buy Feature (x5) <span id="casino-feature3-cost">$450</span></button>
                                 </div>
                             </div>
-                            <h1>Casino</h1>
-                            <h2>Slot Machine</h2>
-                            <p>Spin the slot machine and try to match the symbols!</p>
-                            <p>Match 13 or more of the same symbol to win big!</p>
-                            <p>3 or more bonus symbols grant free spins.</p>
-                            <p>Max multiplier = 10000x</p>
-                            <h2>Slot Details</h2>
-                            <strong>Payout table</strong>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Symbol</th>
-                                        <th>Value</th>
-                                        <th>Value (13x)</th>
-                                    </tr>
-                                </thead>
-                                <tbody>                                <tr>
+                        </div>
+                        <h1>Casino</h1>
+                        <h2>Slot Machine</h2>
+                        <p>Spin the slot machine and try to match the symbols!</p>
+                        <p>Match 13 or more of the same symbol to win big!</p>
+                        <p>3 or more bonus symbols grant free spins.</p>
+                        <p>Max multiplier = 10000x</p>
+                        <h2>Slot Details</h2>
+                        <strong>Payout table</strong>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Symbol</th>
+                                    <th>Value</th>
+                                    <th>Value (13x)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
                                     <td>
                                         <div class="casino-slot tiny-slot"><div class="symbol-A"></div></div>
                                         <div class="casino-slot tiny-slot"><div class="symbol-B"></div></div>
@@ -869,28 +716,9 @@
                         <p>Research Points: <img src="./images/icons/128/research-bulb-icon.png" class="researchicon" alt="Research"><span id="researchPoints">0</span></p>
                         <h2>Research upgrades</h2>
                         <div id="research-container"></div>
-                        <hr>                        <h2>Owned upgrades</h2>
+                        <hr>
+                        <h2>Owned upgrades</h2>
                         <div id="owned-research-container"></div>
-                    </div>
-                </div>
-            </div>
-            <!-- Right Side Buildings Panel -->
-            <div id="buildings-panel">
-                <div id="buildings-panel-toggle" class="mobile-only">
-                    <button id="buildings-toggle-btn">🏢 Store</button>
-                </div>                <div id="buildings-panel-content">
-                    <div id="buildings-panel-close" class="mobile-only">✕ Close</div>
-                    <div class="store-header">
-                        <div class="store-header-icon">🏢</div>
-                        <div class="store-header-content">
-                            <h1 class="store-title">Store</h1>
-                            <p class="store-subtitle">Unlock new buildings and upgrades to boost your keystroke production!</p>
-                        </div>
-                        <div class="store-header-decoration"></div>
-                    </div>                    <div id="buildings">
-                        <div id="buildings-container">
-                            <!-- Building items will be dynamically added here -->
-                        </div>
                     </div>
                 </div>
             </div>
@@ -898,7 +726,7 @@
     </div>
     <div id="notification-container"></div>
     <script src="./chart.js"></script>
-    <script src="./loadingscreen.js?v0.0.5"></script>
+    <script src="./loadingscreen.js?v0.0.4d"></script>
     <script>
         document.getElementById('accept-cookies').addEventListener('click', function() {
             document.getElementById('consent-banner').style.display = 'none';
@@ -932,6 +760,6 @@ var _hmt = _hmt || [];
   s.parentNode.insertBefore(hm, s);
 })();
 </script>
-    </div>
+    </div>   
 </body>
 </html>
