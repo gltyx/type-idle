@@ -192,7 +192,7 @@ function initGame() {
     highlightNextKey();
     //==========================================
     document.getElementById('reset-button').addEventListener('click', () => {
-        if(confirm("Are you sure you want to reset your save?")) {
+        if(confirm("您确定要重置保存吗？")) {
             resetGame();
         }
     });

@@ -112,7 +112,7 @@
     color: var(--ready-text-color-active);
 }
 #navbar button.ready:not(:disabled):before {
-    content: 'Ready';
+    content: '就绪';
     position: absolute;
     top: -0.5rem;
     background: rgba(0, 0, 0, 0.7);
