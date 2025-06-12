@@ -393,7 +393,7 @@ var cnItems = {
     "Cyberpunk Neon": "赛博朋克霓虹灯",
     "Example: They sat on the **** of the river.": "例子: 他们坐在河边的 ****.",
     "Hint: the land alongside or sloping down to a river or lake": "提示：靠近河流或湖泊的土地",
-    "": "",
+    "Error loading textures: [object Event]": "加载纹理错误：[object Event]",
     "": "",
     "": "",
     "": "",
