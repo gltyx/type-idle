@@ -1,0 +1,25 @@
+/* Notifications */
+#notification-container {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1000;
+}
+.notification {
+    background-size: cover;
+    background-position: center; 
+    background-repeat: no-repeat;
+    background-color: var(--notification-bg);
+    margin: 5px 0;
+    color: var(--notification-text);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.625rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.7);
+    animation: fadeOut 7s ease forwards;
+    max-width: 35rem;
+    word-wrap: break-word;
+    white-space: normal;
+    z-index: 10;
+}

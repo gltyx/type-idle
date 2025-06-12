@@ -1,0 +1,654 @@
+/* Tower Defense Game */
+.game-box {
+    position: relative;
+    width: 800px;
+    height: 600px;
+    background-color: var(--bg-alpha1);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* Grid background for tower defense */
+#arcade-game-canvas {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(to right, rgba(100, 100, 100, 0.15) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(100, 100, 100, 0.15) 1px, transparent 1px);
+    background-size: 30px 30px; /* 30px = 1 meter in tower range */
+    background-position: 0 0, 0 0;
+}
+
+/* Enhanced grid visibility during active game */
+.arcade-active #arcade-game-canvas {
+    background-image: 
+        linear-gradient(to right, rgba(100, 150, 255, 0.2) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(100, 150, 255, 0.2) 1px, transparent 1px);
+}
+
+/* Tower styling */
+#tower {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: radial-gradient(circle, #4a90e2 0%, #2c5aa0 70%, #1a4480 100%);
+    border-radius: 50%;
+    border: 3px solid #2c5aa0;
+    box-shadow: 
+        0 0 15px rgba(74, 144, 226, 0.6),
+        inset 0 2px 4px rgba(255, 255, 255, 0.3);
+    z-index: 5;
+    transition: all 0.3s ease;
+    animation: towerPulse 3s ease-in-out infinite;
+}
+
+#tower.tower-damaged {
+    animation: towerDamage 0.5s ease-out, towerPulse 3s ease-in-out infinite;
+    box-shadow: 
+        0 0 20px rgba(255, 50, 50, 0.8),
+        inset 0 2px 4px rgba(255, 255, 255, 0.3);
+}
+
+#tower.tower-low-health {
+    border-color: #ff4444;
+    background: radial-gradient(circle, #ff6b6b 0%, #cc3333 70%, #aa1111 100%);
+    animation: towerCritical 1s ease-in-out infinite alternate, towerPulse 3s ease-in-out infinite;
+}
+
+#tower.tower-charging {
+    animation: towerCharging 0.5s ease-in-out, towerPulse 3s ease-in-out infinite;
+    box-shadow: 
+        0 0 25px rgba(100, 255, 100, 0.8),
+        0 0 50px rgba(100, 255, 100, 0.4),
+        inset 0 2px 4px rgba(255, 255, 255, 0.3);
+}
+
+#tower.tower-firing {
+    animation: towerFiring 0.2s ease-out, towerPulse 3s ease-in-out infinite;
+    box-shadow: 
+        0 0 30px rgba(255, 255, 100, 1),
+        0 0 60px rgba(255, 255, 100, 0.6),
+        inset 0 2px 4px rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+#tower::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle, #6bb6ff 0%, #4a90e2 100%);
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(107, 182, 255, 0.8);
+    animation: towerCorePulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes towerPulse {
+    0%, 100% { 
+        box-shadow: 
+            0 0 15px rgba(74, 144, 226, 0.6),
+            inset 0 2px 4px rgba(255, 255, 255, 0.3);
+    }
+    50% { 
+        box-shadow: 
+            0 0 25px rgba(74, 144, 226, 0.8),
+            inset 0 2px 4px rgba(255, 255, 255, 0.3);
+    }
+}
+
+@keyframes towerCorePulse {
+    0% { 
+        box-shadow: 0 0 8px rgba(107, 182, 255, 0.8);
+        opacity: 0.8;
+    }
+    100% { 
+        box-shadow: 0 0 12px rgba(107, 182, 255, 1);
+        opacity: 1;
+    }
+}
+
+@keyframes towerDamage {
+    0% { transform: translate(0, 0); }
+    25% { transform: translate(-2px, 0); }
+    75% { transform: translate(2px, 0); }
+    100% { transform: translate(0, 0); }
+}
+
+@keyframes towerCritical {
+    0% { 
+        box-shadow: 
+            0 0 15px rgba(255, 68, 68, 0.6),
+            inset 0 2px 4px rgba(255, 255, 255, 0.3);
+    }
+    100% { 
+        box-shadow: 
+            0 0 30px rgba(255, 68, 68, 1),
+            inset 0 2px 4px rgba(255, 255, 255, 0.3);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% { 
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% { 
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+}
+
+.arcade-enemy {
+    position: absolute;
+    font-family: var(--typing-font);
+    font-size: 1.2rem;
+    color: #ff4444;
+    text-shadow: 0 0 8px #ff4444;
+    white-space: nowrap;
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    user-select: none;
+    padding: 4px 8px;
+    background: rgba(255, 68, 68, 0.2);
+    border: 1px solid #ff4444;
+    border-radius: 4px;
+    z-index: 3;
+}
+
+.arcade-enemy.fast {
+    animation: enemyGlow 0.5s ease-in-out infinite alternate;
+}
+
+.arcade-enemy.tank {
+    font-weight: bold;
+    font-size: 1.4rem;
+}
+
+.arcade-enemy.regen {
+    animation: regenPulse 2s ease-in-out infinite;
+}
+
+.arcade-invader {
+    position: absolute;
+    font-family: var(--typing-font);
+    font-size: 1.5rem;
+    color: var(--correct-color);
+    text-shadow: 0 0 10px var(--correct-color);
+    white-space: nowrap;
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    user-select: none;
+}
+.arcade-remove-animation {
+    opacity: 0;
+    transform: scale(0.5);
+}
+
+#tower {
+    box-shadow: 0 0 15px #4a90e2;
+}
+
+#tower-stats {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.85) 0%, rgba(20, 20, 40, 0.85) 100%);
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(100, 150, 255, 0.3);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    font-family: 'Courier New', monospace;
+    min-width: 250px;
+    opacity: 0.3; /* Nearly transparent by default */
+    transition: opacity 0.3s ease, background 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+    animation: statsHint 4s ease-in-out infinite;
+}
+
+#tower-stats:hover {
+    opacity: 1; /* Fully visible on hover */
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(20, 20, 40, 0.95) 100%);
+    border: 1px solid rgba(100, 150, 255, 0.5);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
+    transform: translateY(-1px); /* Slight lift effect */
+    animation: none; /* Stop hint animation on hover */
+}
+
+@keyframes statsHint {
+    0%, 100% { 
+        opacity: 0.3;
+        border-color: rgba(100, 150, 255, 0.3);
+    }
+    50% { 
+        opacity: 0.4;
+        border-color: rgba(100, 150, 255, 0.4);
+    }
+}
+
+#tower-stats p {
+    margin: 8px 0;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#tower-detailed-stats {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(100, 150, 255, 0.2);
+}
+
+#tower-detailed-stats > div > div {
+    margin: 3px 0;
+    padding: 2px 4px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 3px;
+    font-size: 11px;
+    border-left: 2px solid rgba(100, 150, 255, 0.4);
+}
+
+/* Wave display styling */
+#tower-detailed-stats .wave-display {
+    background: linear-gradient(135deg, rgba(74, 144, 226, 0.3) 0%, rgba(100, 150, 255, 0.2) 100%) !important;
+    border: 1px solid rgba(74, 144, 226, 0.5) !important;
+    border-left: 3px solid #4a90e2 !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+.abscenter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.game-start-button {
+    background-color: var(--button-bg);
+    color: var(--button-text-color);
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.game-start-button:hover {
+    background-color: var(--button-bg-hover);
+}
+
+#arcade-timeleft {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: var(--body-color);
+    font-size: 1.2rem;
+}
+
+#arcade-cooldown {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: var(--body-color);
+    font-size: 1.5rem;
+}
+
+
+#arcade-input-box {
+    opacity: 0.75;
+    margin: 0 !important; /* Override default margin */
+    width: 300px !important; /* Override default width */
+    display: block !important; /* Ensure it's visible */
+}
+
+#arcade-wave, #arcade-score, #arcade-timeleft-remaining {
+    display: inline-block;
+    margin: 0 10px;
+}
+
+@keyframes enemyGlow {
+    0% { box-shadow: 0 0 5px currentColor; }
+    100% { box-shadow: 0 0 15px currentColor; }
+}
+
+@keyframes regenPulse {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 1; }
+}
+
+/* Tower range indicators */
+.tower-range-indicator {
+    animation: rangeIndicatorPulse 3s ease-in-out infinite;
+}
+
+.tower-aura-indicator {
+    animation: auraIndicatorPulse 2s ease-in-out infinite;
+}
+
+@keyframes rangeIndicatorPulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.6; }
+}
+
+@keyframes auraIndicatorPulse {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 0.5; }
+}
+
+/* Enhanced tower attack effect animations */
+@keyframes muzzleFlash {
+    0% { 
+        transform: scale(0.5);
+        opacity: 1;
+    }
+    50% { 
+        transform: scale(1.2);
+        opacity: 0.8;
+    }
+    100% { 
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+@keyframes normalBeam {
+    0% { 
+        opacity: 0;
+        transform: scaleX(0) rotate(var(--beam-angle));
+        filter: brightness(2);
+    }
+    50% { 
+        opacity: 1;
+        transform: scaleX(1) rotate(var(--beam-angle));
+        filter: brightness(1.5);
+    }
+    100% { 
+        opacity: 0;
+        transform: scaleX(1) rotate(var(--beam-angle));
+        filter: brightness(1);
+    }
+}
+
+@keyframes critBeam {
+    0% { 
+        opacity: 0;
+        transform: scaleX(0) scaleY(1) rotate(var(--beam-angle));
+        filter: brightness(3) saturate(2);
+    }
+    30% { 
+        opacity: 1;
+        transform: scaleX(1) scaleY(1.5) rotate(var(--beam-angle));
+        filter: brightness(2) saturate(1.5);
+    }
+    100% { 
+        opacity: 0;
+        transform: scaleX(1) scaleY(1) rotate(var(--beam-angle));
+        filter: brightness(1) saturate(1);
+    }
+}
+
+@keyframes multishotBeam {
+    0% { 
+        opacity: 0;
+        transform: scaleX(0) rotate(var(--beam-angle));
+        filter: brightness(2) hue-rotate(0deg);
+    }
+    50% { 
+        opacity: 1;
+        transform: scaleX(1) rotate(var(--beam-angle));
+        filter: brightness(1.5) hue-rotate(180deg);
+    }
+    100% { 
+        opacity: 0;
+        transform: scaleX(1) rotate(var(--beam-angle));
+        filter: brightness(1) hue-rotate(360deg);
+    }
+}
+
+@keyframes bounceBeam {
+    0% { 
+        opacity: 0;
+        transform: scaleX(0) rotate(var(--beam-angle));
+        filter: brightness(2) hue-rotate(0deg);
+    }
+    50% { 
+        opacity: 1;
+        transform: scaleX(1) rotate(var(--beam-angle));
+        filter: brightness(1.5) hue-rotate(90deg);
+    }
+    100% { 
+        opacity: 0;
+        transform: scaleX(1) rotate(var(--beam-angle));
+        filter: brightness(1) hue-rotate(180deg);
+    }
+}
+
+@keyframes normalImpact {
+    0% { 
+        transform: scale(0);
+        opacity: 1;
+    }
+    50% { 
+        transform: scale(1);
+        opacity: 0.8;
+    }
+    100% { 
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+@keyframes critImpact {
+    0% { 
+        transform: scale(0) rotate(0deg);
+        opacity: 1;
+    }
+    50% { 
+        transform: scale(1.2) rotate(180deg);
+        opacity: 0.9;
+    }
+    100% { 
+        transform: scale(3) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+@keyframes multishotImpact {
+    0% { 
+        transform: scale(0);
+        opacity: 1;
+        filter: hue-rotate(0deg);
+    }
+    50% { 
+        transform: scale(1);
+        opacity: 0.8;
+        filter: hue-rotate(180deg);
+    }
+    100% { 
+        transform: scale(2.5);
+        opacity: 0;
+        filter: hue-rotate(360deg);
+    }
+}
+
+@keyframes bounceImpact {
+    0% { 
+        transform: scale(0);
+        opacity: 1;
+        filter: hue-rotate(0deg);
+    }
+    50% { 
+        transform: scale(1);
+        opacity: 0.8;
+        filter: hue-rotate(90deg);
+    }
+    100% { 
+        transform: scale(2.5);
+        opacity: 0;
+        filter: hue-rotate(180deg);
+    }
+}
+
+@keyframes beamParticle {
+    0% { 
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% { 
+        transform: scale(1.5);
+        opacity: 0.8;
+    }
+    100% { 
+        transform: scale(0);
+        opacity: 0;
+    }
+}
+
+@keyframes impactSpark {
+    0% { 
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+    50% { 
+        transform: scale(1.2) translateY(-5px);
+        opacity: 0.8;
+    }
+    100% { 
+        transform: scale(0) translateY(-10px);
+        opacity: 0;
+    }
+}
+
+@keyframes towerCharging {
+    0% { 
+        box-shadow: 
+            0 0 15px rgba(74, 144, 226, 0.6),
+            inset 0 2px 4px rgba(255, 255, 255, 0.3);
+    }
+    100% { 
+        box-shadow: 
+            0 0 25px rgba(100, 255, 100, 0.8),
+            0 0 50px rgba(100, 255, 100, 0.4),
+            inset 0 2px 4px rgba(255, 255, 255, 0.3);
+    }
+}
+
+@keyframes towerFiring {
+    0% { 
+        transform: scale(1);
+        box-shadow: 
+            0 0 25px rgba(100, 255, 100, 0.8),
+            0 0 50px rgba(100, 255, 100, 0.4),
+            inset 0 2px 4px rgba(255, 255, 255, 0.3);
+    }
+    50% { 
+        transform: scale(1.1);
+        box-shadow: 
+            0 0 30px rgba(255, 255, 100, 1),
+            0 0 60px rgba(255, 255, 100, 0.6),
+            inset 0 2px 4px rgba(255, 255, 255, 0.3);
+    }
+    100% { 
+        transform: scale(1);
+        box-shadow: 
+            0 0 15px rgba(74, 144, 226, 0.6),
+            inset 0 2px 4px rgba(255, 255, 255, 0.3);
+    }
+}
+
+/* Building Upgrades Table Styles */
+.building-upgrades-table {
+    margin: 20px 0;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid rgba(100, 150, 255, 0.3);
+}
+
+.building-upgrades-table h3 {
+    color: #4a90e2;
+    margin: 0 0 10px 0;
+    font-size: 16px;
+    text-align: center;
+}
+
+.building-upgrades-table table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+.building-upgrades-table thead tr {
+    background: rgba(100, 150, 255, 0.2);
+}
+
+.building-upgrades-table th {
+    padding: 6px;
+    border: 1px solid rgba(100, 150, 255, 0.3);
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.building-upgrades-table tbody {
+    color: #cccccc;
+}
+
+.building-upgrades-table td {
+    padding: 4px 6px;
+    border: 1px solid rgba(100, 150, 255, 0.2);
+}
+
+.building-upgrades-table .building-icon {
+    width: 32px;
+    height: 32px;
+    vertical-align: middle;
+    margin-right: 4px;
+}
+
+.building-upgrades-table .upgrade-damage {
+    color: #ff6b6b;
+}
+
+.building-upgrades-table .upgrade-health {
+    color: #4CAF50;
+}
+
+.building-upgrades-table .upgrade-attack-rate {
+    color: #4ecdc4;
+}
+
+.building-upgrades-table .upgrade-range {
+    color: #45b7d1;
+}
+
+.building-upgrades-table .upgrade-slow {
+    color: #74b9ff;
+}
+
+.building-upgrades-table .upgrade-aura {
+    color: #96ceb4;
+}
+
+.building-upgrades-table .upgrade-knockback {
+    color: #a29bfe;
+}
+
+.building-upgrades-table .upgrade-crit {
+    color: #ffd93d;
+}
+
+.building-upgrades-table .upgrade-multishot {
+    color: #fd79a8;
+}
+
+.building-upgrades-table .upgrade-bounce {
+    color: #e17055;
+}
+
+.building-upgrades-table .upgrade-defense {
+    color: #00b894;
+}

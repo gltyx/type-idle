@@ -1,0 +1,243 @@
+@keyframes pulse-gentle {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes achievement-glow {
+    0% { box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
+    100% { box-shadow: 0 0 20px var(--correct-color); }
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    90% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+}
+
+/* TODO: Remove highlight in reports */
+@keyframes highlight {
+    0% { background-color: var(--receipt-item-bg); }
+    50% { background-color: #fff8dcee; }
+    100% { background-color: var(--receipt-item-bg); }
+}
+
+@keyframes arena-win-pop-up {
+    0% {
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 0;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+}
+@keyframes arena-win-fade-out {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+
+@keyframes slot-popOut {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.25); opacity: 1; }
+    100% { transform: scale(0); opacity: 0; }
+}
+
+@keyframes slot-popIn {
+    0% { transform: scale(0); opacity: 0; }
+    50% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+@keyframes slot-popWin {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.25); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+@keyframes slot-fadeOut {
+    0% { transform:scale(1); opacity: 1; }
+    100% { transform:scale(0); opacity: 0; }
+}
+@keyframes slot-falldown {
+    0% { transform: translateY(0); }
+    25% { transform: translateY(-5px); }
+    50% { transform: translateY(5px); }
+    75% { transform: translateY(-5px); }
+    100% { transform: translateY(0); }
+}
+
+@keyframes Loading-FadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(1.05);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes pulse-star {
+    0% { opacity: 0.7; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.2); }
+    100% { opacity: 0.7; transform: scale(1); }
+}
+
+@keyframes ticker {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+
+@keyframes scrollDown {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+}
+@keyframes scrollUp {
+    0% {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes input-pulse {
+    0% {
+        box-shadow: 0 0 0 4px rgba(var(--correct-color-rgb), 0.2);
+    }
+    50% {
+        box-shadow: 0 0 0 4px rgba(var(--correct-color-rgb), 0.6);
+    }
+    100% {
+        box-shadow: 0 0 0 4px rgba(var(--correct-color-rgb), 0.2);
+    }
+}
+
+@keyframes blink-caret {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+}
+@keyframes blink-caret2 {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 1; }
+}
+
+@keyframes mistake-shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-3px); }
+    50% { transform: translateX(3px); }
+    75% { transform: translateX(-3px); }
+    100% { transform: translateX(0); }
+}
+
+@keyframes enhanced-float {
+    0% {
+        opacity: 0;
+        transform: translateY(0) scale(0.5);
+    }
+    10% {
+        opacity: 1;
+        transform: translateY(-20px) scale(1.2);
+    }
+    90% {
+        opacity: 1;
+        transform: translateY(-200px) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-250px) scale(0.8);
+    }
+}
+
+@keyframes pulse-border {
+    0% {
+        border-color: var(--input-border);
+        box-shadow: 0 0 5px var(--input-border);
+    }
+    50% {
+        border-color: var(--correct-color);
+        box-shadow: 0 0 10px var(--correct-color);
+    }
+    100% {
+        border-color: var(--input-border);
+        box-shadow: 0 0 5px var(--input-border);
+    }
+}
+
+@keyframes title-pulse {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.03); }
+}
+
+@keyframes transaction-fade-in {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes stock-price-pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.08); color: var(--correct-color); }
+    100% { transform: scale(1); }
+}
+
+@keyframes stock-price-drop-pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.08); color: var(--incorrect-color); }
+    100% { transform: scale(1); }
+}
+
+@keyframes name-change-flash {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.05); opacity: 0.7; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.name-change-effect {
+    animation: name-change-flash 1s ease-in-out;
+}

@@ -1,0 +1,245 @@
+/* REPORTS PAGE */
+#production-reports {
+    padding: 1rem;
+    background-color: var(--bgcolor1);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1rem;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    #production-reports {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+        padding: 0.75rem;
+    }
+}
+
+.report {
+    background-size: cover;
+    background-position: center; 
+    background-repeat: no-repeat;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+}
+
+.report-receipt {
+    background: linear-gradient(135deg, var(--bg-alpha1) 0%, var(--panel-bg) 100%);
+    border: 1px solid var(--receipt-border);
+    border-radius: 12px;
+    padding: 0.75rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.report-receipt:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.report-receipt::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--production-color), var(--research-color));
+    opacity: 0.8;
+}
+
+.report-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.report-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color1);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.report-header .currencyicon {
+    width: 24px;
+    height: 24px;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+}
+
+.report-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.report-stat {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 0.5rem;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.report-stat-label {
+    font-size: 0.75rem;
+    color: var(--color2);
+    margin-bottom: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.report-stat-value {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--production-color);
+}
+
+.report-description {
+    font-size: 0.8rem;
+    color: var(--color2);
+    margin-bottom: 0.75rem;
+    opacity: 0.9;
+}
+
+.report-modifiers {
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    padding: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.report-modifiers-header {
+    font-size: 0.75rem;
+    color: var(--color1);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+}
+
+.report-modifiers-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 0.8rem;
+    max-height: 120px;
+    overflow-y: auto;
+}
+
+.report-modifiers-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+.report-modifiers-list::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+}
+
+.report-modifiers-list::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 2px;
+}
+
+.report-modifiers-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.25rem 0.5rem;
+    margin-bottom: 0.25rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+}
+
+.report-modifiers-list li:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.report-modifiers-list li:last-child {
+    margin-bottom: 0;
+}
+
+.report-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    background: linear-gradient(90deg, rgba(0, 150, 0, 0.1), rgba(0, 100, 200, 0.1));
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.report-summary-label {
+    font-size: 0.8rem;
+    color: var(--color2);
+    font-weight: 600;
+}
+
+.report-summary-value {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--production-color);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.report-trivia {
+    font-size: 0.75rem;
+    color: var(--trivia-color);
+    font-style: italic;
+    margin-top: 0.5rem;
+    opacity: 0.8;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 0.5rem;
+}
+
+.report-receipt.updated {
+    animation: highlight 0.5s ease-out;
+}
+
+@keyframes highlight {
+    0% {
+        box-shadow: 0 0 0 0 rgba(0, 150, 0, 0.7);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 0 0 10px rgba(0, 150, 0, 0);
+        transform: scale(1.02);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(0, 150, 0, 0);
+        transform: scale(1);
+    }
+}
+
+.modifierName {
+    color: var(--modifier-name-color);
+    font-weight: 500;
+}
+
+.modifierValue {
+    color: var(--modifier-value-color);
+    font-weight: 600;
+}
+
+/* Manual Report Specific Styles */
+#report-manual .report-receipt {
+    border-left: 4px solid var(--modifier-value-color);
+}
+
+#report-manual .report-receipt::before {
+    background: linear-gradient(90deg, var(--modifier-value-color), var(--modifier-name-color));
+}

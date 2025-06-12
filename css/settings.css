@@ -1,0 +1,239 @@
+/* Settings Page Styling */
+#settingsPage {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.settings-section {
+    background-color: var(--bg-alpha1);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.settings-section h3 {
+    margin-top: 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--color1);
+}
+
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.setting-item:last-child {
+    border-bottom: none;
+}
+
+.setting-label {
+    flex: 2;
+}
+
+.setting-label label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+}
+
+.setting-description {
+    font-size: 0.85rem;
+    color: var(--color3);
+    margin: 0;
+}
+
+.setting-control {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+/* Toggle switch styling */
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--button-disabled-bg);
+    transition: .4s;
+    border-radius: 24px;
+}
+
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .toggle-slider {
+    background-color: var(--correct-color);
+}
+
+input:checked + .toggle-slider:before {
+    transform: translateX(26px);
+}
+
+/* Volume control styling */
+.volume-control {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+#volume-slider {
+    flex-grow: 1;
+    height: 6px;
+    background: var(--border);
+    outline: none;
+    border-radius: 3px;
+}
+
+#volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--color1);
+    cursor: pointer;
+}
+
+#volume-slider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--color1);
+    cursor: pointer;
+    border: none;
+}
+
+#volume-label {
+    min-width: 3rem;
+    text-align: right;
+}
+
+/* Select styling */
+#settingsPage select {
+    width: 100%;
+    max-width: 200px;
+    padding: 0.5rem;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    background-color: var(--input-bg);
+    color: var(--body-color);
+}
+
+/* Save management styling */
+.save-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.save-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.settings-button {
+    max-width: 200px;
+    margin-top: 0;
+}
+
+.save-text-area {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.save-text-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+#settingsPage textarea {
+    width: 100%;
+    height: 100px;
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    background-color: var(--input-bg);
+    color: var(--body-color);
+    font-family: monospace;
+    resize: vertical;
+}
+
+/* Danger zone styling */
+.danger-zone {
+    margin-top: 2rem;
+    padding: 1rem;
+    border: 1px dashed var(--mistake-color);
+    border-radius: 8px;
+    background-color: rgba(255, 0, 0, 0.05);
+}
+
+.danger-zone h4 {
+    color: var(--mistake-color);
+    margin-top: 0;
+}
+
+.danger-button {
+    background-color: var(--mistake-color);
+    color: white;
+    max-width: 200px;
+}
+
+.danger-button:hover {
+    background-color: darkred;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .setting-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .setting-control {
+        width: 100%;
+        justify-content: flex-start;
+        margin-top: 0.5rem;
+    }
+    
+    .save-buttons, .save-text-buttons {
+        flex-direction: column;
+    }
+    
+    #settingsPage select {
+        max-width: 100%;
+    }
+}

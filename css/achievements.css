@@ -1,0 +1,260 @@
+#achievements-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+    padding: 8px;
+}
+
+.achievement {
+    background-color: var(--panel-bg);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--border);
+    padding: 12px;
+    min-height: 80px;
+}
+
+.achievement::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: var(--bg-image);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(5px);
+    opacity: 0.2;
+    z-index: 0;
+}
+
+.achievement:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.achievement-icon {
+    font-size: 2.5rem;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background: linear-gradient(135deg, var(--bgcolor2), var(--bgcolor3));
+    margin-right: 12px;
+    flex-shrink: 0;
+    position: relative;
+    transition: transform 0.2s ease;
+    z-index: 1;
+}
+
+.achievement:hover .achievement-icon {
+    transform: scale(1.05);
+}
+
+.achievement-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    position: relative;
+    z-index: 1;
+}
+
+.achievement-name {
+    font-size: 1rem;
+    margin: 0;
+    font-weight: bold;
+    line-height: 1.2;
+}
+
+.achievement-description {
+    font-size: 0.85rem;
+    margin: 0;
+    opacity: 0.8;
+    line-height: 1.3;
+}
+
+.achievement-progress {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+
+.progress-bar {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    font-size: 0.75rem;
+    font-weight: bold;
+    white-space: nowrap;
+    opacity: 0.8;
+}
+
+.achievement.unlocked .achievement-name {
+    color: var(--correct-color);
+}
+
+.achievement.locked .achievement-name {
+    color: var(--mistake-color);
+}
+
+.achievement.locked .achievement-icon {
+    filter: grayscale(100%) brightness(0.6);
+    opacity: 0.7;
+}
+
+.achievement.locked .achievement-icon::after {
+    content: '🔒';
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    font-size: 1.2rem;
+    background-color: var(--mistake-color);
+    color: white;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.achievement.unlocked .achievement-icon::after {
+    content: '✅';
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    font-size: 1.2rem;
+    background-color: var(--correct-color);
+    color: white;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.achievement.unlocked .progress-bar {
+    background: linear-gradient(90deg, var(--player-progress-gradient1), var(--player-progress-gradient2));
+}
+
+.achievement.locked .progress-bar {
+    background: linear-gradient(90deg, var(--color1), var(--color2));
+}
+
+.achievement.recently-unlocked {
+    animation: achievement-glow 2s infinite alternate;
+}
+
+@keyframes achievement-glow {
+    0% {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    100% {
+        box-shadow: 0 4px 16px var(--correct-color);
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #achievements-container {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+    
+    .achievement {
+        padding: 10px;
+        min-height: 70px;
+    }
+    
+    .achievement-icon {
+        font-size: 2rem;
+        width: 50px;
+        height: 50px;
+        margin-right: 10px;
+    }
+    
+    .achievement-name {
+        font-size: 0.9rem;
+    }
+      .achievement-description {
+        font-size: 0.8rem;
+    }
+    
+    #achievements-stats {
+        flex-direction: column;
+        gap: 8px;
+        padding: 8px 10px;
+    }
+    
+    #achievements-total-progress {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    #achievements-progress-bar {
+        width: 120px;
+    }
+}
+#achievements-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    background-color: var(--panel-bg);
+    padding: 10px 12px;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    border: 1px solid var(--border);
+}
+
+#achievements-count {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color1);
+}
+
+#achievements-total-progress {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+}
+
+#achievements-progress-bar {
+    width: 150px;
+    height: 8px;
+    background-color: var(--bg-alpha1);
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+}
+
+#achievements-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--player-progress-gradient1), var(--player-progress-gradient2));
+    border-radius: 3px;
+    width: 0%;
+    transition: width 1s ease;
+}
+
+.achievement.recently-unlocked {
+    animation: achievement-glow 2s infinite alternate;
+}

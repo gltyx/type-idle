@@ -1,0 +1,301 @@
+/* Top Bar */
+#top-bar {
+    width: 100%;
+    padding: 0.5rem 0;
+    height: 1rem;
+    border-radius: 0;
+    margin: 0;
+    background-color: var(--top-bar-bg);
+    color: var(--top-bar-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+}
+#top-bar * {
+    margin: 0;
+    text-align: center;
+}
+#top-bar a {
+    color: var(--top-bar-link-color);
+    text-shadow: 0 0 5px var(--top-bar-link-color);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    padding: 0 0.3rem;
+}
+#top-bar a:hover {
+    color: var(--color1);
+    text-shadow: 0 0 8px var(--color1);
+}
+
+#sticky-top {
+    position: fixed;
+    top: 0;
+    z-index: 10;
+    width: calc(100% - 350px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    background-color: var(--bg-alpha1);
+}
+/* Navbar */
+#navbar-container {
+    position: fixed;
+    width: auto;
+    top: 0;
+    background-color: var(--navbar-bg);
+    display: flex;
+    flex-direction: column;
+    z-index: 9;
+}
+#navbar, #arena-nav {
+    background-color: var(--navbar-bg);
+    display: flex;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    flex-wrap: wrap;
+}
+#navbar {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    width: 100%;
+    padding: 2px;
+    height: calc(100vh - 172px);
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+#navbar button, .navbtn {
+    background-color: var(--navbar-button-bg);
+    border-radius: 0;
+}
+#navbar button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: var(--navbar-button-bg);
+    color: var(--button-text-color);
+    cursor: pointer;
+    margin: 0.1rem;
+    padding: 0.1rem;
+    text-align: left;
+    border-left: 4px solid var(--color2);
+}
+.navbtn {
+    border-bottom: 4px solid var(--color2);
+}
+
+#navbar button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.2) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0.2) 75%, transparent 75%, transparent);
+    background-size: 10px 10px;
+}
+#navbar button:disabled span {
+    filter:blur(2.5px);
+}
+#navbar button, #arena-nav button {
+    width: auto;
+}
+#navbar button.active {
+    background-color: var(--navbar-button-active-bg);
+    border-left: 4px solid var(--navbar-button-active-border-bottom);
+}
+.navbtn.active {
+    background-color: var(--navbar-button-active-bg);
+    border-bottom: 4px solid var(--navbar-button-active-border-bottom);
+}
+#navbar button.ready:not(:disabled) {
+    background: linear-gradient(135deg, var(--ready-gradient-start), var(--ready-gradient-end));
+    color: #ffffff; /* White text for readability */
+    font-weight: bold; /* Emphasize text */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    position: relative;
+}
+#navbar button.ready.active {
+    background: linear-gradient(135deg, var(--ready-border-active), var(--ready-gradient-start));
+    color: var(--ready-text-color-active);
+}
+#navbar button.ready:not(:disabled):before {
+    content: '就绪';
+    position: absolute;
+    top: -0.5rem;
+    background: rgba(0, 0, 0, 0.7);
+    color: #ffffff;
+    padding: 0.25rem 0.5rem;
+    border-radius: 5px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    animation: pulse 1.5s infinite;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+}
+
+#navbar button.ready:not(:disabled):hover {
+    background: linear-gradient(135deg, var(--navbar-button-hover-gradient-start), var(--ready-gradient-end));
+    box-shadow: 0 0 10px rgba(52, 168, 83, 0.8);
+}
+
+#level-container {
+    text-align: center;
+    display: flex;
+    background: linear-gradient(to right, var(--side-gradient1), var(--side-gradient2));
+}
+#level-container2 {
+    border: 1px solid var(--border);
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    padding: 0.5rem;
+    background-color: var(--bg-alpha1);
+    flex: 1.2;
+    border-radius: 0 0 8px 0;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+#xp-progress-bar {
+    /* Custom properties to control colors and progress percentage */
+    --progress: 0;
+    --progress-color: var(--correct-color);
+    --background-color: var(--bgcolor1);
+    
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    
+    /* Use conic-gradient to fill the circle based on --progress */
+    background: conic-gradient(
+    var(--progress-color) calc(var(--progress) * 1%), 
+    var(--background-color) 0
+    );
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border: 1px solid var(--border);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+#xp-progress-bar:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px var(--correct-color);
+}
+#xp-inner-circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: var(--bgcolor3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border: 1px solid var(--border);
+    background: radial-gradient(circle at center, var(--bgcolor3) 60%, var(--bgcolor2) 100%);
+}
+
+#xp-stats {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#xp-progress-level {
+    font-size: 24px;
+    font-weight: bold;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    color: var(--color1);
+}
+#xp-progress-text {
+    font-size: 20px;
+    color: var(--color2);
+}
+
+#keystrokes-container {
+    border: 1px solid var(--border);
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    padding: 0.5rem;
+    background-color: var(--bg-alpha1);
+    flex: 1;
+    border-radius: 0 0 0 8px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+#keystrokes-container h2 {
+    margin-bottom: 0.3rem;
+    color: var(--color1);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+#keystrokes-container p {
+    margin-top: 0;
+    color: var(--color2);
+}
+
+/* News Container */
+#news-container {
+    background-color: var(--news-container-bg);
+    color: var(--news-container-color);
+    padding: 0.625rem;
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    flex: 1.5;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    position: relative;
+    border-left: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    border-radius: 0 0 8px 8px;
+}
+.news-icon {
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.5rem;
+    vertical-align: middle;
+}
+.news-item {
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+}
+.news-text {
+    flex-grow: 1;
+}
+.golden-news {
+    color: var(--golden-news-color);
+    font-weight: bold;
+    cursor: pointer;
+    text-shadow: 0 0 10px var(--golden-news-glow);
+    position: relative;
+    padding-left: 1.5rem;
+}
+.golden-news:before {
+    content: '★';
+    position: absolute;
+    left: 0;
+    animation: pulse-star 1.5s infinite;
+}
+
+.golden-news-clicked {
+    color: var(--golden-news-clicked-color);
+    font-weight: bold;
+    cursor: default;
+    text-shadow: none;
+    padding-left: 1.5rem;
+}
+.golden-news-clicked:before {
+    content: '☆';
+    position: absolute;
+    left: 0;
+    opacity: 0.5;
+}
+.news-ticker {
+    position: absolute;
+    white-space: nowrap;
+    animation: ticker 30s linear infinite;
+}

@@ -1,0 +1,189 @@
+#hacker-game {
+    border: none;
+    background-color: transparent;
+    box-shadow: none;
+    z-index: 2;
+    opacity: 0.95;
+    width: 100%;
+    height: 100%;
+    margin-top: 5rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+#hacker-cooldown,
+#hacker-start {
+    user-select: none;
+    background-color: var(--bgcolor1);
+    padding: 0.625rem;
+    border-radius: 5px;
+    border: 1px solid var(--border);
+}
+#hacker-timeleft {
+    pointer-events: none;
+}
+#hacker-code-snippet {
+    position:absolute;
+    pointer-events: none;
+    left:0;
+    top:0;
+    font-size: 0.5rem;
+}
+#hackerPage {
+    background-color: var(--code-snippet-bg);
+}
+#hacker-computer * {
+    margin: 0;
+}
+#hacker-computer {
+    margin: 0 auto 0 auto;
+    width: 800px;
+    height: 600px;
+    background: var(--bg-alpha1);
+    border: 1px solid var(--border);
+    padding: 5px;
+    word-wrap: break-word;
+    font-size: 1.5rem;
+    color: #00ff00;
+    font-family: "Consolas", monospace;
+    display: flex;
+    flex-direction: row;
+}
+#hacker-computer-main {
+    flex: 4;
+    display: flex;
+    flex-wrap: wrap;
+    padding-right: 5px;
+}
+#hacker-computer-side {
+    border-left: 1px dashed #00ff00;
+    flex: 1;
+    display: flex;
+    flex-wrap: nowrap;
+    font-size: 0.8rem;
+    flex-direction: column;
+    padding-left: 5px;
+    overflow-y: scroll;
+}
+.hacker-password {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.hacker-password:hover {
+    background-color: #0f02;
+    
+}
+
+.code-snippet {
+    color: var(--code-snippet-color);
+}
+
+.code-snippet span.comment {
+    color: var(--code-snippet-comment-color);
+}
+.code-snippet span.string {
+    color: var(--code-snippet-string-color);
+}
+.code-snippet span.keyword {
+    color: var(--code-snippet-keyword-color);
+}
+.code-snippet span.function {
+    color: var(--code-snippet-function-color);
+}
+.code-snippet span.variable {
+    color: var(--code-snippet-variable-color);
+}
+.code-snippet span.number {
+    color: var(--code-snippet-number-color);
+}
+.code-snippet span.string {
+    color: var(--code-snippet-string-color);
+}
+
+#hacker-canvas {
+    border: 1px solid var(--border);
+    background-color: rgba(0, 20, 0, 0.9);
+    display: block;
+    margin: 0 auto;
+    border-radius: 5px;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+#hacker-canvas:hover {
+    box-shadow: 0 0 30px rgba(0, 255, 0, 0.3);
+}
+
+#hacker-start-button {
+    background: linear-gradient(to bottom, #333, #222);
+    border: 1px solid #00ff00;
+    color: #00ff00;
+    padding: 10px 25px;
+    font-family: monospace;
+    font-size: 16px;
+    border-radius: 5px;
+    text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#hacker-start-button:hover {
+    background: linear-gradient(to bottom, #444, #333);
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+    transform: translateY(-2px);
+}
+
+#hacker-start-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 0 5px rgba(0, 255, 0, 0.3);
+}
+
+#hacker-timeleft,
+#hacker-cooldown {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: monospace;
+    background-color: rgba(0, 20, 0, 0.7);
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
+    text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+}
+
+#hacker-timeleft p,
+#hacker-cooldown p {
+    color: #00ff00;
+    margin: 5px 0;
+}
+
+.hacker-password {
+    display: inline-block;
+    background-color: rgba(0, 20, 0, 0.4);
+    padding: 2px 6px;
+    margin: 3px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.hacker-password:hover {
+    background-color: rgba(0, 255, 0, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 2px 5px rgba(0, 255, 0, 0.3);
+}
+
+@keyframes node-pulse {
+    0% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.8; }
+}
+
+@keyframes success-pulse {
+    0% { box-shadow: 0 0 5px #00ff00; }
+    50% { box-shadow: 0 0 20px #00ff00; }
+    100% { box-shadow: 0 0 5px #00ff00; }
+}

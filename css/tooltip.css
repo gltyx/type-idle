@@ -1,0 +1,75 @@
+/* Tooltip */
+.tooltip {
+    font-family: var(--tooltip-font);
+    background-size: cover; 
+    background-position: center; 
+    position: fixed; 
+    white-space: nowrap;
+    z-index: 10;
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.1s ease;
+    transform: scale(0) rotate(5deg);
+    background-color: var(--tooltip-bg);
+    color: var(--tooltip-text);
+    border: 1px solid var(--tooltip-border);
+    border-radius: 10px;
+    padding: 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 35rem;
+    word-wrap: break-word;
+    white-space: normal;
+}
+.tooltip-background {
+    background-color: var(--tooltip-bg2);
+    padding: 0.625rem;
+}
+.tooltip-stats {
+    margin-left: 0;
+    margin-block-start: 0;
+    padding-inline-start: 1rem;
+}
+.tooltip-stats li {
+    margin-left: 0;
+    list-style-type: "-";
+    padding: 0.313rem;
+    border-bottom: 1px solid var(--border);
+}
+.tooltip-body, .notification-body {
+    border: 1px solid rgb(0 0 0);
+    box-shadow: 0 0px 2px 1px rgb(0 0 0 / 75%);
+}
+.tooltip.visible {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+}
+.production {
+    color: var(--production-color);
+}
+.research {
+    color: var(--research-color);
+}
+.trivia {
+    color: var(--trivia-color);
+    font-style: italic;
+    font-size: 0.9rem;
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--border);
+}
+.tooltip-header, .notification-header {
+    background-color: var(--tooltip-bg); 
+    padding: 0.625rem;
+    border-bottom: 2px solid var(--border);
+}
+.tooltip-header h1, .notification-header h1 {
+    font-size: 1.5rem;
+    margin-bottom: 0.313rem;
+}
+.tooltip-header h2, .notification-header h2 {
+    font-size: 1rem;
+    margin-top: 0;
+}
+.tooltip-section, .notification-section {
+    padding: 0.625rem;
+    background-color: var(--tooltip-bg); 
+}
