@@ -35,15 +35,15 @@ function loadJS() {
 
 let texturesLoaded = 0;
 function loadTextures() {
-    let textures = ['bg.jpg', 'images/icons/128/keystroke-coin-icon.png'];
+    let textures = ['bg.jpg', './images/icons/128/keystroke-coin-icon.png'];
     buildings.forEach(building => {
-        textures.push(`images/buildings/128/${building.id}.png`);
-        textures.push(`images/buildings/128/${building.id}-locked.png`);
-        textures.push(`images/tooltips/buildings/448/${building.id}.jpg`);
+        textures.push(`./images/buildings/128/${building.id}.png`);
+        textures.push(`./images/buildings/128/${building.id}-locked.png`);
+        textures.push(`./images/tooltips/buildings/448/${building.id}.jpg`);
     });
 
     achievements.forEach(achievement => {
-        textures.push(`images/tooltips/achievements/448/${achievement.id}.webp`);
+        textures.push(`./images/tooltips/achievements/448/${achievement.id}.webp`);
     });
     return Promise.all(textures.map(src => {
         return new Promise((resolve, reject) => {

@@ -56,8 +56,8 @@ function image_resize($src, $dst, $width, $height, $crop=0){
 }
 
 // Resize all buildings to 128x128 pixels
-$src = "images/buildings/";
-$dst = "images/buildings/128/";
+$src = "./images/buildings/";
+$dst = "./images/buildings/128/";
 $width = 128;
 $height = 128;
 $files = glob($src."*.*");
