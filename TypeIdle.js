@@ -923,7 +923,9 @@ document.getElementById('import-button-string').addEventListener('click', () => 
           });
         autosave = false;
         localStorage.setItem('typingGameSaveV3', saveData);
-        location.reload();
+        var urls = window.location.origin + '/index.html';
+        // location.reload();
+        window.location.href = window.location.origin + '/index.html';
     }
 });
 
